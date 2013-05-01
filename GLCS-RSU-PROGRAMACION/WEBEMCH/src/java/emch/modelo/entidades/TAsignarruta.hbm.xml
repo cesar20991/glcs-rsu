@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 30-abr-2013 18:02:48 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TAsignarruta" table="t_asignarruta" catalog="bd_emch">
+        <id name="cdRuta" type="string">
+            <column name="CdRuta" length="10" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="TDespachodet" class="emch.modelo.entidades.TDespachodet" fetch="select">
+            <column name="Nro" not-null="true" />
+            <column name="rucE" length="11" not-null="true" />
+            <column name="cdDespacho" length="10" not-null="true" />
+        </many-to-one>
+        <property name="center" type="string">
+            <column name="center" length="45" not-null="true" />
+        </property>
+        <property name="latitud" type="string">
+            <column name="latitud" length="45" not-null="true" />
+        </property>
+        <property name="longitud" type="string">
+            <column name="longitud" length="45" not-null="true" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="tipo" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="bd_emch"/>
+  <table-filter match-name="t_menu"/>
+  <table-filter match-name="t_cliente"/>
+  <table-filter match-name="t_tipotrabajador"/>
+  <table-filter match-name="t_trabajadorxcamion"/>
+  <table-filter match-name="t_asistencia"/>
+  <table-filter match-name="t_accesoe"/>
+  <table-filter match-name="t_ubigeo"/>
+  <table-filter match-name="t_controlviaje"/>
+  <table-filter match-name="t_incidencia"/>
+  <table-filter match-name="t_camion"/>
+  <table-filter match-name="t_asignarruta"/>
+  <table-filter match-name="t_trabajador"/>
+  <table-filter match-name="t_asistenciaxtrabajador"/>
+  <table-filter match-name="t_grupoacceso"/>
+  <table-filter match-name="t_perfil"/>
+  <table-filter match-name="t_usuario"/>
+  <table-filter match-name="t_accesom"/>
+  <table-filter match-name="t_despacho"/>
+  <table-filter match-name="t_turno"/>
+  <table-filter match-name="t_empresa"/>
+  <table-filter match-name="t_despachodet"/>
+</hibernate-reverse-engineering>

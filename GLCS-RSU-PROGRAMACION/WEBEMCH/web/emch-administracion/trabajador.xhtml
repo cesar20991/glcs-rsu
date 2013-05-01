@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <ui:composition template="../plantillas/Template.xhtml">
+                <ui:define name="usuarios">
+                </ui:define>
+                <ui:define name="top">
+                    <h:form>
+                        <p:growl id="messages" autoUpdate="true"/>                     
+                    </h:form>
+                </ui:define>
+                <ui:define name="content">
+                <h:form id="formTrabajadores">
+                    <p:dataTable id="dtCamiones" var="trabajador" value="#{trabajadorBean.listaTrabajador}">
+
+                            <h:inputHidden value="#{trabajador.cdTrabajador}"/>
+<!--cdTrabajador	cdTipoTrabajador cdUbig	nombres	apellidos	DNI	telefono	celular	email-->
+                            <p:column headerText="Tipo Trabajador">
+                                <h:outputText value="#{trabajador.TTipotrabajador.nombre}"/>
+                            </p:column>
+
+                            <p:column headerText="Dirección">
+                                <h:outputText value="#{trabajador.TUbigeo.nombre}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Nombres">
+                                <h:outputText value="#{trabajador.nombres}"/>
+                            </p:column>
+
+                            <p:column headerText="Apellidos">
+                                <h:outputText value="#{trabajador.apellidos}"/>
+                            </p:column>
+
+                            <p:column headerText="DNI">
+                                <h:outputText value="#{trabajador.dni}"/>
+                            </p:column>
+                            <p:column headerText="Teléfono">
+                                <h:outputText value="#{trabajador.telefono}"/>
+                            </p:column>
+                            <p:column headerText="Celular">
+                                <h:outputText value="#{trabajador.celular}"/>
+                            </p:column>
+                            <p:column headerText="E-mail">
+                                <h:outputText value="#{trabajador.email}"/>
+                            </p:column>
+                            
+                            <p:column style="width:8%; text-align: center">  
+                                <p:commandButton oncomplete="camDialog.show()" icon="ui-icon-pencil" title="Editar" update=":formTrabajador" actionListener="#{trabajadorBean.prepararTrabajador(trabajador.cdTrabajador)}"/>
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>   
+<!--cdTrabajador	cdTipoTrabajador cdUbig	nombres	apellidos	DNI	telefono	celular	email-->
+                    <h:form id="formTrabajador">
+                        <p:dialog id="dlgCamion" header="Trabajador Detail" widgetVar="camDialog" resizable="false" modal="false">
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                                <h:outputText value="Codigo Trabajador"/>
+                                <p:inputText value="#{trabajadorBean.trabajador.cdTrabajador}" style="font-weight:bold" disabled="true"/>
+
+                                <h:outputText value="Tipo Trabajador:"/>
+                                <p:inputText value="#{trabajadorBean.trabajador.TTipotrabajador.nombre}" style="font-weight:bold"/>
+
+                                <h:outputText value="Ubigeo:"/>
+                                <p:inputText value="#{trabajadorBean.trabajador.TUbigeo.nombre}" style="font-weight:bold"/>
+
+                                <h:outputText value="Nombres:"/>
+                                <p:inputText value="#{trabajadorBean.trabajador.nombres}" style="font-weight:bold"/>
+
+                                <h:outputText value="Apellidos:"/>
+                                <p:inputText value="#{trabajadorBean.trabajador.apellidos}" style="font-weight:bold"/>
+
+                                <h:outputText value="DNI:"/>
+                                <p:inputText value="#{trabajadorBean.trabajador.dni}" style="font-weight:bold"/>
+
+                                <h:outputText value="Telefono:"/>
+                                <p:inputText value="#{trabajadorBean.trabajador.telefono}" style="font-weight:bold"/>
+                                
+                                <h:outputText value="Celular:"/>
+                                <p:inputText value="#{trabajadorBean.trabajador.celular}" style="font-weight:bold"/>
+                                
+                                <h:outputText value="E-mail:"/>
+                                <p:inputText value="#{trabajadorBean.trabajador.email}" style="font-weight:bold"/>
+
+                            </h:panelGrid>
+                            <p:separator/>
+
+                            <p:commandButton value="Guardar" oncomplete="camDialog.hide();" update=":formTrabajadores" actionListener="#{trabajadorBean.actualizarTrabajador()}"/>
+                            <p:commandButton value="Cancelar" oncomplete="camDialog.hide();"/>
+                            </p:dialog>
+                    </h:form>
+                </ui:define> 
+                
+                <ui:define name="bottom">
+
+                </ui:define>
+            </ui:composition>
+        </h:form>
+    </h:body>
+</html>
+

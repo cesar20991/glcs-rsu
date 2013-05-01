@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        
+        <title>Facelets Template</title>
+        <style type="text/css">
+            html{
+                height: 100%;
+            }
+            body{
+                background-color: #ffffff;
+                font-size: 11px;
+                font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+                color: #000000;  
+                margin: 10px;
+            }
+            .floatright{float:right;}
+        </style>
+    </h:head>
+
+    <h:body>
+
+
+        <p:layout fullPage="true">
+
+            <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                <ui:insert name="top"> content </ui:insert>
+                <a href="index.xhtml"><img src="../img/Logo.png" alt="Logo" width="200" height="100"></img></a>
+                <img src="../img/lema.png" width="600" height="100"></img>               
+                <div class="floatright">
+                    <img src="../img/img-profile.jpg" alt="Profile Pic" />
+                    <ui:insert name="usuarios"> usuario:  </ui:insert>
+                </div>
+            </p:layoutUnit>
+
+
+            <p:layoutUnit position="south" size="50" closable="true" collapsible="true">
+                Footer
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" size="220" header="Menu Principal" collapsible="true">
+                <p:menu style="width: 200px;">
+                    <p:submenu label="Seguridad">
+                        <p:menuitem value="Actualizar Datos" url="#" icon="ui-icon-home" />  
+                        <p:menuitem value="Cambiar Contraseña" url="#" icon="ui-icon-home" />  
+                        <p:menuitem value="Administrar Usuario" url="#" icon="ui-icon-home" />  
+                        <p:menuitem value="Administrar Acceso" url="#" icon="ui-icon-home" />  
+                    </p:submenu>
+                    <p:submenu label="         ADMINISTRACION             ">  
+                        <p:menuitem value="Administrar Trabajador" url="../faces/s-administracion/trabajador.xhtml" icon="ui-icon-home" />  
+                        <p:menuitem value="Administrar Camión" url="../faces/s-administracion/camion.xhtml" icon="ui-icon-home" />  
+                        <p:menuitem value="Administrar Comprobantes" url="../faces/s-administracion/comprobantes.xhtml" icon="ui-icon-home" />  
+                        <p:menuitem value="Administrar Empresa" url="../faces/s-administracion/empresa.xhtml" icon="ui-icon-home" />  
+                        <p:menuitem value="Administrar Tipo de Cambio" url="../faces/s-administracion/tipocambio.xhtml" icon="ui-icon-home" />  
+                        <p:menuitem value="Administrar Tipo Documento" url="../faces/s-administracion/tipodocumento.xhtml" icon="ui-icon-home" />  
+                    </p:submenu>
+                    <p:submenu label="CONTROL TRANSPORTE">  
+                        <p:menuitem value="Despacho" url="../faces/s-operaciones/despacho.xhtml" icon="ui-icon-home" />  
+                        <p:menuitem value="Control de Viaje" url="../faces/s-operaciones/controlviaje.xhtml" icon="ui-icon-home"  />  
+                        <p:menuitem value="Asignar ruta" url="../faces/s-operaciones/asignarruta.xhtml" icon="ui-icon-home" />  
+                        <p:menuitem value="Consultar ruta asignada" url="../faces/s-operaciones/consultarruta.xhtml" icon="ui-icon-home" />  
+                        <p:menuitem value="Control Incidencia" url="../faces/s-operaciones/incidencia.xhtml" icon="ui-icon-home" />  
+                        <p:menuitem value="Control Asistencia" url="../faces/s-operaciones/asistencia.xhtml" icon="ui-icon-home" />  
+                    </p:submenu> 
+                    <p:submenu label="OPERACIONES">  
+                        <p:menuitem value="Generar Liquidación" url="../faces/s-control/generaliquidacion.xhtml" icon="ui-icon-home" />  
+                        <p:menuitem value="Consultar Liquidacion" url="../faces/s-control/consultarliquidacion.xhtml" icon="ui-icon-home" />  
+                        <p:menuitem value="ReporteA" url="../faces/s-control/reportea.xhtml" icon="ui-icon-home" />  
+                        <p:menuitem value="Consultar Servicio" url="../faces/s-control/consultarservicio.xhtml" icon="ui-icon-home" />  
+                        
+                    </p:submenu>
+
+                </p:menu>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center" size="210">
+
+                <ui:insert name="content"> content </ui:insert>
+
+            </p:layoutUnit>
+
+        </p:layout>
+
+
+
+
+    </h:body>
+
+</html>

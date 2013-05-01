@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <ui:composition template="../plantillas/Template.xhtml">
+
+                <ui:define name="usuarios">
+                </ui:define>
+
+                <ui:define name="top">
+                    <h:form>
+                        <p:growl id="messages" autoUpdate="true"/>                     
+                    </h:form>
+                </ui:define>
+
+                <ui:define name="content">
+
+                    <h:form id="btnCamAdd">
+                        <p:commandButton value="Nuevo" oncomplete="camAdd.show();" icon="ui-icon-document" update=":formCamion3"/>
+                    </h:form>
+                    <br/>
+                    <h:form id="formCamiones">
+
+                        <p:dataTable id="dtCamiones" var="camion" value="#{camionBean.listaCamiones}">
+
+                            <h:inputHidden value="#{camion.cdCamion}"/>
+
+                            <p:column headerText="Placa">
+                                <h:outputText value="#{camion.placa}" />
+                            </p:column>
+
+                            <p:column headerText="Modelo">
+                                <h:outputText value="#{camion.modelo}" />
+                            </p:column>
+
+                            <p:column headerText="Marca">
+                                <h:outputText value="#{camion.marca}" />
+                            </p:column>
+
+                            <p:column headerText="Año">
+                                <h:outputText value="#{camion.anio}" />
+                            </p:column>
+
+                            <p:column headerText="Kilometraje">
+                                <h:outputText value="#{camion.kilometraje}" />
+                            </p:column>
+
+                            <p:column style="width:8%; text-align: center">  
+                                <p:commandButton oncomplete="camEdit.show()" icon="ui-icon-pencil" title="Editar" update=":formCamion" actionListener="#{camionBean.prepararCamion(camion.cdCamion)}"/>
+                                <p:commandButton oncomplete="camView.show()" icon="ui-icon-search" title="Ver" update=":formCamion2" actionListener="#{camionBean.prepararCamion(camion.cdCamion)}"/>
+                            </p:column> 
+
+                        </p:dataTable>
+                    </h:form>
+
+                    <h:form id="formCamion">
+
+                        <p:dialog id="dlgCamion" header="Camion Detail" widgetVar="camEdit" resizable="false" modal="false">
+
+                            <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                                <h:outputText value="Codigo" />
+                                <p:inputText value="#{camionBean.camion.cdCamion}" style="font-weight:bold" disabled="true"/>
+
+                                <h:outputText value="Placa:" />
+                                <p:inputText value="#{camionBean.camion.placa}" style="font-weight:bold"/>
+
+                                <h:outputText value="Marca:" />
+                                <p:inputText value="#{camionBean.camion.marca}" style="font-weight:bold"/>
+
+                                <h:outputText value="Modelo:" />
+                                <p:inputText value="#{camionBean.camion.modelo}" style="font-weight:bold"/>
+
+                                <h:outputText value="Año:" />
+                                <p:inputText value="#{camionBean.camion.anio}" style="font-weight:bold"/>
+
+                                <h:outputText value="Direccion:" />
+                                <p:inputText value="#{camionBean.camion.direccion}" style="font-weight:bold"/>
+
+                                <h:outputText value="Caja de cambios:" />
+                                <p:inputText value="#{camionBean.camion.cajaCambios}" style="font-weight:bold"/>
+
+                            </h:panelGrid>
+
+                            <p:separator/>
+
+                            <p:commandButton value="Guardar" oncomplete="camEdit.hide();" update=":formCamiones" actionListener="#{camionBean.actualizarCamion()}"/>
+                            <p:commandButton value="Cancelar" oncomplete="camEdit.hide();"/>
+
+                        </p:dialog>
+
+                    </h:form>
+
+                    <h:form id="formCamion2">
+
+                        <p:dialog id="dlgCamion2" header="Camion Detail" widgetVar="camView" resizable="false" modal="false">
+
+                            <h:panelGrid id="display2" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                                <h:outputText value="Codigo" />
+                                <h:outputText value="#{camionBean.camion.cdCamion}"/>
+
+                                <h:outputText value="Placa:" />
+                                <h:outputText value="#{camionBean.camion.placa}"/>
+
+                                <h:outputText value="Modelo:" />
+                                <h:outputText value="#{camionBean.camion.modelo}"/>
+
+                                <h:outputText value="Marca:" />
+                                <h:outputText value="#{camionBean.camion.marca}"/>
+
+                                <h:outputText value="Año:" />
+                                <h:outputText value="#{camionBean.camion.anio}"/>
+
+                                <h:outputText value="Peso Bruto:" />
+                                <h:outputText value="#{camionBean.camion.pesoBruto}"/>
+
+                                <h:outputText value="Tipo Combustible:" />
+                                <h:outputText value="#{camionBean.camion.tipoCombustible}"/>
+
+                                <h:outputText value="Dirección:" />
+                                <h:outputText value="#{camionBean.camion.direccion}"/>
+
+                                <h:outputText value="Caja de cambios:" />
+                                <h:outputText value="#{camionBean.camion.cajaCambios}"/>
+
+                                <h:outputText value="Velocidad Máxima:" />
+                                <h:outputText value="#{camionBean.camion.velocMax}"/>
+
+                                <h:outputText value="Kilometraje:" />
+                                <h:outputText value="#{camionBean.camion.kilometraje}"/>
+
+                                <h:outputText value="Estado:" />
+                                <h:outputText value="#{camionBean.camion.estado == true ? 'Habilitado' : 'Deshabilitado'}"/>
+
+                            </h:panelGrid>
+
+                            <p:separator/>
+
+                            <p:commandButton value="OK" oncomplete="camView.hide();"/>
+
+                        </p:dialog>
+
+                    </h:form>
+
+                    <h:form id="formCamion3">
+
+                        <p:dialog id="dlgCamion3" header="Camion Detail" widgetVar="camAdd" resizable="false" modal="false">
+
+                            <h:panelGrid id="display3" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                                <h:outputText value="Codigo" />
+                                <h:inputText value="#{camionBean.camion.cdCamion}"/>
+
+                                <h:outputText value="Placa:" />
+                                <h:inputText value="#{camionBean.camion.placa}"/>
+
+                                <h:outputText value="Modelo:" />
+                                <h:inputText value="#{camionBean.camion.modelo}"/>
+
+                                <h:outputText value="Marca:" />
+                                <h:inputText value="#{camionBean.camion.marca}"/>
+
+                                <h:outputText value="Año:" />
+                                <h:inputText value="#{camionBean.camion.anio}"/>
+
+                                <h:outputText value="Peso Bruto:" />
+                                <h:inputText value="#{camionBean.camion.pesoBruto}"/>
+
+                                <h:outputText value="Tipo Combustible:" />
+                                <h:inputText value="#{camionBean.camion.tipoCombustible}"/>
+
+                                <h:outputText value="Dirección:" />
+                                <h:inputText value="#{camionBean.camion.direccion}"/>
+
+                                <h:outputText value="Caja de cambios:" />
+                                <h:inputText value="#{camionBean.camion.cajaCambios}"/>
+
+                                <h:outputText value="Velocidad Máxima:" />
+                                <h:inputText value="#{camionBean.camion.velocMax}"/>
+
+                                <h:outputText value="Kilometraje:" />
+                                <h:inputText value="#{camionBean.camion.kilometraje}"/>
+
+                            </h:panelGrid>
+
+                            <p:separator/>
+
+                            <p:commandButton value="Guardar" oncomplete="camAdd.hide()" update=":formCamiones" actionListener="#{camionBean.insertar(actionEvent)}"/>
+                            <p:commandButton value="Cancelar" oncomplete="camAdd.hide()"/>
+
+                        </p:dialog>
+
+                    </h:form>
+
+                </ui:define>
+
+                <ui:define name="bottom">
+                </ui:define>
+
+            </ui:composition>
+        </h:form>
+    </h:body>
+</html>
+
