@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 30-abr-2013 18:02:48 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TUbigeo" table="t_ubigeo" catalog="bd_emch">
+        <id name="cdUbig" type="string">
+            <column name="cdUbig" length="6" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" not-null="true" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="estado" not-null="true" />
+        </property>
+        <set name="TEmpresas" inverse="true">
+            <key>
+                <column name="cdUbig" length="6" not-null="true" />
+            </key>
+            <one-to-many class="emch.modelo.entidades.TEmpresa" />
+        </set>
+        <set name="TClientes" inverse="true">
+            <key>
+                <column name="cdUbig" length="6" not-null="true" />
+            </key>
+            <one-to-many class="emch.modelo.entidades.TCliente" />
+        </set>
+        <set name="TTrabajadors" inverse="true">
+            <key>
+                <column name="cdUbig" length="6" not-null="true" />
+            </key>
+            <one-to-many class="emch.modelo.entidades.TTrabajador" />
+        </set>
+        <set name="TDespachos" inverse="true">
+            <key>
+                <column name="cdUbig" length="6" not-null="true" />
+            </key>
+            <one-to-many class="emch.modelo.entidades.TDespacho" />
+        </set>
+    </class>
+</hibernate-mapping>

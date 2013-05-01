@@ -1,0 +1,28 @@
+---INFORMACION DE TABLA PROFESOR---
+
+id char(5)
+nombre varchar(45)
+apellidos varchar(60)
+
+--PASOS Y FUNCION PARA OBTENER EL NUEVO ID
+
+1 - En phpMyAdmin ir a 'SQL'
+2 - Escribir la siguiente funcion : 
+
+CREATE FUNCTION id3() RETURNS varchar(5)
+BEGIN   
+  DECLARE idmax varchar(5);
+  SET idmax = (select max(id) from profesor);
+  SET idmax = CONCAT('P', right(CONCAT('0000', convert(convert(right(idmax, 4), signed) + 1, char)), 4));
+  RETURN idmax;
+END
+
+3 - Cambiar el delimitador ';' por '$$'
+4 - Click en 'Continuar'
+5 - Para ver las funciones : 
+        - Ir a 'SQL' 
+        - Escribir = 'show function status'
+6 - Para ver el contenido de una funcion en particular
+        - Ir a 'SQL' 
+        - Escribit = 'show create function id3'
+        - En '+Opciones' elegir 'Texto completo' y 'Continuar'
