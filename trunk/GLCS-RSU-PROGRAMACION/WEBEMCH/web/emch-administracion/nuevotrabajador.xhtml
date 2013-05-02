@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>TRABAJADOR</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../plantillas/Template.xhtml">
+            <ui:define name="usuarios">
+
+            </ui:define>
+            <ui:define name="top">
+                <h:form>
+                    <p:growl id="messages" autoUpdate="true"/>                     
+                </h:form>
+            </ui:define>
+            <ui:define name="content">           
+                <h:form >
+                    <h:outputText value="ADMINISTRAR - TRABAJADORES" style="font-weight:bold;font-size:20px;color:#654B24" />
+                    
+                    <p:panelGrid columns="2" style="width: 100%">  
+                        <f:facet name="header">  
+                            Información del Trabajador 
+                        </f:facet>
+                        <h:outputLabel value="Nombres : *"/>
+                        <h:inputText value="#{trabajador2Bean.trabajador.nombres}" required="true" onkeypress="soloLetras(event);"/>                        
+                        
+                        <h:outputLabel value="Apellidos: *"/>
+                        <h:inputText value="#{trabajador2Bean.trabajador.apellidos}" required="true" onkeypress="soloLetras(event);"/>                        
+                                                
+                        <h:outputLabel value="DNI:"/>                                                
+                        <p:inputText value="#{trabajador2Bean.trabajador.dni}" required="true" requiredMessage="El campo Nro Doc. Identidad es obligatorio" >
+                            <f:validateLength minimum="8" maximum="8"/>
+                        </p:inputText>
+                        
+                         <h:outputText value="Tipo Trabajador :" />
+                         <p:selectOneMenu value="#{trabajador2Bean.trabajador.TTipotrabajador.cdTipoTrabajador}" effect="fade" filter="true" filterMatchMode="contains">  
+                            <f:selectItem itemLabel="Select One" itemValue="" />  
+                            <f:selectItems value="#{trabajador2Bean.listarTipoTrabSel}" var="trabajadorTip" itemLabel="#{trabajadorTip.nombre}" itemValue="#{trabajadorTip.cdTipoTrabajador}"/>  
+                         </p:selectOneMenu>
+                        
+                        <h:outputText value="Distrito Residencia : *" />  
+                        <p:selectOneMenu value="#{trabajador2Bean.trabajador.TUbigeo.cdUbig}" effect="fade" required="true">  
+                            <f:selectItem itemLabel="Select One" itemValue="" />  
+                            <f:selectItems value="#{trabajador2Bean.listarUbigeoSel}" var="ubigeo" itemLabel="#{ubigeo.nombre}" itemValue="#{ubigeo.cdUbig}"/>  
+                        </p:selectOneMenu> 
+                        <h:outputLabel value="Telefono Fijo: "/>
+                        <p:inputText value="#{trabajador2Bean.trabajador.telefono}" required="false" onkeypress="return validarNumero(event)" >
+                            <f:validateLength minimum="7" maximum="7"/>
+                        </p:inputText>
+                        <h:outputLabel value="Celular :"/>
+                        <p:inputText value="#{trabajador2Bean.trabajador.celular}" required="false" onkeypress="return validarNumero(event)">
+                            <f:validateLength minimum="9" maximum="9"/>
+                        </p:inputText>
+                        
+                        <h:outputLabel value="Email"/>
+                        <p:inputText value="#{trabajador2Bean.trabajador.email}" required="false" />
+                        
+                        <h:outputLabel value="Estado: *"/>
+                        <p:selectOneMenu value="#{trabajador2Bean.trabajador.estado}">  
+                            <f:selectItem itemLabel="Habilitado" itemValue="true"/>  
+                            <f:selectItem itemLabel="Deshabilitado" itemValue="false"/>  
+                        </p:selectOneMenu>
+                    </p:panelGrid>                      
+                    <div style="padding-top: 10px;">
+                        <p:commandButton  value="#{trabajador2Bean.accion}" action="#{trabajador2Bean.ingresar()}"  ajax="false"  icon="ui-icon-check" style="margin:0"/>                                               
+                        <h:outputLabel value="#{trabajador2Bean.mensajeError}"/>
+                    </div>
+                </h:form>                     
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
