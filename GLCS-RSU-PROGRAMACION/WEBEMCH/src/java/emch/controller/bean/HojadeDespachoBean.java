@@ -16,6 +16,8 @@ public class HojadeDespachoBean {
     private TDespacho despacho;
     private List<TUbigeo> listarUbigeoSel;
     private List<TDespacho> listadespacho2;
+    private List<TDespachodet> selectDespachoDet;
+    private List<TTrabajadorxcamion> trabajadorXcamion;
     private DataModel listadespacho;
     private boolean esEdicion;
     private String accion;
@@ -105,6 +107,22 @@ public class HojadeDespachoBean {
 
     public void setMensajeError(String mensajeError) {
         this.mensajeError = mensajeError;
+    }
+
+    public List<TDespachodet> getSelectDespachoDet() {
+        return selectDespachoDet;
+    }
+
+    public void setSelectDespachoDet(List<TDespachodet> selectDespachoDet) {
+        this.selectDespachoDet = selectDespachoDet;
+    }
+
+    public List<TTrabajadorxcamion> getTrabajadorXcamion() {
+        return trabajadorXcamion;
+    }
+
+    public void setTrabajadorXcamion(List<TTrabajadorxcamion> trabajadorXcamion) {
+        this.trabajadorXcamion = trabajadorXcamion;
     }
     
 }
