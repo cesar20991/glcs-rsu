@@ -47,7 +47,14 @@ public class HojadeDespachoBean {
     }
     
     public String irActualizar() {
-        setEsEdicion(true);        
+        setEsEdicion(true);       
+        HojadeDespachoManaged obj = new HojadeDespachoManaged();
+        listadotrabajadorXcamion = obj.buscaTrabxCamion(despacho.getId().getCdDespacho());
+        String cdDes = despacho.getId().getCdDespacho();
+        String RucE = despacho.getId().getRucE();
+        despacho.setId(new TDespachoId(cdDes,RucE));//(new TTipotrabajador
+        String codigoUb = despacho.getTUbigeo().getCdUbig();
+        despacho.setTUbigeo(new TUbigeo(codigoUb, "", false));
         return "NuevaHojaDeDespacho";
     }
 
