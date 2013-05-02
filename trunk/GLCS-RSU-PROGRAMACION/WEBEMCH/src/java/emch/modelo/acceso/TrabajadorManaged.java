@@ -16,7 +16,7 @@ public class TrabajadorManaged {
     Query qry;
 
     public boolean ingresarTrabajador(TTrabajador trabajador) {
-       /* try {*/
+       try {
             sesion = HibernateUtil.getSessionFactory().openSession();
             trans = sesion.beginTransaction();
             String idcl = obtenerIDTrabajador();
@@ -26,31 +26,32 @@ public class TrabajadorManaged {
             trabajador.setCdTrabajador(idcl);
             sesion.save(trabajador);
             trans.commit();
-        /*} catch (Exception ex) {
+        } catch (Exception ex) {
             //despues agrego para que salgan mensajes de error            
             trans.rollback();
             ex.printStackTrace();
             return false;
-        /*} finally {
+        } finally {
             sesion.close();
-        }*/
+        }
         return true;
     }
 
-    public void actualizar(TTrabajador trabajador) {
-        sesion = HibernateUtil.getSessionFactory().openSession();
-       /* try {*/
-            sesion.beginTransaction();
-            sesion.merge(trabajador);
-            TUbigeo ubi = new TUbigeo();
-            actualizarUbigeo(ubi);
-            TTipotrabajador tip = new TTipotrabajador();
-            actualizarTipo(tip);
-            sesion.beginTransaction().commit();
-       /* } catch (Exception e) {
-            System.out.println("Error en actualizar" + e.getMessage());
-            sesion.beginTransaction().rollback();
-        }*/
+    public boolean actualizarTrabajador(TTrabajador trabajador) {
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            try {
+                 sesion.beginTransaction();
+                 sesion.merge(trabajador);
+                 sesion.beginTransaction().commit();
+            } catch (Exception e) {
+                 System.out.println("Error en actualizar" + e.getMessage());
+                 sesion.beginTransaction().rollback();
+                 return false;
+             }
+            finally {
+                 sesion.close();
+             }
+            return true;
     }
 
     public void actualizarUbigeo(TUbigeo ubigeo) {
@@ -80,7 +81,7 @@ public class TrabajadorManaged {
     private String obtenerIDTrabajador() {
         String nuevoID = "";
        /* try {*/
-            qry = sesion.createSQLQuery("select idtrabajador();");
+            qry = sesion.createSQLQuery("select idtrabajador2();");
             ArrayList<String> idNuevo = (ArrayList<String>) qry.list();
             nuevoID = idNuevo.size() > 0 ? idNuevo.get(0) : "";
       /* } catch (Exception ex) {
