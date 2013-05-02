@@ -30,11 +30,16 @@
                                     <p:calendar value="#{hojadeDespachoBean.despacho.fechaEmi}" pattern="dd/MM/yyyy HH:mm" style="font-weight:bold"/>                       
 
                                     <h:outputLabel value="Codigo Ubigeo: *"/>
-                                    <h:inputText value="#{hojadeDespachoBean.despacho.TUbigeo.cdUbig}" required="true" requiredMessage="el codigo de Ubigeo es obligatorio"/>                        
+                                    <p:selectOneMenu value="#{hojadeDespachoBean.despacho.TUbigeo.cdUbig}">
+                                        <f:selectItem itemLabel="--Elegir--"/>  
+                                        <f:selectItems value="#{hojadeDespachoBean.despacho.TUbigeo.cdUbig}"/>  
+                                    </p:selectOneMenu>                      
 
-                                    <h:outputLabel value="Codigo Turno: *"/>                                                
-                                    <p:inputText value="#{hojadeDespachoBean.despacho.TTurno.cdTurno}" required="true" requiredMessage="el codigo de turno es obligatorio" >
-                                    </p:inputText>
+                                    <h:outputLabel value="Codigo Turno: *"/>  
+                                    <p:selectOneMenu value="#{hojadeDespachoBean.despacho.TTurno.cdTurno}">
+                                        <f:selectItem itemLabel="--Elegir--"/>  
+                                        <f:selectItems value="#{hojadeDespachoBean.despacho.TTurno.cdTurno}"/>  
+                                    </p:selectOneMenu>
 
                                     <h:outputText value="Numero Despacho: *" />
                                     <p:inputText value="#{hojadeDespachoBean.despacho.nroDespacho}" required="true" requiredMessage="El numero de despacho es obligatorio" >
