@@ -70,8 +70,9 @@ public class HojadeDespachoBean {
     
     public String ingresar() {
         HojadeDespachoManaged obj = new HojadeDespachoManaged();
+        listadotrabajadorXcamion = Arrays.asList(getSelectedTrabxCamion());
         boolean resultado = isEsEdicion() ? obj.actualizar(despacho) 
-                            : obj.insertar(despacho);
+                            : obj.insertar(despacho,listadotrabajadorXcamion);
         if (resultado) {
             return "HojaDeDespacho";
         } else {
