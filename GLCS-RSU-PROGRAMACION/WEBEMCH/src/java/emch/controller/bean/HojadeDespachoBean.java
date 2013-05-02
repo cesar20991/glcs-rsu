@@ -1,30 +1,45 @@
 package emch.controller.bean;
 
-import emch.modelo.acceso.HojadeDespachoManaged;
-import emch.modelo.acceso.TurnoManaged;
-import emch.modelo.acceso.UbiGeoManaged;
-import emch.modelo.entidades.TDespacho;
+import emch.modelo.acceso.*;
+import emch.modelo.entidades.*;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.model.DataModel;
 import javax.swing.JOptionPane;
 
 @ManagedBean
 @RequestScoped
 public class HojadeDespachoBean {
 
-    private List<String> nombTurnos;
-    private List<String> nombUbigeos;
     private TDespacho despacho;
-    private String nombTurno;
-    private String nombUbiGeo;
-
-    public void insertarDespacho() {
-        HojadeDespachoManaged obj = new HojadeDespachoManaged();
-        obj.insertar(getDespacho());
+    private List<TUbigeo> listarUbigeoSel;
+    private List<TDespacho> listadespacho2;
+    private DataModel listadespacho;
+    private boolean esEdicion;
+    private String accion;
+    private String mensajeError;
+    
+    @PostConstruct
+    public void init() {
+        despacho = new TDespacho();
+        despacho.setTUbigeo(new TUbigeo());
+        despacho.setTEmpresa(new TEmpresa());
+        getListadespacho2();
     }
-
-    public HojadeDespachoBean() {
+    
+    public String irAgregar() {
+        setEsEdicion(false);
+        setDespacho(new TDespacho());
+        despacho.setTTurno(new TTurno());
+        despacho.setTUbigeo(new TUbigeo());
+        return "NuevaHojaDeDespacho";
+    }
+    
+    public String irActualizar() {
+        setEsEdicion(true);        
+        return "NuevaHojaDeDespacho";
     }
 
     public TDespacho getDespacho() {
@@ -35,40 +50,61 @@ public class HojadeDespachoBean {
         this.despacho = despacho;
     }
 
-    public List<String> getNombTurnos() {
-        TurnoManaged obj = new TurnoManaged();
-        setNombTurnos(obj.buscarNomTurnos());
-        return nombTurnos;
+    public List<TUbigeo> getListarUbigeoSel() {
+        return listarUbigeoSel;
     }
 
-    public void setNombTurnos(List<String> nombTurnos) {
-        this.nombTurnos = nombTurnos;
+    public void setListarUbigeoSel(List<TUbigeo> listarUbigeoSel) {
+        this.listarUbigeoSel = listarUbigeoSel;
+    }
+    
+    public String ingresar() {
+        HojadeDespachoManaged obj = new HojadeDespachoManaged();
+        boolean resultado = isEsEdicion() ? obj.actualizar(despacho) 
+                            : obj.insertar(despacho);
+        if (resultado) {
+            return "trabajador";
+        } else {
+            return ""; //futuros errores
+        }
+    }
+    
+    public List<TDespacho> getListadespacho2() {
+        HojadeDespachoManaged obj = new HojadeDespachoManaged();
+        listadespacho2 = obj.buscarTodos();
+        return listadespacho2;
     }
 
-    public void setNombTurno(String nombTurno) {
-        this.nombTurno = nombTurno;
+    public void setListadespacho2(List<TDespacho> listadespacho2) {
+        this.listadespacho2 = listadespacho2;
     }
 
-    public String getNombTurno() {
-        return nombTurno;
+    public DataModel getListadespacho() {
+        return listadespacho;
     }
 
-    public List<String> getNombUbigeos() {
-        UbiGeoManaged obj = new UbiGeoManaged();
-        setNombUbigeos(obj.buscarNomUbigeo());
-        return nombUbigeos;
+    public void setListadespacho(DataModel listadespacho) {
+        this.listadespacho = listadespacho;
     }
 
-    public void setNombUbigeos(List<String> nombUbigeos) {
-        this.nombUbigeos = nombUbigeos;
+    public boolean isEsEdicion() {
+        return esEdicion;
     }
 
-    public String getNombUbiGeo() {
-        return nombUbiGeo;
+    public void setEsEdicion(boolean esEdicion) {
+        this.esEdicion = esEdicion;
     }
 
-    public void setNombUbiGeo(String nombUbiGeo) {
-        this.nombUbiGeo = nombUbiGeo;
+    public String getAccion() {
+        return accion;
+    }
+
+    public String getMensajeError() {
+        return mensajeError;
+    }
+
+    public void setMensajeError(String mensajeError) {
+        this.mensajeError = mensajeError;
     }
     
 }
