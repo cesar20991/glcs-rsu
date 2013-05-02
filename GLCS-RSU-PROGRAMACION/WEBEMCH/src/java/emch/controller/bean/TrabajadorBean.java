@@ -1,34 +1,73 @@
 package emch.controller.bean;
 
 import emch.modelo.acceso.TrabajadorManaged;
-import emch.modelo.entidades.TTrabajador;
+import emch.modelo.entidades.*;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
+
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class TrabajadorBean {
 
     private TTrabajador trabajador;
+    private List<TUbigeo> listarUbigeoSel;
+    private List<TTipotrabajador> listarTipoTrabSel;
+    private DataModel listatrabajador;
     private boolean esEdicion;
-    private List<TTrabajador> listaTrabajador;
-    //private TrabajadorManejador trb = new TrabajadorManejador();
+    private String accion;
+    private String mensajeError;
 
     @PostConstruct
     public void init() {
-        setTrabajador(new TTrabajador());
-        getListaTrabajador();
+        trabajador = new TTrabajador();
+        trabajador.setTUbigeo(new TUbigeo());
+        trabajador.setTTipotrabajador(new TTipotrabajador());
+        getListatrabajador();
     }
-
-    public TrabajadorBean() {
-    }
-
+    
     public String irAgregar() {
-        esEdicion = false;
+        setEsEdicion(false);
         setTrabajador(new TTrabajador());
+        trabajador.setTTipotrabajador(new TTipotrabajador());
+        trabajador.setTUbigeo(new TUbigeo());
         return "nuevotrabajador";
+    }
+    
+    public String irActualizar() {
+        setEsEdicion(true);
+        setTrabajador((TTrabajador) listatrabajador.getRowData());
+        String TipoTrabajador = trabajador.getTTipotrabajador().getCdTipoTrabajador();
+        trabajador.setTTipotrabajador(new TTipotrabajador(TipoTrabajador, ""));
+        String codigoUb = trabajador.getTUbigeo().getCdUbig();
+        trabajador.setTUbigeo(new TUbigeo(codigoUb, "", false));
+        String cod = trabajador.getCdTrabajador();
+        trabajador.setCdTrabajador(cod);
+        return "nuevotrabajador";
+    }
+
+    public DataModel getListatrabajador() {
+         TrabajadorManaged profMgd = new TrabajadorManaged();
+        listatrabajador = new ListDataModel(profMgd.obtenerTrabajadorTodos());
+        return listatrabajador;
+    }
+
+    public void setListatrabajador(DataModel listatrabajador) {
+        this.listatrabajador = listatrabajador;
+    }
+    
+    public void prepararTrabajador(String id) {
+        TrabajadorManaged obj = new TrabajadorManaged();
+        trabajador = obj.buscarPorId(id);
     }
 
     public TTrabajador getTrabajador() {
@@ -39,23 +78,47 @@ public class TrabajadorBean {
         this.trabajador = trabajador;
     }
 
-    public List<TTrabajador> getListaTrabajador() {
-        TrabajadorManaged profMgd = new TrabajadorManaged();
-        listaTrabajador = profMgd.obtenerTrabajadorTodos();
-        return listaTrabajador;
+    public List<TUbigeo> getListarUbigeoSel() {
+        TrabajadorManaged objTrb = new TrabajadorManaged();
+        listarUbigeoSel = objTrb.listarUbigeo();
+        return listarUbigeoSel;
     }
 
-    public void setListaTrabajador(List<TTrabajador> listaTrabajador) {
-        this.listaTrabajador = listaTrabajador;
+    public void setListarUbigeoSel(List<TUbigeo> listarUbigeoSel) {
+        this.listarUbigeoSel = listarUbigeoSel;
+    }
+    
+    public String ingresar() {
+        TrabajadorManaged cliMgd = new TrabajadorManaged();
+        boolean resultado = isEsEdicion() ? cliMgd.actualizarTrabajador(trabajador) 
+                            : cliMgd.ingresarTrabajador(trabajador);
+        if (resultado) {
+            return "trabajador";
+        } else {
+            return ""; //futuros errores
+        }
     }
 
-    public void prepararTrabajador(String id) {
-        TrabajadorManaged obj = new TrabajadorManaged();
-        trabajador = obj.buscarPorId(id);
+    public String getAccion() {
+         return isEsEdicion() ? "Actualizar" : "Registrar";
     }
 
-    public void actualizarTrabajador() {
-        TrabajadorManaged obj = new TrabajadorManaged();
-        obj.actualizar(trabajador);
+    public boolean isEsEdicion() {
+        return esEdicion;
     }
+
+    public void setEsEdicion(boolean esEdicion) {
+        this.esEdicion = esEdicion;
+    }
+    
+    public List<TTipotrabajador> getListarTipoTrabSel() {
+         TrabajadorManaged objTrb = new TrabajadorManaged();
+        listarTipoTrabSel = objTrb.listarTipoTrabajador();
+        return listarTipoTrabSel;
+    }
+
+    public void setListarTipoTrabSel(List<TTipotrabajador> listarTipoTrabSel) {
+        this.listarTipoTrabSel = listarTipoTrabSel;
+    }
+    
 }
