@@ -1,6 +1,6 @@
 package emch.modelo.acceso;
 
-import emch.modelo.entidades.TDespacho;
+import emch.modelo.entidades.*;
 import emch.modelo.entidades.TDespachoId;
 import emch.modelo.entidades.TTurno;
 import emch.modelo.entidades.TUbigeo;
@@ -41,7 +41,7 @@ public class HojadeDespachoManaged {
         return true;
     }
 
-    public boolean insertar(TDespacho despacho) {
+    public boolean insertar(TDespacho despacho, List<TTrabajadorxcamion> trabajadorxcamion ) {
          sesion = HibernateUtil.getSessionFactory().openSession();
         try {
             sesion.beginTransaction();
@@ -58,6 +58,7 @@ public class HojadeDespachoManaged {
              despacho.setFechaReg(despacho.getFechaEmi());
              despacho.setId(despID);
             sesion.save(despacho);
+            ingresarDespachoDet(despacho,trabajadorxcamion);
             trans.commit();
         } catch (Exception e) {
             System.out.println("Error en insertar" + e.getMessage());           
@@ -65,6 +66,27 @@ public class HojadeDespachoManaged {
             return false;
         }
         return true;
+    }
+    
+    public void ingresarDespachoDet(TDespacho despacho, List<TTrabajadorxcamion> trabajadorxcamion) {
+        try {
+            int a=1;
+             for (TTrabajadorxcamion tp : trabajadorxcamion) {                 
+                 TDespachodetId id = new TDespachodetId();
+                 id.setCdDespacho(despacho.getId().getCdDespacho());
+                 id.setNro(a);
+                 id.setRucE("20131368071");
+                 TDespachodet dtodet = new TDespachodet();
+                dtodet.setId(id);
+                dtodet.setCantViaje("2");
+                dtodet.setTDespacho(despacho);
+                dtodet.setTTrabajadorxcamion(tp);                
+                sesion.save(dtodet);
+                a++;
+            }
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+        }
     }
     
     public List listarUbigeo() {
