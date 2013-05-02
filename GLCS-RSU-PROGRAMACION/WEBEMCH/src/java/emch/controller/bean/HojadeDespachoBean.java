@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.DataModel;
 import javax.swing.JOptionPane;
 
@@ -180,6 +181,13 @@ public class HojadeDespachoBean {
 
     public void setListaDespachoDet(List<TDespachodet> listaDespachoDet) {
         this.listaDespachoDet = listaDespachoDet;
+    }
+    
+    String despachoA = "";
+    public void buscarconsull3(AjaxBehaviorEvent event) {
+        despachoA = despacho.getId().getCdDespacho();
+        HojadeDespachoManaged obj = new HojadeDespachoManaged();
+        listaDespachoDet = obj.ListarDespachoxDespachoDet(getDespacho());        
     }
     
 }
