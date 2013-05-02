@@ -2,18 +2,25 @@ package emch.modelo.acceso;
 
 import emch.modelo.entidades.TDespacho;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class HojadeDespachoManaged {
 
-    public List<TDespacho> buscarTodos() {
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        return sesion.createQuery("FROM TDespacho").list();
-    }
+   Session sesion;
+    Transaction trans;
+    Query qry;
 
-    public TDespacho buscarPorId(String id) {
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        return (TDespacho) sesion.load(TDespacho.class, id);
+    
+    public List<TDespacho> buscarTodos() {
+            List<TDespacho> listadespacho = null;
+      /*  try {*/
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            trans = sesion.beginTransaction();
+            qry = sesion.createQuery("FROM TDespacho");
+            listadespacho = (List<TDespacho>) qry.list();
+            return listadespacho;
     }
 
     public boolean actualizar(TDespacho despacho) {
