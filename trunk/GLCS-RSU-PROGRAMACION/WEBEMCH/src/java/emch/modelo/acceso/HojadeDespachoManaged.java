@@ -129,4 +129,19 @@ public class HojadeDespachoManaged {
         }*/
         return nuevoID;
     }
+    
+    public List ListarDespachoxDespachoDet(TDespacho despacho) {
+        List<TDespachodet> listadespachoDet = null;
+        try {
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            trans = sesion.beginTransaction();
+            qry = sesion.createQuery( "SELECT ab from TDespacho  v inner join v.TDespachodets ab where v.id.cdDespacho ='"+ despacho.getId().getCdDespacho()+"'");
+            listadespachoDet = (List<TDespachodet>) qry.list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        //finally{sesion.close();}
+        return listadespachoDet;
+    }
+    
 }
