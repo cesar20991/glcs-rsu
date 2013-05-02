@@ -18,6 +18,7 @@ public class HojadeDespachoBean {
     private List<TDespacho> listadespacho2;
     private List<TDespachodet> selectDespachoDet;
     private List<TTrabajadorxcamion> trabajadorXcamion;
+    private List<TTurno> listurno;
     private DataModel listadespacho;
     private boolean esEdicion;
     private String accion;
@@ -53,6 +54,8 @@ public class HojadeDespachoBean {
     }
 
     public List<TUbigeo> getListarUbigeoSel() {
+        HojadeDespachoManaged objTrb = new HojadeDespachoManaged();
+        listarUbigeoSel = objTrb.listarUbigeo();
         return listarUbigeoSel;
     }
 
@@ -123,6 +126,22 @@ public class HojadeDespachoBean {
 
     public void setTrabajadorXcamion(List<TTrabajadorxcamion> trabajadorXcamion) {
         this.trabajadorXcamion = trabajadorXcamion;
+    }
+
+    /**
+     * @return the listurno
+     */
+    public List<TTurno> getListurno() {
+        HojadeDespachoManaged objTrb = new HojadeDespachoManaged();
+        listurno = objTrb.listarturno();
+        return listurno;
+    }
+
+    /**
+     * @param listurno the listurno to set
+     */
+    public void setListurno(List<TTurno> listurno) {
+        this.listurno = listurno;
     }
     
 }
