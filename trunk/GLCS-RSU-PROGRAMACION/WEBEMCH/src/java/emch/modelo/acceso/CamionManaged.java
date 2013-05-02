@@ -10,37 +10,50 @@ import org.hibernate.Session;
  */
 public class CamionManaged {
 
-    public List<TCamion> buscarTodos() {
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        return sesion.createQuery("FROM TCamion").list();
-    }
-
-    public TCamion buscarPorId(String id) {
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        return (TCamion) sesion.get(TCamion.class, id);
+    public void insertar(TCamion camion) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            camion.setEstado(true);
+            session.save(camion);
+            session.beginTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error en insertar: " + e.getMessage());
+            session.beginTransaction().rollback();
+        }
     }
 
     public void actualizar(TCamion camion) {
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            sesion.beginTransaction();
-            sesion.merge(camion);
-            sesion.beginTransaction().commit();
+            session.beginTransaction();
+            session.merge(camion);
+            session.beginTransaction().commit();
         } catch (Exception e) {
-            System.out.println("Error en actualizar" + e.getMessage());
-            sesion.beginTransaction().rollback();
+            System.out.println("Error en actualizar: " + e.getMessage());
+            session.beginTransaction().rollback();
         }
     }
 
-    public void agregarCamion(TCamion nuevo) {
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
+    public void eliminar(TCamion camion) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            sesion.beginTransaction();
-            sesion.save(nuevo);
-            sesion.beginTransaction().commit();
+            session.beginTransaction();
+            session.delete(camion);
+            session.beginTransaction().commit();
         } catch (Exception e) {
-            System.out.println("Error en actualizar" + e.getMessage());
-            sesion.beginTransaction().rollback();
+            System.out.println("Error en eliminar: " + e.getMessage());
+            session.beginTransaction().rollback();
         }
+    }
+
+    public TCamion buscarPorId(String id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        return (TCamion) session.load(TCamion.class, id);
+    }
+
+    public List<TCamion> buscarTodos() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        return session.createQuery("FROM TCamion").list();
     }
 }

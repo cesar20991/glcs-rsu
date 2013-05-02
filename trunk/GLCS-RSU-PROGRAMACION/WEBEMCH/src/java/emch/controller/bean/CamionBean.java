@@ -2,11 +2,9 @@ package emch.controller.bean;
 
 import emch.modelo.acceso.CamionManaged;
 import emch.modelo.entidades.TCamion;
-import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -23,27 +21,42 @@ public class CamionBean {
         camion = new TCamion();
     }
 
-    public void prepararCamion(String id) {
-        CamionManaged obj = new CamionManaged();
-        camion = obj.buscarPorId(id);
+    public void prepararInsertar() {
         camion = new TCamion();
     }
 
-    public void insertar(ActionEvent actionEvent) {
+    public void insertar() {
         CamionManaged obj = new CamionManaged();
-        camion.setEstado(true);
-        obj.agregarCamion(camion);
+        obj.insertar(camion);
+        camion = new TCamion();
+    }
+
+    public void prepararCamion(String id) {
+        CamionManaged obj = new CamionManaged();
+        camion = obj.buscarPorId(id);
+    }
+
+    public void actualizarCamion() {
+        CamionManaged obj = new CamionManaged();
+        obj.actualizar(camion);
+        camion = new TCamion();
+    }
+
+    public void cambiarEstado(String id) {
+        CamionManaged obj = new CamionManaged();
+        camion = obj.buscarPorId(id);
+        if (camion.isEstado()) {
+            camion.setEstado(false);
+        } else {
+            camion.setEstado(true);
+        }
+        obj.actualizar(camion);
     }
 
     public List<TCamion> getListaCamiones() {
         CamionManaged obj = new CamionManaged();
         listaCamiones = obj.buscarTodos();
         return listaCamiones;
-    }
-
-    public void actualizarCamion() {
-        CamionManaged obj = new CamionManaged();
-        obj.actualizar(camion);
     }
 
     public void setListaCamiones(List<TCamion> listaCamiones) {
