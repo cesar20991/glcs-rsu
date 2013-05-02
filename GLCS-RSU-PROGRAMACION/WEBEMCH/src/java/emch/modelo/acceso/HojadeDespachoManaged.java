@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 public class HojadeDespachoManaged {
-    
+
     public List<TDespacho> buscarTodos() {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         return sesion.createQuery("FROM TDespacho").list();
@@ -16,7 +16,7 @@ public class HojadeDespachoManaged {
         return (TDespacho) sesion.load(TDespacho.class, id);
     }
 
-    public void actualizar(TDespacho despacho) {
+    public boolean actualizar(TDespacho despacho) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         try {
             sesion.beginTransaction();
@@ -26,9 +26,10 @@ public class HojadeDespachoManaged {
             System.out.println("Error en actualizar" + e.getMessage());
             sesion.beginTransaction().rollback();
         }
+        return true;
     }
-    
-    public void insertar(TDespacho despacho) {
+
+    public boolean insertar(TDespacho despacho) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         try {
             sesion.beginTransaction();
@@ -37,7 +38,8 @@ public class HojadeDespachoManaged {
         } catch (Exception e) {
             System.out.println("Error en insertar" + e.getMessage());
             sesion.beginTransaction().rollback();
+            return false;
         }
+        return true;
     }
-    
 }
