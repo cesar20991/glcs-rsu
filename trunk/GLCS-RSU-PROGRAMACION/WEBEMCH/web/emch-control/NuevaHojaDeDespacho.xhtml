@@ -32,13 +32,14 @@
                                     <h:outputLabel value="Codigo Ubigeo: *"/>
                                     <p:selectOneMenu value="#{hojadeDespachoBean.despacho.TUbigeo.cdUbig}">
                                         <f:selectItem itemLabel="--Elegir--"/>  
-                                        <f:selectItems value="#{trabajadorBean.listarUbigeoSel}" var="ubigeo" itemLabel="#{ubigeo.nombre}" itemValue="#{ubigeo.cdUbig}"/>  
+                                        <f:selectItems value="#{hojadeDespachoBean.listarUbigeoSel}" var="ubigeo" itemLabel="#{ubigeo.nombre}" itemValue="#{ubigeo.cdUbig}"/>  
                                     </p:selectOneMenu>                      
 
                                     <h:outputLabel value="Codigo Turno: *"/>  
-                                    <p:selectOneMenu value="#{hojadeDespachoBean.despacho.TTurno.cdTurno}">
-                                        <f:selectItem itemLabel="--Elegir--"/>  
-                                        <f:selectItems value="#{hojadeDespachoBean.listurno}" var="turno" itemLabel="#{turno.nombTurno}" itemValue="#{turno.cdTurno}"/>  
+                                    
+                                    <p:selectOneMenu value="#{hojadeDespachoBean.despacho.TTurno.cdTurno}" effect="fade" required="true">  
+                                        <f:selectItem itemLabel="Select One" itemValue="" />  
+                                        <f:selectItems value="#{hojadeDespachoBean.listurno}" var="turn" itemLabel="#{turn.nombTurno}" itemValue="#{turn.cdTurno}"/>  
                                     </p:selectOneMenu>
 
                                     <h:outputText value="Numero Despacho: *" />
@@ -74,25 +75,25 @@
                         <p:tab id="tab2" title="Agregar Detalle de Hoja de Despacho">  
                             <h:panelGrid columns="2" cellpadding="10">  
                                 <div style="padding-top: 10px;">
-                                    <p:commandButton value="Agregar Camion" onclick="dlgAgregarProps.show();" type="button" icon="ui-icon-plus"/>
-                                    <p:dataTable var="due" value="#{hojadeDespachoBean.selectDespachoDet}">
+                                    <p:commandButton value="Agregar Camion" onclick="ListaTxC.show();" type="button" icon="ui-icon-plus"/>
+                                    <p:dataTable var="due" value="#{hojadeDespachoBean.listadotrabajadorXcamion}">
 
                                         <!--CABECERA mostrar -->
                                         <f:facet name="header">
-                                            Propietarios
+                                            Camiones Asignados al Despacho
                                         </f:facet>
 
                                         <!--COLUMNAS cantidad de viaje y codigo de asignacion de camion-->
                                         <p:column headerText="Placa" rendered="false">
-                                            <h:outputText value="#{due.TTrabajadorxcamion.TCamion.placa}"/>
+                                            <h:outputText value="#{due.TCamion.placa}"/>
                                         </p:column>
 
                                         <p:column headerText="Codigo Asignar Camion">
-                                            <h:outputText value="#{due.TTrabajadorxcamion.cdAsigCamion}"/>
+                                            <h:outputText value="#{due.cdAsigCamion}"/>
                                         </p:column>
 
                                         <p:column headerText="Cantidad de Viajes">
-                                            <h:outputText value="#{due.cantViaje}"/>
+                                            <h:outputText value="#{due.TTrabajador.nombres}"/>
                                         </p:column>
 
                                     </p:dataTable>
@@ -100,7 +101,7 @@
                                     <p:dialog widgetVar="ListaTxC" modal="false">
 
                                         <!--TABLA DE PROPIETARIOS EXISTENTES-->
-                                        <p:dataTable var="hoja" value="#{hojadeDespachoBean.trabajadorXcamion}" paginator="true" rows="10" style="width: 500px" rowKey="#{props.cdPropietario}" selection="#{addInmueble.selectedProps}" >
+                                        <p:dataTable var="hoja" value="#{hojadeDespachoBean.trabajadorXcamion}" paginator="true" rows="10" style="width: 500px" rowKey="#{hoja.cdAsigCamion}" selection="#{hojadeDespachoBean.selectedTrabxCamion}" >
 
                                             <!--CABECERA cdasignacion, placa, nombre , fecha asignacion y estado tarbajadorXcamion-->
                                             <f:facet name="header">
@@ -129,11 +130,11 @@
                                             </p:column>
 
                                             <f:facet name="footer">
-                                                <p:commandButton value="Listo" action="#{addInmueble.irListoAgregar}" ajax="false" icon="ui-icon-check"/>
+                                                <p:commandButton value="Listo" action="#{hojadeDespachoBean.irListoAgregar}" ajax="false" icon="ui-icon-check"/>
                                             </f:facet>
 
                                         </p:dataTable>
-                                        <p:commandButton value="Listo" action="#{addInmueble.irListoAgregar}" ajax="false" icon="ui-icon-check"/>
+                                        <p:commandButton value="Listo" action="#{hojadeDespachoBean.irListoAgregar}" ajax="false" icon="ui-icon-check"/>
 
                                         <!--FIN TABLA DE PROPIETARIOS EXISTENTES-->
 
