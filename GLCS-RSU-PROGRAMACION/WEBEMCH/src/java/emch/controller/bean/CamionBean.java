@@ -2,9 +2,11 @@ package emch.controller.bean;
 
 import emch.modelo.acceso.CamionManaged;
 import emch.modelo.entidades.TCamion;
+import java.io.IOException;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -51,6 +53,14 @@ public class CamionBean {
             camion.setEstado(true);
         }
         obj.actualizar(camion);
+    }
+
+    public void asignar() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("trabajadorxcamion.xhtml");
+        } catch (Exception e) {
+            System.out.println("Error en cambio de página: " + e.getMessage());
+        }
     }
 
     public List<TCamion> getListaCamiones() {

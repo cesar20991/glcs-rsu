@@ -26,11 +26,11 @@
                         <p:commandButton value="Nuevo" oncomplete="nuevoCamionDialog.show();" update=":formCamionNuevo" icon="ui-icon-document" actionListener="#{camionBean.prepararInsertar()}"/>
                     </h:form>
                     <h:form id="btnAsignar">
-                        <p:commandButton value="Asignar Chofer" icon="ui-icon-plus" />
+                        <p:commandButton value="Asignar Chofer" icon="ui-icon-plus" action="#{camionBean.asignar}"/>
                     </h:form>
                     <br/>
                     <h:form id="formCamiones">
-                        <p:dataTable id="dtCamiones" var="camion" value="#{camionBean.listaCamiones}">
+                        <p:dataTable id="dtCamiones" var="camion" value="#{camionBean.listaCamiones}" rowKey="#{camion.cdCamion}" selection="#{trabajadorXCamionBean.selectCamion}" selectionMode="single">
                             <h:inputHidden value="#{camion.cdCamion}"/>
 
                             <p:column headerText="Placa">
