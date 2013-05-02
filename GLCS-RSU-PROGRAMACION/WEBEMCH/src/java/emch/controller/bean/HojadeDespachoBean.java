@@ -17,6 +17,7 @@ public class HojadeDespachoBean {
     private List<TUbigeo> listarUbigeoSel;
     private List<TDespacho> listadespacho2;
     private List<TDespachodet> selectDespachoDet;
+    private List<TDespachodet> listaDespachoDet;
     private List<TTrabajadorxcamion> trabajadorXcamion;
     private List<TTurno> listurno;
     private DataModel listadespacho;
@@ -142,6 +143,14 @@ public class HojadeDespachoBean {
      */
     public void setListurno(List<TTurno> listurno) {
         this.listurno = listurno;
+    }
+
+    public List<TDespachodet> getListaDespachoDet() {
+        return listaDespachoDet;
+    }
+
+    public void setListaDespachoDet(List<TDespachodet> listaDespachoDet) {
+        this.listaDespachoDet = listaDespachoDet;
     }
     
 }
