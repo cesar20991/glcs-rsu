@@ -10,53 +10,99 @@
     </h:head>
     <h:body>
         <h:form>
-            <ui:composition template="../plantillas/Template.xhtml">
+             <ui:composition template="../plantillas/Template.xhtml">
 
                 <ui:define name="usuarios">
                 </ui:define>
 
                 <ui:define name="top">
-                    <h:form>
                         <p:growl id="messages" autoUpdate="true"/>                     
-                    </h:form>
                 </ui:define>
 
                 <ui:define name="content">
                     
                     <h:form>
-                    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                        
-                        <h:outputText value="Fecha Creación: "/>
-                        <p:calendar value="#{hojadeDespachoBean.despacho.fechaEmi}" showButtonPanel="true"/>
-                        
-                        <h:outputText value="U. Geográfica: "/>
-                        <p:selectOneMenu value="#{hojadeDespachoBean.nombUbiGeo}">
-                            <f:selectItem itemLabel="--Elegir--"/>  
-                            <f:selectItems value="#{hojadeDespachoBean.nombUbigeos}"/>  
-                        </p:selectOneMenu>
-                        
-                        <h:outputText value="Turno: "/>
-                        <p:selectOneMenu value="#{hojadeDespachoBean.nombTurno}">
-                            <f:selectItem itemLabel="--Elegir--"/>  
-                            <f:selectItems value="#{hojadeDespachoBean.nombTurnos}"/>  
-                        </p:selectOneMenu>                        
-                        </h:panelGrid>
-                        <p:commandButton value="Probar" update=":Muestra" oncomplete="Prueba.show()"/>  
-                        
-                    </h:form>
-                    
-                    <h:form id="Muestra">
-                        <p:dialog header="Selected Values" widgetVar="Prueba" modal="false">  
-                            <h:panelGrid columns="1" id="display1">  
-                                <h:outputText value="#{hojadeDespachoBean.nombTurno}" />  
-                                <h:outputText value="#{hojadeDespachoBean.nombUbiGeo}" />  
-                            </h:panelGrid>  
-                        </p:dialog>
+                        <h:outputText value="CONTROL - DESPACHO" style="font-weight:bold;font-size:20px;color:#654B24" />
+                        <p:tab title="DESPACHOS">
+                            <div style="padding-bottom: 10px;">
+                                <p:commandButton  value="Agregar Despacho" icon="ui-icon-document" action="#{hojadeDespachoBean.irAgregar()}" ajax="false"> 
+                                    </p:commandButton> 
+                                    <p:commandButton  value="Modificar Despacho" icon="ui-icon-pencil" action="#{hojadeDespachoBean.irActualizar()}" ajax="false"> 
+                                    </p:commandButton>                            
+                            </div>
+                            
+                            <p:dataTable var="despacho" value="#{hojadeDespachoBean.listadespacho2}" rowKey="#{despacho.id.cdDespacho}" selectionMode="single" selection="#{hojadeDespachoBean.despacho}"
+                                             paginator="true" rows="15"  
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                             rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
+                                    <f:facet name="header">  
+                                        Listado de Hojas de Despacho
+                                    </f:facet>  
+
+                                    <p:column rendered="false"> 
+                                        <f:facet name="header">  
+                                            <h:outputText value="CdDespacho" />  
+                                        </f:facet>  
+                                        <h:outputText value="#{despacho.id.cdDespacho}"/>                        
+                                    </p:column>
+                                
+                                <p:column  filterBy="#{despacho.nroDespacho}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Nro. Despacho" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.nroDespacho}"/>
+                                    </p:column>
+                                
+                                <p:column  filterBy="#{despacho.fechaEmi}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Nombre" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.fechaEmi}"/>
+                                    </p:column>
+
+                                <p:column filterBy="#{despacho.TUbigeo.nombre}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Distritio Servicio" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.TUbigeo.nombre}"/>
+                                    </p:column>
+
+                                    <p:column filterBy="#{despacho.TTurno.nombTurno}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Turno"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.TTurno.nombTurno}"/>
+                                    </p:column>
+
+                                <p:column filterBy="#{despacho.dineroEnviado}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Dinero Enviado" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.dineroEnviado}"/>
+                                    </p:column>
+
+                                <p:column  filterBy="#{despacho.totalDineroUso}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Dinero Uso"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.totalDineroUso}"/>
+                                </p:column>
+                                
+                                <p:column  filterBy="#{despacho.totalDineroUso}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Observaciones"/>  
+                                        </f:facet> 
+                                    <h:outputText value="#{despacho.obs}"/>
+                                </p:column>
+                             </p:dataTable>
+                            
+                        </p:tab>
                     </h:form>
                     
                 </ui:define>
                 
             </ui:composition>
+            
             
         </h:form>
     </h:body>
