@@ -84,17 +84,29 @@
                                         </f:facet>
 
                                         <!--COLUMNAS cantidad de viaje y codigo de asignacion de camion-->
-                                        <p:column headerText="Placa" rendered="false">
-                                            <h:outputText value="#{due.TCamion.placa}"/>
-                                        </p:column>
-
                                         <p:column headerText="Codigo Asignar Camion">
                                             <h:outputText value="#{due.cdAsigCamion}"/>
                                         </p:column>
-
-                                        <p:column headerText="Cantidad de Viajes">
+                                        
+                                        <p:column headerText="Placa Camion" >
+                                            <h:outputText value="#{due.TCamion.placa}"/>
+                                        </p:column>                                        
+                                        
+                                        <p:column headerText="Marca Camion" >
+                                            <h:outputText value="#{due.TCamion.marca}"/>
+                                        </p:column>   
+                                        
+                                        <p:column headerText="Nombre" >
                                             <h:outputText value="#{due.TTrabajador.nombres}"/>
-                                        </p:column>
+                                        </p:column>   
+                                        
+                                        <p:column headerText="Apellidos" >
+                                            <h:outputText value="#{due.TTrabajador.apellidos}"/>
+                                        </p:column>  
+                                        
+                                        <p:column headerText="DNI" >
+                                            <h:outputText value="#{due.TTrabajador.dni}"/>
+                                        </p:column>                                         
 
                                     </p:dataTable>
 
