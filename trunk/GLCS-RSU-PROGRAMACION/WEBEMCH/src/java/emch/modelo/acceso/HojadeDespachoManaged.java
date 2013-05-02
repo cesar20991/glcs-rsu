@@ -1,6 +1,7 @@
 package emch.modelo.acceso;
 
 import emch.modelo.entidades.TDespacho;
+import emch.modelo.entidades.TUbigeo;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -48,5 +49,34 @@ public class HojadeDespachoManaged {
             return false;
         }
         return true;
+    }
+    
+    public List listarUbigeo() {
+        List<TUbigeo> listaubigeo = null;
+       /* try {*/
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            trans = sesion.beginTransaction();
+            qry = sesion.createQuery("FROM TUbigeo");
+            listaubigeo = (List<TUbigeo>) qry.list();
+       /* } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            sesion.close();
+       }*/
+        return listaubigeo;
+    }
+    public List listarturno() {
+        List<TUbigeo> listaubigeo = null;
+       /* try {*/
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            trans = sesion.beginTransaction();
+            qry = sesion.createQuery("FROM TTurno");
+            listaubigeo = (List<TUbigeo>) qry.list();
+       /* } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            sesion.close();
+       }*/
+        return listaubigeo;
     }
 }
