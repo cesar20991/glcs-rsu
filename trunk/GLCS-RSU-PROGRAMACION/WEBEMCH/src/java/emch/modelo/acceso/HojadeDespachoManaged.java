@@ -143,5 +143,17 @@ public class HojadeDespachoManaged {
         //finally{sesion.close();}
         return listadespachoDet;
     }
+     public List buscaTrabxCamion(String despacho) {
+         List<TTrabajadorxcamion> listatrabxc = null;
+         try {
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            trans = sesion.beginTransaction();
+           qry = sesion.createQuery( "SELECT ab  from TDespachodet v inner join v.TTrabajadorxcamion  ab where v.id.cdDespacho='"+ despacho+"'");
+            listatrabxc = (List<TTrabajadorxcamion>) qry.list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return listatrabxc;
+     }
     
 }
