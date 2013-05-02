@@ -10,15 +10,12 @@
     </h:head>
     <h:body>
         <ui:composition template="../plantillas/Template.xhtml">
-            <ui:define name="usuarios">
-
-            </ui:define>
-            <ui:define name="top">
-                <h:form>
-                    <p:growl id="messages" autoUpdate="true"/>                     
-                </h:form>
-            </ui:define>
-            <ui:define name="content">           
+         <ui:define name="usuarios">
+                </ui:define>
+                <ui:define name="top">
+                   <p:growl id="messages" autoUpdate="true"/>  
+                </ui:define>
+        <ui:define name="content">
                 <h:form >
                     <h:outputText value="ADMINISTRAR - TRABAJADORES" style="font-weight:bold;font-size:20px;color:#654B24" />
                     
@@ -27,52 +24,52 @@
                             Información del Trabajador 
                         </f:facet>
                         <h:outputLabel value="Nombres : *"/>
-                        <h:inputText value="#{trabajador2Bean.trabajador.nombres}" required="true" onkeypress="soloLetras(event);"/>                        
+                        <h:inputText value="#{trabajadorBean.trabajador.nombres}" required="true" onkeypress="soloLetras(event);"/>                        
                         
                         <h:outputLabel value="Apellidos: *"/>
-                        <h:inputText value="#{trabajador2Bean.trabajador.apellidos}" required="true" onkeypress="soloLetras(event);"/>                        
+                        <h:inputText value="#{trabajadorBean.trabajador.apellidos}" required="true" onkeypress="soloLetras(event);"/>                        
                                                 
                         <h:outputLabel value="DNI:"/>                                                
-                        <p:inputText value="#{trabajador2Bean.trabajador.dni}" required="true" requiredMessage="El campo Nro Doc. Identidad es obligatorio" >
+                        <p:inputText value="#{trabajadorBean.trabajador.dni}" required="true" requiredMessage="El campo Nro Doc. Identidad es obligatorio" >
                             <f:validateLength minimum="8" maximum="8"/>
                         </p:inputText>
                         
                          <h:outputText value="Tipo Trabajador :" />
-                         <p:selectOneMenu value="#{trabajador2Bean.trabajador.TTipotrabajador.cdTipoTrabajador}" effect="fade" filter="true" filterMatchMode="contains">  
+                         <p:selectOneMenu value="#{trabajadorBean.trabajador.TTipotrabajador.cdTipoTrabajador}" effect="fade" filter="true" filterMatchMode="contains">  
                             <f:selectItem itemLabel="Select One" itemValue="" />  
-                            <f:selectItems value="#{trabajador2Bean.listarTipoTrabSel}" var="trabajadorTip" itemLabel="#{trabajadorTip.nombre}" itemValue="#{trabajadorTip.cdTipoTrabajador}"/>  
+                            <f:selectItems value="#{trabajadorBean.listarTipoTrabSel}" var="trabajadorTip" itemLabel="#{trabajadorTip.nombre}" itemValue="#{trabajadorTip.cdTipoTrabajador}"/>  
                          </p:selectOneMenu>
                         
                         <h:outputText value="Distrito Residencia : *" />  
-                        <p:selectOneMenu value="#{trabajador2Bean.trabajador.TUbigeo.cdUbig}" effect="fade" required="true">  
+                        <p:selectOneMenu value="#{trabajadorBean.trabajador.TUbigeo.cdUbig}" effect="fade" required="true">  
                             <f:selectItem itemLabel="Select One" itemValue="" />  
-                            <f:selectItems value="#{trabajador2Bean.listarUbigeoSel}" var="ubigeo" itemLabel="#{ubigeo.nombre}" itemValue="#{ubigeo.cdUbig}"/>  
+                            <f:selectItems value="#{trabajadorBean.listarUbigeoSel}" var="ubigeo" itemLabel="#{ubigeo.nombre}" itemValue="#{ubigeo.cdUbig}"/>  
                         </p:selectOneMenu> 
                         <h:outputLabel value="Telefono Fijo: "/>
-                        <p:inputText value="#{trabajador2Bean.trabajador.telefono}" required="false" onkeypress="return validarNumero(event)" >
+                        <p:inputText value="#{trabajadorBean.trabajador.telefono}" required="false" onkeypress="return validarNumero(event)" >
                             <f:validateLength minimum="7" maximum="7"/>
                         </p:inputText>
                         <h:outputLabel value="Celular :"/>
-                        <p:inputText value="#{trabajador2Bean.trabajador.celular}" required="false" onkeypress="return validarNumero(event)">
+                        <p:inputText value="#{trabajadorBean.trabajador.celular}" required="false" onkeypress="return validarNumero(event)">
                             <f:validateLength minimum="9" maximum="9"/>
                         </p:inputText>
                         
                         <h:outputLabel value="Email"/>
-                        <p:inputText value="#{trabajador2Bean.trabajador.email}" required="false" />
+                        <p:inputText value="#{trabajadorBean.trabajador.email}" required="false" />
                         
                         <h:outputLabel value="Estado: *"/>
-                        <p:selectOneMenu value="#{trabajador2Bean.trabajador.estado}">  
+                        <p:selectOneMenu value="#{trabajadorBean.trabajador.estado}">  
                             <f:selectItem itemLabel="Habilitado" itemValue="true"/>  
                             <f:selectItem itemLabel="Deshabilitado" itemValue="false"/>  
                         </p:selectOneMenu>
                     </p:panelGrid>                      
                     <div style="padding-top: 10px;">
-                        <p:commandButton  value="#{trabajador2Bean.accion}" action="#{trabajador2Bean.ingresar()}"  ajax="false"  icon="ui-icon-check" style="margin:0"/>                                               
-                        <h:outputLabel value="#{trabajador2Bean.mensajeError}"/>
+                        <p:commandButton  value="#{trabajadorBean.accion}" action="#{trabajadorBean.ingresar()}"  ajax="false"  icon="ui-icon-check" style="margin:0"/>                                               
                     </div>
-                </h:form>                     
+                    
+                </h:form>     
             </ui:define>
-        </ui:composition>
+            </ui:composition>
     </h:body>
 </html>
 
