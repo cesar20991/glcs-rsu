@@ -32,13 +32,13 @@
                                     <h:outputLabel value="Codigo Ubigeo: *"/>
                                     <p:selectOneMenu value="#{hojadeDespachoBean.despacho.TUbigeo.cdUbig}">
                                         <f:selectItem itemLabel="--Elegir--"/>  
-                                        <f:selectItems value="#{hojadeDespachoBean.despacho.TUbigeo.cdUbig}"/>  
+                                        <f:selectItems value="#{trabajadorBean.listarUbigeoSel}" var="ubigeo" itemLabel="#{ubigeo.nombre}" itemValue="#{ubigeo.cdUbig}"/>  
                                     </p:selectOneMenu>                      
 
                                     <h:outputLabel value="Codigo Turno: *"/>  
                                     <p:selectOneMenu value="#{hojadeDespachoBean.despacho.TTurno.cdTurno}">
                                         <f:selectItem itemLabel="--Elegir--"/>  
-                                        <f:selectItems value="#{hojadeDespachoBean.despacho.TTurno.cdTurno}"/>  
+                                        <f:selectItems value="#{hojadeDespachoBean.listurno}" var="turno" itemLabel="#{turno.nombTurno}" itemValue="#{turno.cdTurno}"/>  
                                     </p:selectOneMenu>
 
                                     <h:outputText value="Numero Despacho: *" />
