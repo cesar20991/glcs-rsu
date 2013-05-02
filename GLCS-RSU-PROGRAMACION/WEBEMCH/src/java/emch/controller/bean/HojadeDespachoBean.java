@@ -2,6 +2,7 @@ package emch.controller.bean;
 
 import emch.modelo.acceso.*;
 import emch.modelo.entidades.*;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -17,6 +18,7 @@ public class HojadeDespachoBean {
     private List<TUbigeo> listarUbigeoSel;
     private List<TDespacho> listadespacho2;
     private List<TDespachodet> selectDespachoDet;
+    private List<TTrabajadorxcamion> listadotrabajadorXcamion;
     private List<TDespachodet> listaDespachoDet;
     private List<TTrabajadorxcamion> trabajadorXcamion;
     private List<TTurno> listurno;
@@ -24,12 +26,14 @@ public class HojadeDespachoBean {
     private boolean esEdicion;
     private String accion;
     private String mensajeError;
+    private TTrabajadorxcamion[] selectedTrabxCamion;
     
     @PostConstruct
     public void init() {
         despacho = new TDespacho();
         despacho.setTUbigeo(new TUbigeo());
         despacho.setTEmpresa(new TEmpresa());
+        despacho.setTTurno(new TTurno());
         getListadespacho2();
     }
     
@@ -69,7 +73,7 @@ public class HojadeDespachoBean {
         boolean resultado = isEsEdicion() ? obj.actualizar(despacho) 
                             : obj.insertar(despacho);
         if (resultado) {
-            return "trabajador";
+            return "HojaDeDespacho";
         } else {
             return ""; //futuros errores
         }
@@ -102,7 +106,7 @@ public class HojadeDespachoBean {
     }
 
     public String getAccion() {
-        return accion;
+        return isEsEdicion() ? "Actualizar" : "Registrar";
     }
 
     public String getMensajeError() {
@@ -122,6 +126,8 @@ public class HojadeDespachoBean {
     }
 
     public List<TTrabajadorxcamion> getTrabajadorXcamion() {
+        TrabajadorxCamionManaged obj = new TrabajadorxCamionManaged();
+        trabajadorXcamion = obj.listarTrabajadorXCamion();
         return trabajadorXcamion;
     }
 
@@ -129,20 +135,42 @@ public class HojadeDespachoBean {
         this.trabajadorXcamion = trabajadorXcamion;
     }
 
-    /**
-     * @return the listurno
-     */
     public List<TTurno> getListurno() {
         HojadeDespachoManaged objTrb = new HojadeDespachoManaged();
         listurno = objTrb.listarturno();
         return listurno;
     }
 
-    /**
-     * @param listurno the listurno to set
-     */
     public void setListurno(List<TTurno> listurno) {
         this.listurno = listurno;
+    }
+
+    public TTrabajadorxcamion[] getSelectedTrabxCamion() {
+        return selectedTrabxCamion;
+    }
+
+    public void setSelectedTrabxCamion(TTrabajadorxcamion[] selectedTrabxCamion) {
+        this.selectedTrabxCamion = selectedTrabxCamion;
+    }
+    
+     public String irListoAgregar() {
+        setListadotrabajadorXcamion(null);
+        setListadotrabajadorXcamion(Arrays.asList(getSelectedTrabxCamion()));
+        return "NuevaHojaDeDespacho";
+    }
+
+    /**
+     * @return the listadotrabajadorXcamion
+     */
+    public List<TTrabajadorxcamion> getListadotrabajadorXcamion() {
+        return listadotrabajadorXcamion;
+    }
+
+    /**
+     * @param listadotrabajadorXcamion the listadotrabajadorXcamion to set
+     */
+    public void setListadotrabajadorXcamion(List<TTrabajadorxcamion> listadotrabajadorXcamion) {
+        this.listadotrabajadorXcamion = listadotrabajadorXcamion;
     }
 
     public List<TDespachodet> getListaDespachoDet() {
