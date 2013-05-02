@@ -21,7 +21,7 @@
 
                 <ui:define name="content">
 
-                    <h:form>
+                    <h:form  prependId="false" id="interesxin">
                         <h:outputText value="CONTROL - DESPACHO" style="font-weight:bold;font-size:20px;color:#654B24" />
                         <p:tab title="DESPACHOS">
                             <div style="padding-bottom: 10px;">
@@ -35,6 +35,11 @@
                                          paginator="true" rows="15"  
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                          rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
+                                
+                                <p:ajax event="rowSelect" listener="#{hojadeDespachoBean.buscarconsull3}" update=":interesxin:visita" >                                    
+
+                                 </p:ajax>
+                                
                                 <f:facet name="header">  
                                     Listado de Hojas de Despacho
                                 </f:facet>  
@@ -104,7 +109,7 @@
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                          rowsPerPageTemplate="5,10,15" style="font-weight:bold" >    
                                 <f:facet name="header">  
-                                    Listado de Detalle de Hoja de Despacho
+                                    Listado de Detalle de Hoja de Despacho (Camiones Asignados)
                                 </f:facet>  
                                 <p:column > 
                                     <f:facet name="header">  
