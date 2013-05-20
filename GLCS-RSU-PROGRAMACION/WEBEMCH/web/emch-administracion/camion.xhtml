@@ -15,9 +15,7 @@
                 </ui:define>
 
                 <ui:define name="top">
-                    <h:form>
-                        <p:growl id="messages" autoUpdate="true"/>                     
-                    </h:form>
+
                 </ui:define>
 
                 <ui:define name="content">
@@ -163,9 +161,6 @@
                     <h:form id="formCamionNuevo">
                         <p:dialog id="nuevoCamionDialog" header="Nuevo Camión" widgetVar="nuevoCamionDialog" resizable="false" modal="false">
                             <h:panelGrid id="pgCamionNuevo" columns="2" cellpadding="4" style="margin:0 auto;">
-                                <h:outputText value="Codigo" />
-                                <h:inputText value="#{camionBean.camion.cdCamion}"/>
-
                                 <h:outputText value="Placa:" />
                                 <h:inputText value="#{camionBean.camion.placa}"/>
 
@@ -199,11 +194,14 @@
 
                             <p:separator/>
 
-                            <p:commandButton value="Guardar" oncomplete="nuevoCamionDialog.hide()" update=":formCamiones:dtCamiones" actionListener="#{camionBean.insertar()}"/>
+                            <p:commandButton value="Guardar" oncomplete="nuevoCamionDialog.hide()" update=":formCamiones:dtCamiones,:formmessages" actionListener="#{camionBean.insertar()}"/>
                             <p:commandButton value="Cancelar" update=":formCamiones:dtCamiones" oncomplete="nuevoCamionDialog.hide()"/>
                         </p:dialog>
                     </h:form>
 
+                    <h:form id="formmessages">
+                        <p:messages showDetail="true"/>
+                    </h:form>
                 </ui:define>
 
                 <ui:define name="bottom">
