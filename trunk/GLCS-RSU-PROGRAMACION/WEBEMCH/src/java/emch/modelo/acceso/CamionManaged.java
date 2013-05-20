@@ -16,6 +16,8 @@ public class CamionManaged {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
+            String nuevoID = getIDCamion();
+            camion.setCdCamion(nuevoID);
             camion.setEstado(true);
             session.save(camion);
             session.beginTransaction().commit();
@@ -23,6 +25,19 @@ public class CamionManaged {
             System.out.println("Error en insertar: " + e.getMessage());
             session.beginTransaction().rollback();
         }
+    }
+
+    public String getIDCamion() {
+        String nuevoID = "";
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Query qry = session.createSQLQuery("select idCamion();");
+            ArrayList<String> idNuevo = (ArrayList<String>) qry.list();
+            nuevoID = idNuevo.size() > 0 ? idNuevo.get(0) : "";
+        } catch (Exception e) {
+            System.out.println("Error en getIDCamion(): " + e.getMessage());
+        }
+        return nuevoID;
     }
 
     public void actualizar(TCamion camion) {
