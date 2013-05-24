@@ -2,7 +2,6 @@ package emch.controller.bean;
 
 import emch.modelo.acceso.CamionManaged;
 import emch.modelo.entidades.TCamion;
-import java.io.IOException;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
