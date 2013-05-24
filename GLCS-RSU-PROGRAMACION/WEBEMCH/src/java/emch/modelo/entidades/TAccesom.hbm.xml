@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 23, 2013 7:29:14 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TAccesom" table="t_accesom" catalog="bd_emch">
+        <id name="idAm" type="int">
+            <column name="idAm" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="TGrupoacceso" class="emch.modelo.entidades.TGrupoacceso" fetch="select">
+            <column name="cdGA" not-null="true" />
+        </many-to-one>
+        <many-to-one name="TMenu" class="emch.modelo.entidades.TMenu" fetch="select">
+            <column name="cdMenu" length="6" not-null="true" />
+        </many-to-one>
+        <property name="estado" type="boolean">
+            <column name="estado" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

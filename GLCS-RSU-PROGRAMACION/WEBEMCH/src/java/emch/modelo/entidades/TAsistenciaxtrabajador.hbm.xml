@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 23, 2013 7:29:14 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TAsistenciaxtrabajador" table="t_asistenciaxtrabajador" catalog="bd_emch">
+        <composite-id name="id" class="emch.modelo.entidades.TAsistenciaxtrabajadorId">
+            <key-property name="cdTrabajador" type="string">
+                <column name="cdTrabajador" length="6" />
+            </key-property>
+            <key-property name="cdAsistencia" type="string">
+                <column name="cdAsistencia" length="5" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="TTrabajador" class="emch.modelo.entidades.TTrabajador" update="false" insert="false" fetch="select">
+            <column name="cdTrabajador" length="6" not-null="true" />
+        </many-to-one>
+        <many-to-one name="TAsistencia" class="emch.modelo.entidades.TAsistencia" update="false" insert="false" fetch="select">
+            <column name="cdAsistencia" length="5" not-null="true" />
+        </many-to-one>
+        <property name="asiste" type="java.lang.Boolean">
+            <column name="Asiste" />
+        </property>
+        <property name="tardanza" type="java.lang.Boolean">
+            <column name="Tardanza" />
+        </property>
+        <property name="fustifica" type="java.lang.Boolean">
+            <column name="Fustifica" />
+        </property>
+    </class>
+</hibernate-mapping>

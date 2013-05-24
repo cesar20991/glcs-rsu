@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 23, 2013 7:29:14 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TIncidencia" table="t_incidencia" catalog="bd_emch">
+        <id name="cdInc" type="string">
+            <column name="cdInc" length="10" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="TControlviaje" class="emch.modelo.entidades.TControlviaje" fetch="select">
+            <column name="cdControlViaje" length="10" not-null="true" />
+            <column name="nroViaje" not-null="true" />
+        </many-to-one>
+        <property name="fechaInc" type="timestamp">
+            <column name="fechaInc" length="19" not-null="true" />
+        </property>
+        <property name="zona" type="string">
+            <column name="zona" length="100" not-null="true" />
+        </property>
+        <property name="problema" type="string">
+            <column name="problema" length="45" not-null="true" />
+        </property>
+        <property name="horaProb" type="string">
+            <column name="horaProb" length="5" not-null="true" />
+        </property>
+        <property name="observaciones" type="string">
+            <column name="observaciones" length="200" />
+        </property>
+        <property name="soluc" type="string">
+            <column name="soluc" length="200" />
+        </property>
+    </class>
+</hibernate-mapping>

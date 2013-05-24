@@ -36,48 +36,8 @@ public class CamionBean {
             text = "error";
         } else {
         }
-        if (camion.getModelo().trim().equals("")) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Modelo: ", "campo vacio."));
-            text = "error";
-        } else {
-        }
-        if (camion.getMarca().trim().equals("")) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Marca: ", "campo vacio."));
-            text = "error";
-        } else {
-        }
-        if (camion.getAnio().trim().equals("")) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Año: ", "campo vacio."));
-            text = "error";
-        } else {
-        }
-        if (camion.getPesoBruto().trim().equals("")) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Peso bruto: ", "campo vacio."));
-            text = "error";
-        } else {
-        }
         if (camion.getTipoCombustible().trim().equals("")) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Tipo de combustible: ", "campo vacio."));
-            text = "error";
-        } else {
-        }
-        if (camion.getDireccion().trim().equals("")) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Dirección: ", "campo vacio."));
-            text = "error";
-        } else {
-        }
-        if (camion.getCajaCambios().trim().equals("")) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Caja de cambios: ", "campo vacio."));
-            text = "error";
-        } else {
-        }
-        if (camion.getVelocMax().trim().equals("")) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Velocidad máxima: ", "campo vacio."));
-            text = "error";
-        } else {
-        }
-        if (camion.getKilometraje().trim().equals("")) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Kilometraje: ", "campo vacio."));
             text = "error";
         } else {
         }

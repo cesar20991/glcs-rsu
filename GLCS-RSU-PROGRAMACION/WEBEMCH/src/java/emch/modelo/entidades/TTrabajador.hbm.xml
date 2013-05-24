@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 23, 2013 7:29:14 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TTrabajador" table="t_trabajador" catalog="bd_emch">
+        <id name="cdTrabajador" type="string">
+            <column name="cdTrabajador" length="6" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="TTipotrabajador" class="emch.modelo.entidades.TTipotrabajador" fetch="select">
+            <column name="cdTipoTrabajador" length="3" not-null="true" />
+        </many-to-one>
+        <many-to-one name="TUsuario" class="emch.modelo.entidades.TUsuario" fetch="select">
+            <column name="nomUsu" length="10" />
+        </many-to-one>
+        <many-to-one name="TUbigeo" class="emch.modelo.entidades.TUbigeo" fetch="select">
+            <column name="cdUbig" length="6" not-null="true" />
+        </many-to-one>
+        <property name="nombres" type="string">
+            <column name="nombres" length="45" not-null="true" />
+        </property>
+        <property name="apellidos" type="string">
+            <column name="apellidos" length="45" not-null="true" />
+        </property>
+        <property name="dni" type="string">
+            <column name="DNI" length="8" not-null="true" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="15" />
+        </property>
+        <property name="celular" type="string">
+            <column name="celular" length="15" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="45" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="estado" not-null="true" />
+        </property>
+        <set name="TTrabajadorxcamions" inverse="true">
+            <key>
+                <column name="cdTrabajador" length="6" not-null="true" />
+            </key>
+            <one-to-many class="emch.modelo.entidades.TTrabajadorxcamion" />
+        </set>
+        <set name="TAsistenciaxtrabajadors" inverse="true">
+            <key>
+                <column name="cdTrabajador" length="6" not-null="true" />
+            </key>
+            <one-to-many class="emch.modelo.entidades.TAsistenciaxtrabajador" />
+        </set>
+    </class>
+</hibernate-mapping>
