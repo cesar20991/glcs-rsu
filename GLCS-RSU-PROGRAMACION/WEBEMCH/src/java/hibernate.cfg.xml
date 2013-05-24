@@ -7,29 +7,8 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bd_emch?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">1234</property>
-    <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
-    <mapping resource="emch/modelo/entidades/TCliente.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TUbigeo.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TEmpresa.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TDespachodet.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TUsuario.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TGrupoacceso.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TAsignarruta.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TTipotrabajador.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TDespacho.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TCamion.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TAsistenciaxtrabajador.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TAccesom.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TTrabajadorxcamion.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TMenu.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TAccesoe.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TAsistencia.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TTurno.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TTrabajador.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TControlviaje.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TPerfil.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TIncidencia.hbm.xml"/>
+    <property name="hibernate.show_sql">true</property>
   </session-factory>
 </hibernate-configuration>

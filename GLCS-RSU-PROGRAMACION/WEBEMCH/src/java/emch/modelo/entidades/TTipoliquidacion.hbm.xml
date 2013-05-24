@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 23, 2013 7:29:14 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TTipoliquidacion" table="t_tipoliquidacion" catalog="bd_emch">
+        <id name="cdTipoLiq" type="string">
+            <column name="cdTipoLiq" length="4" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="Nombre" length="50" not-null="true" />
+        </property>
+        <set name="TLiquidacions" inverse="true">
+            <key>
+                <column name="cdTipoLiq" length="4" not-null="true" />
+            </key>
+            <one-to-many class="emch.modelo.entidades.TLiquidacion" />
+        </set>
+    </class>
+</hibernate-mapping>

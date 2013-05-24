@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 23, 2013 7:29:14 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TSeguroxcamion" table="t_seguroxcamion" catalog="bd_emch">
+        <composite-id name="id" class="emch.modelo.entidades.TSeguroxcamionId">
+            <key-property name="fechaVec" type="timestamp">
+                <column name="fechaVec" length="19" />
+            </key-property>
+            <key-property name="idSeguro" type="string">
+                <column name="idSeguro" length="5" />
+            </key-property>
+            <key-property name="cdCamion" type="string">
+                <column name="cdCamion" length="6" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="TSeguro" class="emch.modelo.entidades.TSeguro" update="false" insert="false" fetch="select">
+            <column name="idSeguro" length="5" not-null="true" />
+        </many-to-one>
+        <many-to-one name="TCamion" class="emch.modelo.entidades.TCamion" update="false" insert="false" fetch="select">
+            <column name="cdCamion" length="6" not-null="true" />
+        </many-to-one>
+        <property name="nroPoliza" type="int">
+            <column name="nroPoliza" not-null="true" />
+        </property>
+        <property name="obs" type="string">
+            <column name="obs" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>
