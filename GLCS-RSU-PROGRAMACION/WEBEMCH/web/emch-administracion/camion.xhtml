@@ -35,6 +35,10 @@
                                 <h:outputText value="#{camion.placa}" />
                             </p:column>
 
+                            <p:column headerText="Año">
+                                <h:outputText value="#{camion.anioFab}" />
+                            </p:column>
+
                             <p:column headerText="Tipo Combustible">
                                 <h:outputText value="#{camion.tipoCombustible}" />
                             </p:column>
@@ -69,6 +73,12 @@
                                 <h:outputText value="Placa:" />
                                 <p:inputText value="#{camionBean.camion.placa}" style="font-weight:bold"/>
 
+                                <h:outputText value="Marca:" />
+                                <p:inputText value="#{camionBean.camion.TMarca.descripcion}" style="font-weight:bold"/>
+
+                                <h:outputText value="Año Fab.:" />
+                                <p:inputText value="#{camionBean.camion.anioFab}" style="font-weight:bold"/>
+
                                 <h:outputText value="Peso bruto:" />
                                 <p:inputText value="#{camionBean.camion.pesoBruto}" style="font-weight:bold"/>
 
@@ -90,20 +100,25 @@
                         <p:dialog id="dlgCamionVer" header="Detalle del Camión" widgetVar="verCamionDialog" resizable="false" modal="false">
                             <h:panelGrid id="pgCamionVer" columns="2" cellpadding="4" style="margin:0 auto;">
                                 <h:outputText value="Codigo" />
-                                <h:outputText value="#{camionBean.camion.cdCamion}"/>
+                                <p:inputText value="#{camionBean.camion.cdCamion}" style="font-weight:bold" disabled="true"/>
 
                                 <h:outputText value="Placa:" />
-                                <h:outputText value="#{camionBean.camion.placa}"/>
+                                <p:inputText value="#{camionBean.camion.placa}" style="font-weight:bold"/>
 
-                                <h:outputText value="Peso Bruto:" />
-                                <h:outputText value="#{camionBean.camion.pesoBruto}"/>
+                                <h:outputText value="Marca:" />
+                                <p:inputText value="#{camionBean.camion.TMarca.descripcion}" style="font-weight:bold"/>
 
-                                <h:outputText value="Tipo Combustible:" />
-                                <h:outputText value="#{camionBean.camion.tipoCombustible}"/>
+                                <h:outputText value="Año Fab.:" />
+                                <p:inputText value="#{camionBean.camion.anioFab}" style="font-weight:bold"/>
+
+                                <h:outputText value="Peso bruto:" />
+                                <p:inputText value="#{camionBean.camion.pesoBruto}" style="font-weight:bold"/>
+
+                                <h:outputText value="Tipo de combustible:" />
+                                <p:inputText value="#{camionBean.camion.tipoCombustible}" style="font-weight:bold"/>
 
                                 <h:outputText value="Kilometraje:" />
-                                <h:outputText value="#{camionBean.camion.kilometraje}"/>
-
+                                <p:inputText value="#{camionBean.camion.kilometraje}" style="font-weight:bold"/>
                                 <h:outputText value="Estado:" />
                                 <h:outputText value="#{camionBean.camion.estado == true ? 'Habilitado' : 'Deshabilitado'}"/>
                             </h:panelGrid>
@@ -118,16 +133,22 @@
                         <p:dialog id="nuevoCamionDialog" header="Nuevo Camión" widgetVar="nuevoCamionDialog" resizable="false" modal="false">
                             <h:panelGrid id="pgCamionNuevo" columns="2" cellpadding="4" style="margin:0 auto;">
                                 <h:outputText value="Placa:" />
-                                <h:inputText value="#{camionBean.camion.placa}"/>
+                                <p:inputText value="#{camionBean.camion.placa}" style="font-weight:bold"/>
 
-                                <h:outputText value="Peso Bruto:" />
-                                <h:inputText value="#{camionBean.camion.pesoBruto}"/>
+                                <h:outputText value="Marca:" />
+                                <p:inputText value="#{camionBean.camion.TMarca.descripcion}" style="font-weight:bold"/>
 
-                                <h:outputText value="Tipo Combustible:" />
-                                <h:inputText value="#{camionBean.camion.tipoCombustible}"/>
+                                <h:outputText value="Año Fab.:" />
+                                <p:inputText value="#{camionBean.camion.anioFab}" style="font-weight:bold"/>
+
+                                <h:outputText value="Peso bruto:" />
+                                <p:inputText value="#{camionBean.camion.pesoBruto}" style="font-weight:bold"/>
+
+                                <h:outputText value="Tipo de combustible:" />
+                                <p:inputText value="#{camionBean.camion.tipoCombustible}" style="font-weight:bold"/>
 
                                 <h:outputText value="Kilometraje:" />
-                                <h:inputText value="#{camionBean.camion.kilometraje}"/>
+                                <p:inputText value="#{camionBean.camion.kilometraje}" style="font-weight:bold"/>
                             </h:panelGrid>
 
                             <p:separator/>
