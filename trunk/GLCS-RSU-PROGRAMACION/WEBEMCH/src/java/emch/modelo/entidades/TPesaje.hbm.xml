@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 23, 2013 7:29:14 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TPesaje" table="t_pesaje" catalog="bd_emch">
+        <id name="cdPesaje" type="string">
+            <column name="cdPesaje" length="10" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="TControlviaje" class="emch.modelo.entidades.TControlviaje" fetch="select">
+            <column name="cdControlViaje" length="10" not-null="true" />
+            <column name="nroViaje" not-null="true" />
+        </many-to-one>
+        <many-to-one name="TLiquidacion" class="emch.modelo.entidades.TLiquidacion" fetch="select">
+            <column name="cdLiq" length="10" />
+        </many-to-one>
+        <property name="nroPesaje" type="int">
+            <column name="nroPesaje" not-null="true" />
+        </property>
+        <property name="fechaPesaje" type="timestamp">
+            <column name="fechaPesaje" length="19" not-null="true" />
+        </property>
+        <property name="pesoBruto" type="big_decimal">
+            <column name="pesoBruto" precision="5" scale="4" not-null="true" />
+        </property>
+        <property name="tara" type="big_decimal">
+            <column name="tara" precision="5" scale="4" not-null="true" />
+        </property>
+        <property name="pesoTn" type="big_decimal">
+            <column name="pesoTN" precision="5" scale="4" not-null="true" />
+        </property>
+        <property name="estadoPesaje" type="char">
+            <column name="estadoPesaje" length="1" not-null="true">
+                <comment>P: Pendiente , L:Liquidado,</comment>
+            </column>
+        </property>
+        <set name="TImgspesajes" inverse="true">
+            <key>
+                <column name="cdPesaje" length="10" not-null="true" />
+            </key>
+            <one-to-many class="emch.modelo.entidades.TImgspesaje" />
+        </set>
+    </class>
+</hibernate-mapping>
