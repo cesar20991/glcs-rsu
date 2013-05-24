@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 23, 2013 7:29:14 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TCliente" table="t_cliente" catalog="bd_emch">
+        <id name="cdCliente" type="string">
+            <column name="cdCliente" length="10" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="TUsuario" class="emch.modelo.entidades.TUsuario" fetch="select">
+            <column name="nomUsu" length="10" not-null="true" />
+        </many-to-one>
+        <many-to-one name="TUbigeo" class="emch.modelo.entidades.TUbigeo" fetch="select">
+            <column name="cdUbig" length="6" not-null="true" />
+        </many-to-one>
+        <many-to-one name="TEmpresa" class="emch.modelo.entidades.TEmpresa" fetch="select">
+            <column name="cdRuc" length="6" not-null="true" />
+        </many-to-one>
+        <property name="nombreComp" type="string">
+            <column name="nombreComp" length="45" not-null="true" />
+        </property>
+        <property name="tipoDocI" type="char">
+            <column name="tipoDocI" length="1" not-null="true" />
+        </property>
+        <property name="nroDocI" type="string">
+            <column name="nroDocI" length="15" not-null="true" />
+        </property>
+        <property name="domicilio" type="string">
+            <column name="domicilio" length="50" not-null="true" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="15" />
+        </property>
+        <property name="celular" type="string">
+            <column name="celular" length="15" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="45" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="estado" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -53,7 +53,7 @@ public class HojadeDespachoManaged {
             Date hoy = new Date();
              TDespachoId despID = new TDespachoId();
              despID.setCdDespacho(idcl);
-             despID.setRucE("20131368071");
+             //despID.setRucE("20131368071");
              despacho.setUsuCrea("coropeza");
              despacho.setFechaReg(despacho.getFechaEmi());
              despacho.setId(despID);
@@ -75,7 +75,7 @@ public class HojadeDespachoManaged {
                  TDespachodetId id = new TDespachodetId();
                  id.setCdDespacho(despacho.getId().getCdDespacho());
                  id.setNro(a);
-                 id.setRucE("20131368071");
+                 //id.setRucE("20131368071");
                  TDespachodet dtodet = new TDespachodet();
                 dtodet.setId(id);
                 dtodet.setCantViaje("2");
