@@ -2,38 +2,49 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Administrar Control de Viaje</title>
     </h:head>
     <h:body>
         <h:form id="formControles">
-            <p:dataTable id="dtControles" var="despacho" value="#{controlViajeBean.listaDespachos}">
+            <p:dataTable id="dtControles" var="despacho" value="#{controlViajeBean.listaDespachos}" selectionMode="single"
+                         selection="#{controlViajeBean.controlviaje}" rowKey="#{despacho.id.cdDespacho}">   
+                <p:ajax event="rowSelect" listener="#{tableBean.onRowSelect}"   
+                        update=":formDetalle:dtDetalles" oncomplete="detalleTable.show()" /> 
+
                 <h:inputHidden value="#{despacho.id.cdDespacho}"/>
 
                 <p:column headerText="Ubigeo">
                     <h:outputText value="#{despacho.TUbigeo.nombre}" />
                 </p:column>
-                
+
                 <p:column headerText="Turno">
                     <h:outputText value="#{despacho.TTurno.nombTurno}" />
                 </p:column>
-                
+
                 <p:column headerText="Nro. Despacho">
                     <h:outputText value="#{despacho.nroDespacho}" />
                 </p:column>
-                
+
                 <p:column headerText="Fech. Emision">
                     <h:outputText value="#{despacho.fechaEmi}" />
                 </p:column>
-                
+
                 <p:column headerText="Usuario Creador">
                     <h:outputText value="#{despacho.usuCrea}" />
                 </p:column>
-                
+
                 <p:column headerText="Fech. de Registro">
                     <h:outputText value="#{despacho.fechaReg}" />
                 </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id="formDetalle">
+            <p:dataTable id="dtDetalles" var="despacho" value="#{controlViajeBean.listaDespachos}" widgetVar="detalleTable">
+
             </p:dataTable>
         </h:form>
     </h:body>

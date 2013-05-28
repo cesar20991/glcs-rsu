@@ -1,6 +1,6 @@
 package emch.controller.bean;
 
-import emch.modelo.acceso.TrabajadorXCamionManaged;
+//import emch.modelo.acceso.TrabajadorXCamionManaged;
 import emch.modelo.entidades.TCamion;
 import emch.modelo.entidades.TTipotrabajador;
 import emch.modelo.entidades.TTrabajador;
@@ -28,8 +28,8 @@ public class TrabajadorXCamionBean {
     }
 
     public List<TTrabajador> getChoferes() {
-        TrabajadorXCamionManaged obj = new TrabajadorXCamionManaged();
-        choferes = obj.buscarChoferes();
+//        TrabajadorXCamionManaged obj = new TrabajadorXCamionManaged();
+//        choferes = obj.buscarChoferes();
         return choferes;
     }
 
