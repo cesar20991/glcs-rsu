@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated May 23, 2013 7:57:08 PM by Hibernate Tools 3.2.1.GA
+// Generated 29-may-2013 1:03:45 by Hibernate Tools 3.2.1.GA
 
 
 
@@ -11,21 +11,27 @@ public class TAsignarruta  implements java.io.Serializable {
 
      private String cdRuta;
      private TDespachodet TDespachodet;
-     private String center;
-     private String latitud;
-     private String longitud;
-     private String tipo;
+     private Double center;
+     private Double latitud;
+     private Double longitud;
+     private int nroV;
 
     public TAsignarruta() {
     }
 
-    public TAsignarruta(String cdRuta, TDespachodet TDespachodet, String center, String latitud, String longitud, String tipo) {
+	
+    public TAsignarruta(String cdRuta, TDespachodet TDespachodet, int nroV) {
+        this.cdRuta = cdRuta;
+        this.TDespachodet = TDespachodet;
+        this.nroV = nroV;
+    }
+    public TAsignarruta(String cdRuta, TDespachodet TDespachodet, Double center, Double latitud, Double longitud, int nroV) {
        this.cdRuta = cdRuta;
        this.TDespachodet = TDespachodet;
        this.center = center;
        this.latitud = latitud;
        this.longitud = longitud;
-       this.tipo = tipo;
+       this.nroV = nroV;
     }
    
     public String getCdRuta() {
@@ -42,33 +48,33 @@ public class TAsignarruta  implements java.io.Serializable {
     public void setTDespachodet(TDespachodet TDespachodet) {
         this.TDespachodet = TDespachodet;
     }
-    public String getCenter() {
+    public Double getCenter() {
         return this.center;
     }
     
-    public void setCenter(String center) {
+    public void setCenter(Double center) {
         this.center = center;
     }
-    public String getLatitud() {
+    public Double getLatitud() {
         return this.latitud;
     }
     
-    public void setLatitud(String latitud) {
+    public void setLatitud(Double latitud) {
         this.latitud = latitud;
     }
-    public String getLongitud() {
+    public Double getLongitud() {
         return this.longitud;
     }
     
-    public void setLongitud(String longitud) {
+    public void setLongitud(Double longitud) {
         this.longitud = longitud;
     }
-    public String getTipo() {
-        return this.tipo;
+    public int getNroV() {
+        return this.nroV;
     }
     
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setNroV(int nroV) {
+        this.nroV = nroV;
     }
 
 

@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
+import util.HibernateUtil;
 
 public class TrabajadorxCamionManaged {
     
