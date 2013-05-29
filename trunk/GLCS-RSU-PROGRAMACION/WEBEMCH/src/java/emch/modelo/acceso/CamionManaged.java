@@ -1,5 +1,6 @@
 package emch.modelo.acceso;
 
+import util.HibernateUtil;
 import emch.modelo.entidades.TCamion;
 import java.util.ArrayList;
 import java.util.List;
