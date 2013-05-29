@@ -43,21 +43,19 @@
                 Footer
             </p:layoutUnit>
 
-            <p:layoutUnit position="west" size="220" header="Menu Principal" collapsible="true">
+            <p:layoutUnit position="west" size="240" header="Menu Principal" collapsible="true">
                 <p:menu style="width: 200px;">
-                    <p:submenu label="Seguridad">
-                        <p:menuitem value="Actualizar Datos" url="#" icon="ui-icon-suitcase" />  
+                    <p:submenu label="Seguridad">                        
                         <p:menuitem value="Cambiar Contraseña" url="#" icon="ui-icon-suitcase" />  
                         <p:menuitem value="Administrar Usuario" url="#" icon="ui-icon-suitcase" />  
-                        <p:menuitem value="Administrar Acceso" url="#" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Administrar Perfil" url="#" icon="ui-icon-suitcase" />  
                     </p:submenu>
                     <p:submenu label="         ADMINISTRACION             ">  
-                        <p:menuitem value="Administrar Trabajador" url="../faces/emch-administracion/trabajador.xhtml" icon="ui-icon-suitcase" />  
-                        <p:menuitem value="Administrar Camión" url="../faces/emch-administracion/camion.xhtml" icon="ui-icon-suitcase" />  
-                        <p:menuitem value="Administrar Comprobantes" url="../faces/emch-administracion/comprobantes.xhtml" icon="ui-icon-suitcase" />  
-                        <p:menuitem value="Administrar Empresa" url="../faces/emch-administracion/empresa.xhtml" icon="ui-icon-suitcase" />  
-                        <p:menuitem value="Administrar Tipo de Cambio" url="../faces/emch-administracion/tipocambio.xhtml" icon="ui-icon-suitcase" />  
-                        <p:menuitem value="Administrar Tipo Documento" url="../faces/emch-administracion/tipodocumento.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Adm. Trabajador" url="../faces/emch-administracion/trabajador.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Adm. Camión" url="../faces/emch-administracion/camion.xhtml" icon="ui-icon-suitcase" />                          
+                        <p:menuitem value="Adm. Empresa" url="../faces/emch-administracion/empresa.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Adm. Tipo de Cambio" url="../faces/emch-administracion/tipocambio.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Pesajes" url="../faces/emch-operaciones/pesajes.xhtml" icon="ui-icon-suitcase" />                          
                     </p:submenu>
                     <p:submenu label="CONTROL TRANSPORTE">  
                         <p:menuitem value="Despacho" url="../faces/emch-control/HojaDeDespacho.xhtml" icon="ui-icon-suitcase" />  
@@ -67,12 +65,12 @@
                         <p:menuitem value="Control Incidencia" url="../faces/emch-control/incidencia.xhtml" icon="ui-icon-suitcase" />  
                         <p:menuitem value="Control Asistencia" url="../faces/emch-control/asistencia.xhtml" icon="ui-icon-suitcase" />  
                     </p:submenu> 
-                    <p:submenu label="OPERACIONES">  
+                    <p:submenu label="OPERACIONES">                          
+                        <p:menuitem value="Comprobante" url="../faces/emch-operaciones/comprobante.xhtml" icon="ui-icon-suitcase" />                          
                         <p:menuitem value="Generar Liquidación" url="../faces/emch-operaciones/generaliquidacion.xhtml" icon="ui-icon-suitcase" />  
                         <p:menuitem value="Consultar Liquidacion" url="../faces/emch-operaciones/consultarliquidacion.xhtml" icon="ui-icon-suitcase" />  
-                        <p:menuitem value="ReporteA" url="../faces/emch-operaciones/reportea.xhtml" icon="ui-icon-suitcase" />  
-                        <p:menuitem value="Consultar Servicio" url="../faces/emch-operaciones/consultarservicio.xhtml" icon="ui-icon-suitcase" />  
-                        
+                        <p:menuitem value="Generar Reporte" url="../faces/emch-operaciones/reportea.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Consultar Servicio" url="../faces/emch-operaciones/consultarservicio.xhtml" icon="ui-icon-suitcase" />                          
                     </p:submenu>
 
                 </p:menu>

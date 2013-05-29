@@ -1,5 +1,6 @@
 package emch.modelo.acceso;
 
+import util.HibernateUtil;
 import emch.modelo.entidades.TControlviaje;
 import emch.modelo.entidades.TDespacho;
 import java.util.List;

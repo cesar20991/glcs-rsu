@@ -1,5 +1,6 @@
 package emch.modelo.acceso;
 
+import util.HibernateUtil;
 import emch.modelo.entidades.*;
 import emch.modelo.entidades.TDespachoId;
 import emch.modelo.entidades.TTurno;
@@ -28,6 +29,11 @@ public class HojadeDespachoManaged {
             return listadespacho;
     }
 
+    public TDespacho buscarPorId(String id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        return (TDespacho) session.load(TDespacho.class, id);
+    }
+    
     public boolean actualizar(TDespacho despacho) {
          sesion = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -53,7 +59,7 @@ public class HojadeDespachoManaged {
             Date hoy = new Date();
              TDespachoId despID = new TDespachoId();
              despID.setCdDespacho(idcl);
-             //despID.setRucE("20131368071");
+             despID.setCdRuc("RC0001");
              despacho.setUsuCrea("coropeza");
              despacho.setFechaReg(despacho.getFechaEmi());
              despacho.setId(despID);
@@ -75,7 +81,7 @@ public class HojadeDespachoManaged {
                  TDespachodetId id = new TDespachodetId();
                  id.setCdDespacho(despacho.getId().getCdDespacho());
                  id.setNro(a);
-                 //id.setRucE("20131368071");
+                 id.setCdRuc("RC0001");
                  TDespachodet dtodet = new TDespachodet();
                 dtodet.setId(id);
                 dtodet.setCantViaje("2");
@@ -133,8 +139,7 @@ public class HojadeDespachoManaged {
     public List ListarDespachoxDespachoDet(TDespacho despacho) {
         List<TDespachodet> listadespachoDet = null;
         try {
-            sesion = HibernateUtil.getSessionFactory().openSession();
-            trans = sesion.beginTransaction();
+            sesion = HibernateUtil.getSessionFactory().openSession();            
             qry = sesion.createQuery( "SELECT ab from TDespacho  v inner join v.TDespachodets ab where v.id.cdDespacho ='"+ despacho.getId().getCdDespacho()+"'");
             listadespachoDet = (List<TDespachodet>) qry.list();
         } catch (Exception ex) {
@@ -147,7 +152,6 @@ public class HojadeDespachoManaged {
          List<TTrabajadorxcamion> listatrabxc = null;
          try {
             sesion = HibernateUtil.getSessionFactory().openSession();
-            trans = sesion.beginTransaction();
            qry = sesion.createQuery( "SELECT ab  from TDespachodet v inner join v.TTrabajadorxcamion  ab where v.id.cdDespacho='"+ despacho+"'");
             listatrabxc = (List<TTrabajadorxcamion>) qry.list();
         } catch (Exception ex) {

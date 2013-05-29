@@ -1,5 +1,6 @@
 package emch.modelo.acceso;
 
+import util.HibernateUtil;
 import emch.modelo.entidades.TTipotrabajador;
 import emch.modelo.entidades.TTrabajador;
 import emch.modelo.entidades.TUbigeo;

@@ -43,19 +43,21 @@ public class HojadeDespachoBean {
         setDespacho(new TDespacho());
         despacho.setTTurno(new TTurno());
         despacho.setTUbigeo(new TUbigeo());
-        return "NuevaHojaDeDespacho";
+        return "nuevahojadespacho";
     }
     
     public String irActualizar() {
-        setEsEdicion(true);       
+        setEsEdicion(true);              
         HojadeDespachoManaged obj = new HojadeDespachoManaged();
         listadotrabajadorXcamion = obj.buscaTrabxCamion(despacho.getId().getCdDespacho());
         String cdDes = despacho.getId().getCdDespacho();
-        //String RucE = despacho.getId().getRucE();
-        //despacho.setId(new TDespachoId(cdDes,RucE));//(new TTipotrabajador
+        String RucE = despacho.getId().getCdRuc();
         String codigoUb = despacho.getTUbigeo().getCdUbig();
+        String codigoTur = despacho.getTTurno().getCdTurno();        
+        despacho.setId(new TDespachoId(cdDes,RucE));//(new TTipotrabajador
         despacho.setTUbigeo(new TUbigeo(codigoUb, "", false));
-        return "NuevaHojaDeDespacho";
+        despacho.setTTurno(new TTurno(codigoTur, ""));
+        return "nuevahojadespacho";
     }
 
     public TDespacho getDespacho() {
@@ -82,7 +84,7 @@ public class HojadeDespachoBean {
         boolean resultado = isEsEdicion() ? obj.actualizar(despacho) 
                             : obj.insertar(despacho,listadotrabajadorXcamion);
         if (resultado) {
-            return "HojaDeDespacho";
+            return "nuevahojadespacho";
         } else {
             return ""; //futuros errores
         }
@@ -115,7 +117,7 @@ public class HojadeDespachoBean {
     }
 
     public String getAccion() {
-        return isEsEdicion() ? "Actualizar" : "Registrar";
+        return isEsEdicion() ? "Actualizar" : "Agregar";
     }
 
     public String getMensajeError() {
@@ -165,7 +167,7 @@ public class HojadeDespachoBean {
      public String irListoAgregar() {
         setListadotrabajadorXcamion(null);
         setListadotrabajadorXcamion(Arrays.asList(getSelectedTrabxCamion()));
-        return "NuevaHojaDeDespacho";
+        return "nuevahojadespacho";
     }
 
     /**
@@ -196,5 +198,5 @@ public class HojadeDespachoBean {
         HojadeDespachoManaged obj = new HojadeDespachoManaged();
         listaDespachoDet = obj.ListarDespachoxDespachoDet(getDespacho());        
     }
-    
+        
 }
