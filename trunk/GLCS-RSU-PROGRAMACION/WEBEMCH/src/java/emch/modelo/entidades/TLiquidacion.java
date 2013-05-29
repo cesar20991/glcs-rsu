@@ -1,8 +1,9 @@
 package emch.modelo.entidades;
-// Generated May 23, 2013 7:57:08 PM by Hibernate Tools 3.2.1.GA
+// Generated 29-may-2013 1:03:45 by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,6 +21,10 @@ public class TLiquidacion  implements java.io.Serializable {
      private String fechaFin;
      private BigDecimal totalTn;
      private String asunto;
+     private String usuCrea;
+     private Date fechaReg;
+     private String usuModf;
+     private String fechaModf;
      private Set<TPesaje> TPesajes = new HashSet<TPesaje>(0);
      private Set<TComprobante> TComprobantes = new HashSet<TComprobante>(0);
      private Set<TEstadoxliquidacion> TEstadoxliquidacions = new HashSet<TEstadoxliquidacion>(0);
@@ -28,15 +33,17 @@ public class TLiquidacion  implements java.io.Serializable {
     }
 
 	
-    public TLiquidacion(String cdLiq, TTipoliquidacion TTipoliquidacion, TEmpresa TEmpresa, String fechaApertura, String fechaInicio, String fechaFin) {
+    public TLiquidacion(String cdLiq, TTipoliquidacion TTipoliquidacion, TEmpresa TEmpresa, String fechaApertura, String fechaInicio, String fechaFin, String usuCrea, Date fechaReg) {
         this.cdLiq = cdLiq;
         this.TTipoliquidacion = TTipoliquidacion;
         this.TEmpresa = TEmpresa;
         this.fechaApertura = fechaApertura;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
+        this.usuCrea = usuCrea;
+        this.fechaReg = fechaReg;
     }
-    public TLiquidacion(String cdLiq, TTipoliquidacion TTipoliquidacion, TEmpresa TEmpresa, String fechaApertura, String fechaInicio, String fechaFin, BigDecimal totalTn, String asunto, Set<TPesaje> TPesajes, Set<TComprobante> TComprobantes, Set<TEstadoxliquidacion> TEstadoxliquidacions) {
+    public TLiquidacion(String cdLiq, TTipoliquidacion TTipoliquidacion, TEmpresa TEmpresa, String fechaApertura, String fechaInicio, String fechaFin, BigDecimal totalTn, String asunto, String usuCrea, Date fechaReg, String usuModf, String fechaModf, Set<TPesaje> TPesajes, Set<TComprobante> TComprobantes, Set<TEstadoxliquidacion> TEstadoxliquidacions) {
        this.cdLiq = cdLiq;
        this.TTipoliquidacion = TTipoliquidacion;
        this.TEmpresa = TEmpresa;
@@ -45,6 +52,10 @@ public class TLiquidacion  implements java.io.Serializable {
        this.fechaFin = fechaFin;
        this.totalTn = totalTn;
        this.asunto = asunto;
+       this.usuCrea = usuCrea;
+       this.fechaReg = fechaReg;
+       this.usuModf = usuModf;
+       this.fechaModf = fechaModf;
        this.TPesajes = TPesajes;
        this.TComprobantes = TComprobantes;
        this.TEstadoxliquidacions = TEstadoxliquidacions;
@@ -105,6 +116,34 @@ public class TLiquidacion  implements java.io.Serializable {
     
     public void setAsunto(String asunto) {
         this.asunto = asunto;
+    }
+    public String getUsuCrea() {
+        return this.usuCrea;
+    }
+    
+    public void setUsuCrea(String usuCrea) {
+        this.usuCrea = usuCrea;
+    }
+    public Date getFechaReg() {
+        return this.fechaReg;
+    }
+    
+    public void setFechaReg(Date fechaReg) {
+        this.fechaReg = fechaReg;
+    }
+    public String getUsuModf() {
+        return this.usuModf;
+    }
+    
+    public void setUsuModf(String usuModf) {
+        this.usuModf = usuModf;
+    }
+    public String getFechaModf() {
+        return this.fechaModf;
+    }
+    
+    public void setFechaModf(String fechaModf) {
+        this.fechaModf = fechaModf;
     }
     public Set<TPesaje> getTPesajes() {
         return this.TPesajes;

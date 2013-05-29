@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated May 23, 2013 7:57:08 PM by Hibernate Tools 3.2.1.GA
+// Generated 29-may-2013 1:03:45 by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -22,13 +22,17 @@ public class TPesaje  implements java.io.Serializable {
      private BigDecimal tara;
      private BigDecimal pesoTn;
      private char estadoPesaje;
+     private String usuCrea;
+     private Date fechaReg;
+     private String usuModf;
+     private Date fechaModf;
      private Set<TImgspesaje> TImgspesajes = new HashSet<TImgspesaje>(0);
 
     public TPesaje() {
     }
 
 	
-    public TPesaje(String cdPesaje, TControlviaje TControlviaje, int nroPesaje, Date fechaPesaje, BigDecimal pesoBruto, BigDecimal tara, BigDecimal pesoTn, char estadoPesaje) {
+    public TPesaje(String cdPesaje, TControlviaje TControlviaje, int nroPesaje, Date fechaPesaje, BigDecimal pesoBruto, BigDecimal tara, BigDecimal pesoTn, char estadoPesaje, String usuCrea, Date fechaReg) {
         this.cdPesaje = cdPesaje;
         this.TControlviaje = TControlviaje;
         this.nroPesaje = nroPesaje;
@@ -37,8 +41,10 @@ public class TPesaje  implements java.io.Serializable {
         this.tara = tara;
         this.pesoTn = pesoTn;
         this.estadoPesaje = estadoPesaje;
+        this.usuCrea = usuCrea;
+        this.fechaReg = fechaReg;
     }
-    public TPesaje(String cdPesaje, TControlviaje TControlviaje, TLiquidacion TLiquidacion, int nroPesaje, Date fechaPesaje, BigDecimal pesoBruto, BigDecimal tara, BigDecimal pesoTn, char estadoPesaje, Set<TImgspesaje> TImgspesajes) {
+    public TPesaje(String cdPesaje, TControlviaje TControlviaje, TLiquidacion TLiquidacion, int nroPesaje, Date fechaPesaje, BigDecimal pesoBruto, BigDecimal tara, BigDecimal pesoTn, char estadoPesaje, String usuCrea, Date fechaReg, String usuModf, Date fechaModf, Set<TImgspesaje> TImgspesajes) {
        this.cdPesaje = cdPesaje;
        this.TControlviaje = TControlviaje;
        this.TLiquidacion = TLiquidacion;
@@ -48,6 +54,10 @@ public class TPesaje  implements java.io.Serializable {
        this.tara = tara;
        this.pesoTn = pesoTn;
        this.estadoPesaje = estadoPesaje;
+       this.usuCrea = usuCrea;
+       this.fechaReg = fechaReg;
+       this.usuModf = usuModf;
+       this.fechaModf = fechaModf;
        this.TImgspesajes = TImgspesajes;
     }
    
@@ -113,6 +123,34 @@ public class TPesaje  implements java.io.Serializable {
     
     public void setEstadoPesaje(char estadoPesaje) {
         this.estadoPesaje = estadoPesaje;
+    }
+    public String getUsuCrea() {
+        return this.usuCrea;
+    }
+    
+    public void setUsuCrea(String usuCrea) {
+        this.usuCrea = usuCrea;
+    }
+    public Date getFechaReg() {
+        return this.fechaReg;
+    }
+    
+    public void setFechaReg(Date fechaReg) {
+        this.fechaReg = fechaReg;
+    }
+    public String getUsuModf() {
+        return this.usuModf;
+    }
+    
+    public void setUsuModf(String usuModf) {
+        this.usuModf = usuModf;
+    }
+    public Date getFechaModf() {
+        return this.fechaModf;
+    }
+    
+    public void setFechaModf(Date fechaModf) {
+        this.fechaModf = fechaModf;
     }
     public Set<TImgspesaje> getTImgspesajes() {
         return this.TImgspesajes;
