@@ -5,7 +5,7 @@
 package emch.controller.bean;
 
 import emch.modelo.acceso.VerificarComprobanteManaged;
-import emch.modelo.entidades.TPesaje;
+import emch.modelo.entidades.*;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -30,7 +30,7 @@ public class verificarcomprobanteBean {
     
     public String irBuscar(){
         VerificarComprobanteManaged obj = new VerificarComprobanteManaged();
-        listarPesajeSel=obj.listarPesaje(fechaInicio,fechaFin);
+        listarPesajeSel= obj.listarPesaje(fechaInicio,fechaFin,valorbusq);                 
         return"";
     }
     
@@ -44,47 +44,26 @@ public class verificarcomprobanteBean {
         this.listarPesajeSel = listarPesajeSel;
     }
         
-
-    
-
-    /**
-     * @return the fechaInicio
-     */
     public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    /**
-     * @param fechaInicio the fechaInicio to set
-     */
     public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    /**
-     * @return the fechaFin
-     */
     public Date getFechaFin() {
         return fechaFin;
     }
 
-    /**
-     * @param fechaFin the fechaFin to set
-     */
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
 
-    /**
-     * @return the valorbusq
-     */
     public String getValorbusq() {
         return valorbusq;
     }
 
-    /**
-     * @param valorbusq the valorbusq to set
-     */
     public void setValorbusq(String valorbusq) {
         this.valorbusq = valorbusq;
     }

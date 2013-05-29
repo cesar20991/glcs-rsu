@@ -21,7 +21,7 @@ public class VerificarComprobanteManaged {
     Transaction trans;
     Query qry;
 
-    public List listarPesaje(Date FechaInicio, Date FechaFin) {
+    public List listarPesaje(Date FechaInicio, Date FechaFin,String valorBusq) {
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date d = new Date();
         String fechaI,fechaF = "";
