@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 29-may-2013 1:03:45 by Hibernate Tools 3.2.1.GA
+// Generated 30-may-2013 7:59:42 by Hibernate Tools 3.2.1.GA
 
 
 

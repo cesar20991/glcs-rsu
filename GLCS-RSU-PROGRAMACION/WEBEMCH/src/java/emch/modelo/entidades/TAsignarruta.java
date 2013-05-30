@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 29-may-2013 1:03:45 by Hibernate Tools 3.2.1.GA
+// Generated 30-may-2013 7:59:42 by Hibernate Tools 3.2.1.GA
 
 
 
@@ -11,10 +11,12 @@ public class TAsignarruta  implements java.io.Serializable {
 
      private String cdRuta;
      private TDespachodet TDespachodet;
-     private Double center;
-     private Double latitud;
-     private Double longitud;
+     private Double latn;
+     private Double lngn;
+     private Double lats;
+     private Double lngs;
      private int nroV;
+     private String obs;
 
     public TAsignarruta() {
     }
@@ -25,13 +27,15 @@ public class TAsignarruta  implements java.io.Serializable {
         this.TDespachodet = TDespachodet;
         this.nroV = nroV;
     }
-    public TAsignarruta(String cdRuta, TDespachodet TDespachodet, Double center, Double latitud, Double longitud, int nroV) {
+    public TAsignarruta(String cdRuta, TDespachodet TDespachodet, Double latn, Double lngn, Double lats, Double lngs, int nroV, String obs) {
        this.cdRuta = cdRuta;
        this.TDespachodet = TDespachodet;
-       this.center = center;
-       this.latitud = latitud;
-       this.longitud = longitud;
+       this.latn = latn;
+       this.lngn = lngn;
+       this.lats = lats;
+       this.lngs = lngs;
        this.nroV = nroV;
+       this.obs = obs;
     }
    
     public String getCdRuta() {
@@ -48,26 +52,33 @@ public class TAsignarruta  implements java.io.Serializable {
     public void setTDespachodet(TDespachodet TDespachodet) {
         this.TDespachodet = TDespachodet;
     }
-    public Double getCenter() {
-        return this.center;
+    public Double getLatn() {
+        return this.latn;
     }
     
-    public void setCenter(Double center) {
-        this.center = center;
+    public void setLatn(Double latn) {
+        this.latn = latn;
     }
-    public Double getLatitud() {
-        return this.latitud;
-    }
-    
-    public void setLatitud(Double latitud) {
-        this.latitud = latitud;
-    }
-    public Double getLongitud() {
-        return this.longitud;
+    public Double getLngn() {
+        return this.lngn;
     }
     
-    public void setLongitud(Double longitud) {
-        this.longitud = longitud;
+    public void setLngn(Double lngn) {
+        this.lngn = lngn;
+    }
+    public Double getLats() {
+        return this.lats;
+    }
+    
+    public void setLats(Double lats) {
+        this.lats = lats;
+    }
+    public Double getLngs() {
+        return this.lngs;
+    }
+    
+    public void setLngs(Double lngs) {
+        this.lngs = lngs;
     }
     public int getNroV() {
         return this.nroV;
@@ -75,6 +86,13 @@ public class TAsignarruta  implements java.io.Serializable {
     
     public void setNroV(int nroV) {
         this.nroV = nroV;
+    }
+    public String getObs() {
+        return this.obs;
+    }
+    
+    public void setObs(String obs) {
+        this.obs = obs;
     }
 
 

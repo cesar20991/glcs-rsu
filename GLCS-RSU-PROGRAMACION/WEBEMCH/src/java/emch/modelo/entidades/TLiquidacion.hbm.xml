@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 29-may-2013 1:03:46 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 30-may-2013 7:59:43 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TLiquidacion" table="t_liquidacion" catalog="bd_emch">
         <id name="cdLiq" type="string">
@@ -14,14 +14,14 @@
         <many-to-one name="TEmpresa" class="emch.modelo.entidades.TEmpresa" fetch="select">
             <column name="cdRuc" length="6" not-null="true" />
         </many-to-one>
-        <property name="fechaApertura" type="string">
-            <column name="fechaApertura" length="45" not-null="true" />
+        <property name="fechaApertura" type="timestamp">
+            <column name="fechaApertura" length="19" not-null="true" />
         </property>
-        <property name="fechaInicio" type="string">
-            <column name="fechaInicio" length="45" not-null="true" />
+        <property name="fechaInicio" type="timestamp">
+            <column name="fechaInicio" length="19" not-null="true" />
         </property>
-        <property name="fechaFin" type="string">
-            <column name="fechaFin" length="45" not-null="true" />
+        <property name="fechaFin" type="timestamp">
+            <column name="fechaFin" length="19" not-null="true" />
         </property>
         <property name="totalTn" type="big_decimal">
             <column name="totalTN" precision="7" scale="4" />
@@ -38,8 +38,8 @@
         <property name="usuModf" type="string">
             <column name="usuModf" length="10" />
         </property>
-        <property name="fechaModf" type="string">
-            <column name="fechaModf" length="10" />
+        <property name="fechaModf" type="timestamp">
+            <column name="fechaModf" length="19" />
         </property>
         <set name="TPesajes" inverse="true">
             <key>
