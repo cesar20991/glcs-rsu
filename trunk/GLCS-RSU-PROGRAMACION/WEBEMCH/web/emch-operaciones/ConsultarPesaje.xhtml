@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <ui:composition template="../plantillas/Template.xhtml">
+
+                <ui:define name="usuarios">
+                </ui:define>
+
+                <ui:define name="top">
+                    <p:growl id="messages" autoUpdate="true"/>                     
+                </ui:define>
+
+                <ui:define name="content">
+
+                    <h:form  prependId="false" id="interesxin">
+                        <h:outputText value="BIENVENIDOS" style="font-weight:bold;font-size:20px;color:#654B24" />
+                        <p:tab title="LIQUIDACION">
+                            <div style="padding-bottom: 10px;">
+                                <p:commandButton  value="Ver Pesaje" icon="ui-icon-document" action="#{pesajeBean.irAgregar()}" ajax="false"> 
+                                </p:commandButton>                           
+                            </div>
+
+                            <p:dataTable var="pesaje" value="#{pesajeBean.listarPesaje}" id="tablita"  rowKey="#{pesaje.TLiquidacion.cdLiq}" selection="#{pesajeBean.selectedLiquidacion}" selectionMode="single"
+                                         paginator="true" rows="15" 
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                         rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
+                                                                
+                                <f:facet name="header">  
+                                    Listado de Hojas de Pesaje 
+                                </f:facet>  
+
+                                <p:column rendered="false"> 
+                                    <f:facet name="header">  
+                                        <h:outputText value="CdPesaje" />  
+                                    </f:facet>  
+                                    <h:outputText value="#{pesaje.cdPesaje}"/>                        
+                                </p:column>
+
+                                <p:column  filterBy="#{pesaje.nroPesaje}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Nro. Pesaje" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{pesaje.nroPesaje}"/>
+                                </p:column>
+
+                                <p:column  filterBy="#{pesaje.fechaPesaje}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Fecha Pesaje" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{pesaje.fechaPesaje}"/>
+                                </p:column>
+
+                            <p:column filterBy="#{pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TCamion.placa}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Placa" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TCamion.placa}"/>
+                                </p:column>
+
+                            <p:column filterBy="#{pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TTrabajador.nombres}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Trabajador"/>  
+                                    </f:facet> 
+                                    <h:outputText value="#{pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TTrabajador.nombres}"/>
+                                </p:column>
+
+                            <p:column filterBy="#{pesaje.fechaPesaje}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Fecha Pesaje" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{pesaje.fechaPesaje}"/>
+                                </p:column>
+
+                            <p:column  filterBy="#{pesaje.pesoBruto}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Peso Bruto"/>  
+                                    </f:facet> 
+                                    <h:outputText value="#{pesaje.pesoBruto}"/>
+                                </p:column>
+
+                            <p:column  filterBy="#{pesaje.tara}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Tara"/>  
+                                    </f:facet> 
+                                    <h:outputText value="#{pesaje.tara}"/>
+                                </p:column>
+                            <p:column  filterBy="#{pesaje.pesoTn}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Peso TN"/>  
+                                    </f:facet> 
+                                    <h:outputText value="#{pesaje.pesoTn}"/>
+                                </p:column>
+                            <p:column  filterBy="#{pesaje.estadoPesaje}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Estado Pesaje"/>  
+                                    </f:facet> 
+                                    <h:outputText value="#{pesaje.estadoPesaje}"/>
+                                </p:column>
+                            <p:column  filterBy="#{pesaje.usuCrea}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Usuario Creador"/>  
+                                    </f:facet> 
+                                    <h:outputText value="#{pesaje.usuCrea}"/>
+                                </p:column>
+                            <p:column  filterBy="#{pesaje.fechaReg}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Fecha Registrada"/>  
+                                    </f:facet> 
+                                    <h:outputText value="#{pesaje.fechaReg}"/>
+                                </p:column>
+                            <p:column  filterBy="#{pesaje.usuModf}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Usu Modifica"/>  
+                                    </f:facet> 
+                                    <h:outputText value="#{pesaje.usuModf}"/>
+                                </p:column>
+                            <p:column  filterBy="#{pesaje.fechaModf}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Fecha Modifica"/>  
+                                    </f:facet> 
+                                    <h:outputText value="#{pesaje.fechaModf}"/>
+                                </p:column>                     
+                            </p:dataTable>                            
+                        </p:tab>
+                    </h:form>
+
+                </ui:define>
+
+            </ui:composition>
+
+
+        </h:form>
+    </h:body>
+</html>
