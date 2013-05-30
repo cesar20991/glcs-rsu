@@ -39,6 +39,8 @@ public class PesajeBean {
         this.listarPesaje = listarPesaje;
     }
 
-    
+    public String irAgregar(){
+        return "PESAJE";
+    }
        
 }
