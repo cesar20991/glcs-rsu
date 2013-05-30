@@ -15,6 +15,10 @@ public class PesajeBean {
     private TLiquidacion selectedLiquidacion;
     private List<TPesaje> listarPesaje;
     
+    //-----------GenerarPesaje---------------------------
+    private TPesaje pesaje;
+    private List<TPesaje> generapesaje;
+    //---------------------------------------------------
     
     @PostConstruct
     public void init() {

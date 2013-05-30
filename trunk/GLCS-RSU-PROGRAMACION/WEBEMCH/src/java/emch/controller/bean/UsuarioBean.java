@@ -24,6 +24,7 @@ public class UsuarioBean {
      private String nomEmpresa="";
      private String ruc="";
      private String rucEmp="";
+     public TEmpresa empresa2;
     
     @PostConstruct
     public void init() {
@@ -33,6 +34,8 @@ public class UsuarioBean {
          nomEmpresa = empresa.getRsocial();
          rucEmp = empresa.getCdRuc();
          setRuc(empresa.getRucE());
+         empresa2 = new TEmpresa();
+         empresa2 = empresa;
     }
     
     public UsuarioBean() {

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 29-may-2013 1:03:46 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 30-may-2013 7:59:43 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TAsignarruta" table="t_asignarruta" catalog="bd_emch">
         <id name="cdRuta" type="string">
@@ -13,17 +13,23 @@
             <column name="cdDespacho" length="10" not-null="true" />
             <column name="cdRuc" length="6" not-null="true" />
         </many-to-one>
-        <property name="center" type="java.lang.Double">
-            <column name="center" precision="22" scale="0" />
+        <property name="latn" type="java.lang.Double">
+            <column name="LATN" precision="22" scale="0" />
         </property>
-        <property name="latitud" type="java.lang.Double">
-            <column name="latitud" precision="22" scale="0" />
+        <property name="lngn" type="java.lang.Double">
+            <column name="LNGN" precision="22" scale="0" />
         </property>
-        <property name="longitud" type="java.lang.Double">
-            <column name="longitud" precision="22" scale="0" />
+        <property name="lats" type="java.lang.Double">
+            <column name="LATS" precision="22" scale="0" />
+        </property>
+        <property name="lngs" type="java.lang.Double">
+            <column name="LNGS" precision="22" scale="0" />
         </property>
         <property name="nroV" type="int">
             <column name="nroV" not-null="true" />
+        </property>
+        <property name="obs" type="string">
+            <column name="obs" length="100" />
         </property>
     </class>
 </hibernate-mapping>
