@@ -14,7 +14,7 @@ import javax.faces.bean.SessionScoped;
 public class PesajeBean {
     private TLiquidacion selectedLiquidacion;
     private List<TPesaje> listarPesaje;
-    
+    private List<TComprobante> listarComprobante;
     
     //-----------GenerarPesaje---------------------------
     private TPesaje pesaje;
@@ -44,8 +44,14 @@ public class PesajeBean {
         this.listarPesaje = listarPesaje;
     }   
     
-    public String irAgregar(){
-        return "PESAJE";
+    public List<TComprobante> getListarComprobante() {
+        ComprobanteManaged objCom = new ComprobanteManaged();
+        listarComprobante = objCom.listarComprobante(selectedLiquidacion);
+        return listarComprobante;
+    }
+
+    public void setListarComprobante(List<TComprobante> listarComprobante) {
+        this.listarComprobante = listarComprobante;
     }
        
 }

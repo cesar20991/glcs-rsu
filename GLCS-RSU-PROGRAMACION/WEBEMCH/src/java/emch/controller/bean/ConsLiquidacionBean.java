@@ -42,5 +42,9 @@ public class ConsLiquidacionBean {
     public String irPesaje(){
         return "ConsultarPesaje";
     }
+    
+    public String irComprobantes(){
+        return "ConsultarComprobantes";
+    }
        
 }
