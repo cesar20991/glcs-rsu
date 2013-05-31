@@ -27,6 +27,8 @@
                             <div style="padding-bottom: 10px;">
                                 <p:commandButton  value="Ver Pesajes Asociados" icon="ui-icon-document" action="#{consLiquidacionBean.irPesaje()}" ajax="false"> 
                                 </p:commandButton>
+                                <p:commandButton  value="Ver Comprobantes Asociados" icon="ui-icon-document" action="#{consLiquidacionBean.irComprobantes()}" ajax="false"> 
+                                </p:commandButton>
                             </div>
 
                             <p:dataTable var="liquidacion" value="#{consLiquidacionBean.listarLiquidacion}" selection="#{pesajeBean.selectedLiquidacion}" selectionMode="single" rowKey="#{liquidacion.cdLiq}"
