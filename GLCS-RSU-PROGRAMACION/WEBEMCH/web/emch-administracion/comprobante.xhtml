@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../plantillas/Template.xhtml">
+            <ui:define name="usuarios">
+            </ui:define>
+            <ui:define name="top">
+                <p:growl id="messages" autoUpdate="true"/>  
+            </ui:define>
+            <ui:define name="content">
+                <h:form >
+                    <h:outputText value="ADMINISTRAR - COMPROBANTES" style="font-weight:bold;font-size:20px;color:#654B24" />
+                    <div style="padding-bottom: 10px;">
+                        <p:commandButton  value="#{comprobanteBean.accion}" action="#{}"  ajax="false"  icon="ui-icon-check" style="margin:0"/>                                                                          
+                        </div>
+                        <div style="padding-bottom: 10px;">
+                            <h:outputText value="(*) Campos Obligatorios" style="font-weight:bold"/>
+                       </div>
+                    <div style="padding-bottom: 10px;">
+                    <h:outputText value="Seleccionar Liquidación : *" />  
+                    <p:selectOneMenu value="#{comprobanteBean.comprobante.}" effect="fade" required="true">  
+                            <f:selectItem itemLabel="Select One" itemValue="" />  
+                            <f:selectItems value="#{comprobanteBean.listarLiquidacion}" var="liquid" itemLabel="#{ubigeo.nombre}" itemValue="#{ubigeo.cdUbig}"/>  
+                    </p:selectOneMenu>
+                    </div>
+                    <p:panelGrid columns="4" style="width: 100%">  
+                        <f:facet name="header">  
+                            AGREGAR COMPROBANTE
+                        </f:facet>
+                        <h:outputLabel value="Fecha de Movimiento: "/>
+                        <p:inputText value="#{comprobanteBean.}" required="true" onkeypress="soloLetras(event);"/>                        
+
+                        <h:outputLabel value="Serie: "/>
+                        <p:inputText value="#{trabajadorBean.trabajador.apellidos}" required="true" onkeypress="soloLetras(event);"/>                        
+
+                        <h:outputLabel value="Numero de Documento: "/>                                                
+                        <p:inputText value="#{trabajadorBean.trabajador.dni}" required="true" requiredMessage="El campo Nro Doc. Identidad es obligatorio" >
+                        </p:inputText>
+
+                        <h:outputText value="Total: " />
+                        <p:inputText value="#{trabajadorBean.trabajador.dni}" required="true" requiredMessage="El campo Nro Doc. Identidad es obligatorio" >
+                        </p:inputText>
+
+                        <h:outputText value="Sub-total: " />  
+                        <p:inputText value="#{trabajadorBean.trabajador.dni}" required="true" requiredMessage="El campo Nro Doc. Identidad es obligatorio" >
+                        </p:inputText>
+
+                        <h:outputLabel value="IGV: "/>
+                        <p:inputText value="#{trabajadorBean.trabajador.telefono}" required="false" onkeypress="return validarNumero(event)" >
+                        </p:inputText>
+
+                        <h:outputLabel value="Nombre de Moneda :"/>
+                        <p:inputText value="#{trabajadorBean.trabajador.celular}" required="false" onkeypress="return validarNumero(event)">
+                        </p:inputText>                        
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="2" style="width: 50%">  
+                        <f:facet name="header">  
+                            AGREGAR DETALLE DE COMPROBANTE
+                        </f:facet>
+                        <h:outputLabel value="Precio Unitario: "/>
+                        <p:inputText value="#{trabajadorBean.trabajador.nombres}" required="true" onkeypress="soloLetras(event);"/>                        
+
+                        <h:outputLabel value="IGV: "/>
+                        <p:inputText value="#{trabajadorBean.trabajador.apellidos}" required="true" onkeypress="soloLetras(event);"/>                        
+
+                        <h:outputText value="Total: " />
+                        <p:inputText value="#{trabajadorBean.trabajador.dni}" required="true" requiredMessage="El campo Nro Doc. Identidad es obligatorio" >
+                        </p:inputText>                     
+
+                    </p:panelGrid>
+                    <div style="padding-top: 10px;">
+                        <p:commandButton value="Agregar Servicio" onclick=" ListaTxC2.show();" type="button" icon="ui-icon-plus"/>
+                        <div style="padding-top: 10px;">
+                            <h:outputText value="(*) Asigne servicios al comprobante" style="font-weight:bold"/>
+                        </div>
+                    </div>
+                    <p:dataTable var="due" value="#{hojadeDespachoBean.listadotrabajadorXcamion}" editable="true">
+
+                        <!--CABECERA mostrar -->
+                        <f:facet name="header">
+                            Servicios Asignados al comprobante
+                        </f:facet>
+
+                        <!--COLUMNAS cantidad de viaje y codigo de asignacion de camion-->
+                        <p:column headerText="Codigo Asignar Camion">
+                            <h:outputText value="#{due.cdAsigCamion}"/>
+                        </p:column>
+
+                        <p:column headerText="Placa Camion" >
+                            <h:outputText value="#{due.TCamion.placa}"/>
+                        </p:column>                                        
+
+                        <p:column headerText="Nombre" >
+                            <h:outputText value="#{due.TTrabajador.nombres}"/>
+                        </p:column>   
+
+                        <p:column headerText="Apellidos" >
+                            <h:outputText value="#{due.TTrabajador.apellidos}"/>
+                        </p:column>  
+
+                        <p:column headerText="DNI" >
+                            <h:outputText value="#{due.TTrabajador.dni}"/>
+                        </p:column>      
+
+
+                    </p:dataTable>
+
+                    <p:dialog widgetVar="ListaTxC2" modal="false">
+                        <!--TABLA DE TrabajadosxCamion EXISTENTES-->
+                        <p:dataTable var="hoja" value="#{hojadeDespachoBean.trabajadorXcamion}" paginator="true" rows="10" style="width: 500px" rowKey="#{hoja.cdAsigCamion}" selection="#{hojadeDespachoBean.selectedTrabxCamion}" >
+
+                            <!--CABECERA cdasignacion, placa, nombre , fecha asignacion y estado tarbajadorXcamion-->
+                            <f:facet name="header">
+                                Seleccionar Camiones Asignados
+                            </f:facet>
+
+                            <!--COLUMNAS-->
+                            <p:column selectionMode="multiple" style="width:18px" /> 
+
+                            <p:column headerText="Cod. Asignacion" rendered="false">
+                                <h:outputText value="#{hoja.cdAsigCamion}"/>
+                            </p:column>
+
+                            <p:column headerText="Placa"  style="width: 20%">
+                                <h:outputText value="#{hoja.TCamion.placa}"/>
+                            </p:column>
+
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{hoja.TTrabajador.nombres}"/>
+                            </p:column>
+                            <p:column headerText="Fecha Asignacion">
+                                <h:outputText value="#{hoja.fechaAsig}"/>
+                            </p:column>
+                            <p:column headerText="Estado">
+                                <h:outputText value="#{hoja.estado}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandButton value="Listo" action="#{hojadeDespachoBean.irListoAgregar}" ajax="false" icon="ui-icon-check"/>
+
+                        <!--FIN TABLA DE PROPIETARIOS EXISTENTES-->
+
+                    </p:dialog>
+
+                </h:form>     
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
