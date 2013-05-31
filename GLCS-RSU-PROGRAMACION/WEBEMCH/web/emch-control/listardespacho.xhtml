@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <ui:composition template="../plantillas/Template.xhtml">
+
+                <ui:define name="usuarios">
+                </ui:define>
+                    <br></br>
+                    Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                    <br></br>
+                    Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                    <br></br>
+                    RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+                <ui:define name="top">
+                    <p:growl id="messages" autoUpdate="true"/>                     
+                </ui:define>
+
+                <ui:define name="content">
+
+                    <h:form  prependId="false" id="interesxin">
+                        <h:outputText value="CONTROL - DESPACHO" style="font-weight:bold;font-size:20px;color:#654B24" />
+                        <p:tab title="DESPACHOS">
+                            <div style="padding-bottom: 10px;">
+                                <p:commandButton  value="Agregar Despacho" icon="ui-icon-document" action="#{hojadeDespachoBean.irAgregar()}" ajax="false"> 
+                                </p:commandButton> 
+                                <p:commandButton  value="Modificar Despacho" icon="ui-icon-pencil" action="#{hojadeDespachoBean.irActualizar()}" ajax="false"> 
+                                </p:commandButton>                            
+                            </div>
+
+                            <p:dataTable var="despacho" value="#{hojadeDespachoBean.listadespacho2}" rowKey="#{despacho.id.cdDespacho}" selectionMode="single" selection="#{hojadeDespachoBean.despacho}"
+                                         paginator="true" rows="15"  
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                         rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
+                                
+                                <p:ajax event="rowSelect" listener="#{hojadeDespachoBean.buscarconsull3}" update=":interesxin:visita" >                                    
+
+                                 </p:ajax>
+                                
+                                <f:facet name="header">  
+                                    Listado de Hojas de Despacho
+                                </f:facet>  
+
+                                <p:column rendered="false"> 
+                                    <f:facet name="header">  
+                                        <h:outputText value="CdDespacho" />  
+                                    </f:facet>  
+                                    <h:outputText value="#{despacho.id.cdDespacho}"/>                        
+                                </p:column>
+
+                                <p:column  filterBy="#{despacho.nroDespacho}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Nro. Despacho" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{despacho.nroDespacho}"/>
+                                </p:column>
+
+                                <p:column  filterBy="#{despacho.fechaEmi}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Nombre" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{despacho.fechaEmi}"/>
+                                </p:column>
+
+                                <p:column filterBy="#{despacho.TUbigeo.nombre}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Distritio Servicio" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{despacho.TUbigeo.nombre}"/>
+                                </p:column>
+
+                                <p:column filterBy="#{despacho.TTurno.nombTurno}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Turno"/>  
+                                    </f:facet> 
+                                    <h:outputText value="#{despacho.TTurno.nombTurno}"/>
+                                </p:column>
+
+                                <p:column filterBy="#{despacho.dineroEnviado}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Dinero Enviado" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{despacho.dineroEnviado}"/>
+                                </p:column>
+
+                                <p:column  filterBy="#{despacho.totalDineroUso}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Dinero Uso"/>  
+                                    </f:facet> 
+                                    <h:outputText value="#{despacho.totalDineroUso}"/>
+                                </p:column>
+
+                                <p:column  filterBy="#{despacho.totalDineroUso}" filterMatchMode="contains">
+                                    <f:facet name="header">  
+                                        <h:outputText value="Observaciones"/>  
+                                    </f:facet> 
+                                    <h:outputText value="#{despacho.obs}"/>
+                                </p:column>
+                            </p:dataTable>
+                            <div style="padding-top: 10px;">
+                                <h:outputText value="(*) Seleccione Despacho para ver camiones asignados" style="font-weight:bold"/>
+                            </div>
+                            <p:commandButton  value="Asignar Ruta" action="#{asignarRutaBean.irAsignarRuta()}" ajax="false"> 
+                                    </p:commandButton>
+                            <p:dataTable id="visita" var="listdesdet" value="#{hojadeDespachoBean.listaDespachoDet}" rowKey="#{listdesdet.id.nro}" selectionMode="single" selection="#{asignarRutaBean.selecteddespachodet}"
+                                         paginator="true" rows="5"  
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                         rowsPerPageTemplate="5,10,15" style="font-weight:bold" >    
+                                <f:facet name="header">  
+                                    Listado de Detalle de Hoja de Despacho (Camiones Asignados)
+                                </f:facet>  
+                                <p:column > 
+                                    <f:facet name="header">  
+                                        <h:outputText value="Nombres" />  
+                                    </f:facet>  
+                                    <h:outputText value="#{listdesdet.TTrabajadorxcamion.TTrabajador.nombres}"/>                        
+                                </p:column>
+
+                                <p:column >
+                                    <f:facet name="header">  
+                                        <h:outputText value="Apellidos" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{listdesdet.TTrabajadorxcamion.TTrabajador.apellidos}"/>
+                                </p:column>
+
+                                <p:column >
+                                    <f:facet name="header">  
+                                        <h:outputText value="DNI" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{listdesdet.TTrabajadorxcamion.TTrabajador.dni}"/>
+                                </p:column>
+
+                                <p:column >
+                                    <f:facet name="header">  
+                                        <h:outputText value="Placa" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{listdesdet.TTrabajadorxcamion.TCamion.placa}"/>
+                                </p:column>
+
+                                <p:column >
+                                    <f:facet name="header">  
+                                        <h:outputText value="Cod. Asignacion" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{listdesdet.TTrabajadorxcamion.cdAsigCamion}"/>
+                                </p:column>
+
+                                <p:column >
+                                    <f:facet name="header">  
+                                        <h:outputText value="Cantidad de Viaje" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{listdesdet.cantViaje}"/>
+                                </p:column>
+                                 <p:column >
+                                    <f:facet name="header">  
+                                        <h:outputText value="Asignar Rutas" />  
+                                    </f:facet> 
+                                    <p:commandButton  value="Asignar Ruta" action="#{asignarRutaBean.irAsignarRuta()}" ajax="false"> 
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                    </h:form>
+
+                </ui:define>
+
+            </ui:composition>
+
+
+        </h:form>
+    </h:body>
+</html>
