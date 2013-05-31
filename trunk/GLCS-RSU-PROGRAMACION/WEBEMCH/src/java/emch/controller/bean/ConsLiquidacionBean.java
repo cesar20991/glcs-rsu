@@ -38,5 +38,9 @@ public class ConsLiquidacionBean {
     public void setListarLiquidacion(List<TLiquidacion> listarLiquidacion) {
         this.listarLiquidacion = listarLiquidacion;
     }
+    
+    public String irPesaje(){
+        return "ConsultarPesaje";
+    }
        
 }

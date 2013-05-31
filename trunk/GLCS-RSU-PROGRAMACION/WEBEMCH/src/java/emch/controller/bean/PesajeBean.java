@@ -15,6 +15,7 @@ public class PesajeBean {
     private TLiquidacion selectedLiquidacion;
     private List<TPesaje> listarPesaje;
     
+    
     //-----------GenerarPesaje---------------------------
     private TPesaje pesaje;
     private List<TPesaje> generapesaje;
@@ -41,8 +42,8 @@ public class PesajeBean {
 
     public void setListarPesaje(List<TPesaje> listarPesaje) {
         this.listarPesaje = listarPesaje;
-    }
-
+    }   
+    
     public String irAgregar(){
         return "PESAJE";
     }
