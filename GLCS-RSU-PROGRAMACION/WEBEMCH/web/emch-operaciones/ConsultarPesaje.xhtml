@@ -25,11 +25,10 @@
                         <h:outputText value="BIENVENIDOS" style="font-weight:bold;font-size:20px;color:#654B24" />
                         <p:tab title="LIQUIDACION">
                             <div style="padding-bottom: 10px;">
-                                <p:commandButton  value="Ver Pesaje" icon="ui-icon-document" action="#{pesajeBean.irAgregar()}" ajax="false"> 
-                                </p:commandButton>                           
+                                
                             </div>
 
-                            <p:dataTable var="pesaje" value="#{pesajeBean.listarPesaje}" id="tablita"  rowKey="#{pesaje.TLiquidacion.cdLiq}" selection="#{pesajeBean.selectedLiquidacion}" selectionMode="single"
+                            <p:dataTable var="pesaje" value="#{pesajeBean.listarPesaje}" id="tablita"  
                                          paginator="true" rows="15" 
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                          rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
