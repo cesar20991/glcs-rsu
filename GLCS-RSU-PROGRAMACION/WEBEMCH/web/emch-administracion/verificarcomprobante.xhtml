@@ -22,14 +22,12 @@
 
                 <ui:define name="content">
 
-                    <h:form  prependId="false" id="interesxin">
+                    <h:form  id="interesxin">
                         <h:outputText value="VERIFICAR DOC. O COMPROBANTES" style="font-weight:bold;font-size:20px;color:#654B24" />
 
+                        <p:accordionPanel id="tabView">
 
-
-                        <p:tabView id="tabView">  
-
-                            <p:tab id="tab1" title="Pesaje">  
+                            <p:tab id="tab1" title="Pesaje">                                  
                                 <div style="padding-bottom: 10px;">
                                     <h:outputLabel value="Fecha Inicio : (*)        " style="font-weight:bold"/>
                                     <p:calendar value="#{verificarcomprobanteBean.fechaInicioPesaje}"  pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13" style="font-weight:bold" >   
@@ -37,13 +35,118 @@
                                     <h:outputLabel value="Fecha Fin : (*)       " style="font-weight:bold"/>
                                     <p:calendar value="#{verificarcomprobanteBean.fechaFinPesaje}" pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13" style="font-weight:bold" >
                                     </p:calendar>
-                                    <p:commandButton  value="Buscar" icon="ui-icon-search" action="#{verificarcomprobanteBean.irBuscarPesaje()}" ajax="true" update=":interesxin:tablita"> 
+                                    <p:commandButton  value="Buscar" icon="ui-icon-search" action="#{verificarcomprobanteBean.irBuscarPesaje()}" ajax="true" update=":interesxin:tabView"> 
                                     </p:commandButton> 
-                                </div>
+                                </div>                                
+                                <p:dataTable var="pesaje" value="#{verificarcomprobanteBean.listarPesajeSel}" id="tablita"
+                                             paginator="true" rows="15" 
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                             rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
+
+                                    <f:facet name="header">  
+                                        Listado de Hojas de Pesaje 
+                                    </f:facet>  
+
+                                    <p:column rendered="false"> 
+                                        <f:facet name="header">  
+                                            <h:outputText value="CdPesaje" />  
+                                        </f:facet>  
+                                        <h:outputText value="#{pesaje.cdPesaje}"/>                        
+                                    </p:column>
+
+                                    <p:column  filterBy="#{pesaje.nroPesaje}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Nro. Pesaje" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{pesaje.nroPesaje}"/>
+                                    </p:column>
+
+                                    <p:column  filterBy="#{pesaje.fechaPesaje}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha Pesaje" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{pesaje.fechaPesaje}"/>
+                                    </p:column>
+
+                                    <p:column filterBy="#{pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TCamion.placa}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Placa" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TCamion.placa}"/>
+                                    </p:column>
+
+                                    <p:column filterBy="#{pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TTrabajador.nombres}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Trabajador"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TTrabajador.nombres}"/>
+                                    </p:column>
+
+                                    <p:column filterBy="#{pesaje.fechaPesaje}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha Pesaje" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{pesaje.fechaPesaje}"/>
+
+                                    </p:column>
+
+                                    <p:column  filterBy="#{pesaje.pesoBruto}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Peso Bruto"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{pesaje.pesoBruto}"/>
+                                    </p:column>
+
+                                    <p:column  filterBy="#{pesaje.tara}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Tara"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{pesaje.tara}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{pesaje.pesoTn}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Peso TN"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{pesaje.pesoTn}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{pesaje.estadoPesaje}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Estado Pesaje"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{pesaje.estadoPesaje}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{pesaje.usuCrea}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Usuario Creador"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{pesaje.usuCrea}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{pesaje.fechaReg}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha Registrada"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{pesaje.fechaReg}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{pesaje.usuModf}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Usu Modifica"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{pesaje.usuModf}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{pesaje.fechaModf}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha Modifica"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{pesaje.fechaModf}"/>
+                                    </p:column>
+                                </p:dataTable>
+
 
                             </p:tab>  
 
-                            <p:tab id="tab2" title="Comprobante">  
+
+                            <p:tab title="Comprobante">  
+
 
                                 <div style="padding-bottom: 10px;">
                                     <h:outputLabel value="Fecha Inicio : (*)        " style="font-weight:bold"/>
@@ -53,13 +156,117 @@
                                     <p:calendar value="#{verificarcomprobanteBean.fechaFinComprobante}" pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13" style="font-weight:bold" >
                                     </p:calendar>
                                     <h:outputLabel value="                  "/>
-                                    <p:commandButton  value="Buscar" icon="ui-icon-search" action="#{verificarcomprobanteBean.irBuscarComprobante()}" ajax="true" update=":interesxin:tablita"> 
+                                    <p:commandButton  value="Buscar" icon="ui-icon-search" action="#{verificarcomprobanteBean.irBuscarComprobante()}" ajax="true" update=":interesxin:tabView:tablita"> 
                                     </p:commandButton> 
                                 </div>
+                                <p:dataTable var="comprobante" value="#{verificarcomprobanteBean.listarComprobante}" id="tablita"
+                                             paginator="true" rows="15" 
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                             rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
+
+                                    <f:facet name="header">  
+                                        Listado de Hojas de Comprobante
+                                    </f:facet>  
+
+                                    <p:column  filterBy="#{comprobante.idComprobante}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Id Comprobante" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{comprobante.idComprobante}"/>
+                                    </p:column>
+
+                                    <p:column  filterBy="#{comprobante.TLiquidacion.cdLiq}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Cd Liquidacion" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{comprobante.TLiquidacion.cdLiq}"/>
+                                    </p:column>
+
+                                    <p:column  filterBy="#{comprobante.TMoneda.nombre}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Nombre Moneda" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{comprobante.TMoneda.nombre}"/>
+                                    </p:column>
+
+                                    <p:column filterBy="#{comprobante.TTipodoc.cdTd}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Cd Tipo Documento" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{comprobante.TTipodoc.cdTd}"/>
+                                    </p:column>
+
+                                    <p:column filterBy="#{comprobante.fecMov}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha de Movimiento"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{comprobante.fecMov}"/>
+                                    </p:column>
+
+                                    <p:column filterBy="#{comprobante.serie}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Serie" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{comprobante.serie}"/>
+
+                                    </p:column>
+
+                                    <p:column  filterBy="#{comprobante.nroSerie}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Nro. de Serie"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{comprobante.nroSerie}"/>
+                                    </p:column>
+
+                                    <p:column  filterBy="#{comprobante.total}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Total"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{comprobante.total}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{comprobante.subTotal}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Subtotal"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{comprobante.subTotal}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{comprobante.igv}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="IGV"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{comprobante.igv}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{comprobante.usuCrea}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Usuario Creador"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{comprobante.usuCrea}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{comprobante.fechaReg}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha Registrada"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{comprobante.fechaReg}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{comprobante.usuModf}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Usu Modifica"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{comprobantee.usuModf}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{comprobante.fechaModf}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha Modifica"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{comprobante.fechaModf}"/>
+                                    </p:column>
+
+                                </p:dataTable>
+
+
                             </p:tab>  
 
-                            <p:tab id="tab3" title="Despacho"> 
-
+                            <p:tab title="Despacho"> 
                                 <div style="padding-bottom: 10px;">
                                     <h:outputLabel value="Fecha Inicio : (*)        " style="font-weight:bold"/>
                                     <p:calendar value="#{verificarcomprobanteBean.fechaInicioDespacho}"  pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13" style="font-weight:bold"  >   
@@ -68,12 +275,128 @@
                                     <p:calendar value="#{verificarcomprobanteBean.fechaFinDespacho}" pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13" style="font-weight:bold" >
                                     </p:calendar>
                                     <h:outputLabel value="                  "/>
-                                    <p:commandButton  value="Buscar" icon="ui-icon-search" action="#{verificarcomprobanteBean.irBuscarDespacho()}" ajax="true" update=":interesxin:tablita"> 
+                                    <p:commandButton  value="Buscar" icon="ui-icon-search" action="#{verificarcomprobanteBean.irBuscarDespacho()}" ajax="true" update=":interesxin:tabView:tablita"> 
                                     </p:commandButton> 
                                 </div>
+                                <p:dataTable var="despacho" value="#{verificarcomprobanteBean.listarDespacho}" id="tablita"
+                                             paginator="true" rows="15" 
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                             rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
+
+                                    <f:facet name="header">  
+                                        Listado de Hojas de Despacho
+                                    </f:facet>  
+
+                                    <p:column  filterBy="#{despacho.id}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Cd Despacho" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.id}"/>
+                                    </p:column>
+
+                                    <p:column  filterBy="#{despacho.TEmpresa.rucE}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Ruc Empresa" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.TEmpresa.rucE}"/>
+                                    </p:column>
+
+                                    <p:column filterBy="#{despacho.TUbigeo.nombre}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Nombre Ubigeo" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.TUbigeo.nombre}"/>
+                                    </p:column>
+
+                                    <p:column filterBy="#{despacho.TTurno.nombTurno}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Nombre Turno"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.TTurno.nombTurno}"/>
+                                    </p:column>
+
+                                    <p:column filterBy="#{despacho.nroDespacho}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Nro. Despacho" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.nroDespacho}"/>
+
+                                    </p:column>
+
+                                    <p:column  filterBy="#{despacho.fechaEmi}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha de Emisión"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.fechaEmi}"/>
+                                    </p:column>
+
+                                    <p:column  filterBy="#{despacho.zona}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Zona"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.zona}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{despacho.dineroEnviado}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Dinero Enviado"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.dineroEnviado}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{despacho.totalDineroUso}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Total dinero en uso"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.totalDineroUso}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{despacho.totalDineroSinUso}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Total dinero sin uso"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.totalDineroSinUso}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{despacho.usuCrea}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Usuario Creador"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.usuCrea}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{despacho.fechaReg}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha Registrada"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.fechaReg}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{despacho.usuModf}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Usu Modifica"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.usuModf}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{despacho.fechaModf}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha Modifica"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.fechaModf}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{despacho.evaluacion}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Evaluacion"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.evaluacion}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{despacho.obs}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Observación"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{despacho.obs}}"/>
+                                    </p:column>
+                                </p:dataTable>
+
+
                             </p:tab>  
 
-                            <p:tab id="tab4" title="Liquidación">  
+                            <p:tab title="Liquidación">  
+                                
 
                                 <div style="padding-bottom: 10px;">
                                     <h:outputLabel value="Fecha Inicio : (*)        " style="font-weight:bold"/>
@@ -83,548 +406,104 @@
                                     <p:calendar value="#{verificarcomprobanteBean.fechaFinLiquidacion}" pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13" style="font-weight:bold" >
                                     </p:calendar>
                                     <h:outputLabel value="                  "/>
-                                    <p:commandButton  value="Buscar" icon="ui-icon-search" action="#{verificarcomprobanteBean.irBuscarLiquidacion()}" ajax="true" update=":interesxin:tablita"> 
+                                    <p:commandButton  value="Buscar" icon="ui-icon-search" action="#{verificarcomprobanteBean.irBuscarLiquidacion()}" ajax="true" update=":interesxin:tabView:tablita"> 
                                     </p:commandButton> 
                                 </div>
+                                <p:dataTable var="liquidacion" value="#{verificarcomprobanteBean.listarLiquidacion}" id="tablita"
+                                             paginator="true" rows="15" 
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                             rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
+
+                                    <f:facet name="header">  
+                                        Listado de Hojas de Liquidacion
+                                    </f:facet>  
+
+                                    <p:column  filterBy="#{liquidacion.cdLiq}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Cd Liquidación" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{liquidacion.cdLiq}"/>
+                                    </p:column>
+
+                                    <p:column  filterBy="#{liquidacion.TEmpresa.rucE}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Ruc Empresa" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{liquidacion.TEmpresa.rucE}"/>
+                                    </p:column>
+
+                                    <p:column filterBy="#{liquidacion.TTipoliquidacion.nombre}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Nombre Tipo Liquidación" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{liquidacion.TTipoliquidacion.nombre}"/>
+                                    </p:column>
+
+                                    <p:column filterBy="#{liquidacion.fechaApertura}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha Apertura"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{liquidacion.fechaApertura}"/>
+                                    </p:column>
+
+                                    <p:column filterBy="#{liquidacion.fechaInicio}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha Inicio" />  
+                                        </f:facet> 
+                                        <h:outputText value="#{liquidacion.fechaInicio}"/>
+
+                                    </p:column>
+
+                                    <p:column  filterBy="#{liquidacion.fechaFin}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha Fin"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{liquidacion.fechaFin}"/>
+                                    </p:column>
+
+                                    <p:column  filterBy="#{liquidacion.totalTn}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Total TN"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{liquidacion.totalTn}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{liquidacion.asunto}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Asunto"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{liquidacion.asunto}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{liquidacion.usuCrea}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Usuario Creador"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{liquidacion.usuCrea}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{liquidacion.fechaReg}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha Registrada"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{liquidacion.fechaReg}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{liquidacion.usuModf}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Usu Modifica"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{liquidacion.usuModf}"/>
+                                    </p:column>
+                                    <p:column  filterBy="#{liquidacion.fechaModf}" filterMatchMode="contains">
+                                        <f:facet name="header">  
+                                            <h:outputText value="Fecha Modifica"/>  
+                                        </f:facet> 
+                                        <h:outputText value="#{liquidacion.fechaModf}"/>
+                                    </p:column>
+                                </p:dataTable>
                             </p:tab>  
 
-                        </p:tabView>  
-
-                        <html xmlns="http://www.w3.org/1999/xhtml"
-                              xmlns:h="http://java.sun.com/jsf/html"
-                              xmlns:ui="http://java.sun.com/jsf/facelets"
-                              xmlns:p="http://primefaces.org/ui"
-                              xmlns:f="http://java.sun.com/jsf/core"
-                              xmlns:c="http://java.sun.com/jsp/jstl/core">
-                            <h:head>
-                                <title>Facelet Title</title>
-                            </h:head>
-                            <h:body>
-                                <h:form>
-                                    <ui:composition template="../plantillas/Template.xhtml">
-
-                                        <ui:define name="usuarios">
-                                        </ui:define>
-
-                                        <ui:define name="top">
-                                            <p:growl id="messages" autoUpdate="true"/>                     
-                                        </ui:define>
-
-                                        <ui:define name="content">
-
-                                            <h:form  prependId="false" id="interesxin">
-                                                <h:outputText value="VERIFICAR DOC. O COMPROBANTES" style="font-weight:bold;font-size:20px;color:#654B24" />
-
-
-
-                                                <p:tabView id="tabView">  
-
-                                                    <p:tab id="tab1" title="Pesaje">  
-                                                        <h:panelGrid columns="2" cellpadding="10">  
-
-                                                            <h:outputText id="tab1Text"  
-                                                                          value= ""/>  
-                                                        </h:panelGrid>
-                                                        <div style="padding-bottom: 10px;">
-                                                            <h:outputLabel value="Fecha Inicio : (*)        " style="font-weight:bold"/>
-                                                            <p:calendar value="#{verificarcomprobanteBean.fechaInicioPesaje}"  pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13" style="font-weight:bold" >   
-                                                            </p:calendar>
-                                                            <h:outputLabel value="Fecha Fin : (*)       " style="font-weight:bold"/>
-                                                            <p:calendar value="#{verificarcomprobanteBean.fechaFinPesaje}" pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13" style="font-weight:bold" >
-                                                            </p:calendar>
-
-                                                            <h:outputLabel value="                  "/>
-                                                            <p:commandButton  value="Buscar" icon="ui-icon-search" action="#{verificarcomprobanteBean.irBuscarPesaje()}" ajax="true" update=":interesxin:tablita"> 
-                                                            </p:commandButton> 
-                                                        </div>
-                                                    </p:tab>  
-
-                                                    <p:tab id="tab2" title="Comprobante">  
-                                                        <h:panelGrid columns="2" cellpadding="10">  
-
-                                                            <h:outputText id="tab2Text" value=""/>  
-                                                        </h:panelGrid>
-                                                        <div style="padding-bottom: 10px;">
-                                                            <h:outputLabel value="Fecha Inicio : (*)        " style="font-weight:bold"/>
-                                                            <p:calendar value="#{verificarcomprobanteBean.fechaInicioComprobante}"  pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13" style="font-weight:bold" >   
-                                                            </p:calendar>
-                                                            <h:outputLabel value="Fecha Fin : (*)       " style="font-weight:bold"/>
-                                                            <p:calendar value="#{verificarcomprobanteBean.fechaFinComprobante}" pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13" style="font-weight:bold" >
-                                                            </p:calendar>
-
-                                                            <h:outputLabel value="                  "/>
-                                                            <p:commandButton  value="Buscar" icon="ui-icon-search" action="#{verificarcomprobanteBean.irBuscarComprobante()}" ajax="true" update=":interesxin:tablita"> 
-                                                            </p:commandButton> 
-                                                        </div>
-                                                    </p:tab>  
-
-                                                    <p:tab id="tab3" title="Despacho">  
-                                                        <h:panelGrid columns="2" cellpadding="10">  
-
-                                                            <h:outputText id="tab3Text" value=""/>  
-                                                        </h:panelGrid> 
-                                                        <div style="padding-bottom: 10px;">
-                                                            <h:outputLabel value="Fecha Inicio : (*)        " style="font-weight:bold"/>
-                                                            <p:calendar value="#{verificarcomprobanteBean.fechaInicioDespacho}"  pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13" style="font-weight:bold"  >   
-                                                            </p:calendar>
-                                                            <h:outputLabel value="Fecha Fin : (*)       " style="font-weight:bold"/>
-                                                            <p:calendar value="#{verificarcomprobanteBean.fechaFinDespacho}" pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13" style="font-weight:bold" >
-                                                            </p:calendar>
-
-                                                            <h:outputLabel value="                  "/>
-                                                            <p:commandButton  value="Buscar" icon="ui-icon-search" action="#{verificarcomprobanteBean.irBuscarDespacho()}" ajax="true" update=":interesxin:tablita"> 
-                                                            </p:commandButton> 
-                                                        </div>
-                                                    </p:tab>  
-
-                                                    <p:tab id="tab4" title="Liquidación">  
-                                                        <h:panelGrid columns="2" cellpadding="10">  
-
-                                                            <h:outputText id="tab4Text" value=""/>  
-                                                        </h:panelGrid>  
-                                                        <div style="padding-bottom: 10px;">
-                                                            <h:outputLabel value="Fecha Inicio : (*)        " style="font-weight:bold"/>
-                                                            <p:calendar value="#{verificarcomprobanteBean.fechaInicioLiquidacion}"  pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13" style="font-weight:bold"  >   
-                                                            </p:calendar>
-                                                            <h:outputLabel value="Fecha Fin : (*)       " style="font-weight:bold"/>
-                                                            <p:calendar value="#{verificarcomprobanteBean.fechaFinLiquidacion}" pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13" style="font-weight:bold" >
-                                                            </p:calendar>
-
-                                                            <h:outputLabel value="                  "/>
-                                                            <p:commandButton  value="Buscar" icon="ui-icon-search" action="#{verificarcomprobanteBean.irBuscarLiquidacion()}" ajax="true" update=":interesxin:tablita"> 
-                                                            </p:commandButton> 
-                                                        </div>
-                                                    </p:tab>  
-
-                                                </p:tabView>  
-
-                                                <p:dataTable var="pesaje" value="#{verificarcomprobanteBean.listarPesajeSel}" id="tablita"
-                                                             paginator="true" rows="15" 
-                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                                             rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
-
-                                                    <f:facet name="header">  
-                                                        Listado de Hojas de Pesaje 
-                                                    </f:facet>  
-
-                                                    <p:column rendered="false"> 
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="CdPesaje" />  
-                                                        </f:facet>  
-                                                        <h:outputText value="#{pesaje.cdPesaje}"/>                        
-                                                    </p:column>
-
-                                                    <p:column  filterBy="#{pesaje.nroPesaje}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Nro. Pesaje" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{pesaje.nroPesaje}"/>
-                                                    </p:column>
-
-                                                    <p:column  filterBy="#{pesaje.fechaPesaje}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha Pesaje" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{pesaje.fechaPesaje}"/>
-                                                    </p:column>
-
-                                                    <p:column filterBy="#{pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TCamion.placa}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Placa" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TCamion.placa}"/>
-                                                    </p:column>
-
-                                                    <p:column filterBy="#{pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TTrabajador.nombres}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Trabajador"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TTrabajador.nombres}"/>
-                                                    </p:column>
-
-                                                    <p:column filterBy="#{pesaje.fechaPesaje}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha Pesaje" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{pesaje.fechaPesaje}"/>
-
-                                                    </p:column>
-
-                                                    <p:column  filterBy="#{pesaje.pesoBruto}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Peso Bruto"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{pesaje.pesoBruto}"/>
-                                                    </p:column>
-
-                                                    <p:column  filterBy="#{pesaje.tara}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Tara"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{pesaje.tara}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{pesaje.pesoTn}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Peso TN"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{pesaje.pesoTn}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{pesaje.estadoPesaje}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Estado Pesaje"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{pesaje.estadoPesaje}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{pesaje.usuCrea}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Usuario Creador"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{pesaje.usuCrea}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{pesaje.fechaReg}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha Registrada"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{pesaje.fechaReg}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{pesaje.usuModf}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Usu Modifica"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{pesaje.usuModf}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{pesaje.fechaModf}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha Modifica"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{pesaje.fechaModf}"/>
-                                                    </p:column>
-                                                </p:dataTable>
-
-
-
-                                                <p:dataTable var="comprobante" value="#{verificarcomprobanteBean.listarComprobante}" id="tablita"
-                                                             paginator="true" rows="15" 
-                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                                             rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
-
-                                                    <f:facet name="header">  
-                                                        Listado de Hojas de Comprobante
-                                                    </f:facet>  
-
-                                                    <p:column  filterBy="#{comprobante.idComprobante}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Id Comprobante" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{comprobante.idComprobante}"/>
-                                                    </p:column>
-
-                                                    <p:column  filterBy="#{comprobante.TLiquidacion.cdLiq}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Cd Liquidacion" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{comprobante.TLiquidacion.cdLiq}"/>
-                                                    </p:column>
-
-                                                    <p:column  filterBy="#{comprobante.TMoneda.nombre}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Nombre Moneda" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{comprobante.TMoneda.nombre}"/>
-                                                    </p:column>
-
-                                                    <p:column filterBy="#{comprobante.TTipodoc.cdTd}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Cd Tipo Documento" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{comprobante.TTipodoc.cdTd}"/>
-                                                    </p:column>
-
-                                                    <p:column filterBy="#{comprobante.fecMov}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha de Movimiento"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{comprobante.fecMov}"/>
-                                                    </p:column>
-
-                                                    <p:column filterBy="#{comprobante.serie}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Serie" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{comprobante.serie}"/>
-
-                                                    </p:column>
-
-                                                    <p:column  filterBy="#{comprobante.nroSerie}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Nro. de Serie"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{comprobante.nroSerie}"/>
-                                                    </p:column>
-
-                                                    <p:column  filterBy="#{comprobante.total}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Total"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{comprobante.total}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{comprobante.subTotal}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Subtotal"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{comprobante.subTotal}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{comprobante.igv}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="IGV"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{comprobante.igv}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{comprobante.usuCrea}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Usuario Creador"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{comprobante.usuCrea}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{comprobante.fechaReg}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha Registrada"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{comprobante.fechaReg}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{comprobante.usuModf}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Usu Modifica"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{comprobantee.usuModf}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{comprobante.fechaModf}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha Modifica"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{comprobante.fechaModf}"/>
-                                                    </p:column>
-
-                                                </p:dataTable>
-
-
-                                                <p:dataTable var="despacho" value="#{verificarcomprobanteBean.listarDespacho}" id="tablita"
-                                                             paginator="true" rows="15" 
-                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                                             rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
-
-                                                    <f:facet name="header">  
-                                                        Listado de Hojas de Despacho
-                                                    </f:facet>  
-
-                                                    <p:column  filterBy="#{despacho.id}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Cd Despacho" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.id}"/>
-                                                    </p:column>
-
-                                                    <p:column  filterBy="#{despacho.TEmpresa.rucE}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Ruc Empresa" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.TEmpresa.rucE}"/>
-                                                    </p:column>
-
-                                                    <p:column filterBy="#{despacho.TUbigeo.nombre}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Nombre Ubigeo" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.TUbigeo.nombre}"/>
-                                                    </p:column>
-
-                                                    <p:column filterBy="#{despacho.TTurno.nombTurno}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Nombre Turno"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.TTurno.nombTurno}"/>
-                                                    </p:column>
-
-                                                    <p:column filterBy="#{despacho.nroDespacho}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Nro. Despacho" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.nroDespacho}"/>
-
-                                                    </p:column>
-
-                                                    <p:column  filterBy="#{despacho.fechaEmi}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha de Emisión"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.fechaEmi}"/>
-                                                    </p:column>
-
-                                                    <p:column  filterBy="#{despacho.zona}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Zona"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.zona}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{despacho.dineroEnviado}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Dinero Enviado"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.dineroEnviado}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{despacho.totalDineroUso}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Total dinero en uso"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.totalDineroUso}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{despacho.totalDineroSinUso}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Total dinero sin uso"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.totalDineroSinUso}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{despacho.usuCrea}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Usuario Creador"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.usuCrea}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{despacho.fechaReg}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha Registrada"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.fechaReg}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{despacho.usuModf}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Usu Modifica"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.usuModf}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{despacho.fechaModf}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha Modifica"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.fechaModf}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{despacho.evaluacion}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Evaluacion"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.evaluacion}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{despacho.obs}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Observación"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{despacho.obs}}"/>
-                                                    </p:column>
-                                                </p:dataTable>
-
-
-                                                <p:dataTable var="liquidacion" value="#{verificarcomprobanteBean.listarLiquidacion}" id="tablita"
-                                                             paginator="true" rows="15" 
-                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                                             rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
-
-                                                    <f:facet name="header">  
-                                                        Listado de Hojas de Liquidacion
-                                                    </f:facet>  
-
-                                                    <p:column  filterBy="#{liquidacion.cdLiq}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Cd Liquidación" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{liquidacion.cdLiq}"/>
-                                                    </p:column>
-
-                                                    <p:column  filterBy="#{liquidacion.TEmpresa.rucE}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Ruc Empresa" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{liquidacion.TEmpresa.rucE}"/>
-                                                    </p:column>
-
-                                                    <p:column filterBy="#{liquidacion.TTipoliquidacion.nombre}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Nombre Tipo Liquidación" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{liquidacion.TTipoliquidacion.nombre}"/>
-                                                    </p:column>
-
-                                                    <p:column filterBy="#{liquidacion.fechaApertura}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha Apertura"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{liquidacion.fechaApertura}"/>
-                                                    </p:column>
-
-                                                    <p:column filterBy="#{liquidacion.fechaInicio}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha Inicio" />  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{liquidacion.fechaInicio}"/>
-
-                                                    </p:column>
-
-                                                    <p:column  filterBy="#{liquidacion.fechaFin}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha Fin"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{liquidacion.fechaFin}"/>
-                                                    </p:column>
-
-                                                    <p:column  filterBy="#{liquidacion.totalTn}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Total TN"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{liquidacion.totalTn}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{liquidacion.asunto}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Asunto"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{liquidacion.asunto}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{liquidacion.usuCrea}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Usuario Creador"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{liquidacion.usuCrea}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{liquidacion.fechaReg}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha Registrada"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{liquidacion.fechaReg}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{liquidacion.usuModf}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Usu Modifica"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{liquidacion.usuModf}"/>
-                                                    </p:column>
-                                                    <p:column  filterBy="#{liquidacion.fechaModf}" filterMatchMode="contains">
-                                                        <f:facet name="header">  
-                                                            <h:outputText value="Fecha Modifica"/>  
-                                                        </f:facet> 
-                                                        <h:outputText value="#{liquidacion.fechaModf}"/>
-                                                    </p:column>
-                                                </p:dataTable>
-
-
-                                            </h:form>
-                                        </ui:define>
-
-                                    </ui:composition>
-                                </h:form>
-                            </h:body>
-                        </html>
-
-
+                        </p:accordionPanel>  
 
                     </h:form>
+
                 </ui:define>
 
             </ui:composition>
