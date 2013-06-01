@@ -1,6 +1,7 @@
 package emch.modelo.acceso;
 
 import emch.modelo.entidades.TLiquidacion;
+import emch.modelo.entidades.TTipoliquidacion;
 import emch.modelo.entidades.TTipotrabajador;
 import emch.modelo.entidades.TTrabajador;
 import emch.modelo.entidades.TUbigeo;
@@ -21,7 +22,6 @@ public class LiquidacionManaged {
         List<TLiquidacion> listaLiq = null;
       /*  try {*/
             sesion = HibernateUtil.getSessionFactory().openSession();
-            trans = sesion.beginTransaction();
             qry = sesion.createQuery("FROM TLiquidacion");
             listaLiq = (List<TLiquidacion>) qry.list();
        /* } catch (Exception ex) {
@@ -31,5 +31,21 @@ public class LiquidacionManaged {
         }*/
         return listaLiq;
     }
+    
+    public List ListarTipoLiquidacion() {
+        List<TTipoliquidacion> listaTLiq = null;
+      /*  try {*/
+            sesion = HibernateUtil.getSessionFactory().openSession();           
+            qry = sesion.createQuery("FROM TTipoliquidacion");            
+            listaTLiq = (List<TTipoliquidacion>) qry.list();
+       /* } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            sesion.close();
+        }*/
+        return listaTLiq;
+    }
+    
+    
 
 }

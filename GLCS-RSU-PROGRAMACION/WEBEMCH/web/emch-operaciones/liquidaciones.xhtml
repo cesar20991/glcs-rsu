@@ -26,12 +26,12 @@
             <ui:define name="content">
 
                 <h:form  prependId="false" id="interesxin"> 
-                    <h:outputText value="CONSULTAR LIQUIDACION" style="font-weight:bold;font-size:20px;color:#654B24" />
+                    <h:outputText value="GENERAR LIQUIDACION - APERTURA" style="font-weight:bold;font-size:20px;color:#654B24" />
                     <p:tab title="LIQUIDACION">
                         <div style="padding-bottom: 10px;">
-                            <p:commandButton  value="Aperturar Liquidación" icon="ui-icon-document" action="#{hojadeDespachoBean.irAgregar()}" ajax="false"> 
+                            <p:commandButton  value="Aperturar Liquidación" icon="ui-icon-document" action="#{liquidacionBean.irAperturar()}" ajax="false"> 
                             </p:commandButton>      
-                            <p:commandButton  value="Generar Liquidación / Pesajes" icon="ui-icon-document" action="#{hojadeDespachoBean.irAgregar()}" ajax="false"> 
+                            <p:commandButton  value="Generar Liquidación / Pesajes" icon="ui-icon-document" action="#" ajax="false"> 
                             </p:commandButton>  
                         </div>
 
