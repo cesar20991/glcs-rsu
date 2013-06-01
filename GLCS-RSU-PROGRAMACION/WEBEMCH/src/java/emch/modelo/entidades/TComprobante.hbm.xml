@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 30-may-2013 7:59:43 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 31-may-2013 22:17:09 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TComprobante" table="t_comprobante" catalog="bd_emch">
         <id name="idComprobante" type="string">
@@ -17,14 +17,14 @@
         <many-to-one name="TLiquidacion" class="emch.modelo.entidades.TLiquidacion" fetch="select">
             <column name="cdLiq" length="10" not-null="true" />
         </many-to-one>
-        <property name="fecMov" type="string">
-            <column name="fecMov" length="45" not-null="true" />
+        <property name="fecMov" type="timestamp">
+            <column name="fecMov" length="19" not-null="true" />
         </property>
         <property name="serie" type="string">
-            <column name="serie" length="45" not-null="true" />
+            <column name="serie" length="4" not-null="true" />
         </property>
-        <property name="nroSerie" type="string">
-            <column name="nroSerie" length="45" not-null="true" />
+        <property name="nroDoc" type="string">
+            <column name="nroDoc" length="15" not-null="true" />
         </property>
         <property name="total" type="big_decimal">
             <column name="total" precision="7" not-null="true" />
