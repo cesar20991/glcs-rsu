@@ -11,7 +11,7 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class PesajeBean {
+public class PesajeBean extends UsuarioBean {
     private TLiquidacion selectedLiquidacion;
     private List<TPesaje> listarPesaje;
     private List<TComprobante> listarComprobante;
