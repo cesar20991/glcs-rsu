@@ -4,6 +4,7 @@
  */
 package emch.controller.bean;
 
+import emch.modelo.acceso.LiquidacionManaged;
 import emch.modelo.entidades.*;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -19,10 +20,14 @@ public class LiquidacionBean extends UsuarioBean{
 
     private TLiquidacion liquidacion;
     private List<TLiquidacion> listaliquidacion;
-    private List<TTipoliquidacion> listatipoliq;    
+    private List<TTipoliquidacion> listatipoliq;
+    private List<TPesaje> listadopesaje;
+     private TPesaje[] selectedpesaje;
                
     public LiquidacionBean() {
         liquidacion = new TLiquidacion(); 
+        liquidacion.setTTipoliquidacion(new TTipoliquidacion());
+        liquidacion.setTEmpresa(new TEmpresa());
     }
 
     public TLiquidacion getLiquidacion() {
@@ -42,12 +47,33 @@ public class LiquidacionBean extends UsuarioBean{
     }
 
     public List<TTipoliquidacion> getListatipoliq() {
+        LiquidacionManaged obj = new LiquidacionManaged();
+        listatipoliq = obj.ListarTipoLiquidacion();
         return listatipoliq;
     }
 
     public void setListatipoliq(List<TTipoliquidacion> listatipoliq) {
         this.listatipoliq = listatipoliq;
     }
+    
+    public String irAperturar(){
+        return "generarliquidacion";
+    }
 
+    public List<TPesaje> getListadopesaje() {
+        return listadopesaje;
+    }
+
+    public void setListadopesaje(List<TPesaje> listadopesaje) {
+        this.listadopesaje = listadopesaje;
+    }
+
+    public TPesaje[] getSelectedpesaje() {
+        return selectedpesaje;
+    }
+
+    public void setSelectedpesaje(TPesaje[] selectedpesaje) {
+        this.selectedpesaje = selectedpesaje;
+    }
 
 }
