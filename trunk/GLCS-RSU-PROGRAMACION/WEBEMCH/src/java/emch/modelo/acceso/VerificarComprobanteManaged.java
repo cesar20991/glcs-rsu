@@ -115,7 +115,7 @@ public class VerificarComprobanteManaged {
         List<TLiquidacion> listaliquidacion = null;
        /* try {*/
             sesion = HibernateUtil.getSessionFactory().openSession();            
-            qry = sesion.createQuery("select a FROM TLiquidacion a where a.fechaLiquidacion between '"+fechaI+"' and  '"+fechaF+"'");
+            qry = sesion.createQuery("select a FROM TLiquidacion a where a.fechaApertura between '"+fechaI+"' and  '"+fechaF+"'");
             listaliquidacion = (List<TLiquidacion>) qry.list();
        /* } catch (Exception ex) {
             ex.printStackTrace();

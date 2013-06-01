@@ -44,19 +44,19 @@ public class verificarcomprobanteBean extends UsuarioBean {
 
     public String irBuscarComprobante() {
         VerificarComprobanteManaged obj = new VerificarComprobanteManaged();
-        listarComprobante = obj.listarPesaje(fechaInicioComprobante, fechaFinComprobante, rucEmpresa);
+        listarComprobante = obj.listarComprobante(fechaInicioComprobante, fechaFinComprobante, rucEmpresa);
         return "";
     }
 
     public String irBuscarDespacho() {
         VerificarComprobanteManaged obj = new VerificarComprobanteManaged();
-        listarDespacho = obj.listarPesaje(fechaInicioDespacho, fechaFinDespacho, rucEmpresa);
+        listarDespacho = obj.listarDespacho(fechaInicioDespacho, fechaFinDespacho, rucEmpresa);
         return "";
     }
 
     public String irBuscarLiquidacion() {
         VerificarComprobanteManaged obj = new VerificarComprobanteManaged();
-        listarLiquidacion = obj.listarPesaje(fechaInicioLiquidacion, fechaFinLiquidacion, rucEmpresa);
+        listarLiquidacion = obj.listarLiquidacion(fechaInicioLiquidacion, fechaFinLiquidacion, rucEmpresa);
         return "";
     }
 
