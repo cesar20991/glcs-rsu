@@ -13,13 +13,14 @@
             <ui:composition template="../plantillas/Template.xhtml">
 
                 <ui:define name="usuarios">
-                </ui:define>
-                    <br></br>
+                     <br></br>
                     Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
                     <br></br>
                     Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
                     <br></br>
                     RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+                </ui:define>
+                   
                 <ui:define name="top">
                     <p:growl id="messages" autoUpdate="true"/>                     
                 </ui:define>

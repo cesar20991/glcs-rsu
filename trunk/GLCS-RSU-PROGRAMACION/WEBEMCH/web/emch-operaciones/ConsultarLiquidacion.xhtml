@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
@@ -13,6 +13,12 @@
             <ui:composition template="../plantillas/Template.xhtml">
 
                 <ui:define name="usuarios">
+                    <br></br>
+                    Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                    <br></br>
+                    Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                    <br></br>
+                    RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
                 </ui:define>
 
                 <ui:define name="top">
@@ -35,8 +41,8 @@
                                          paginator="true" rows="15"  
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                          rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                  
-                                                                
-                                
+
+
                                 <f:facet name="header">  
                                     Listado de Liquidaciones
                                 </f:facet>  
@@ -82,9 +88,9 @@
                                     </f:facet> 
                                     <h:outputText value="#{liquidacion.asunto}"/>
                                 </p:column>                             
-                                
+
                             </p:dataTable>
-                            
+
                         </p:tab>
                     </h:form>
 
