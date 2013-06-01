@@ -6,6 +6,7 @@ package emch.controller.bean;
 
 import emch.modelo.entidades.TEmpresa;
 import emch.modelo.entidades.TUsuario;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -19,86 +20,75 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class UsuarioBean {
 
-    
-     private String nomusuario="";
-     private String nomEmpresa="";
-     private String ruc="";
-     private String rucEmp="";
-     public TEmpresa empresa2;
-    
+    public String nomusuario = "";
+    public String nomEmpresa = "";
+    public String ruc = "";     //EJM: 2109312309
+    public String rucEmp = ""; //EJM: RC001 CodigoRUC
+    private TUsuario usuario2;
+    private TEmpresa empresa;
+
     @PostConstruct
     public void init() {
-        TUsuario usuario2 = (TUsuario) obtsesion("usuario");
-        TEmpresa empresa = (TEmpresa) obtsesion("empresa");
-         nomusuario = usuario2.getNomUsu();
-         nomEmpresa = empresa.getRsocial();
-         rucEmp = empresa.getCdRuc();
-         setRuc(empresa.getRucE());
-         empresa2 = new TEmpresa();
-         empresa2 = empresa;
+        setUsuario2((TUsuario) obtsesion("usuario"));
+        setEmpresa((TEmpresa) obtsesion("empresa"));
+        nomusuario = getUsuario2().getNomUsu();
+        nomEmpresa = getEmpresa().getRsocial();
+        rucEmp = getEmpresa().getCdRuc();
+        setRuc(getEmpresa().getRucE());        
     }
-    
+
     public UsuarioBean() {
     }
-    
+
     public Object obtsesion(String k) {
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(k);
     }
 
-    /**
-     * @return the nomusuario
-     */
     public String getNomusuario() {
         return nomusuario;
     }
 
-    /**
-     * @param nomusuario the nomusuario to set
-     */
     public void setNomusuario(String nomusuario) {
         this.nomusuario = nomusuario;
     }
 
-    /**
-     * @return the nomEmpresa
-     */
     public String getNomEmpresa() {
         return nomEmpresa;
     }
 
-    /**
-     * @param nomEmpresa the nomEmpresa to set
-     */
     public void setNomEmpresa(String nomEmpresa) {
         this.nomEmpresa = nomEmpresa;
     }
 
-    /**
-     * @return the rucEmp
-     */
     public String getRucEmp() {
         return rucEmp;
     }
 
-    /**
-     * @param rucEmp the rucEmp to set
-     */
     public void setRucEmp(String rucEmp) {
         this.rucEmp = rucEmp;
     }
 
-    /**
-     * @return the ruc
-     */
     public String getRuc() {
         return ruc;
     }
 
-    /**
-     * @param ruc the ruc to set
-     */
     public void setRuc(String ruc) {
         this.ruc = ruc;
     }
-    
+
+    public TUsuario getUsuario2() {
+        return usuario2;
+    }
+
+    public void setUsuario2(TUsuario usuario2) {
+        this.usuario2 = usuario2;
+    }
+
+    public TEmpresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(TEmpresa empresa) {
+        this.empresa = empresa;
+    }
 }
