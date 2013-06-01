@@ -84,7 +84,7 @@ public class HojadeDespachoManaged {
                  id.setCdRuc("RC0001");
                  TDespachodet dtodet = new TDespachodet();
                 dtodet.setId(id);
-                dtodet.setCantViaje("2");
+                dtodet.setCantViaje(2);
                 dtodet.setTDespacho(despacho);
                 dtodet.setTTrabajadorxcamion(tp);                
                 sesion.save(dtodet);
@@ -148,6 +148,20 @@ public class HojadeDespachoManaged {
         //finally{sesion.close();}
         return listadespachoDet;
     }
+    
+    public List ListarDespachoxDespachoDet(String despacho) {
+        List<TDespachodet> listadespachoDet = null;
+        try {
+            sesion = HibernateUtil.getSessionFactory().openSession();            
+            qry = sesion.createQuery( "SELECT ab from TDespacho  v inner join v.TDespachodets ab where v.id.cdDespacho ='"+ despacho+"'");
+            listadespachoDet = (List<TDespachodet>) qry.list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        //finally{sesion.close();}
+        return listadespachoDet;
+    }
+    
      public List buscaTrabxCamion(String despacho) {
          List<TTrabajadorxcamion> listatrabxc = null;
          try {

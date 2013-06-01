@@ -51,27 +51,16 @@ public class ComprobanteBean {
         } else {
             return ""; //futuros errores
         }*/
+       return "";
     }
    
        public String irAgregar() {
-        setEsEdicion(false);
-        setDespacho(new TDespacho());
-        despacho.setTTurno(new TTurno());
-        despacho.setTUbigeo(new TUbigeo());
+        
         return "nuevahojadespacho";
     }
     
     public String irActualizar() {
-        setEsEdicion(true);              
-        HojadeDespachoManaged obj = new HojadeDespachoManaged();
-        listadotrabajadorXcamion = obj.buscaTrabxCamion(despacho.getId().getCdDespacho());
-        String cdDes = despacho.getId().getCdDespacho();
-        String RucE = despacho.getId().getCdRuc();
-        String codigoUb = despacho.getTUbigeo().getCdUbig();
-        String codigoTur = despacho.getTTurno().getCdTurno();        
-        despacho.setId(new TDespachoId(cdDes,RucE));//(new TTipotrabajador
-        despacho.setTUbigeo(new TUbigeo(codigoUb, "", false));
-        despacho.setTTurno(new TTurno(codigoTur, ""));
+        
         return "nuevahojadespacho";
     }
     
@@ -87,8 +76,7 @@ public class ComprobanteBean {
         return isEsEdicion() ? "Actualizar" : "Agregar";
     }
     public String irListoAgregar() {
-        setListadotrabajadorXcamion(null);
-        setListadotrabajadorXcamion(Arrays.asList(getSelectedTrabxCamion()));
+        
         return "nuevahojadespacho";
     }
 

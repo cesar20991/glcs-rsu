@@ -17,8 +17,8 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class verificarcomprobanteBean extends UsuarioBean{
-    
+public class verificarcomprobanteBean extends UsuarioBean {
+
     private List<TPesaje> listarPesajeSel;
     private List<TComprobante> listarComprobante;
     private List<TDespacho> listarDespacho;
@@ -31,36 +31,36 @@ public class verificarcomprobanteBean extends UsuarioBean{
     private Date fechaFinDespacho;
     private Date fechaInicioLiquidacion;
     private Date fechaFinLiquidacion;
-        
+
     public verificarcomprobanteBean() {
-        
     }
     String rucEmpresa = getRucEmp();
-    public String irBuscarPesaje(){
+
+    public String irBuscarPesaje() {
         VerificarComprobanteManaged obj = new VerificarComprobanteManaged();
-        listarPesajeSel= obj.listarPesaje(fechaInicioPesaje,fechaFinPesaje, rucEmpresa);                 
-        return"";
+        listarPesajeSel = obj.listarPesaje(fechaInicioPesaje, fechaFinPesaje, rucEmpresa);
+        return "";
     }
-    
-    public String irBuscarComprobante(){
+
+    public String irBuscarComprobante() {
         VerificarComprobanteManaged obj = new VerificarComprobanteManaged();
-        listarPesajeSel= obj.listarPesaje(fechaInicioComprobante,fechaFinComprobante, rucEmpresa);                 
-        return"";
+        listarComprobante = obj.listarPesaje(fechaInicioComprobante, fechaFinComprobante, rucEmpresa);
+        return "";
     }
-    
-    public String irBuscarDespacho(){
+
+    public String irBuscarDespacho() {
         VerificarComprobanteManaged obj = new VerificarComprobanteManaged();
-        listarPesajeSel= obj.listarPesaje(fechaInicioDespacho,fechaFinDespacho, rucEmpresa);                 
-        return"";
+        listarDespacho = obj.listarPesaje(fechaInicioDespacho, fechaFinDespacho, rucEmpresa);
+        return "";
     }
-    
-    public String irBuscarLiquidacion(){
+
+    public String irBuscarLiquidacion() {
         VerificarComprobanteManaged obj = new VerificarComprobanteManaged();
-        listarPesajeSel= obj.listarPesaje(fechaInicioLiquidacion,fechaFinLiquidacion, rucEmpresa);                 
-        return"";
+        listarLiquidacion = obj.listarPesaje(fechaInicioLiquidacion, fechaFinLiquidacion, rucEmpresa);
+        return "";
     }
-    
-        public List<TPesaje> getListarPesajeSel() {
+
+    public List<TPesaje> getListarPesajeSel() {
         //VerificarComprobanteManaged objTrb = new VerificarComprobanteManaged();
         //listarPesajeSel = objTrb.listarPesaje(fecI,fecF);
         return listarPesajeSel;
@@ -69,7 +69,7 @@ public class verificarcomprobanteBean extends UsuarioBean{
     public void setListarPesajeSel(List<TPesaje> listarPesajeSel) {
         this.listarPesajeSel = listarPesajeSel;
     }
-        
+
     public Date getFechaInicioPesaje() {
         return fechaInicioPesaje;
     }
@@ -208,5 +208,4 @@ public class verificarcomprobanteBean extends UsuarioBean{
     public void setListarLiquidacion(List<TLiquidacion> listarLiquidacion) {
         this.listarLiquidacion = listarLiquidacion;
     }
-
 }

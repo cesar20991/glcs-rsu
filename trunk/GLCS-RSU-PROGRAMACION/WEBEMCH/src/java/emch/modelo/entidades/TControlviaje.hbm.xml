@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 30-may-2013 7:59:43 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 31-may-2013 22:17:09 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TControlviaje" table="t_controlviaje" catalog="bd_emch">
         <composite-id name="id" class="emch.modelo.entidades.TControlviajeId">

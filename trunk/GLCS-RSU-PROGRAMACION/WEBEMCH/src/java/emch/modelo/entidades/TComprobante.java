@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 30-may-2013 7:59:42 by Hibernate Tools 3.2.1.GA
+// Generated 31-may-2013 22:17:08 by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -17,9 +17,9 @@ public class TComprobante  implements java.io.Serializable {
      private TMoneda TMoneda;
      private TTipodoc TTipodoc;
      private TLiquidacion TLiquidacion;
-     private String fecMov;
+     private Date fecMov;
      private String serie;
-     private String nroSerie;
+     private String nroDoc;
      private BigDecimal total;
      private BigDecimal subTotal;
      private BigDecimal igv;
@@ -33,28 +33,28 @@ public class TComprobante  implements java.io.Serializable {
     }
 
 	
-    public TComprobante(String idComprobante, TMoneda TMoneda, TTipodoc TTipodoc, TLiquidacion TLiquidacion, String fecMov, String serie, String nroSerie, BigDecimal total, BigDecimal subTotal, BigDecimal igv, String usuCrea, Date fechaReg) {
+    public TComprobante(String idComprobante, TMoneda TMoneda, TTipodoc TTipodoc, TLiquidacion TLiquidacion, Date fecMov, String serie, String nroDoc, BigDecimal total, BigDecimal subTotal, BigDecimal igv, String usuCrea, Date fechaReg) {
         this.idComprobante = idComprobante;
         this.TMoneda = TMoneda;
         this.TTipodoc = TTipodoc;
         this.TLiquidacion = TLiquidacion;
         this.fecMov = fecMov;
         this.serie = serie;
-        this.nroSerie = nroSerie;
+        this.nroDoc = nroDoc;
         this.total = total;
         this.subTotal = subTotal;
         this.igv = igv;
         this.usuCrea = usuCrea;
         this.fechaReg = fechaReg;
     }
-    public TComprobante(String idComprobante, TMoneda TMoneda, TTipodoc TTipodoc, TLiquidacion TLiquidacion, String fecMov, String serie, String nroSerie, BigDecimal total, BigDecimal subTotal, BigDecimal igv, String usuCrea, Date fechaReg, String usuModf, Date fechaModf, Set<TComprobantedet> TComprobantedets) {
+    public TComprobante(String idComprobante, TMoneda TMoneda, TTipodoc TTipodoc, TLiquidacion TLiquidacion, Date fecMov, String serie, String nroDoc, BigDecimal total, BigDecimal subTotal, BigDecimal igv, String usuCrea, Date fechaReg, String usuModf, Date fechaModf, Set<TComprobantedet> TComprobantedets) {
        this.idComprobante = idComprobante;
        this.TMoneda = TMoneda;
        this.TTipodoc = TTipodoc;
        this.TLiquidacion = TLiquidacion;
        this.fecMov = fecMov;
        this.serie = serie;
-       this.nroSerie = nroSerie;
+       this.nroDoc = nroDoc;
        this.total = total;
        this.subTotal = subTotal;
        this.igv = igv;
@@ -93,11 +93,11 @@ public class TComprobante  implements java.io.Serializable {
     public void setTLiquidacion(TLiquidacion TLiquidacion) {
         this.TLiquidacion = TLiquidacion;
     }
-    public String getFecMov() {
+    public Date getFecMov() {
         return this.fecMov;
     }
     
-    public void setFecMov(String fecMov) {
+    public void setFecMov(Date fecMov) {
         this.fecMov = fecMov;
     }
     public String getSerie() {
@@ -107,12 +107,12 @@ public class TComprobante  implements java.io.Serializable {
     public void setSerie(String serie) {
         this.serie = serie;
     }
-    public String getNroSerie() {
-        return this.nroSerie;
+    public String getNroDoc() {
+        return this.nroDoc;
     }
     
-    public void setNroSerie(String nroSerie) {
-        this.nroSerie = nroSerie;
+    public void setNroDoc(String nroDoc) {
+        this.nroDoc = nroDoc;
     }
     public BigDecimal getTotal() {
         return this.total;

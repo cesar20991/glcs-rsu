@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 30-may-2013 7:59:42 by Hibernate Tools 3.2.1.GA
+// Generated 31-may-2013 22:17:08 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -14,7 +14,7 @@ public class TDespachodet  implements java.io.Serializable {
      private TDespachodetId id;
      private TDespacho TDespacho;
      private TTrabajadorxcamion TTrabajadorxcamion;
-     private String cantViaje;
+     private int cantViaje;
      private Character evaluacion;
      private Set<TControlviaje> TControlviajes = new HashSet<TControlviaje>(0);
      private Set<TAsignarruta> TAsignarrutas = new HashSet<TAsignarruta>(0);
@@ -23,13 +23,13 @@ public class TDespachodet  implements java.io.Serializable {
     }
 
 	
-    public TDespachodet(TDespachodetId id, TDespacho TDespacho, TTrabajadorxcamion TTrabajadorxcamion, String cantViaje) {
+    public TDespachodet(TDespachodetId id, TDespacho TDespacho, TTrabajadorxcamion TTrabajadorxcamion, int cantViaje) {
         this.id = id;
         this.TDespacho = TDespacho;
         this.TTrabajadorxcamion = TTrabajadorxcamion;
         this.cantViaje = cantViaje;
     }
-    public TDespachodet(TDespachodetId id, TDespacho TDespacho, TTrabajadorxcamion TTrabajadorxcamion, String cantViaje, Character evaluacion, Set<TControlviaje> TControlviajes, Set<TAsignarruta> TAsignarrutas) {
+    public TDespachodet(TDespachodetId id, TDespacho TDespacho, TTrabajadorxcamion TTrabajadorxcamion, int cantViaje, Character evaluacion, Set<TControlviaje> TControlviajes, Set<TAsignarruta> TAsignarrutas) {
        this.id = id;
        this.TDespacho = TDespacho;
        this.TTrabajadorxcamion = TTrabajadorxcamion;
@@ -60,11 +60,11 @@ public class TDespachodet  implements java.io.Serializable {
     public void setTTrabajadorxcamion(TTrabajadorxcamion TTrabajadorxcamion) {
         this.TTrabajadorxcamion = TTrabajadorxcamion;
     }
-    public String getCantViaje() {
+    public int getCantViaje() {
         return this.cantViaje;
     }
     
-    public void setCantViaje(String cantViaje) {
+    public void setCantViaje(int cantViaje) {
         this.cantViaje = cantViaje;
     }
     public Character getEvaluacion() {
