@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Administrar Camiones</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <ui:composition template="../plantillas/Template.xhtml">
+                
+                <ui:define name="usuarios"></ui:define>
+                
+                <ui:define name="top">
+                    <p:growl id="messages" autoUpdate="true"/>  
+                </ui:define>
+                
+                <ui:define name="content">
+                    
+                    <h:outputText value="ADMINISTRAR - ASISTENCIA" style="font-weight:bold;font-size:20px;color:#654B24"/>
+                    
+                    <h:form >
+                        <h:outputText value="#{asistenciaBean.sfechaActual}" style="font-size: 30px; alignment-adjust: central"/><br/>
+                        <p:commandButton value="REGISTRAR ASISTENCIA" />
+                        <p:button value="JUSTIFICAR FALTAS"/>
+                    </h:form>
+                    
+                    <h:form id="formDatos">
+                        <p:dataTable id="dtDatos" var="datos" value="#{asistenciaBean.listConsulta}">
+
+                            <p:column headerText="Placa">
+                                <h:outputText value="#{datos.cdCamion}" />
+                            </p:column>
+
+                            <p:column headerText="Año">
+                                <h:outputText value="#{datos.cdTrabajador}" />
+                            </p:column>
+
+                            <p:column headerText="Tipo Combustible">
+                                <h:outputText value="#{datos.nombres}" />
+                            </p:column>
+
+
+                        </p:dataTable>
+                    </h:form>
+                    
+                </ui:define> 
+
+                <ui:define name="bottom"></ui:define>
+                
+            </ui:composition>
+        </h:form>
+    </h:body>
+</html>
