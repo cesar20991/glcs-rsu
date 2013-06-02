@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Administrar Camiones</title>
     </h:head>
@@ -24,55 +23,24 @@
 
                     <h:form >
                         <h:outputText value="#{asistenciaBean.sfechaActual}" style="font-size: 30px; alignment-adjust: central"/><br/>
+                        <p:commandButton value="REGISTRAR ASISTENCIAS" update=":FormRegistrarAsistencia" oncomplete="RegistrarAsistenciaVar.show();"/>
                         
-                        <p:commandButton value="REGISTRAR ASISTENCIA" oncomplete="DatosTrabajadoresDialog.show();" update=":formRegistrarAsistencia" />
-
-                        <p:dataTable id="dtDatos" var="datos" value="#{asistenciaBean.listConsulta}">
-
-                            <p:column headerText="CodAsignado">
-                                <h:outputText value="#{datos.cdAsigCamion}" />
+                        <p:dataTable var="TTrabajadoresXCamion" value="#{asistenciaBean.gettTrabajadorxcamions}">
+                            <p:column headerText="CodCamion" >
+                                <h:outputText value="#{TTrabajadoresXCamion.TCamion.cdCamion}"/>
                             </p:column>
-                            
-                            <p:column headerText="Cod Camion Asignado">
-                                <h:outputText value="#{datos.TCamion.cdCamion}" />
-                            </p:column>
-
-                            <p:column headerText="Cod Trabajador">
-                                <h:outputText value="#{datos.TTrabajador.cdTrabajador}"/>
-                            </p:column>
-
-                            <p:column headerText="Nombres">
-                                <h:outputText value="#{datos.TTrabajador.nombres}"/>
-                            </p:column>
-
-                            <p:column headerText="Apellidos">
-                                <h:outputText value="#{datos.TTrabajador.apellidos}"/>
-                            </p:column>
-
                         </p:dataTable>
-
+                        
                     </h:form>
-                    
-                    <h:form id="formRegistrarAsistencia">
-                        <p:dialog id="dlgDatosTrabajadores" header="Registrar Asistencia" widgetVar="DatosTrabajadoresDialog" resizable="true" modal="false">
-                            <p:dataTable id="dtDatos">
 
-                                <p:column headerText="Cod Camion Asignado">
+                    <h:form id="FormRegistrarAsistencia">
+                        <p:dialog widgetVar="RegistrarAsistenciaVar" id="dlgRegistrarAsistencia">
+                            <p:dataTable >
+                                <p:column headerText="CodCamion" >
                                 </p:column>
-
-                                <p:column headerText="Cod Trabajador">
-                                </p:column>
-
-                                <p:column headerText="Nombres">
-                                </p:column>
-
-                                <p:column headerText="Apellidos">
-                                </p:column>
-
-                            </p:dataTable>
+                            </p:dataTable>    
                         </p:dialog>
                     </h:form>
-
                 </ui:define> 
 
                 <ui:define name="bottom"></ui:define>
