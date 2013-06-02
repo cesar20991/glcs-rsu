@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Administrar Camiones</title>
     </h:head>
@@ -11,10 +12,11 @@
         <h:form>
             <ui:composition template="../plantillas/Template.xhtml">
 
-                <ui:define name="usuarios"></ui:define>
+                <ui:define name="usuarios">
+                </ui:define>
 
                 <ui:define name="top">
-                    <p:growl id="messages" autoUpdate="true"/>  
+
                 </ui:define>
 
                 <ui:define name="content">
@@ -22,28 +24,51 @@
                     <h:outputText value="ADMINISTRAR - ASISTENCIA" style="font-weight:bold;font-size:20px;color:#654B24"/>
 
                     <h:form >
-                        <h:outputText value="#{asistenciaBean.sfechaActual}" style="font-size: 30px; alignment-adjust: central"/><br/>
-                        <p:commandButton value="REGISTRAR ASISTENCIAS" update=":FormRegistrarAsistencia" oncomplete="RegistrarAsistenciaVar.show();"/>
-                        
-                        <p:dataTable var="TTrabajadoresXCamion" value="#{asistenciaBean.gettTrabajadorxcamions}">
-                            <p:column headerText="CodCamion" >
-                                <h:outputText value="#{TTrabajadoresXCamion.TCamion.cdCamion}"/>
-                            </p:column>
-                        </p:dataTable>
-                        
+                        <h:outputText value="#{asistenciaBean.sfechaActual}" style="font-size: 30px;"/><br/>
+                        <p:commandButton value="REGISTRAR ASISTENCIA" update=":formRegistrarAsistencia" oncomplete="RegistrarAsistenciaDlg.show();"/>
                     </h:form>
 
-                    <h:form id="FormRegistrarAsistencia">
-                        <p:dialog widgetVar="RegistrarAsistenciaVar" id="dlgRegistrarAsistencia">
-                            <p:dataTable >
-                                <p:column headerText="CodCamion" >
+                    <h:form id="formRegistrarAsistencia">
+                        <p:dialog id="dlgRegistrarAsistencia" widgetVar="RegistrarAsistenciaDlg" header="Registrar Asistencia" resizable="false">
+                            
+                            <p:dataTable var="Trabajadorxcamion" value="#{asistenciaBean.listaTrabajadorxcamion}" emptyMessage="No se encontraron Trabajadores" >
+
+                                <p:column headerText="TURNO" filterBy="#{Trabajadorxcamion.TTurno.nombTurno}" filterMatchMode="contains">
+                                    <h:outputText value="#{Trabajadorxcamion.TTurno.nombTurno}" />
                                 </p:column>
-                            </p:dataTable>    
+                                
+                                <p:column headerText="CodCamion" filterBy="#{Trabajadorxcamion.TCamion.cdCamion}" filterMatchMode="contains">
+                                    <h:outputText value="#{Trabajadorxcamion.TCamion.cdCamion}" />
+                                </p:column>
+                                
+                                <p:column headerText="CodTrabajador" filterBy="#{Trabajadorxcamion.TTrabajador.cdTrabajador}" filterMatchMode="contains">
+                                    <h:outputText value="#{Trabajadorxcamion.TTrabajador.cdTrabajador}" />
+                                </p:column>
+                                
+                                <p:column headerText="Apellidos">
+                                    <h:outputText value="#{Trabajadorxcamion.TTrabajador.apellidos}" />
+                                </p:column>
+                                
+                                <p:column headerText="Nombres" >
+                                    <h:outputText value="#{Trabajadorxcamion.TTrabajador.nombres}" />
+                                </p:column>
+                                
+                                <p:column headerText="Nombres" >
+                                    <p:selectOneRadio id="options" value="#{formBean.number}">  
+                                        <f:selectItem itemLabel=" A " itemValue="1" />  
+                                        <f:selectItem itemLabel=" T " itemValue="2" />  
+                                        <f:selectItem itemLabel=" F " itemValue="3" />  
+                                    </p:selectOneRadio>  
+                                </p:column>
+                                
+                            </p:dataTable>
                         </p:dialog>
                     </h:form>
-                </ui:define> 
 
-                <ui:define name="bottom"></ui:define>
+                </ui:define>
+
+                <ui:define name="bottom">
+                </ui:define>
 
             </ui:composition>
         </h:form>
