@@ -11,46 +11,72 @@
     <h:body>
         <h:form>
             <ui:composition template="../plantillas/Template.xhtml">
-                
+
                 <ui:define name="usuarios"></ui:define>
-                
+
                 <ui:define name="top">
                     <p:growl id="messages" autoUpdate="true"/>  
                 </ui:define>
-                
+
                 <ui:define name="content">
-                    
+
                     <h:outputText value="ADMINISTRAR - ASISTENCIA" style="font-weight:bold;font-size:20px;color:#654B24"/>
-                    
+
                     <h:form >
                         <h:outputText value="#{asistenciaBean.sfechaActual}" style="font-size: 30px; alignment-adjust: central"/><br/>
-                        <p:commandButton value="REGISTRAR ASISTENCIA" />
-                        <p:button value="JUSTIFICAR FALTAS"/>
-                    </h:form>
-                    
-                    <h:form id="formDatos">
+                        
+                        <p:commandButton value="REGISTRAR ASISTENCIA" oncomplete="DatosTrabajadoresDialog.show();" update=":formRegistrarAsistencia" />
+
                         <p:dataTable id="dtDatos" var="datos" value="#{asistenciaBean.listConsulta}">
 
-                            <p:column headerText="Placa">
-                                <h:outputText value="#{datos.cdCamion}" />
+                            <p:column headerText="CodAsignado">
+                                <h:outputText value="#{datos.cdAsigCamion}" />
+                            </p:column>
+                            
+                            <p:column headerText="Cod Camion Asignado">
+                                <h:outputText value="#{datos.TCamion.cdCamion}" />
                             </p:column>
 
-                            <p:column headerText="Año">
-                                <h:outputText value="#{datos.cdTrabajador}" />
+                            <p:column headerText="Cod Trabajador">
+                                <h:outputText value="#{datos.TTrabajador.cdTrabajador}"/>
                             </p:column>
 
-                            <p:column headerText="Tipo Combustible">
-                                <h:outputText value="#{datos.nombres}" />
+                            <p:column headerText="Nombres">
+                                <h:outputText value="#{datos.TTrabajador.nombres}"/>
                             </p:column>
 
+                            <p:column headerText="Apellidos">
+                                <h:outputText value="#{datos.TTrabajador.apellidos}"/>
+                            </p:column>
 
                         </p:dataTable>
+
                     </h:form>
                     
+                    <h:form id="formRegistrarAsistencia">
+                        <p:dialog id="dlgDatosTrabajadores" header="Registrar Asistencia" widgetVar="DatosTrabajadoresDialog" resizable="true" modal="false">
+                            <p:dataTable id="dtDatos">
+
+                                <p:column headerText="Cod Camion Asignado">
+                                </p:column>
+
+                                <p:column headerText="Cod Trabajador">
+                                </p:column>
+
+                                <p:column headerText="Nombres">
+                                </p:column>
+
+                                <p:column headerText="Apellidos">
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:dialog>
+                    </h:form>
+
                 </ui:define> 
 
                 <ui:define name="bottom"></ui:define>
-                
+
             </ui:composition>
         </h:form>
     </h:body>
