@@ -29,10 +29,10 @@
                     <h:outputText value="GENERAR LIQUIDACION - APERTURA" style="font-weight:bold;font-size:20px;color:#654B24" />
                     <p:tab title="LIQUIDACION">
                         <div style="padding-bottom: 10px;">
-                            <p:commandButton  value="Aperturar Liquidación" icon="ui-icon-document" action="#{liquidacionBean.irAperturar()}" ajax="false"> 
+                            <p:commandButton  value="Aperturar Liquidación" icon="ui-icon-plus" onclick="liqDialog.show();" ajax="false"  type="button"> 
                             </p:commandButton>      
                             <p:commandButton  value="Generar Liquidación / Pesajes" icon="ui-icon-document" action="#" ajax="false"> 
-                            </p:commandButton>  
+                            </p:commandButton>                                  
                         </div>
 
                         <p:dataTable var="liquidacion" value="#{consLiquidacionBean.listarLiquidacion}"
@@ -90,6 +90,29 @@
                         </p:dataTable>
 
                     </p:tab>
+
+                    <p:dialog id="doIt" header="Fecha de Liquidación" widgetVar="liqDialog" modal="false" >                        
+                        <p:panelGrid id="panelconsultor" columns="2" style="width: 100%">
+                            <h:outputLabel value="Tipo de Liquidacion"/>
+                            <p:selectOneMenu value="#{liquidacionBean.liquidacion.TTipoliquidacion.cdTipoLiq}">
+                                <f:selectItems value="#{liquidacionBean.listatipoliq}" var="due" itemLabel="#{due.nombre}" itemValue="#{due.cdTipoLiq}"/>
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Fecha de Apertura"/>
+                            <p:calendar value="#{liquidacionBean.liquidacion.fechaApertura}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
+                            </p:calendar>
+                            <h:outputLabel value="Fecha de Inicio"/>
+                            <p:calendar value="#{liquidacionBean.liquidacion.fechaInicio}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
+                            </p:calendar>
+                            <h:outputLabel value="Fecha de Fin"/>
+                            <p:calendar value="#{liquidacionBean.liquidacion.fechaFin}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
+                            </p:calendar>
+                        </p:panelGrid>
+
+                        <div style="padding-bottom: 10px;">
+                            <p:commandButton value="Aperturar" action="#{liquidacionBean.irAperturar}" ajax="false" icon="ui-icon-check"/>
+                        </div>
+                    </p:dialog>
+
                 </h:form>
 
             </ui:define>

@@ -25,6 +25,17 @@
 
             <ui:define name="content">
                 <h:form  prependId="false" id="generaliq">
+                    <p:commandButton  value="GENERAR" icon="ui-icon-document" action="#{liquidacionBean.insertar()}" ajax="false"> 
+                    </p:commandButton> 
+                    <p:commandButton  value="CANCELAR" icon="ui-icon-arrowreturnthick-1-w" ajax="false"> 
+                    </p:commandButton> 
+                    
+                    <div style="padding-top: 10px;">
+                        <h:outputText value="(*) El Calculo de TN a pagar se realiza automatico" style="font-weight:bold"/>
+                    </div>  
+                    <div style="padding-top: 10px;">
+                        
+                    </div>  
                     <p:panelGrid columns="2" style="width: 100%" >
                         <f:facet name="header">  
                             GENERAR LIQUIDACION PARA LA MUNICIPALIDAD <h:outputText value="#{liquidacionBean.empresa.rsocial}"></h:outputText>
@@ -38,17 +49,16 @@
                                 <f:selectItems value="#{liquidacionBean.listatipoliq}" var="due" itemLabel="#{due.nombre}" itemValue="#{due.cdTipoLiq}"/>
                             </p:selectOneMenu>
                             <h:outputLabel value="Fecha de Apertura"/>
-                            <p:calendar value="#{liquidacionBean.liquidacion.fechaApertura}" pattern="dd/MM/yyyy HH:mm" style="font-weight:bold">                                
+                            <p:calendar value="#{liquidacionBean.liquidacion.fechaApertura}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold" >                                
                             </p:calendar>
                             <h:outputLabel value="Fecha de Inicio"/>
-                            <p:calendar value="#{liquidacionBean.liquidacion.fechaApertura}" pattern="dd/MM/yyyy" required="true" style="font-weight:bold">                                
+                            <p:calendar value="#{liquidacionBean.liquidacion.fechaInicio}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
                             </p:calendar>
                             <h:outputLabel value="Fecha de Fin"/>
-                            <p:calendar value="#{liquidacionBean.liquidacion.fechaApertura}" pattern="dd/MM/yyyy" required="true" style="font-weight:bold">                                
+                            <p:calendar value="#{liquidacionBean.liquidacion.fechaFin}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
                             </p:calendar>
                             <h:outputLabel value="Asunto"/>
-                            <p:inputTextarea  value="#{liquidacionBean.liquidacion.asunto}" rows="4" cols="33" required="false" style="font-weight:bold"/>  
-
+                            <p:inputTextarea  value="#{liquidacionBean.liquidacion.asunto}" rows="4" cols="33" required="false" style="font-weight:bold"/>                              
                         </p:panelGrid>
 
                         <p:panelGrid columns="2" style="width: 100%">
@@ -69,55 +79,48 @@
 
                     </p:panelGrid>  
                     <div style="padding-top: 10px;">
-                        <h:outputText value="(*) Para Liquidar Pesajes debe seleccionar las Fechas de Inicio y Fin correspondientes" style="font-weight:bold"/>
-                    </div>
-                    <p:commandButton  value="Ver Pesajes" icon="ui-icon-document" action="#" ajax="false"> 
-                    </p:commandButton>  
+                        <h:outputText value="(*) Para Liquidar debe seleccionar Pesajes correspondientes" style="font-weight:bold"/>
+                    </div>                    
+                    
                     <div style="padding-top: 10px;">                        
                     </div>
-                    <p:panelGrid columns="1" style="width: 100%">
-                        <f:facet name="header">  
-                            LISTADO DE PESAJES A LIQUIDAR
+                    <!-- <p:outputPanel autoUpdate="true">-->
+
+                    <p:dataTable  id="pesajeid" var="pesaje" value="#{liquidacionBean.listadopesaje}" 
+                                  paginator="true"   rows="100" rowKey="#{pesaje.cdPesaje}"
+                                  selection="#{liquidacionBean.selectedpesaje}" >
+                        <p:ajax event="rowSelectCheckbox" listener="#{liquidacionBean.demo}"></p:ajax> 
+                        <!--CABECERA DE LISTADOPESAJE-->
+                        <f:facet name="header">
+                            PESAJES OBTENIDOS
                         </f:facet>
-                        <p:dataTable id="pesajeid" var="pesaje" value="#{liquidacionBean.listadopesaje}" 
-                                     paginator="true" rows="10" rowKey="#{pesaje.cdPesaje}" 
-                                     selection="#{liquidacionBean.selectedpesaje}" >
 
-                            <!--CABECERA DE LISTADOPESAJE-->
-                            <f:facet name="header">
-                                PESAJES OBTENIDOS
-                            </f:facet>
+                        <!--COLUMNAS-->
+                        <p:column selectionMode="multiple" style="width:18px"/>
 
-                            <!--COLUMNAS-->
-                            <p:column selectionMode="multiple" style="width:18px" /> 
-
-                            <p:column headerText="Cod. Asignacion" rendered="false">
-                                <h:outputText value="#{pesaje.cdPesaje}"/>
-                            </p:column>
-
-                            <p:column headerText="NR. DE PESAJE" >
-                                <h:outputText value="#{pesaje.nroPesaje}"/>
-                            </p:column>
-
-                            <p:column headerText="FECHA DE PESAJE">
-                                <h:outputText value="#{pesaje.fechaPesaje}"/>
-                            </p:column>
-                            <p:column headerText="PESO BRUTO">
-                                <h:outputText value="#{pesaje.pesoBruto}"/>
-                            </p:column>
-                            <p:column headerText="TARA">
-                                <h:outputText value="#{pesaje.tara}"/>
-                            </p:column>
-                            <p:column headerText="PESO TN">
-                                <h:outputText value="#{pesaje.pesoTn}"/>
-                            </p:column>
-                            <p:column headerText="Estado">
-                                <h:outputText value="#{pesaje.estadoPesaje}"/>
-                            </p:column>
-                        </p:dataTable>
-
-
-                    </p:panelGrid>
+                        <p:column headerText="Cod. Asignacion" rendered="false">
+                            <h:outputText value="#{pesaje.cdPesaje}"/>
+                        </p:column>
+                        <p:column headerText="NR. DE PESAJE" >
+                            <h:outputText value="#{pesaje.nroPesaje}"/>
+                        </p:column>
+                        <p:column headerText="FECHA DE PESAJE">
+                            <h:outputText value="#{pesaje.fechaPesaje}"/>
+                        </p:column>
+                        <p:column headerText="PESO BRUTO">
+                            <h:outputText value="#{pesaje.pesoBruto}"/>
+                        </p:column>
+                        <p:column headerText="TARA">
+                            <h:outputText value="#{pesaje.tara}"/>
+                        </p:column>
+                        <p:column headerText="PESO TN">
+                            <h:outputText value="#{pesaje.pesoTn}"/>
+                        </p:column>
+                        <p:column headerText="Estado">
+                            <h:outputText value="#{pesaje.estadoPesaje}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <!--  </p:outputPanel>-->
                 </h:form> 
             </ui:define>
         </ui:composition>
