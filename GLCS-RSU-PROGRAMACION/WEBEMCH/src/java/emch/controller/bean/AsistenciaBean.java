@@ -17,25 +17,35 @@ public class AsistenciaBean {
     
     private Date fechaActual = new Date();
     private String sfechaActual = fechaActual.getDate()+" / "+(fechaActual.getMonth()+1)+" / "+(fechaActual.getYear()-100);
-    private List<TTrabajadorxcamion> listConsulta;
+    private List<TTrabajadorxcamion> tTrabajadorxcamions;
 
     public AsistenciaBean() {
+        
     }
 
     public Date getFechaActual() {
         return fechaActual;
     }
 
-    public List<TTrabajadorxcamion> getListConsulta() {
-        AsistenciaManaged ob = new AsistenciaManaged();
-        return listConsulta = ob.buscarxTurno("TN02");
-    }
-
-    public void setListConsulta(List<TTrabajadorxcamion> listConsulta) {
-        this.listConsulta = listConsulta;
+    public void setFechaActual(Date fechaActual) {
+        this.fechaActual = fechaActual;
     }
 
     public String getSfechaActual() {
         return sfechaActual;
-    }        
+    }
+
+    public void setSfechaActual(String sfechaActual) {
+        this.sfechaActual = sfechaActual;
+    }
+
+    public List<TTrabajadorxcamion> gettTrabajadorxcamions() {
+        return tTrabajadorxcamions = new AsistenciaManaged().buscarxTurno("TN01");
+    }
+
+    public void settTrabajadorxcamions(List<TTrabajadorxcamion> tTrabajadorxcamions) {
+        this.tTrabajadorxcamions = tTrabajadorxcamions;
+    }
+    
+    
 }
