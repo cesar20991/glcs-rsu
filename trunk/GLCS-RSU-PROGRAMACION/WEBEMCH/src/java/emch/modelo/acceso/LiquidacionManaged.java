@@ -71,6 +71,24 @@ public class LiquidacionManaged {
          }*/
         return listaTLiq;
     }
+    public List listarPesajePendienteCons(String rucemp, String cdliq,Date fechaInicio, Date fechaFin) {
+        List<TPesaje> listaTLiq = null;
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+        try {
+            //String fechaI=sdf.format(fechaInicio);
+            //String fechaF=sdf.format(fechaFin);
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            qry = sesion.createQuery("SELECT p FROM TPesaje p where p.estadoPesaje='P' and p.TLiquidacion.cdLiq='"+cdliq+"' and p.TControlviaje.TDespachodet.id.cdRuc='" + rucemp + "' ");//and p.fechaPesaje between '"+fechaI+"' and '"+fechaF+"'");            
+            listaTLiq = (List<TPesaje>) qry.list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            ex.getMessage();
+        } /*finally {
+         sesion.close();
+         }*/
+        return listaTLiq;
+    }
+    
 
     public boolean IngresarLiquidacion(TLiquidacion liquidacion, TPesaje[] selectedPesaje) {
         FacesContext context1 = FacesContext.getCurrentInstance();
@@ -151,4 +169,20 @@ public class LiquidacionManaged {
             context1.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Actualiza Pesaje Asociados de Liquidacion", e.getMessage()));
         }
     }
+    
+    /*LISTADO DE ESTADOS POR LIQUIDACION*/
+    public List ObtenerEstadoLiq(TLiquidacion liquidacion){
+        List<TEstadoxliquidacion> listaTLiq = null;        
+        try {
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            qry = sesion.createQuery("SELECT e FROM TEstadoxliquidacion e where e.id.cdLiq='"+liquidacion.getCdLiq()+"'");            
+            listaTLiq = (List<TEstadoxliquidacion>) qry.list();
+        } catch (Exception ex) {
+            ex.getMessage();
+        } /*finally {
+         sesion.close();
+         }*/
+        return listaTLiq;
+    }
+    
 }

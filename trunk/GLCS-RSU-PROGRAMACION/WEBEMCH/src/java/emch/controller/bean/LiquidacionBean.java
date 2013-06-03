@@ -32,11 +32,18 @@ public class LiquidacionBean extends UsuarioBean {
     private TPesaje[] selectedpesaje;
     private Date fechaInicio;
     private Date fechaFin;
+    private List<TEstadoxliquidacion> listaestadoliq;
+    private TLiquidacion selectedEstadoLiq;
+    
+    //----------------PARA MODIFICAR-------------///////////
+    private TLiquidacion selectedLiquidacionEdicion;
+    private List<TPesaje> listadopesajeModf;
 
     public LiquidacionBean() {
         liquidacion = new TLiquidacion();
         liquidacion.setTTipoliquidacion(new TTipoliquidacion());
         liquidacion.setTEmpresa(new TEmpresa());
+        //selectedLiquidacionEdicion = new TLiquidacion();        
     }
 
     public TLiquidacion getLiquidacion() {
@@ -64,10 +71,18 @@ public class LiquidacionBean extends UsuarioBean {
     public void setListatipoliq(List<TTipoliquidacion> listatipoliq) {
         this.listatipoliq = listatipoliq;
     }
+    
+    public String irRegresar() {
+        return "liquidaciones";
+    }
 
     public String irAperturar() { //throws IOException {
         // FacesContext.getCurrentInstance().getExternalContext().redirect("generarliquidacion.xhtml");
         return "generarliquidacion";
+    }
+    
+    public String irActualizar(){
+        return "generarliquidacionmodf";
     }
 
     public List<TPesaje> getListadopesaje() {
@@ -122,6 +137,10 @@ public class LiquidacionBean extends UsuarioBean {
         }
         //return "";
     }
+    
+    public String actualizar(){
+        return "";
+    }
 
     /**
      * @return the fechaInicio
@@ -149,5 +168,68 @@ public class LiquidacionBean extends UsuarioBean {
      */
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    /**
+     * @return the listaestadoliq
+     */
+    
+    public List<TEstadoxliquidacion> getListaestadoliq() {
+        LiquidacionManaged viMgd = new LiquidacionManaged();
+        listaestadoliq = viMgd.ObtenerEstadoLiq(getSelectedEstadoLiq());
+        return listaestadoliq;
+    }
+
+    /**
+     * @param listaestadoliq the listaestadoliq to set
+     */
+    public void setListaestadoliq(List<TEstadoxliquidacion> listaestadoliq) {
+        this.listaestadoliq = listaestadoliq;
+    }
+
+    /**
+     * @return the selectedEstadoLiq
+     */
+    public TLiquidacion getSelectedEstadoLiq() {
+        return selectedEstadoLiq;
+    }
+
+    /**
+     * @param selectedEstadoLiq the selectedEstadoLiq to set
+     */
+    public void setSelectedEstadoLiq(TLiquidacion selectedEstadoLiq) {
+        this.selectedEstadoLiq = selectedEstadoLiq;
+    }
+
+    //--------------MODIFICAR-------------------------//
+    /**
+     * @return the selectedLiquidacionEdicion
+     */
+    public TLiquidacion getSelectedLiquidacionEdicion() {
+        return selectedLiquidacionEdicion;
+    }
+
+    /**
+     * @param selectedLiquidacionEdicion the selectedLiquidacionEdicion to set
+     */
+    public void setSelectedLiquidacionEdicion(TLiquidacion selectedLiquidacionEdicion) {
+        this.selectedLiquidacionEdicion = selectedLiquidacionEdicion;
+    }
+
+    /**
+     * @return the listadopesajeModf
+     */
+    public List<TPesaje> getListadopesajeModf() {
+        LiquidacionManaged obj = new LiquidacionManaged();
+        listadopesajeModf = obj.listarPesajePendienteCons(getEmpresa().getCdRuc(), getSelectedLiquidacionEdicion().getCdLiq(), fechaInicio, fechaFin);
+
+        return listadopesajeModf;
+    }
+
+    /**
+     * @param listadopesajeModf the listadopesajeModf to set
+     */
+    public void setListadopesajeModf(List<TPesaje> listadopesajeModf) {
+        this.listadopesajeModf = listadopesajeModf;
     }
 }
