@@ -34,10 +34,6 @@ public class LiquidacionBean extends UsuarioBean {
     private Date fechaFin;
     private List<TEstadoxliquidacion> listaestadoliq;
     private TLiquidacion selectedEstadoLiq;
-    
-    //----------------PARA MODIFICAR-------------///////////
-    private TLiquidacion selectedLiquidacionEdicion;
-    private List<TPesaje> listadopesajeModf;
 
     public LiquidacionBean() {
         liquidacion = new TLiquidacion();
@@ -81,13 +77,9 @@ public class LiquidacionBean extends UsuarioBean {
         return "generarliquidacion";
     }
     
-    public String irActualizar(){
-        return "generarliquidacionmodf";
-    }
-
     public List<TPesaje> getListadopesaje() {
         LiquidacionManaged obj = new LiquidacionManaged();
-        listadopesaje = obj.listarPesajePendiente(getEmpresa().getCdRuc(), fechaInicio, fechaFin);
+        listadopesaje = obj.listarPesajePendiente(getEmpresa().getCdRuc(), liquidacion.getFechaInicio(), liquidacion.getFechaFin());
 
         return listadopesaje;
     }
@@ -136,10 +128,6 @@ public class LiquidacionBean extends UsuarioBean {
             return ""; //futuros errores
         }
         //return "";
-    }
-    
-    public String actualizar(){
-        return "";
     }
 
     /**
@@ -201,35 +189,4 @@ public class LiquidacionBean extends UsuarioBean {
         this.selectedEstadoLiq = selectedEstadoLiq;
     }
 
-    //--------------MODIFICAR-------------------------//
-    /**
-     * @return the selectedLiquidacionEdicion
-     */
-    public TLiquidacion getSelectedLiquidacionEdicion() {
-        return selectedLiquidacionEdicion;
-    }
-
-    /**
-     * @param selectedLiquidacionEdicion the selectedLiquidacionEdicion to set
-     */
-    public void setSelectedLiquidacionEdicion(TLiquidacion selectedLiquidacionEdicion) {
-        this.selectedLiquidacionEdicion = selectedLiquidacionEdicion;
-    }
-
-    /**
-     * @return the listadopesajeModf
-     */
-    public List<TPesaje> getListadopesajeModf() {
-        LiquidacionManaged obj = new LiquidacionManaged();
-        listadopesajeModf = obj.listarPesajePendienteCons(getEmpresa().getCdRuc(), getSelectedLiquidacionEdicion().getCdLiq(), fechaInicio, fechaFin);
-
-        return listadopesajeModf;
-    }
-
-    /**
-     * @param listadopesajeModf the listadopesajeModf to set
-     */
-    public void setListadopesajeModf(List<TPesaje> listadopesajeModf) {
-        this.listadopesajeModf = listadopesajeModf;
-    }
 }
