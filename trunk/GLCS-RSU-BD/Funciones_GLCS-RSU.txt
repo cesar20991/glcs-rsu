@@ -1,3 +1,37 @@
 --------------------------------------------------------------------------
 Poner Aqui sus funciones, luego de cada funcion escriban COMMIT;
 --------------------------------------------------------------------------
+
+CREATE FUNCTION idDespacho(
+) RETURNS VARCHAR( 10 ) BEGIN DECLARE idmax VARCHAR( 10 ) ;
+
+SET idmax = ( SELECT MAX( cdDespacho ) 
+FROM t_despacho ) ;
+
+SET idmax = CONCAT(  'DP', RIGHT( CONCAT(  '00000000', CONVERT( CONVERT( RIGHT( idmax, 8 ) , signed ) +1, CHAR ) ) , 8 ) ) ;
+
+RETURN idmax;
+
+END
+
+COMMIT;
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `idTrabajador2`() RETURNS varchar(6) CHARSET utf8
+BEGIN   
+ DECLARE idmax varchar(6);
+ SET idmax = (select max(cdTrabajador) from t_trabajador);
+ SET idmax = CONCAT('TR', right(CONCAT('0000', convert(convert(right(idmax, 4), signed) + 1, char)), 4));
+ RETURN idmax;
+END
+
+
+
+CREATE FUNCTION idLiquidacion2(
+) RETURNS VARCHAR( 10 ) BEGIN DECLARE idmax VARCHAR( 10 ) ;
+
+SET idmax = ( SELECT MAX(cdLiq) FROM t_liquidacion ) ;
+
+SET idmax = CONCAT(  'LQ', RIGHT( CONCAT(  '00000000', CONVERT( CONVERT( RIGHT( idmax, 8 ) , signed ) +1, CHAR ) ) , 8 ) ) ;
+
+RETURN idmax;
+END
