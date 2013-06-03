@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 31-may-2013 22:17:08 by Hibernate Tools 3.2.1.GA
+// Generated 03-jun-2013 0:51:45 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;

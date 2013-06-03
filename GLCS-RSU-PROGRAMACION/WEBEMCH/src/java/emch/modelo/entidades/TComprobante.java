@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 31-may-2013 22:17:08 by Hibernate Tools 3.2.1.GA
+// Generated 03-jun-2013 0:51:45 by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -27,13 +27,14 @@ public class TComprobante  implements java.io.Serializable {
      private Date fechaReg;
      private String usuModf;
      private Date fechaModf;
+     private boolean estado;
      private Set<TComprobantedet> TComprobantedets = new HashSet<TComprobantedet>(0);
 
     public TComprobante() {
     }
 
 	
-    public TComprobante(String idComprobante, TMoneda TMoneda, TTipodoc TTipodoc, TLiquidacion TLiquidacion, Date fecMov, String serie, String nroDoc, BigDecimal total, BigDecimal subTotal, BigDecimal igv, String usuCrea, Date fechaReg) {
+    public TComprobante(String idComprobante, TMoneda TMoneda, TTipodoc TTipodoc, TLiquidacion TLiquidacion, Date fecMov, String serie, String nroDoc, BigDecimal total, BigDecimal subTotal, BigDecimal igv, String usuCrea, Date fechaReg, boolean estado) {
         this.idComprobante = idComprobante;
         this.TMoneda = TMoneda;
         this.TTipodoc = TTipodoc;
@@ -46,8 +47,9 @@ public class TComprobante  implements java.io.Serializable {
         this.igv = igv;
         this.usuCrea = usuCrea;
         this.fechaReg = fechaReg;
+        this.estado = estado;
     }
-    public TComprobante(String idComprobante, TMoneda TMoneda, TTipodoc TTipodoc, TLiquidacion TLiquidacion, Date fecMov, String serie, String nroDoc, BigDecimal total, BigDecimal subTotal, BigDecimal igv, String usuCrea, Date fechaReg, String usuModf, Date fechaModf, Set<TComprobantedet> TComprobantedets) {
+    public TComprobante(String idComprobante, TMoneda TMoneda, TTipodoc TTipodoc, TLiquidacion TLiquidacion, Date fecMov, String serie, String nroDoc, BigDecimal total, BigDecimal subTotal, BigDecimal igv, String usuCrea, Date fechaReg, String usuModf, Date fechaModf, boolean estado, Set<TComprobantedet> TComprobantedets) {
        this.idComprobante = idComprobante;
        this.TMoneda = TMoneda;
        this.TTipodoc = TTipodoc;
@@ -62,6 +64,7 @@ public class TComprobante  implements java.io.Serializable {
        this.fechaReg = fechaReg;
        this.usuModf = usuModf;
        this.fechaModf = fechaModf;
+       this.estado = estado;
        this.TComprobantedets = TComprobantedets;
     }
    
@@ -162,6 +165,13 @@ public class TComprobante  implements java.io.Serializable {
     
     public void setFechaModf(Date fechaModf) {
         this.fechaModf = fechaModf;
+    }
+    public boolean isEstado() {
+        return this.estado;
+    }
+    
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
     public Set<TComprobantedet> getTComprobantedets() {
         return this.TComprobantedets;

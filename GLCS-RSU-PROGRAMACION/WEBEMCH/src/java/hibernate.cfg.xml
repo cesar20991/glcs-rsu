@@ -7,9 +7,9 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bd_emch?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">1234</property>
+    <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
-    <property name="hibernate.show_sql">true</property>
     <mapping resource="emch/modelo/entidades/TSeguroxcamion.hbm.xml"/>
     <mapping resource="emch/modelo/entidades/TClase.hbm.xml"/>
     <mapping resource="emch/modelo/entidades/TEmpresa.hbm.xml"/>
@@ -17,8 +17,7 @@
     <mapping resource="emch/modelo/entidades/TAsistenciaxtrabajador.hbm.xml"/>
     <mapping resource="emch/modelo/entidades/TTrabajador.hbm.xml"/>
     <mapping resource="emch/modelo/entidades/TServicio.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TComprobante.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TImgspesaje.hbm.xml"/>
+    <mapping resource="emch/modelo/entidades/TComprobante.hbm.xml"/>    
     <mapping resource="emch/modelo/entidades/TPerfil.hbm.xml"/>
     <mapping resource="emch/modelo/entidades/TMenu.hbm.xml"/>
     <mapping resource="emch/modelo/entidades/TSoat.hbm.xml"/>
