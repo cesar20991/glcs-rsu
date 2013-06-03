@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 31-may-2013 22:17:09 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 03-jun-2013 0:51:46 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TPesaje" table="t_pesaje" catalog="bd_emch">
         <id name="cdPesaje" type="string">
@@ -47,11 +47,11 @@
         <property name="fechaModf" type="timestamp">
             <column name="fechaModf" length="19" />
         </property>
-        <set name="TImgspesajes" inverse="true">
-            <key>
-                <column name="cdPesaje" length="10" not-null="true" />
-            </key>
-            <one-to-many class="emch.modelo.entidades.TImgspesaje" />
-        </set>
+        <property name="obs" type="string">
+            <column name="Obs" length="100" />
+        </property>
+        <property name="imagenP" type="binary">
+            <column name="imagenP" />
+        </property>
     </class>
 </hibernate-mapping>
