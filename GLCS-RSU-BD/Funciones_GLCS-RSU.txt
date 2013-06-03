@@ -35,3 +35,20 @@ SET idmax = CONCAT(  'LQ', RIGHT( CONCAT(  '00000000', CONVERT( CONVERT( RIGHT( 
 
 RETURN idmax;
 END
+
+
+
+
+
+
+CREATE FUNCTION idPesaje(
+) RETURNS VARCHAR( 10 ) BEGIN DECLARE idmax VARCHAR( 10 ) ;
+
+SET idmax = ( SELECT MAX( cdPesaje ) 
+FROM t_pesaje ) ;
+
+SET idmax = CONCAT(  'PS', RIGHT( CONCAT(  '00000000', CONVERT( CONVERT( RIGHT( idmax, 8 ) , signed ) +1, CHAR ) ) , 8 ) ) ;
+
+RETURN idmax;
+
+END
