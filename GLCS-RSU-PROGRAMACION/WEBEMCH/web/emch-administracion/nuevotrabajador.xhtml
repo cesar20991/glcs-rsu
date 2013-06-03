@@ -10,36 +10,36 @@
     </h:head>
     <h:body>
         <ui:composition template="../plantillas/Template.xhtml">
-         <ui:define name="usuarios">
-                </ui:define>
-                <ui:define name="top">
-                   <p:growl id="messages" autoUpdate="true"/>  
-                </ui:define>
-        <ui:define name="content">
+            <ui:define name="usuarios">
+            </ui:define>
+            <ui:define name="top">
+                <p:growl id="messages" autoUpdate="true"/>  
+            </ui:define>
+            <ui:define name="content">
                 <h:form >
                     <h:outputText value="ADMINISTRAR - TRABAJADORES" style="font-weight:bold;font-size:20px;color:#654B24" />
-                    
+
                     <p:panelGrid columns="2" style="width: 100%">  
                         <f:facet name="header">  
                             Información del Trabajador 
                         </f:facet>
                         <h:outputLabel value="Nombres : *"/>
                         <h:inputText value="#{trabajadorBean.trabajador.nombres}" required="true" onkeypress="soloLetras(event);"/>                        
-                        
+
                         <h:outputLabel value="Apellidos: *"/>
                         <h:inputText value="#{trabajadorBean.trabajador.apellidos}" required="true" onkeypress="soloLetras(event);"/>                        
-                                                
+
                         <h:outputLabel value="DNI:"/>                                                
                         <p:inputText value="#{trabajadorBean.trabajador.dni}" required="true" requiredMessage="El campo Nro Doc. Identidad es obligatorio" >
                             <f:validateLength minimum="8" maximum="8"/>
                         </p:inputText>
-                        
-                         <h:outputText value="Tipo Trabajador :" />
-                         <p:selectOneMenu value="#{trabajadorBean.trabajador.TTipotrabajador.cdTipoTrabajador}" effect="fade" filter="true" filterMatchMode="contains">  
+
+                        <h:outputText value="Tipo Trabajador :" />
+                        <p:selectOneMenu value="#{trabajadorBean.trabajador.TTipotrabajador.cdTipoTrabajador}" effect="fade" filter="true" filterMatchMode="contains">  
                             <f:selectItem itemLabel="Select One" itemValue="" />  
                             <f:selectItems value="#{trabajadorBean.listarTipoTrabSel}" var="trabajadorTip" itemLabel="#{trabajadorTip.nombre}" itemValue="#{trabajadorTip.cdTipoTrabajador}"/>  
-                         </p:selectOneMenu>
-                        
+                        </p:selectOneMenu>
+
                         <h:outputText value="Distrito Residencia : *" />  
                         <p:selectOneMenu value="#{trabajadorBean.trabajador.TUbigeo.cdUbig}" effect="fade" required="true">  
                             <f:selectItem itemLabel="Select One" itemValue="" />  
@@ -53,10 +53,10 @@
                         <p:inputText value="#{trabajadorBean.trabajador.celular}" required="false" onkeypress="return validarNumero(event)">
                             <f:validateLength minimum="9" maximum="9"/>
                         </p:inputText>
-                        
+
                         <h:outputLabel value="Email"/>
                         <p:inputText value="#{trabajadorBean.trabajador.email}" required="false" />
-                        
+
                         <h:outputLabel value="Estado: *"/>
                         <p:selectOneMenu value="#{trabajadorBean.trabajador.estado}">  
                             <f:selectItem itemLabel="Habilitado" itemValue="true"/>  
@@ -66,10 +66,10 @@
                     <div style="padding-top: 10px;">
                         <p:commandButton  value="#{trabajadorBean.accion}" action="#{trabajadorBean.ingresar()}"  ajax="false"  icon="ui-icon-check" style="margin:0"/>                                               
                     </div>
-                    
+
                 </h:form>     
             </ui:define>
-            </ui:composition>
+        </ui:composition>
     </h:body>
 </html>
 
