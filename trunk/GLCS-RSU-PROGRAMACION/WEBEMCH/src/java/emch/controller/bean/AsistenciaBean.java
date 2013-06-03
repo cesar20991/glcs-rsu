@@ -1,6 +1,9 @@
 package emch.controller.bean;
 
 import emch.modelo.acceso.AsistenciaManaged;
+import emch.modelo.entidades.TAsistencia;
+import emch.modelo.entidades.TAsistenciaxtrabajador;
+import emch.modelo.entidades.TAsistenciaxtrabajadorId;
 import emch.modelo.entidades.TTrabajadorxcamion;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +23,7 @@ public class AsistenciaBean {
     private String sfechaActual = fechaActual.getDate() + " / " + (fechaActual.getMonth() + 1) + " / " + (fechaActual.getYear() - 100);
     private List<TTrabajadorxcamion> listaTrabajadorxcamion;
     private TTrabajadorxcamion Trabajadorxcamion;
+    private int opcion = 0;
 
     public AsistenciaBean() {
         Trabajadorxcamion = new TTrabajadorxcamion();
@@ -58,15 +62,39 @@ public class AsistenciaBean {
         this.Trabajadorxcamion = Trabajadorxcamion;
     }
 
-    private SelectItem[] createFilterOptions(String[] data) {
-        SelectItem[] options = new SelectItem[data.length + 1];
-
-        options[0] = new SelectItem("", "Select");
-        for (int i = 0; i < data.length; i++) {
-            options[i + 1] = new SelectItem(data[i], data[i]);
-        }
-
-        return options;
+    public void buscarDatosTrabajadorxcamion(String cdAsig){
+        AsistenciaManaged obj = new AsistenciaManaged();
+        Trabajadorxcamion = obj.buscarPorId(cdAsig);
     }
-   
+
+    public int getOpcion() {
+        return opcion;
+    }
+
+    public void setOpcion(int opcion) {
+        this.opcion = opcion;
+    }
+    
+    public void RegistrarAsistencia(TTrabajadorxcamion tTrabajadorxcamion){
+        String asistId = "As"+(int)(Math.random()*100);
+        TAsistencia tAsistencia = new TAsistencia(asistId, tTrabajadorxcamion.getTTurno(), fechaActual, "mar1693", fechaActual);
+        TAsistenciaxtrabajador tAsistenciaxtrabajador = null;
+        TAsistenciaxtrabajadorId tAsistenciaxtrabajadorId =  new TAsistenciaxtrabajadorId(tTrabajadorxcamion.getTTrabajador().getCdTrabajador(), asistId);
+        switch(opcion){
+            case 1:
+                tAsistenciaxtrabajador = new TAsistenciaxtrabajador(tAsistenciaxtrabajadorId, tTrabajadorxcamion.getTTrabajador(), tAsistencia, true, false, false);
+                break;
+            case 2:
+                tAsistenciaxtrabajador = new TAsistenciaxtrabajador(tAsistenciaxtrabajadorId, tTrabajadorxcamion.getTTrabajador(), tAsistencia, false, true, false);
+                break;
+            case 3:
+                tAsistenciaxtrabajador = new TAsistenciaxtrabajador(tAsistenciaxtrabajadorId, tTrabajadorxcamion.getTTrabajador(), tAsistencia, false, false, true);
+                break;
+        }
+        
+        AsistenciaManaged obj = new AsistenciaManaged();
+        obj.insertarAsistencia(tAsistencia);
+        obj.insertarAsistencia(tAsistenciaxtrabajador);
+    }
+    
 }
