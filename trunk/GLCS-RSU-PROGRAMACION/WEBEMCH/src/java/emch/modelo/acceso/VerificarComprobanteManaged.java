@@ -39,7 +39,7 @@ public class VerificarComprobanteManaged {
         List<TPesaje> listapesaje = null;
        /* try {*/
             sesion = HibernateUtil.getSessionFactory().openSession();            
-            qry = sesion.createQuery("select a FROM TPesaje a where a.fechaPesaje between '"+fechaI+"' and  '"+fechaF+"'");
+            qry = sesion.createQuery("select p FROM TPesaje p where p.TControlviaje.TDespachodet.id.cdRuc='RC0001'  and p.fechaPesaje between '"+fechaI+"' and  '"+fechaF+"'");
             listapesaje = (List<TPesaje>) qry.list();
        /* } catch (Exception ex) {
             ex.printStackTrace();
@@ -90,7 +90,8 @@ public class VerificarComprobanteManaged {
         List<TDespacho> listadespacho = null;
        /* try {*/
             sesion = HibernateUtil.getSessionFactory().openSession();            
-            qry = sesion.createQuery("select a FROM TDespacho a where a.fechaDespacho between '"+fechaI+"' and  '"+fechaF+"'");
+            //qry = sesion.createQuery("select a FROM TDespacho a where a.fechaEmi between '"+fechaI+"' and  '"+fechaF+"'");
+            qry = sesion.createQuery("select a FROM TDespacho a where a.TEmpresa.cdRuc='RC0001'  and a.fechaEmi between '"+fechaI+"' and  '"+fechaF+"'");
             listadespacho = (List<TDespacho>) qry.list();
        /* } catch (Exception ex) {
             ex.printStackTrace();

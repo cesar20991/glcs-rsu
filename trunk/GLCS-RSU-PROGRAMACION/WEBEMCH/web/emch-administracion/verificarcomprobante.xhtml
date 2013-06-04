@@ -285,20 +285,20 @@
                                         Listado de Hojas de Despacho
                                     </f:facet>  
 
-                                    <p:column  filterBy="#{despacho.id}" filterMatchMode="contains">
+                                    <p:column  filterBy="#{despacho.id.cdDespacho}" filterMatchMode="contains">
                                         <f:facet name="header">  
                                             <h:outputText value="Cd Despacho" />  
                                         </f:facet> 
-                                        <h:outputText value="#{despacho.id}"/>
+                                        <h:outputText value="#{despacho.id.cdDespacho}"/>
                                     </p:column>
-
-                                    <p:column  filterBy="#{despacho.TEmpresa.rucE}" filterMatchMode="contains">
+                                    
+                                    <p:column rendered="false">  
                                         <f:facet name="header">  
                                             <h:outputText value="Ruc Empresa" />  
-                                        </f:facet> 
-                                        <h:outputText value="#{despacho.TEmpresa.rucE}"/>
-                                    </p:column>
-
+                                        </f:facet>  
+                                        <h:outputText value="#{despacho.TEmpresa.cdRuc}" />  
+                                    </p:column> 
+                                    
                                     <p:column filterBy="#{despacho.TUbigeo.nombre}" filterMatchMode="contains">
                                         <f:facet name="header">  
                                             <h:outputText value="Nombre Ubigeo" />  
@@ -334,54 +334,63 @@
                                         </f:facet> 
                                         <h:outputText value="#{despacho.zona}"/>
                                     </p:column>
+                                    
                                     <p:column  filterBy="#{despacho.dineroEnviado}" filterMatchMode="contains">
                                         <f:facet name="header">  
                                             <h:outputText value="Dinero Enviado"/>  
                                         </f:facet> 
                                         <h:outputText value="#{despacho.dineroEnviado}"/>
                                     </p:column>
+                                    
                                     <p:column  filterBy="#{despacho.totalDineroUso}" filterMatchMode="contains">
                                         <f:facet name="header">  
                                             <h:outputText value="Total dinero en uso"/>  
                                         </f:facet> 
                                         <h:outputText value="#{despacho.totalDineroUso}"/>
                                     </p:column>
+                                    
                                     <p:column  filterBy="#{despacho.totalDineroSinUso}" filterMatchMode="contains">
                                         <f:facet name="header">  
                                             <h:outputText value="Total dinero sin uso"/>  
                                         </f:facet> 
                                         <h:outputText value="#{despacho.totalDineroSinUso}"/>
                                     </p:column>
+                                    
                                     <p:column  filterBy="#{despacho.usuCrea}" filterMatchMode="contains">
                                         <f:facet name="header">  
                                             <h:outputText value="Usuario Creador"/>  
                                         </f:facet> 
                                         <h:outputText value="#{despacho.usuCrea}"/>
                                     </p:column>
+                                    
                                     <p:column  filterBy="#{despacho.fechaReg}" filterMatchMode="contains">
                                         <f:facet name="header">  
                                             <h:outputText value="Fecha Registrada"/>  
                                         </f:facet> 
                                         <h:outputText value="#{despacho.fechaReg}"/>
                                     </p:column>
+                                    
                                     <p:column  filterBy="#{despacho.usuModf}" filterMatchMode="contains">
                                         <f:facet name="header">  
                                             <h:outputText value="Usu Modifica"/>  
                                         </f:facet> 
                                         <h:outputText value="#{despacho.usuModf}"/>
                                     </p:column>
+                                    
                                     <p:column  filterBy="#{despacho.fechaModf}" filterMatchMode="contains">
                                         <f:facet name="header">  
                                             <h:outputText value="Fecha Modifica"/>  
                                         </f:facet> 
                                         <h:outputText value="#{despacho.fechaModf}"/>
                                     </p:column>
+                                    
                                     <p:column  filterBy="#{despacho.evaluacion}" filterMatchMode="contains">
                                         <f:facet name="header">  
                                             <h:outputText value="Evaluacion"/>  
                                         </f:facet> 
                                         <h:outputText value="#{despacho.evaluacion}"/>
                                     </p:column>
+                                    
                                     <p:column  filterBy="#{despacho.obs}" filterMatchMode="contains">
                                         <f:facet name="header">  
                                             <h:outputText value="Observación"/>  
