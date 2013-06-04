@@ -20,6 +20,10 @@ public class ConsLiquidacionBean {
     public void init() {
         
     }
+    
+    public String irGenerar(){
+        return "nuevocomprobante";
+    }
 
     public TLiquidacion getLiquidacion() {
         return liquidacion;
