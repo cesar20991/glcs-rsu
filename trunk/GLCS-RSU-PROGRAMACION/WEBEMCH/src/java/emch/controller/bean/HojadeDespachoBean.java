@@ -43,6 +43,7 @@ public class HojadeDespachoBean {
         setDespacho(new TDespacho());
         despacho.setTTurno(new TTurno());
         despacho.setTUbigeo(new TUbigeo());
+        despacho.setTEmpresa(new TEmpresa());               
         return "nuevahojadespacho";
     }
     
@@ -57,6 +58,8 @@ public class HojadeDespachoBean {
         despacho.setId(new TDespachoId(cdDes,RucE));//(new TTipotrabajador
         despacho.setTUbigeo(new TUbigeo(codigoUb, "", false));
         despacho.setTTurno(new TTurno(codigoTur, ""));
+        despacho.setTEmpresa(new TEmpresa("RC0001", null, "", "", null, "", ""));
+        setSelectedTrabxCamion(selectedTrabxCamion);
         return "nuevahojadespacho";
     }
 
@@ -84,7 +87,7 @@ public class HojadeDespachoBean {
         boolean resultado = isEsEdicion() ? obj.actualizar(despacho) 
                             : obj.insertar(despacho,listadotrabajadorXcamion);
         if (resultado) {
-            return "nuevahojadespacho";
+            return "HojaDeDespacho";
         } else {
             return ""; //futuros errores
         }
@@ -197,6 +200,10 @@ public class HojadeDespachoBean {
         despachoA = despacho.getId().getCdDespacho();
         HojadeDespachoManaged obj = new HojadeDespachoManaged();
         listaDespachoDet = obj.ListarDespachoxDespachoDet(getDespacho());        
+    }
+    
+    public String irAsignarRuta() {
+        return "asignarruta";
     }
         
 }
