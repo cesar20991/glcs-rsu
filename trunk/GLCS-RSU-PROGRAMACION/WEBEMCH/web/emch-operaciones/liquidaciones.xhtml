@@ -31,11 +31,11 @@
                         <div style="padding-bottom: 10px;">
                             <p:commandButton  value="Generar Liquidación / Pesajes" icon="ui-icon-plus" onclick="liqDialog.show();" ajax="false"  type="button"> 
                             </p:commandButton>      
-                            <p:commandButton  value="Generar Comprobante" icon="ui-icon-document" action="#" ajax="false"> 
+                            <p:commandButton  value="Generar Comprobante" icon="ui-icon-document" action="#{consLiquidacionBean.irGenerar()}" ajax="false"> 
                             </p:commandButton>                                  
                         </div>
 
-                        <p:dataTable var="liquidacion" value="#{consLiquidacionBean.listarLiquidacion}" rowKey="#{liquidacion.cdLiq}" selectionMode="single"
+                        <p:dataTable var="liquidacion" value="#{consLiquidacionBean.listarLiquidacion}" rowKey="#{liquidacion.cdLiq}" selectionMode="single" selection="#{comprobanteBean.selectedliquidacion}"
                                      paginator="true" rows="15"  
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                      rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                  
