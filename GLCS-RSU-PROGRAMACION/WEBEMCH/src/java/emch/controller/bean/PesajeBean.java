@@ -33,7 +33,7 @@ public class PesajeBean extends UsuarioBean {
     public void init() {
         pesaje = new TPesaje();
         pesaje.setTControlviaje(new TControlviaje());
-        pesaje.setTLiquidacion(new TLiquidacion());
+        //pesaje.setTLiquidacion(new TLiquidacion());
         pesaje.setTControlviaje(new TControlviaje(new TControlviajeId(), null, null, "", ""));
     }
 
