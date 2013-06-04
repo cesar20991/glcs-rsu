@@ -188,6 +188,8 @@ public class HojadeDespachoBean {
     }
 
     public List<TDespachodet> getListaDespachoDet() {
+        //HojadeDespachoManaged obj = new HojadeDespachoManaged();
+        //listaDespachoDet = obj.ListarDespachoxDespachoDet();     
         return listaDespachoDet;
     }
 
