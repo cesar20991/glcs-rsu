@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Facelet Title</title>
         <style>
@@ -13,9 +14,9 @@
                 width: 500px;
             }
         </style>
-        
+
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
-        <script src="http://www.simularte.com/external/js/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script type="text/javascript">
             var map = null;
 
@@ -30,7 +31,7 @@
 
                 infoWindow = new google.maps.InfoWindow();
 
-        //$.each(Coordenadas, function(i, coordenada){ 
+                //$.each(Coordenadas, function(i, coordenada){ 
                 var rectangle = new google.maps.Rectangle({
                     strokeColor: '#FF0000',
                     strokeOpacity: 0.8,
@@ -45,7 +46,7 @@
                             new google.maps.LatLng(-12.07364225800709, -77.02535235546871)
                             )
                 });
-        //});
+                //});
 
                 google.maps.event.addListener(rectangle, 'dragend', function() {
                     openInfoWindow2(rectangle);
@@ -72,17 +73,25 @@
         </script>
     </h:head>
     <h:body>
-        <p:outputLabel value="#{asignarRutaBean.selecteddespachodet.id.cdDespacho}"></p:outputLabel>
-        <p:outputLabel value="#{asignarRutaBean.selecteddespachodet.id.cdRuc}"></p:outputLabel>
-        <div id="map-canvas"></div><br/>
-        <lable>Bounds North:</lable>
-        <!--LAT/LONG:<input type="text" id="NorthEast" name="latlong"/><br/>-->
-        Lat:<input type="text" id="latN" name="latN"/><br/>
-        Long:<input type="text" id="longN" name="longN"/><br/>
-        <br/><lable>Bounds South</lable>
-        <!--LAT/LONG:<input type="text" id="SouthWest" name="latlong"/><br/>-->
-        Lat:<input type="text" id="latS" name="latS"/><br/>
-        Long:<input type="text" id="longS" name="longS"/><br/>
+        <h:form>
+            <p:panelGrid columns="2" style="width: 100%">
+                <f:facet name="header">  
+                    COMPRADOR(A):<h:outputText value="#{asignarRutaBean.selecteddespachodet.cantViaje}"/>       sss                          <h:outputText value="#{asignarRutaBean.selecteddespachodet.cantViaje}"/>
+                </f:facet>
+                <p:commandButton value="prueba" action="#{asignarRutaBean.irInsertar}" ajax="false"></p:commandButton>
+            </p:panelGrid>    
+            <div id="map-canvas"></div><br/>
+            <lable>Bounds North:</lable>
+            <!--LAT/LONG:<input type="text" id="NorthEast" name="latlong"/><br/>-->
 
+            Lat:<input type="text" id="latN" name="latN" /><br/>
+            Long:<input type="text" id="longN" name="longN" value="#{asignarRutaBean.demo}"/><br/>
+            <br/><lable>Bounds South</lable>
+            <!--LAT/LONG:<input type="text" id="SouthWest" name="latlong"/><br/>-->
+            Lat:<input type="text" id="latS" name="latS" value="#{asignarRutaBean.asignaruta.lats}"/><br/>
+            Long:<input type="text" id="longS" name="longS" value="#{asignarRutaBean.asignaruta.lngs}"/><br/>
+
+            <h:outputText value="#{asignarRutaBean.asignaruta.latn}" ></h:outputText>
+        </h:form>
     </h:body>
 </html>
