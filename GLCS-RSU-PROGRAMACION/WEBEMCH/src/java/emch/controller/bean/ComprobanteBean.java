@@ -125,7 +125,7 @@ public class ComprobanteBean extends UsuarioBean {
 
     public List<TServicio> getListadoDeServicios() {
         ComprobanteManaged obj = new ComprobanteManaged();
-        listadoDeServicios = obj.listarServicio();
+        //listadoDeServicios = obj.listarServicio();
         return listadoDeServicios;
     }
 
