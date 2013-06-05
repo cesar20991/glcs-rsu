@@ -166,7 +166,7 @@ public class PesajeBean extends UsuarioBean {
    }
    
    public String irPesajePorCliente(){
-       return "PesajeporCliente";
+       return "PesajePorCliente";
    }    
     
     

@@ -9,6 +9,7 @@ import emch.modelo.entidades.TMoneda;
 import emch.modelo.entidades.TServicio;
 import emch.modelo.entidades.TTipodoc;
 import emch.modelo.entidades.TTrabajadorxcamion;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -29,7 +30,8 @@ public class ComprobanteBean extends UsuarioBean {
     private TLiquidacion selectedliquidacion;
     private List<TServicio> listadoDeServicios;
     private TServicio servicio;
-    private TComprobantedet comprobantedet;
+    private TComprobantedet comprobantedet;  
+    private List<TComprobantedet> listcompdet;
     private List<TComprobante> listarComprobantes;
     private List<TComprobantedet> listarComprobantesDets;
 
@@ -126,7 +128,7 @@ public class ComprobanteBean extends UsuarioBean {
 
     public List<TServicio> getListadoDeServicios() {
         ComprobanteManaged obj = new ComprobanteManaged();
-        //listadoDeServicios = obj.listarServicio();
+        listadoDeServicios = obj.listarServicio();
         return listadoDeServicios;
     }
 
@@ -152,6 +154,35 @@ public class ComprobanteBean extends UsuarioBean {
 
     public void setComprobantedet(TComprobantedet comprobantedet) {
         this.comprobantedet = comprobantedet;
+    }
+    
+    public String irListoAgregar(){
+        comprobantedet.setTServicio(servicio);
+        comprobantedet.setItem("1");
+        BigDecimal total = new BigDecimal("1.00").setScale(2);        
+        BigDecimal CanTN = new BigDecimal("1.00");
+        BigDecimal precio = new BigDecimal("1.00");
+        CanTN.multiply(getComprobantedet().getCantTn());
+        precio.multiply(CanTN);
+        total.multiply(precio);
+        comprobantedet.setTotal(total);
+        comprobantedet.setTComprobante(new TComprobante("CP00000001", null, null, null, null, "", "", total, total, CanTN, "", null, ""));
+        listcompdet.add(comprobantedet);
+        return "nuevocomprobante";
+    }
+
+    /**
+     * @return the listcompdet
+     */
+    public List<TComprobantedet> getListcompdet() {
+        return listcompdet;
+    }
+
+    /**
+     * @param listcompdet the listcompdet to set
+     */
+    public void setListcompdet(List<TComprobantedet> listcompdet) {
+        this.listcompdet = listcompdet;
     }
 
     public List<TComprobante> getListarComprobantes() {
