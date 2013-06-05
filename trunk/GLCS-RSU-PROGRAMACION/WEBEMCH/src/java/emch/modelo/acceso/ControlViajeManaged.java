@@ -39,4 +39,16 @@ public class ControlViajeManaged {
             session.beginTransaction().rollback();
         }
     }
+
+    public void eliminar(TControlviaje control) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.delete("FROM TControlviaje AS TC WHERE TC.TDespachodet.id.nro=" + control.getTDespachodet().getId().getNro() + " AND TC.TDespachodet.id.cdDespacho='" + control.getTDespachodet().getId().getCdDespacho() + "' AND TC.TDespachodet.id.cdRuc='" + control.getTDespachodet().getId().getCdRuc() + "'");
+            session.beginTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error en eliminar: " + e.getMessage());
+            session.beginTransaction().rollback();
+        }
+    }
 }
