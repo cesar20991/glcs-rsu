@@ -28,5 +28,21 @@ public class ComprobanteManaged {
         }*/
         return listaCom;
     }
+    
+        public List listarServicio() {
+        List<TServicio> listatipo = null;
+      /*  try {*/
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            trans = sesion.beginTransaction();
+            qry = sesion.createQuery("FROM TServicio");
+            listatipo = (List<TServicio>) qry.list();
+       /* } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            sesion.close();
+        }*/
+        return listatipo;
+    }
+        
 
 }
