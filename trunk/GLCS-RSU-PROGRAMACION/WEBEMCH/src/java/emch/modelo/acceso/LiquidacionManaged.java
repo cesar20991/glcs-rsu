@@ -61,7 +61,7 @@ public class LiquidacionManaged {
             //String fechaI=sdf.format(fechaInicio);
             //String fechaF=sdf.format(fechaFin);
             sesion = HibernateUtil.getSessionFactory().openSession();
-            qry = sesion.createQuery("SELECT p FROM TPesaje p inner join p.TControlviaje cv where p.estadoPesaje='P' and cv.TDespachodet.id.cdRuc='" + rucemp + "' ");//and p.fechaPesaje between '"+fechaI+"' and '"+fechaF+"'");            
+            qry = sesion.createQuery("SELECT p FROM TPesaje p inner join p.TControlviaje cv where p.estadoPesaje='PP' and cv.TDespachodet.id.cdRuc='" + rucemp + "' ");//and p.fechaPesaje between '"+fechaI+"' and '"+fechaF+"'");            
             //qry = sesion.createQuery("SELECT p FROM TPesaje p where p.estadoPesaje='P' and p.TControlviaje.TDespachodet.id.cdRuc='" + rucemp + "' and p.fechaPesaje between '"+fechaI+"' and '"+fechaF+"'");            
             listaTLiq = (List<TPesaje>) qry.list();
         } catch (Exception ex) {

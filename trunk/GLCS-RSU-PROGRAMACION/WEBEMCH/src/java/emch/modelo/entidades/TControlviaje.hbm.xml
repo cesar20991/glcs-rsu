@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 03-jun-2013 0:51:46 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 05-jun-2013 2:10:38 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TControlviaje" table="t_controlviaje" catalog="bd_emch">
         <composite-id name="id" class="emch.modelo.entidades.TControlviajeId">
@@ -21,10 +21,10 @@
             <column name="fechaEmi" length="19" not-null="true" />
         </property>
         <property name="horaEstimada" type="string">
-            <column name="horaEstimada" length="5" not-null="true" />
+            <column name="horaEstimada" length="5" />
         </property>
         <property name="horaReal" type="string">
-            <column name="horaReal" length="5" not-null="true" />
+            <column name="horaReal" length="5" />
         </property>
         <property name="obs" type="string">
             <column name="Obs" length="300" />

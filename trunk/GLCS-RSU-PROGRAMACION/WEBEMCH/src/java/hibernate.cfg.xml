@@ -17,7 +17,7 @@
     <mapping resource="emch/modelo/entidades/TAsistenciaxtrabajador.hbm.xml"/>
     <mapping resource="emch/modelo/entidades/TTrabajador.hbm.xml"/>
     <mapping resource="emch/modelo/entidades/TServicio.hbm.xml"/>
-    <mapping resource="emch/modelo/entidades/TComprobante.hbm.xml"/>    
+    <mapping resource="emch/modelo/entidades/TComprobante.hbm.xml"/>
     <mapping resource="emch/modelo/entidades/TPerfil.hbm.xml"/>
     <mapping resource="emch/modelo/entidades/TMenu.hbm.xml"/>
     <mapping resource="emch/modelo/entidades/TSoat.hbm.xml"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 03-jun-2013 0:51:46 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 05-jun-2013 2:10:38 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TComprobante" table="t_comprobante" catalog="bd_emch">
         <id name="idComprobante" type="string">
@@ -47,8 +47,10 @@
         <property name="fechaModf" type="timestamp">
             <column name="fechaModf" length="19" />
         </property>
-        <property name="estado" type="boolean">
-            <column name="estado" not-null="true" />
+        <property name="estado" type="string">
+            <column name="estado" length="2" not-null="true">
+                <comment>PC- Pendiente CC- Cobrado</comment>
+            </column>
         </property>
         <set name="TComprobantedets" inverse="true">
             <key>

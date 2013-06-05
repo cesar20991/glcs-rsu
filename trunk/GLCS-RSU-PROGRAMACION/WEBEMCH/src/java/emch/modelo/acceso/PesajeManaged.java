@@ -70,7 +70,7 @@ public class PesajeManaged {
             }
             pesaje.setCdPesaje(idcl);      
             pesaje.setTControlviaje(selectedcv);
-            pesaje.setEstadoPesaje('P');
+            pesaje.setEstadoPesaje("PP");
             pesaje.setFechaReg(pesaje.getFechaPesaje());             
             pesaje.setUsuCrea(usuario);
             sesion.save(pesaje);            

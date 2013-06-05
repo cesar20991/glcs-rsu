@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 03-jun-2013 0:51:45 by Hibernate Tools 3.2.1.GA
+// Generated 05-jun-2013 2:10:37 by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -19,7 +19,7 @@ public class TPesaje  implements java.io.Serializable {
      private BigDecimal pesoBruto;
      private BigDecimal tara;
      private BigDecimal pesoTn;
-     private char estadoPesaje;
+     private String estadoPesaje;
      private String usuCrea;
      private Date fechaReg;
      private String usuModf;
@@ -31,7 +31,7 @@ public class TPesaje  implements java.io.Serializable {
     }
 
 	
-    public TPesaje(String cdPesaje, TControlviaje TControlviaje, int nroPesaje, Date fechaPesaje, BigDecimal pesoBruto, BigDecimal tara, BigDecimal pesoTn, char estadoPesaje, String usuCrea, Date fechaReg) {
+    public TPesaje(String cdPesaje, TControlviaje TControlviaje, int nroPesaje, Date fechaPesaje, BigDecimal pesoBruto, BigDecimal tara, BigDecimal pesoTn, String estadoPesaje, String usuCrea, Date fechaReg) {
         this.cdPesaje = cdPesaje;
         this.TControlviaje = TControlviaje;
         this.nroPesaje = nroPesaje;
@@ -43,7 +43,7 @@ public class TPesaje  implements java.io.Serializable {
         this.usuCrea = usuCrea;
         this.fechaReg = fechaReg;
     }
-    public TPesaje(String cdPesaje, TControlviaje TControlviaje, TLiquidacion TLiquidacion, int nroPesaje, Date fechaPesaje, BigDecimal pesoBruto, BigDecimal tara, BigDecimal pesoTn, char estadoPesaje, String usuCrea, Date fechaReg, String usuModf, Date fechaModf, String obs, byte[] imagenP) {
+    public TPesaje(String cdPesaje, TControlviaje TControlviaje, TLiquidacion TLiquidacion, int nroPesaje, Date fechaPesaje, BigDecimal pesoBruto, BigDecimal tara, BigDecimal pesoTn, String estadoPesaje, String usuCrea, Date fechaReg, String usuModf, Date fechaModf, String obs, byte[] imagenP) {
        this.cdPesaje = cdPesaje;
        this.TControlviaje = TControlviaje;
        this.TLiquidacion = TLiquidacion;
@@ -117,11 +117,11 @@ public class TPesaje  implements java.io.Serializable {
     public void setPesoTn(BigDecimal pesoTn) {
         this.pesoTn = pesoTn;
     }
-    public char getEstadoPesaje() {
+    public String getEstadoPesaje() {
         return this.estadoPesaje;
     }
     
-    public void setEstadoPesaje(char estadoPesaje) {
+    public void setEstadoPesaje(String estadoPesaje) {
         this.estadoPesaje = estadoPesaje;
     }
     public String getUsuCrea() {
