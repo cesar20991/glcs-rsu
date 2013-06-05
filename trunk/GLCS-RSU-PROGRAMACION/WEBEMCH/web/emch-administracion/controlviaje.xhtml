@@ -2,18 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Administrar Control de Viaje</title>
     </h:head>
     <h:body>
-        <h:form id="formControles">
-            <p:dataTable id="dtControles" var="despacho" value="#{controlViajeBean.listaDespachos}" selectionMode="single"
-                         selection="#{controlViajeBean.controlviaje}" rowKey="#{despacho.id.cdDespacho}">   
-                <p:ajax event="rowSelect" listener="#{tableBean.onRowSelect}"   
-                        update=":formDetalle:dtDetalles" oncomplete="detalleTable.show()" /> 
-
+        <h:form id="formDespachos">
+            <p:dataTable id="dtDespachos" var="despacho" value="#{controlViajeBean.listaDespachos}">   
                 <h:inputHidden value="#{despacho.id.cdDespacho}"/>
 
                 <p:column headerText="Ubigeo">
@@ -39,13 +34,78 @@
                 <p:column headerText="Fech. de Registro">
                     <h:outputText value="#{despacho.fechaReg}" />
                 </p:column>
+
+                <p:column headerText="Ver." style="width:8%; text-align: center"> 
+                    <p:commandButton icon="ui-icon-search" title="Ver" update=":formControles:dtControles" actionListener="#{controlViajeBean.prepararControles(despacho.id.cdDespacho)}"/>
+                </p:column>
             </p:dataTable>
         </h:form>
 
-        <h:form id="formDetalle">
-            <p:dataTable id="dtDetalles" var="despacho" value="#{controlViajeBean.listaDespachos}" widgetVar="detalleTable">
+        <br/>
 
+        <h:form id="formControles">
+            <p:dataTable id="dtControles" var="control" value="#{controlViajeBean.listaControles}" widgetVar="detalleTable">
+                <h:inputHidden value="#{control.id.cdControlViaje}"/>
+
+                <p:column headerText="Nro.">
+                    <h:outputText value="#{control.id.nroViaje}" />
+                </p:column>
+
+                <p:column headerText="Nro. Despacho">
+                    <h:outputText value="#{control.TDespachodet.TDespacho.id.cdDespacho}" />
+                </p:column>
+
+                <p:column headerText="Camion">
+                    <h:outputText value="#{control.TDespachodet.TTrabajadorxcamion.TCamion.placa}" />
+                </p:column>
+
+                <p:column headerText="Trabajador">
+                    <h:outputText value="#{control.TDespachodet.TTrabajadorxcamion.TTrabajador.nombres}" />
+                </p:column>
+
+                <p:column headerText="Fecha de emision">
+                    <h:outputText value="#{control.fechaEmi}" />
+                </p:column>
+
+                <p:column headerText="Hora">
+                    <h:outputText value="#{control.horaEstimada}" />
+                </p:column>
+
+                <p:column headerText="Hora real">
+                    <h:outputText value="#{control.horaReal}" />
+                </p:column>
+
+                <p:column headerText="Obs.">
+                    <h:outputText value="#{control.obs}" />
+                </p:column>
+
+                <p:column headerText="Edit." style="width:8%; text-align: center">  
+                    <p:commandButton oncomplete="editarControlDialog.show();" icon="ui-icon-pencil" title="Editar" update=":formControlEditar" actionListener="#{controlViajeBean.prepararControl(control.id)}"/>
+                </p:column> 
             </p:dataTable>
+        </h:form>
+
+        <h:form id="formControlEditar">
+            <p:dialog id="dlgControlEditar" header="Editar Control" widgetVar="editarControlDialog" resizable="false" modal="false">
+                <h:panelGrid id="pgCamionEditar" columns="2" cellpadding="4" style="margin:0 auto;">
+                    <h:outputText value="Codigo" />
+                    <p:inputText value="#{controlViajeBean.controlviaje.id.cdControlViaje}" style="font-weight:bold" disabled="true"/>
+
+                    <h:outputText value="Fecha de emision:" />
+                    <p:calendar value="#{controlViajeBean.controlviaje.fechaEmi}" pattern="MM/dd/yyyy HH:mm:ss" showOn="button" style="font-weight:bold"/>
+
+                    <h:outputText value="Hora estimada:" />
+                    <p:inputText value="#{controlViajeBean.controlviaje.horaEstimada}" style="font-weight:bold"/>
+
+                    <h:outputText value="Hora real:" />
+                    <p:inputText value="#{controlViajeBean.controlviaje.horaReal}" style="font-weight:bold"/>
+                </h:panelGrid>
+
+                <p:separator/>
+
+                <p:commandButton value="Guardar" oncomplete="editarControlDialog.hide()" update=":formControles:dtControles" actionListener="#{controlViajeBean.actualizarControl()}"/>
+                <p:commandButton value="Cancelar" oncomplete="editarControlDialog.hide()"/>
+            </p:dialog>
         </h:form>
     </h:body>
 </html>

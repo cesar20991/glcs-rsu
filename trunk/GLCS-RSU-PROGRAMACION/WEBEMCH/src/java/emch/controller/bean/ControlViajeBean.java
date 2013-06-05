@@ -2,6 +2,7 @@ package emch.controller.bean;
 
 import emch.modelo.acceso.ControlViajeManaged;
 import emch.modelo.entidades.TControlviaje;
+import emch.modelo.entidades.TControlviajeId;
 import emch.modelo.entidades.TDespacho;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -16,10 +17,27 @@ import javax.faces.bean.SessionScoped;
 public class ControlViajeBean {
 
     private List<TDespacho> listaDespachos;
-    private List<TControlviaje> listaDetalle;
+    private List<TControlviaje> listaControles;
     private TControlviaje controlviaje;
 
     public ControlViajeBean() {
+        controlviaje = new TControlviaje();
+    }
+
+    public void prepararControles(String id) {
+        ControlViajeManaged obj = new ControlViajeManaged();
+        listaControles = obj.buscarControlesPorId(id);
+    }
+
+    public void prepararControl(TControlviajeId id) {
+        ControlViajeManaged obj = new ControlViajeManaged();
+        controlviaje = obj.buscarPorId(id);
+    }
+
+    public void actualizarControl() {
+        ControlViajeManaged obj = new ControlViajeManaged();
+        obj.actualizar(controlviaje);
+        controlviaje = new TControlviaje();
     }
 
     public List<TDespacho> getListaDespachos() {
@@ -36,9 +54,7 @@ public class ControlViajeBean {
         this.controlviaje = controlviaje;
     }
 
-    public List<TControlviaje> getListaDetalle() {
-//        ControlViajeManaged obj = new ControlViajeManaged();
-//        listaDespachos = obj.buscarDetalles(controlviaje);
-        return listaDetalle;
+    public List<TControlviaje> getListaControles() {
+        return listaControles;
     }
 }
