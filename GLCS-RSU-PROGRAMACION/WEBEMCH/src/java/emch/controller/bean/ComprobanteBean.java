@@ -13,6 +13,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 
 /**
  *
@@ -29,8 +30,8 @@ public class ComprobanteBean extends UsuarioBean {
     private List<TServicio> listadoDeServicios;
     private TServicio servicio;
     private TComprobantedet comprobantedet;
-    
-    private TServicio[] selectedServicio;
+    private List<TComprobante> listarComprobantes;
+    private List<TComprobantedet> listarComprobantesDets;
 
     public ComprobanteBean() {
         comprobante = new TComprobante();
@@ -137,14 +138,6 @@ public class ComprobanteBean extends UsuarioBean {
         return listadoDeServicios;
     }
 
-    public TServicio[] getSelectedServicio() {
-        return selectedServicio;
-    }
-
-    public void setSelectedServicio(TServicio[] selectedServicio) {
-        this.selectedServicio = selectedServicio;
-    }
-
     public TServicio getServicio() {
         return servicio;
     }
@@ -160,4 +153,30 @@ public class ComprobanteBean extends UsuarioBean {
     public void setComprobantedet(TComprobantedet comprobantedet) {
         this.comprobantedet = comprobantedet;
     }
+
+    public List<TComprobante> getListarComprobantes() {
+        ComprobanteManaged obj = new ComprobanteManaged();
+        setListarComprobantes(obj.listarComprobantes());
+        return listarComprobantes;
+    }
+
+    public void setListarComprobantes(List<TComprobante> listarComprobantes) {
+        this.listarComprobantes = listarComprobantes;
+    }
+    
+    String comprobanteA = "";
+    public void buscarCompDet(AjaxBehaviorEvent event) {
+        comprobanteA = comprobante.getIdComprobante();
+        ComprobanteManaged obj = new ComprobanteManaged();
+        listarComprobantesDets = obj.listarComprobantesDets(comprobante);        
+    }
+
+    public List<TComprobantedet> getListarComprobantesDets() {
+        return listarComprobantesDets;
+    }
+
+    public void setListarComprobantesDets(List<TComprobantedet> listarComprobantesDets) {
+        this.listarComprobantesDets = listarComprobantesDets;
+    }
+    
 }
