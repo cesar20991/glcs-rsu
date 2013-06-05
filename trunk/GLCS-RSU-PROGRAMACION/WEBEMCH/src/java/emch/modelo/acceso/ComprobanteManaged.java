@@ -43,6 +43,20 @@ public class ComprobanteManaged {
         }*/
         return listatipo;
     }
-        
+
+    public List listarComprobantePorCliente() {
+        List<TComprobante> listaCom = null;
+      /*  try {*/
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            trans = sesion.beginTransaction();
+            qry = sesion.createQuery("FROM TComprobante");
+            listaCom = (List<TComprobante>) qry.list();
+       /* } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            sesion.close();
+        }*/
+        return listaCom;
+    }        
 
 }

@@ -3,7 +3,7 @@ package emch.modelo.acceso;
 import emch.modelo.entidades.TControlviaje;
 import emch.modelo.entidades.TLiquidacion;
 import emch.modelo.entidades.TPesaje;
-import emch.modelo.entidades.TUsuario;
+import emch.modelo.entidades.TComprobante;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -114,4 +114,20 @@ public class PesajeManaged {
          }*/
         return nuevoID;
     }
+    
+/*VER PESAJES SEGUN COMPROBANTE---------*/  
+    public List listarPesajePorCliente(TComprobante selectedComprobante) {
+        List<TPesaje> listaPes = null;
+      /*  try {*/
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            trans = sesion.beginTransaction();
+            qry = sesion.createQuery("COLOCAR AKA!!!!!!!!!!!");
+            listaPes = (List<TPesaje>) qry.list();
+       /* } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            sesion.close();
+        }*/
+        return listaPes;
+    }    
 }
