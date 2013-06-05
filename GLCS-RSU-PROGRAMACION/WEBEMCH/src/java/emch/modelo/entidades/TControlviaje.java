@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 03-jun-2013 0:51:45 by Hibernate Tools 3.2.1.GA
+// Generated 05-jun-2013 2:10:37 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -25,12 +25,10 @@ public class TControlviaje  implements java.io.Serializable {
     }
 
 	
-    public TControlviaje(TControlviajeId id, TDespachodet TDespachodet, Date fechaEmi, String horaEstimada, String horaReal) {
+    public TControlviaje(TControlviajeId id, TDespachodet TDespachodet, Date fechaEmi) {
         this.id = id;
         this.TDespachodet = TDespachodet;
         this.fechaEmi = fechaEmi;
-        this.horaEstimada = horaEstimada;
-        this.horaReal = horaReal;
     }
     public TControlviaje(TControlviajeId id, TDespachodet TDespachodet, Date fechaEmi, String horaEstimada, String horaReal, String obs, Set<TIncidencia> TIncidencias, Set<TPesaje> TPesajes) {
        this.id = id;

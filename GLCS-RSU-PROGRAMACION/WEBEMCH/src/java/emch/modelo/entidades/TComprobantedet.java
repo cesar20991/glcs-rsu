@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 03-jun-2013 0:51:45 by Hibernate Tools 3.2.1.GA
+// Generated 05-jun-2013 2:10:37 by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -13,19 +13,19 @@ public class TComprobantedet  implements java.io.Serializable {
      private String item;
      private TComprobante TComprobante;
      private TServicio TServicio;
-     private BigDecimal precioUnit;
-     private BigDecimal igv;
+     private BigDecimal precio;
+     private BigDecimal cantTn;
      private BigDecimal total;
 
     public TComprobantedet() {
     }
 
-    public TComprobantedet(String item, TComprobante TComprobante, TServicio TServicio, BigDecimal precioUnit, BigDecimal igv, BigDecimal total) {
+    public TComprobantedet(String item, TComprobante TComprobante, TServicio TServicio, BigDecimal precio, BigDecimal cantTn, BigDecimal total) {
        this.item = item;
        this.TComprobante = TComprobante;
        this.TServicio = TServicio;
-       this.precioUnit = precioUnit;
-       this.igv = igv;
+       this.precio = precio;
+       this.cantTn = cantTn;
        this.total = total;
     }
    
@@ -50,19 +50,19 @@ public class TComprobantedet  implements java.io.Serializable {
     public void setTServicio(TServicio TServicio) {
         this.TServicio = TServicio;
     }
-    public BigDecimal getPrecioUnit() {
-        return this.precioUnit;
+    public BigDecimal getPrecio() {
+        return this.precio;
     }
     
-    public void setPrecioUnit(BigDecimal precioUnit) {
-        this.precioUnit = precioUnit;
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
     }
-    public BigDecimal getIgv() {
-        return this.igv;
+    public BigDecimal getCantTn() {
+        return this.cantTn;
     }
     
-    public void setIgv(BigDecimal igv) {
-        this.igv = igv;
+    public void setCantTn(BigDecimal cantTn) {
+        this.cantTn = cantTn;
     }
     public BigDecimal getTotal() {
         return this.total;

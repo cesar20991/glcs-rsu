@@ -34,7 +34,7 @@ public class PesajeBean extends UsuarioBean {
         pesaje = new TPesaje();
         pesaje.setTControlviaje(new TControlviaje());
         //pesaje.setTLiquidacion(new TLiquidacion());
-        pesaje.setTControlviaje(new TControlviaje(new TControlviajeId(), null, null, "", ""));
+        pesaje.setTControlviaje(new TControlviaje(new TControlviajeId(), null, null));
     }
 
     public TLiquidacion getSelectedLiquidacion() {
@@ -97,7 +97,7 @@ public class PesajeBean extends UsuarioBean {
         setPesaje((TPesaje) listpesajes.getRowData());
         String controlViaje = pesaje.getTControlviaje().getId().getCdControlViaje();
         int nroViaje = pesaje.getTControlviaje().getId().getNroViaje();
-        pesaje.setTControlviaje(new TControlviaje(new TControlviajeId(controlViaje, nroViaje), null, null, "", ""));
+        pesaje.setTControlviaje(new TControlviaje(new TControlviajeId(controlViaje, nroViaje), null, null));
 //        //String cdliq = pesaje.getTLiquidacion().getCdLiq();
 //        //pesaje.setTLiquidacion(new TLiquidacion(cdliq, null, null, null, null, null, "", null));
         String cod = pesaje.getCdPesaje();
