@@ -28,7 +28,7 @@
                 <ui:define name="content">
 
                     <h:form  prependId="false" id="interesxin">
-                        <h:outputText value="BIENVENIDOS" style="font-weight:bold;font-size:20px;color:#654B24" />
+                        <h:outputText value="COMPROBANTE" style="font-weight:bold;font-size:20px;color:#654B24" />
                         <p:tab title="COMPROBANTES">
                             <div style="padding-bottom: 10px;">
 
@@ -40,7 +40,7 @@
                                          rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
 
                                 <f:facet name="header">  
-                                    Listado de Comprobantes
+                                    LISTADO DE COMPROBANTES DE LA <h:outputText value="#{pesajeBean.empresa.rsocial}"/> DE LA LIQUIDACION <h:outputText value="#{pesajeBean.selectedLiquidacion.cdLiq}"></h:outputText>
                                 </f:facet>  
 
                                 <p:column rendered="false"> 
@@ -52,61 +52,61 @@
 
                                 <p:column  filterBy="#{comprobante.TLiquidacion.cdLiq}" filterMatchMode="contains">
                                     <f:facet name="header">  
-                                        <h:outputText value="Nro. Pesaje" />  
+                                        <h:outputText value="Nro. Liquidación" />  
                                     </f:facet> 
                                     <h:outputText value="#{comprobante.TLiquidacion.cdLiq}"/>
                                 </p:column>
 
-                                <p:column  filterBy="#{comprobante.TMoneda.cdMda}" filterMatchMode="contains">
+                                <p:column  filterBy="#{comprobante.TMoneda.nombre}" filterMatchMode="contains">
                                     <f:facet name="header">  
-                                        <h:outputText value="Fecha Pesaje" />  
+                                        <h:outputText value="Moneda" />  
                                     </f:facet> 
-                                    <h:outputText value="#{comprobante.TMoneda.cdMda}"/>
+                                    <h:outputText value="#{comprobante.TMoneda.nombre}"/>
                                 </p:column>
 
-                                <p:column filterBy="#{comprobante.TTipodoc.cdTd}" filterMatchMode="contains">
+                                <p:column filterBy="#{comprobante.TTipodoc.descrip}" filterMatchMode="contains">
                                     <f:facet name="header">  
-                                        <h:outputText value="Placa" />  
+                                        <h:outputText value="Tipo. Doc." />  
                                     </f:facet> 
-                                    <h:outputText value="#{comprobante.TTipodoc.cdTd}"/>
+                                    <h:outputText value="#{comprobante.TTipodoc.descrip}"/>
                                 </p:column>
 
                                 <p:column filterBy="#{comprobante.fecMov}" filterMatchMode="contains">
                                     <f:facet name="header">  
-                                        <h:outputText value="Trabajador"/>  
+                                        <h:outputText value="Fecha Emisión"/>  
                                     </f:facet> 
                                     <h:outputText value="#{comprobante.fecMov}"/>
                                 </p:column>
 
                                 <p:column filterBy="#{comprobante.serie}" filterMatchMode="contains">
                                     <f:facet name="header">  
-                                        <h:outputText value="Fecha Pesaje" />  
+                                        <h:outputText value="Serie" />  
                                     </f:facet> 
                                     <h:outputText value="#{comprobante.serie}"/>
                                 </p:column>
 
                                 <p:column  filterBy="#{comprobante.nroDoc}" filterMatchMode="contains">
                                     <f:facet name="header">  
-                                        <h:outputText value="Peso Bruto"/>  
+                                        <h:outputText value="Nro Doc"/>  
                                     </f:facet> 
                                     <h:outputText value="#{comprobante.nroDoc}"/>
                                 </p:column>
 
                                 <p:column  filterBy="#{comprobante.total}" filterMatchMode="contains">
                                     <f:facet name="header">  
-                                        <h:outputText value="Tara"/>  
+                                        <h:outputText value="Total"/>  
                                     </f:facet> 
                                     <h:outputText value="#{comprobante.total}"/>
                                 </p:column>
                                 <p:column  filterBy="#{comprobante.subTotal}" filterMatchMode="contains">
                                     <f:facet name="header">  
-                                        <h:outputText value="Peso TN"/>  
+                                        <h:outputText value="SubTotal"/>  
                                     </f:facet> 
                                     <h:outputText value="#{comprobante.subTotal}"/>
                                 </p:column>
                                 <p:column  filterBy="#{comprobante.igv}" filterMatchMode="contains">
                                     <f:facet name="header">  
-                                        <h:outputText value="Estado Pesaje"/>  
+                                        <h:outputText value="IGV"/>  
                                     </f:facet> 
                                     <h:outputText value="#{comprobante.igv}"/>
                                 </p:column>
