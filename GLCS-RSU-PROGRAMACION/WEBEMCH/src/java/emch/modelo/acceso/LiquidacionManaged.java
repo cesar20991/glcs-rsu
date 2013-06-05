@@ -8,7 +8,7 @@ import emch.modelo.entidades.TPesaje;
 import emch.modelo.entidades.TTipoliquidacion;
 import emch.modelo.entidades.TTipotrabajador;
 import emch.modelo.entidades.TTrabajador;
-import emch.modelo.entidades.TUbigeo;
+import emch.modelo.entidades.TComprobante;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,6 +52,22 @@ public class LiquidacionManaged {
          }*/
         return listaTLiq;
     }
+
+/*LISTAR LIQUIDACION POR CLIENTE*/    
+    public List listarLiquidacionPorCliente(TComprobante selectedComprobante) {
+        List<TLiquidacion> listaLiq = null;
+      /*  try {*/
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            trans = sesion.beginTransaction();
+            qry = sesion.createQuery("SELECT b FROM TComprobante a inner join a.TLiquidacion b where b.cdLiq='"+selectedComprobante.getTLiquidacion()+"'");
+            listaLiq = (List<TLiquidacion>) qry.list();
+       /* } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            sesion.close();
+        }*/
+        return listaLiq;
+    }    
 
     //---------Lista pesaje que todavia no fueron cobrados por el cliente---------------------//
     public List listarPesajePendiente(String rucemp, Date fechaInicio, Date fechaFin) {
