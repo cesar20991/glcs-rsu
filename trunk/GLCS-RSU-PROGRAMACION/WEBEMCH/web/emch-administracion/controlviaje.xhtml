@@ -36,7 +36,7 @@
                 </p:column>
 
                 <p:column headerText="Ver." style="width:8%; text-align: center"> 
-                    <p:commandButton icon="ui-icon-search" title="Ver" update=":formControles:dtControles" actionListener="#{controlViajeBean.prepararControles(despacho.id.cdDespacho)}"/>
+                    <p:commandButton oncomplete="verControlesDialog.show();" icon="ui-icon-search" title="Ver" update=":formControles:dtControles" actionListener="#{controlViajeBean.prepararControles(despacho.id.cdDespacho)}"/>
                 </p:column>
             </p:dataTable>
         </h:form>
@@ -44,45 +44,47 @@
         <br/>
 
         <h:form id="formControles">
-            <p:dataTable id="dtControles" var="control" value="#{controlViajeBean.listaControles}" widgetVar="detalleTable">
-                <h:inputHidden value="#{control.id.cdControlViaje}"/>
+            <p:dialog id="dlgControlesVer" header="Controles" widgetVar="verControlesDialog" resizable="false" modal="false">
+                <p:dataTable id="dtControles" var="control" value="#{controlViajeBean.listaControles}" widgetVar="detalleTable">
+                    <h:inputHidden value="#{control.id.cdControlViaje}"/>
 
-                <p:column headerText="Nro.">
-                    <h:outputText value="#{control.id.nroViaje}" />
-                </p:column>
+                    <p:column headerText="Nro.">
+                        <h:outputText value="#{control.id.nroViaje}" />
+                    </p:column>
 
-                <p:column headerText="Nro. Despacho">
-                    <h:outputText value="#{control.TDespachodet.TDespacho.id.cdDespacho}" />
-                </p:column>
+                    <p:column headerText="Nro. Despacho">
+                        <h:outputText value="#{control.TDespachodet.TDespacho.id.cdDespacho}" />
+                    </p:column>
 
-                <p:column headerText="Camion">
-                    <h:outputText value="#{control.TDespachodet.TTrabajadorxcamion.TCamion.placa}" />
-                </p:column>
+                    <p:column headerText="Camion">
+                        <h:outputText value="#{control.TDespachodet.TTrabajadorxcamion.TCamion.placa}" />
+                    </p:column>
 
-                <p:column headerText="Trabajador">
-                    <h:outputText value="#{control.TDespachodet.TTrabajadorxcamion.TTrabajador.nombres}" />
-                </p:column>
+                    <p:column headerText="Trabajador">
+                        <h:outputText value="#{control.TDespachodet.TTrabajadorxcamion.TTrabajador.nombres}" />
+                    </p:column>
 
-                <p:column headerText="Fecha de emision">
-                    <h:outputText value="#{control.fechaEmi}" />
-                </p:column>
+                    <p:column headerText="Fecha de emision">
+                        <h:outputText value="#{control.fechaEmi}" />
+                    </p:column>
 
-                <p:column headerText="Hora">
-                    <h:outputText value="#{control.horaEstimada}" />
-                </p:column>
+                    <p:column headerText="Hora">
+                        <h:outputText value="#{control.horaEstimada}" />
+                    </p:column>
 
-                <p:column headerText="Hora real">
-                    <h:outputText value="#{control.horaReal}" />
-                </p:column>
+                    <p:column headerText="Hora real">
+                        <h:outputText value="#{control.horaReal}" />
+                    </p:column>
 
-                <p:column headerText="Obs.">
-                    <h:outputText value="#{control.obs}" />
-                </p:column>
+                    <p:column headerText="Obs.">
+                        <h:outputText value="#{control.obs}" />
+                    </p:column>
 
-                <p:column headerText="Edit." style="width:8%; text-align: center">  
-                    <p:commandButton oncomplete="editarControlDialog.show();" icon="ui-icon-pencil" title="Editar" update=":formControlEditar" actionListener="#{controlViajeBean.prepararControl(control.id)}"/>
-                </p:column> 
-            </p:dataTable>
+                    <p:column headerText="Edit." style="width:8%; text-align: center">  
+                        <p:commandButton oncomplete="editarControlDialog.show(),verControlesDialog.hide()" icon="ui-icon-pencil" title="Editar" update=":formControlEditar" actionListener="#{controlViajeBean.prepararControl(control.id)}"/>
+                    </p:column> 
+                </p:dataTable>
+            </p:dialog>
         </h:form>
 
         <h:form id="formControlEditar">
