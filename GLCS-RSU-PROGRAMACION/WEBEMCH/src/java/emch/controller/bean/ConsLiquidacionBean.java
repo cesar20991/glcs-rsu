@@ -14,7 +14,9 @@ import javax.faces.bean.SessionScoped;
 public class ConsLiquidacionBean {
     private TLiquidacion liquidacion;
     private List<TLiquidacion> listarLiquidacion;
-    
+    private TComprobante selectedComprobante;
+    private List<TLiquidacion> listarLiquidacionPorCliente;
+    private List<TPesaje> listarpesajePorCliente;    
     
     @PostConstruct
     public void init() {
@@ -50,5 +52,36 @@ public class ConsLiquidacionBean {
     public String irComprobantes(){
         return "ConsultarComprobantes";
     }
+    
+ /*SELECCIONAR COMPROBANTE PARA VER SU LIQUIDACION*/
+
+    public TComprobante getSelectedComprobante() {        
+        return selectedComprobante;
+    }
+
+    public void setSelectedComprobante(TComprobante selectedComprobante) {
+        this.selectedComprobante = selectedComprobante;
+    }
+
+    public List<TLiquidacion> getListarLiquidacionPorCliente() {
+        LiquidacionManaged objLiq = new LiquidacionManaged();
+        listarLiquidacionPorCliente = objLiq.listarLiquidacionPorCliente(selectedComprobante);
+        return listarLiquidacionPorCliente;
+    }
+
+    public void setListarLiquidacionPorCliente(List<TLiquidacion> listarLiquidacionPorCliente) {
+        this.listarLiquidacionPorCliente = listarLiquidacionPorCliente;
+    }
+
+    public List<TPesaje> getListarpesajePorCliente() {
+        PesajeManaged objPes = new PesajeManaged();
+        listarpesajePorCliente = objPes.listarPesajePorCliente(selectedComprobante);
+        return listarpesajePorCliente;
+    }
+
+    public void setListarpesajePorCliente(List<TPesaje> listarpesajePorCliente) {
+        this.listarpesajePorCliente = listarpesajePorCliente;
+    }   
+ 
        
 }
