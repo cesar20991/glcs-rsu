@@ -19,6 +19,7 @@ public class PesajeBean extends UsuarioBean {
     private TLiquidacion selectedLiquidacion;
     private List<TPesaje> listarPesaje;
     private List<TComprobante> listarComprobante;
+    private List<TComprobante> listarComprobantePorCliente;    
     //-----------GenerarPesaje---------------------------
     private TPesaje pesaje;
     private DataModel listpesajes;
@@ -148,5 +149,25 @@ public class PesajeBean extends UsuarioBean {
     public void setSelectedcv(TControlviaje selectedcv) {
         this.selectedcv = selectedcv;
     }
+    
+/*COMPROBANTES POR CLIENTE*/
+    public List<TComprobante> getListarComprobantePorCliente() {
+        ComprobanteManaged objCom = new ComprobanteManaged();
+        listarComprobantePorCliente = objCom.listarComprobantePorCliente();
+        return listarComprobantePorCliente;
+    }
+
+    public void setListarComprobantePorCliente(List<TComprobante> listarComprobantePorCliente) {
+        this.listarComprobantePorCliente = listarComprobantePorCliente;
+    }
+       
+   public String irLiquidacionPorCliente(){
+       return "LiquidacionPorCliente";
+   }
+   
+   public String irPesajePorCliente(){
+       return "PesajeporCliente";
+   }    
+    
     
 }
