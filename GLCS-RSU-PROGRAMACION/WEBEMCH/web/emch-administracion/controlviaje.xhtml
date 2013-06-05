@@ -83,6 +83,9 @@
                     <p:column headerText="Edit." style="width:8%; text-align: center">  
                         <p:commandButton oncomplete="editarControlDialog.show(),verControlesDialog.hide()" icon="ui-icon-pencil" title="Editar" update=":formControlEditar" actionListener="#{controlViajeBean.prepararControl(control.id)}"/>
                     </p:column> 
+                    <p:column headerText="Elim." style="width:8%; text-align: center">  
+                        <p:commandButton oncomplete="verControlesDialog.hide()" icon="ui-icon-cancel" title="Eliminar" update=":formDespachos:dtDespachos" actionListener="#{controlViajeBean.eliminarControl(control)}"/>
+                    </p:column> 
                 </p:dataTable>
             </p:dialog>
         </h:form>

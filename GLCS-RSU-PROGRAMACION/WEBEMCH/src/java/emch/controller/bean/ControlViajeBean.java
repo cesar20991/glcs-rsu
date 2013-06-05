@@ -18,6 +18,7 @@ public class ControlViajeBean {
 
     private List<TDespacho> listaDespachos;
     private List<TControlviaje> listaControles;
+    private List<TControlviaje> listaControlesBuscar;
     private TControlviaje controlviaje;
 
     public ControlViajeBean() {
@@ -40,6 +41,11 @@ public class ControlViajeBean {
         controlviaje = new TControlviaje();
     }
 
+    public void eliminarControl(TControlviaje control) {
+        ControlViajeManaged obj = new ControlViajeManaged();
+        obj.eliminar(control);
+    }
+
     public List<TDespacho> getListaDespachos() {
         ControlViajeManaged obj = new ControlViajeManaged();
         listaDespachos = obj.buscarTodos();
@@ -56,5 +62,9 @@ public class ControlViajeBean {
 
     public List<TControlviaje> getListaControles() {
         return listaControles;
+    }
+
+    public List<TControlviaje> getListaControlesBuscar() {
+        return listaControlesBuscar;
     }
 }
