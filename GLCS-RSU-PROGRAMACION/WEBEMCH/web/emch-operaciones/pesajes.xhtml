@@ -84,14 +84,7 @@
                             </f:facet> 
                             <h:outputText value="#{pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TTrabajador.nombres}"/>
                         </p:column>
-
-                        <p:column filterBy="#{pesaje.fechaPesaje}" filterMatchMode="contains">
-                            <f:facet name="header">  
-                                <h:outputText value="Fecha Pesaje" />  
-                            </f:facet> 
-                            <h:outputText value="#{pesaje.fechaPesaje}"/>
-                        </p:column>
-
+                        
                         <p:column  filterBy="#{pesaje.pesoBruto}" filterMatchMode="contains">
                             <f:facet name="header">  
                                 <h:outputText value="Peso Bruto"/>  
