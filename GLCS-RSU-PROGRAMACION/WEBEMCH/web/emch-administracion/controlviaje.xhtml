@@ -7,6 +7,10 @@
         <title>Administrar Control de Viaje</title>
     </h:head>
     <h:body>
+        <h:form id="btnGenerar">
+            <p:commandButton value="Generar" oncomplete="generarControlDialog.show();" update=":formControlGenerar" icon="ui-icon-document" actionListener="#{controlViajeBean.prepararFaltantes()}"/>
+        </h:form>
+        
         <h:form id="formDespachos">
             <p:dataTable id="dtDespachos" var="despacho" value="#{controlViajeBean.listaDespachos}">
                 <h:inputHidden value="#{despacho.id.cdDespacho}"/>
@@ -104,7 +108,7 @@
 
                     <h:outputText value="Hora real:" />
                     <p:inputText value="#{controlViajeBean.controlviaje.horaReal}" style="font-weight:bold"/>
-                    
+
                     <h:outputText value="Obs.:" />
                     <p:inputTextarea rows="10" cols="50" value="#{controlViajeBean.controlviaje.obs}" queryDelay="750" minQueryLength="4" />
                 </h:panelGrid>
@@ -113,6 +117,21 @@
 
                 <p:commandButton value="Guardar" oncomplete="editarControlDialog.hide()" update=":formControles:dtControles" actionListener="#{controlViajeBean.actualizarControl()}"/>
                 <p:commandButton value="Cancelar" oncomplete="editarControlDialog.hide()"/>
+            </p:dialog>
+        </h:form>
+        
+        <h:form id="formControlGenerar">
+            <p:dialog id="dlgDespachosFaltantesVer" header="Despachos Faltantes" widgetVar="generarControlDialog" resizable="false" modal="false">
+                <p:dataTable id="dtControles" var="faltante" value="#{controlViajeBean.listaDespachosFaltantes}" widgetVar="detalleTable" rowKey="#{faltante.id.cdDespacho}" selection="#{controlViajeBean.selectedDespachos}">
+                    <p:column selectionMode="multiple" style="width:18px" /> 
+                    <p:column headerText="Codigo de despacho">
+                        <h:outputText value="#{faltante.id.cdDespacho}" />
+                    </p:column>
+                </p:dataTable>
+                
+                <p:separator/>
+                
+                <p:commandButton value="Cancelar" oncomplete="generarControlDialog.hide()"/>
             </p:dialog>
         </h:form>
     </h:body>

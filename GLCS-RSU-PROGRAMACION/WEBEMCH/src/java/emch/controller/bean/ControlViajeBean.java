@@ -18,8 +18,9 @@ public class ControlViajeBean {
 
     private List<TDespacho> listaDespachos;
     private List<TControlviaje> listaControles;
-    private List<TControlviaje> listaControlesBuscar;
+    private List<TDespacho> listaDespachosFaltantes;
     private TControlviaje controlviaje;
+    private TDespacho[] selectedDespachos;
 
     public ControlViajeBean() {
         controlviaje = new TControlviaje();
@@ -33,6 +34,11 @@ public class ControlViajeBean {
     public void prepararControl(TControlviajeId id) {
         ControlViajeManaged obj = new ControlViajeManaged();
         controlviaje = obj.buscarPorId(id);
+    }
+
+    public void prepararFaltantes() {
+        ControlViajeManaged obj = new ControlViajeManaged();
+        listaDespachosFaltantes = obj.buscarFaltantes();
     }
 
     public void actualizarControl() {
@@ -64,7 +70,15 @@ public class ControlViajeBean {
         return listaControles;
     }
 
-    public List<TControlviaje> getListaControlesBuscar() {
-        return listaControlesBuscar;
+    public List<TDespacho> getListaDespachosFaltantes() {
+        return listaDespachosFaltantes;
+    }
+
+    public void setSelectedDespachos(TDespacho[] selectedDespachos) {
+        this.selectedDespachos = selectedDespachos;
+    }
+    
+    public TDespacho[] getSelectedDespachos() {
+        return selectedDespachos;
     }
 }
