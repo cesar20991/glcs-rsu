@@ -6,12 +6,25 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Facelet Title</title>
+        <style type="text/css">
+            html{
+                height: 100%;
+            }
+            body{
+                background-color: #ffffff;
+                font-size: 11px;
+                font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sanemch-serif;
+                color: #000000;  
+                margin: 10px;
+            }
+            .floatright{float:right;}
+        </style>
         <style>
             #map-canvas {
                 margin: 0;
                 padding: 0;
                 height: 500px;
-                width: 500px;
+                width: 800px;
             }
         </style>
 
@@ -21,7 +34,7 @@
             var map = null;
 
             function initialize() {
-                var parliament = new google.maps.LatLng(-12.087856258007099, -77.039566355468719);
+                var parliament = new google.maps.LatLng(-12.075471, -76.995987);
                 var mapOptions = {
                     zoom: 13,
                     center: parliament,
@@ -73,25 +86,36 @@
         </script>
     </h:head>
     <h:body>
+
         <h:form>
-            <p:panelGrid columns="2" style="width: 100%">
+            <p:panelGrid columns="3" style="width: 100%">
                 <f:facet name="header">  
-                    COMPRADOR(A):<h:outputText value="#{asignarRutaBean.selecteddespachodet.cantViaje}"/>       sss                          <h:outputText value="#{asignarRutaBean.selecteddespachodet.cantViaje}"/>
+                    DESPACHO Nro. <h:outputText value="#{asignarRutaBean.selecteddespachodet.TDespacho.nroDespacho}"/> CON CAMION ASIGNADO PLACA <h:outputText value="#{asignarRutaBean.selecteddespachodet.TTrabajadorxcamion.TCamion.placa}"/> Y CHOFER <h:outputText value="#{asignarRutaBean.selecteddespachodet.TTrabajadorxcamion.TTrabajador.nombres}"/>
                 </f:facet>
-                <p:commandButton value="prueba" action="#{asignarRutaBean.irInsertar}" ajax="false"></p:commandButton>
+                <h:outputText value="LAT NORTE: (*)" />
+                <p:inputText value="#{asignarRutaBean.asignaruta.latn}"  >
+                </p:inputText>
+                Lat NORTE:<input type="text" id="latS" name="latS" /><br/>
+                <h:outputText value="LNG NORTE: (*)" />
+                <p:inputText value="#{asignarRutaBean.asignaruta.lngn}"  >
+                </p:inputText>
+                Long NORTE:<input type="text" id="longS" name="longS" /><br/>
+                <h:outputText value="LAT  SUR: (*)" />
+                <p:inputText value="#{asignarRutaBean.asignaruta.lats}"  >
+                </p:inputText>
+                Lat SUR:<input type="text" id="latN" name="latN" /><br/>
+                <h:outputText value="LNG SUR: (*)" />
+                <p:inputText value="#{asignarRutaBean.asignaruta.lngs}"  >
+                </p:inputText>          
+                Lat SUR:<input type="text" id="longN" name="longN"/><br/>
             </p:panelGrid>    
+            <p:commandButton value="ASIGNAR RUTA" action="#{asignarRutaBean.irInsertar}" ajax="false"></p:commandButton>
+            <div style="padding-bottom: 50px;">
+            </div>
+
             <div id="map-canvas"></div><br/>
-            <lable>Bounds North:</lable>
-            <!--LAT/LONG:<input type="text" id="NorthEast" name="latlong"/><br/>-->
-
-            Lat:<input type="text" id="latN" name="latN" /><br/>
-            Long:<input type="text" id="longN" name="longN" value="#{asignarRutaBean.demo}"/><br/>
-            <br/><lable>Bounds South</lable>
-            <!--LAT/LONG:<input type="text" id="SouthWest" name="latlong"/><br/>-->
-            Lat:<input type="text" id="latS" name="latS" value="#{asignarRutaBean.asignaruta.lats}"/><br/>
-            Long:<input type="text" id="longS" name="longS" value="#{asignarRutaBean.asignaruta.lngs}"/><br/>
-
-            <h:outputText value="#{asignarRutaBean.asignaruta.latn}" ></h:outputText>
         </h:form>
+
+
     </h:body>
 </html>
