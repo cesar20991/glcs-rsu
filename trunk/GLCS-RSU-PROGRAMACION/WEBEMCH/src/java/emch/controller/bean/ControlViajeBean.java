@@ -4,6 +4,7 @@ import emch.modelo.acceso.ControlViajeManaged;
 import emch.modelo.entidades.TControlviaje;
 import emch.modelo.entidades.TControlviajeId;
 import emch.modelo.entidades.TDespacho;
+import emch.modelo.entidades.TDespachodet;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -21,6 +22,7 @@ public class ControlViajeBean {
     private List<TDespacho> listaDespachosFaltantes;
     private TControlviaje controlviaje;
     private TDespacho[] selectedDespachos;
+    private List<TDespachodet> listaDespachodet;
 
     public ControlViajeBean() {
         controlviaje = new TControlviaje();
@@ -37,7 +39,7 @@ public class ControlViajeBean {
     }
 
     public void prepararFaltantes() {
-        selectedDespachos= null;
+        selectedDespachos = null;
         ControlViajeManaged obj = new ControlViajeManaged();
         listaDespachosFaltantes = obj.buscarFaltantes();
     }
@@ -52,9 +54,15 @@ public class ControlViajeBean {
         ControlViajeManaged obj = new ControlViajeManaged();
         obj.eliminar(control);
     }
-    
-    public void generar(){
-        
+
+    public void generar() {
+        ControlViajeManaged obj = new ControlViajeManaged();
+        for (TDespacho tdespacho : selectedDespachos) {
+            listaDespachodet = obj.buscarDespachosDet(tdespacho.getId().getCdDespacho());
+            for (TDespachodet tDespachodet : listaDespachodet) {
+                obj.insertar(tDespachodet);
+            }
+        }
     }
 
     public List<TDespacho> getListaDespachos() {
@@ -82,8 +90,16 @@ public class ControlViajeBean {
     public void setSelectedDespachos(TDespacho[] selectedDespachos) {
         this.selectedDespachos = selectedDespachos;
     }
-    
+
     public TDespacho[] getSelectedDespachos() {
         return selectedDespachos;
+    }
+
+    public List<TDespachodet> getListaDespachodet() {
+        return listaDespachodet;
+    }
+
+    public void setListaDespachodet(List<TDespachodet> listaDespachodet) {
+        this.listaDespachodet = listaDespachodet;
     }
 }
