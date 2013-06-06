@@ -1,7 +1,9 @@
 package emch.controller.bean;
 
+import emch.modelo.acceso.MapsManaged;
 import emch.modelo.entidades.TAsignarruta;
 import emch.modelo.entidades.TDespachodet;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +18,7 @@ public class AsignarRutaBean {
 
     private TDespachodet selecteddespachodet;
     private TAsignarruta asignaruta;
-    private double demo;
-    HttpServletRequest req;
+    private List<TDespachodet> listaDespachoDet;
 
     public AsignarRutaBean() {
         asignaruta = new TAsignarruta();
@@ -38,9 +39,7 @@ public class AsignarRutaBean {
     }
 
     public String irInsertar() {
-        String a = req.getParameter("latN");
-        System.out.print("name: " +  a);
-        double ab = getDemo();
+        
         return "";
     }
 
@@ -59,16 +58,19 @@ public class AsignarRutaBean {
     }
 
     /**
-     * @return the demo
+     * @return the listaDespachoDet
      */
-    public double getDemo() {
-        return demo;
+    public List<TDespachodet> getListaDespachoDet() {
+        MapsManaged obj = new MapsManaged();
+        listaDespachoDet = obj.ListarDespachoxDespachoDet();     
+        return listaDespachoDet;
     }
 
     /**
-     * @param demo the demo to set
+     * @param listaDespachoDet the listaDespachoDet to set
      */
-    public void setDemo(double demo) {
-        this.demo = demo;
+    public void setListaDespachoDet(List<TDespachodet> listaDespachoDet) {
+        this.listaDespachoDet = listaDespachoDet;
     }
+    
 }

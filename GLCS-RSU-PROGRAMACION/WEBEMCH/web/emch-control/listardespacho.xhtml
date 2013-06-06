@@ -14,7 +14,7 @@
 
                 <ui:define name="usuarios">
                 </ui:define>
-                
+
                 <ui:define name="top">
                     <p:growl id="messages" autoUpdate="true"/>                     
                 </ui:define>
@@ -22,17 +22,39 @@
                 <ui:define name="content">
 
                     <h:form  prependId="false" id="interesxin">
-                        <h:outputText value="CONTROL - DESPACHO" style="font-weight:bold;font-size:20px;color:#654B24" />
+                        <h:outputText value="CONTROL - DESPACHO - ASIGNAR RUTA" style="font-weight:bold;font-size:20px;color:#654B24" />
                         <p:tab title="DESPACHOS">                            
                             <p:commandButton  value="Asignar Ruta" action="#{asignarRutaBean.irAsignarRuta()}" ajax="false"> 
                             </p:commandButton>
-                            <p:dataTable id="visita" var="listdesdet" value="#{hojadeDespachoBean.listaDespachoDet}" rowKey="#{listdesdet.id.nro}" selectionMode="single" selection="#{asignarRutaBean.selecteddespachodet}"
-                                         paginator="true" rows="5"  
+                            <p:dataTable id="visita" var="listdesdet" value="#{asignarRutaBean.listaDespachoDet}" rowKey="#{listdesdet.id.nro}" selectionMode="single" selection="#{asignarRutaBean.selecteddespachodet}"
+                                         paginator="true" rows="50"  
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                          rowsPerPageTemplate="5,10,15" style="font-weight:bold" >    
                                 <f:facet name="header">  
-                                    Listado de Detalle de Hoja de Despacho (Camiones Asignados)
+                                    LISTADO DE LOS TODOS LOS CAMIONES ASIGNADOS A DESPACHOS
                                 </f:facet>  
+
+                                <p:column rendered="false" >
+                                    <f:facet name="header">  
+                                        <h:outputText value="Cantidad de Viaje" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{listdesdet.id.nro}"/>
+                                </p:column>
+
+                                <p:column filterBy="#{listdesdet.TDespacho.nroDespacho}" filterMatchMode="contains"> 
+                                    <f:facet name="header">  
+                                        <h:outputText value="Nro. Despacho" />  
+                                    </f:facet>  
+                                    <h:outputText value="#{listdesdet.TDespacho.nroDespacho}"/>                        
+                                </p:column>
+
+                                <p:column filterBy="#{listdesdet.TDespacho.nroDespacho}" filterMatchMode="contains"> 
+                                    <f:facet name="header">  
+                                        <h:outputText value="Nro. Asig. Despacho" />  
+                                    </f:facet>  
+                                    <h:outputText value="#{listdesdet.id.nro}"/>                        
+                                </p:column>
+
                                 <p:column > 
                                     <f:facet name="header">  
                                         <h:outputText value="Nombres" />  
@@ -63,22 +85,15 @@
 
                                 <p:column >
                                     <f:facet name="header">  
-                                        <h:outputText value="Cod. Asignacion" />  
-                                    </f:facet> 
-                                    <h:outputText value="#{listdesdet.TTrabajadorxcamion.cdAsigCamion}"/>
-                                </p:column>
-
-                                <p:column >
-                                    <f:facet name="header">  
                                         <h:outputText value="Cantidad de Viaje" />  
                                     </f:facet> 
                                     <h:outputText value="#{listdesdet.cantViaje}"/>
                                 </p:column>
                                 <p:column >
                                     <f:facet name="header">  
-                                        <h:outputText value="Asignar Rutas" />  
+                                        <h:outputText value="Ruta" />  
                                     </f:facet> 
-                                    <p:commandButton  value="Asignar Ruta" action="#{asignarRutaBean.irAsignarRuta()}" ajax="false"> 
+                                    <p:commandButton  value="Ver Ruta" action="#{asignarRutaBean.irAsignarRuta()}" ajax="false"> 
                                     </p:commandButton>
                                 </p:column>
                             </p:dataTable>
