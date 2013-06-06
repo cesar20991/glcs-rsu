@@ -35,18 +35,18 @@
                             <f:facet name="header">  
                                 INFORMACION DEL PESAJE
                             </f:facet>
-                            <h:outputLabel value="NroPesaje : *"/>
+                            <h:outputLabel value="NroPesaje: *"/>
                             <h:inputText value="#{pesajeBean.pesaje.nroPesaje}" onkeypress="return validarNumero(event)"/>                        
-                            <h:outputLabel value="Fecha Pesaje : *"/>
+                            <h:outputLabel value="Fecha Pesaje: *"/>
                             <p:calendar value="#{pesajeBean.pesaje.fechaPesaje}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold" >
                             </p:calendar>
-                            <h:outputText value="Peso Bruto : *" />                          
+                            <h:outputText value="Peso Bruto: *" />                          
                             <p:inputText value="#{pesajeBean.pesaje.pesoBruto}"  onkeypress="return validarNumero(event)" >                            
                             </p:inputText>
-                            <h:outputLabel value="Tara :"/>
+                            <h:outputLabel value="Tara: "/>
                             <p:inputText value="#{pesajeBean.pesaje.tara}" onkeypress="return validarNumero(event)">
                             </p:inputText>
-                            <h:outputLabel value="Peso TN"/>
+                            <h:outputLabel value="Peso TN:"/>
                             <p:inputText value="#{pesajeBean.pesaje.pesoTn}" />
                             <h:outputLabel value="Obs: *"/>
                             <p:inputTextarea  value="#{pesajeBean.pesaje.obs}" rows="4" cols="33" style="font-weight:bold"/>                              
