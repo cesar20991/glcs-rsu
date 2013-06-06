@@ -37,6 +37,7 @@ public class ControlViajeBean {
     }
 
     public void prepararFaltantes() {
+        selectedDespachos= null;
         ControlViajeManaged obj = new ControlViajeManaged();
         listaDespachosFaltantes = obj.buscarFaltantes();
     }
@@ -50,6 +51,10 @@ public class ControlViajeBean {
     public void eliminarControl(TControlviaje control) {
         ControlViajeManaged obj = new ControlViajeManaged();
         obj.eliminar(control);
+    }
+    
+    public void generar(){
+        
     }
 
     public List<TDespacho> getListaDespachos() {
