@@ -22,7 +22,7 @@ public class ControlViajeManaged {
         Session session = HibernateUtil.getSessionFactory().openSession();
         return session.createQuery("SELECT DISTINCT TDD.TDespacho FROM TDespachodet AS TDD WHERE (TDD.id.nro,TDD.id.cdDespacho,TDD.id.cdRuc) NOT IN(SELECT TC.TDespachodet.id.nro,TC.TDespachodet.id.cdDespacho,TC.TDespachodet.id.cdRuc FROM TControlviaje AS TC) ORDER BY TDD.TDespacho.id.cdDespacho ASC").list();
     }
-
+//SELECT TDD FROM TDespachodet AS TDD WHERE (TDD.id.nro,TDD.id.cdDespacho,TDD.id.cdRuc) NOT IN(SELECT TC.TDespachodet.id.nro,TC.TDespachodet.id.cdDespacho,TC.TDespachodet.id.cdRuc FROM TControlviaje AS TC)  AND TDD.TDespacho.id.cdDespacho='DP00000001' ORDER BY TDD.TDespacho.id.cdDespacho ASC
     public List<TControlviaje> buscarControlesPorId(String id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         return session.createQuery("FROM TControlviaje AS TC WHERE TC.TDespachodet.TDespacho.id.cdDespacho='" + id + "'").list();
