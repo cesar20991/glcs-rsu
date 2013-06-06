@@ -48,7 +48,7 @@
         <br/>
 
         <h:form id="formControles">
-            <p:dialog id="dlgControlesVer" header="Controles" widgetVar="verControlesDialog" resizable="false" modal="true">
+            <p:dialog id="dlgControlesVer" header="Controles" widgetVar="verControlesDialog" resizable="false" modal="false">
                 <p:dataTable id="dtControles" var="control" value="#{controlViajeBean.listaControles}" widgetVar="detalleTable">
                     <h:inputHidden value="#{control.id.cdControlViaje}"/>
 
@@ -95,7 +95,7 @@
         </h:form>
 
         <h:form id="formControlEditar">
-            <p:dialog id="dlgControlEditar" header="Editar Control" widgetVar="editarControlDialog" resizable="false" modal="true">
+            <p:dialog id="dlgControlEditar" header="Editar Control" widgetVar="editarControlDialog" resizable="false" modal="false">
                 <h:panelGrid id="pgCamionEditar" columns="2" cellpadding="4" style="margin:0 auto;">
                     <h:outputText value="Codigo" />
                     <p:inputText value="#{controlViajeBean.controlviaje.id.cdControlViaje}" style="font-weight:bold" disabled="true"/>
@@ -121,7 +121,7 @@
         </h:form>
         
         <h:form id="formControlGenerar">
-            <p:dialog id="dlgDespachosFaltantesVer" header="Despachos Faltantes" widgetVar="generarControlDialog" resizable="false" modal="true">
+            <p:dialog id="dlgDespachosFaltantesVer" header="Despachos Faltantes" widgetVar="generarControlDialog" resizable="false" modal="false">
                 <p:dataTable id="dtControles" var="faltante" value="#{controlViajeBean.listaDespachosFaltantes}" widgetVar="detalleTable" rowKey="#{faltante.id.cdDespacho}" selection="#{controlViajeBean.selectedDespachos}">
                     <p:column selectionMode="multiple" style="width:18px" /> 
                     <p:column headerText="Codigo de despacho">
