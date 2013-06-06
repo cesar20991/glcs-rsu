@@ -24,7 +24,7 @@
                 margin: 0;
                 padding: 0;
                 height: 500px;
-                width: 800px;
+                width: 700px;
             }
         </style>
 
@@ -88,16 +88,47 @@
     <h:body>
 
         <h:form>
+             <p:growl id="messages" autoUpdate="true"/>      
+            <p:panelGrid columns="2" style="width: 100%">
+                <f:facet name="header">  
+                    ASIGNANDO RUTA AL DESPACHO Nro. <h:outputText value="#{asignarRutaBean.selecteddespachodet.TDespacho.nroDespacho}"/> CON CAMION ASIGNADO PLACA <h:outputText value="#{asignarRutaBean.selecteddespachodet.TTrabajadorxcamion.TCamion.placa}"/> Y CHOFER <h:outputText value="#{asignarRutaBean.selecteddespachodet.TTrabajadorxcamion.TTrabajador.nombres}"/>
+                </f:facet>
+                <p:panelGrid columns="1" style="width: 100%">
+                    <f:facet name="header">  
+                        ASIGNE RUTA CORRESPONDIENTE
+                    </f:facet>
+                    <div id="map-canvas"></div><br/>
+                    <f:facet name="footer">  
+                        ASIGNE RUTA CORRESPONDIENTE
+                    </f:facet>
+                </p:panelGrid>
+
+                <p:panelGrid columns="1" style="width: 100%">
+                    <f:facet name="header">  
+                        RUTAS ASIGNADAS DEL DESPACHO Nro. <h:outputText value="#{asignarRutaBean.selecteddespachodet.TDespacho.nroDespacho}"/> 
+                    </f:facet>
+                    <h:form id="mapita">  
+                        <p:gmap id="gmap1" center="-12.075471,-76.995987" zoom="13" type="ROADMAP" style="width:700px;height:500px" model="#{mapBean.rectangleModel}" >  
+
+                        </p:gmap> 
+
+                    </h:form>  
+                    <f:facet name="footer">  
+                        (*) VERIFICAR QUE NO SE ASIGNE A LA MISMA RUTA
+                    </f:facet>
+                </p:panelGrid>
+            </p:panelGrid>
+
             <p:panelGrid columns="3" style="width: 100%">
                 <f:facet name="header">  
-                    DESPACHO Nro. <h:outputText value="#{asignarRutaBean.selecteddespachodet.TDespacho.nroDespacho}"/> CON CAMION ASIGNADO PLACA <h:outputText value="#{asignarRutaBean.selecteddespachodet.TTrabajadorxcamion.TCamion.placa}"/> Y CHOFER <h:outputText value="#{asignarRutaBean.selecteddespachodet.TTrabajadorxcamion.TTrabajador.nombres}"/>
+                    DESPACHO Nro. <h:outputText value="#{asignarRutaBean.selecteddespachodet.TDespacho.nroDespacho}"/>  Y Nro. Asig. <h:outputText value="#{asignarRutaBean.selecteddespachodet.id.nro}"/> CON CAMION ASIGNADO PLACA <h:outputText value="#{asignarRutaBean.selecteddespachodet.TTrabajadorxcamion.TCamion.placa}"/> Y CHOFER <h:outputText value="#{asignarRutaBean.selecteddespachodet.TTrabajadorxcamion.TTrabajador.nombres}"/>
                 </f:facet>
                 <h:outputText value="LAT NORTE: (*)" />
                 <p:inputText value="#{asignarRutaBean.asignaruta.latn}"  >
                 </p:inputText>
                 Lat NORTE:<input type="text" id="latS" name="latS" /><br/>
                 <h:outputText value="LNG NORTE: (*)" />
-                <p:inputText value="#{asignarRutaBean.asignaruta.lngn}"  >
+                <p:inputText value="#{asignarRutaBean.asignaruta.lngn}" >
                 </p:inputText>
                 Long NORTE:<input type="text" id="longS" name="longS" /><br/>
                 <h:outputText value="LAT  SUR: (*)" />
@@ -108,12 +139,25 @@
                 <p:inputText value="#{asignarRutaBean.asignaruta.lngs}"  >
                 </p:inputText>          
                 Lat SUR:<input type="text" id="longN" name="longN"/><br/>
+
+                <h:outputText value="NRo: (*)" />
+                <p:inputText value="#{asignarRutaBean.selecteddespachodet.id.nro}"  >
+                </p:inputText>          
+                <h:outputText value=" " />
+                <h:outputText value="Nro. Despacho: (*)" />
+                <p:inputText value="#{asignarRutaBean.selecteddespachodet.TDespacho.nroDespacho}"  >
+                </p:inputText>
+                <h:outputText value=" " />
+                <h:outputText value=" Empresa" />                         
+                <p:selectOneMenu value="#{asignarRutaBean.asignaruta.TDespachodet.id.cdRuc}">                    
+                    <f:selectItems value="#{asignarRutaBean.listarempresa}" var="empresa"  itemLabel="#{empresa.rsocial}" itemValue="#{empresa.cdRuc}"/>  
+                </p:selectOneMenu>
+
             </p:panelGrid>    
             <p:commandButton value="ASIGNAR RUTA" action="#{asignarRutaBean.irInsertar}" ajax="false"></p:commandButton>
             <div style="padding-bottom: 50px;">
             </div>
 
-            <div id="map-canvas"></div><br/>
         </h:form>
 
 
