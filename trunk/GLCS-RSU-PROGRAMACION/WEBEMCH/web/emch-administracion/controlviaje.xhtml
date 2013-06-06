@@ -8,7 +8,7 @@
     </h:head>
     <h:body>
         <h:form id="formDespachos">
-            <p:dataTable id="dtDespachos" var="despacho" value="#{controlViajeBean.listaDespachos}">   
+            <p:dataTable id="dtDespachos" var="despacho" value="#{controlViajeBean.listaDespachos}">
                 <h:inputHidden value="#{despacho.id.cdDespacho}"/>
 
                 <p:column headerText="Ubigeo">
@@ -104,6 +104,9 @@
 
                     <h:outputText value="Hora real:" />
                     <p:inputText value="#{controlViajeBean.controlviaje.horaReal}" style="font-weight:bold"/>
+                    
+                    <h:outputText value="Obs.:" />
+                    <p:inputTextarea rows="10" cols="50" value="#{controlViajeBean.controlviaje.obs}" queryDelay="750" minQueryLength="4" />
                 </h:panelGrid>
 
                 <p:separator/>
