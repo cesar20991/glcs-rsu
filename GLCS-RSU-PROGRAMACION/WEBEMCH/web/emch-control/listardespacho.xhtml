@@ -24,7 +24,7 @@
                     <h:form  prependId="false" id="interesxin">
                         <h:outputText value="CONTROL - DESPACHO - ASIGNAR RUTA" style="font-weight:bold;font-size:20px;color:#654B24" />
                         <p:tab title="DESPACHOS">                            
-                            <p:commandButton  value="Asignar Ruta" action="#{asignarRutaBean.irAsignarRuta()}" ajax="false"> 
+                            <p:commandButton  value="Asignar Ruta" action="#{asignarRutaBean.irAsignarRuta}" ajax="false"> 
                             </p:commandButton>
                             <p:dataTable id="visita" var="listdesdet" value="#{asignarRutaBean.listaDespachoDet}" rowKey="#{listdesdet.id.nro}" selectionMode="single" selection="#{asignarRutaBean.selecteddespachodet}"
                                          paginator="true" rows="50"  
