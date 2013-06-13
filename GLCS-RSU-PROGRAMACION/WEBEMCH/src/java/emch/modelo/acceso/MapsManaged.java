@@ -28,11 +28,11 @@ public class MapsManaged {
     Transaction trans;
     Query qry;
 
-    public List listarRutaAsignadaTodos() {
+    public List listarRutaAsignadaTodos(TDespachodet selecteddespachodet) {
         List<TAsignarruta> listaLiq = null;
         /*  try {*/
         sesion = HibernateUtil.getSessionFactory().openSession();
-        qry = sesion.createQuery("FROM TAsignarruta");
+        qry = sesion.createQuery("SELECT r FROM TAsignarruta r WHERE cdRuc='"+selecteddespachodet.getId().getCdRuc()+"' AND cdDespacho='"+selecteddespachodet.getId().getCdDespacho()+"'" );
         listaLiq = (List<TAsignarruta>) qry.list();
         /* } catch (Exception ex) {
          ex.printStackTrace();
