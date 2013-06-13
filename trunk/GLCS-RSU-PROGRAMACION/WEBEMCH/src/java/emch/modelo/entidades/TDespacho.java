@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 05-jun-2013 2:10:37 by Hibernate Tools 3.2.1.GA
+// Generated 13-jun-2013 0:55:31 by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -27,7 +27,7 @@ public class TDespacho  implements java.io.Serializable {
      private Date fechaReg;
      private String usuModf;
      private Date fechaModf;
-     private Character evaluacion;
+     private String evaluacion;
      private String obs;
      private Set<TDespachodet> TDespachodets = new HashSet<TDespachodet>(0);
 
@@ -46,7 +46,7 @@ public class TDespacho  implements java.io.Serializable {
         this.usuCrea = usuCrea;
         this.fechaReg = fechaReg;
     }
-    public TDespacho(TDespachoId id, TTurno TTurno, TUbigeo TUbigeo, TEmpresa TEmpresa, String nroDespacho, Date fechaEmi, String zona, BigDecimal dineroEnviado, BigDecimal totalDineroUso, BigDecimal totalDineroSinUso, String usuCrea, Date fechaReg, String usuModf, Date fechaModf, Character evaluacion, String obs, Set<TDespachodet> TDespachodets) {
+    public TDespacho(TDespachoId id, TTurno TTurno, TUbigeo TUbigeo, TEmpresa TEmpresa, String nroDespacho, Date fechaEmi, String zona, BigDecimal dineroEnviado, BigDecimal totalDineroUso, BigDecimal totalDineroSinUso, String usuCrea, Date fechaReg, String usuModf, Date fechaModf, String evaluacion, String obs, Set<TDespachodet> TDespachodets) {
        this.id = id;
        this.TTurno = TTurno;
        this.TUbigeo = TUbigeo;
@@ -164,11 +164,11 @@ public class TDespacho  implements java.io.Serializable {
     public void setFechaModf(Date fechaModf) {
         this.fechaModf = fechaModf;
     }
-    public Character getEvaluacion() {
+    public String getEvaluacion() {
         return this.evaluacion;
     }
     
-    public void setEvaluacion(Character evaluacion) {
+    public void setEvaluacion(String evaluacion) {
         this.evaluacion = evaluacion;
     }
     public String getObs() {

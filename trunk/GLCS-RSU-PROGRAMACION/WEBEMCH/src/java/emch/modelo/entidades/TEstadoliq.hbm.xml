@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 05-jun-2013 2:10:38 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TEstadoliq" table="t_estadoliq" catalog="bd_emch">
         <id name="cdEstadoLiq" type="string">
@@ -9,11 +9,15 @@
             <generator class="assigned" />
         </id>
         <property name="nombre" type="string">
-            <column name="Nombre" length="30" not-null="true" />
+            <column name="Nombre" length="30" not-null="true">
+                <comment>Nombre del Estado</comment>
+            </column>
         </property>
         <set name="TEstadoxliquidacions" inverse="true">
             <key>
-                <column name="cdEstadoLiq" length="3" not-null="true" />
+                <column name="cdEstadoLiq" length="3" not-null="true">
+                    <comment>Primary Key de la tabla Estado de Liquidaci</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TEstadoxliquidacion" />
         </set>

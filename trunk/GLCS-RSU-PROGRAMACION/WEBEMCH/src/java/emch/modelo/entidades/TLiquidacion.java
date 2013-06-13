@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 05-jun-2013 2:10:37 by Hibernate Tools 3.2.1.GA
+// Generated 13-jun-2013 0:55:31 by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;

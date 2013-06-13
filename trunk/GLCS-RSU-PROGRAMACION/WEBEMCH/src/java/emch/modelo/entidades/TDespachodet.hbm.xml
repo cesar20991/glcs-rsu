@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 05-jun-2013 2:10:38 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TDespachodet" table="t_despachodet" catalog="bd_emch">
         <composite-id name="id" class="emch.modelo.entidades.TDespachodetId">
@@ -32,9 +32,15 @@
         </property>
         <set name="TControlviajes" inverse="true">
             <key>
-                <column name="Nro" not-null="true" />
-                <column name="cdDespacho" length="10" not-null="true" />
-                <column name="cdRuc" length="6" not-null="true" />
+                <column name="Nro" not-null="true">
+                    <comment>Nro del Documento despacho</comment>
+                </column>
+                <column name="cdDespacho" length="10" not-null="true">
+                    <comment>C</comment>
+                </column>
+                <column name="cdRuc" length="6" not-null="true">
+                    <comment>Ruc de la Empresa</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TControlviaje" />
         </set>
