@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 05-jun-2013 2:10:38 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TIncidencia" table="t_incidencia" catalog="bd_emch">
         <id name="cdInc" type="string">
@@ -9,26 +9,42 @@
             <generator class="assigned" />
         </id>
         <many-to-one name="TControlviaje" class="emch.modelo.entidades.TControlviaje" fetch="select">
-            <column name="cdControlViaje" length="10" not-null="true" />
-            <column name="nroViaje" not-null="true" />
+            <column name="cdControlViaje" length="10" not-null="true">
+                <comment>Primary Key de la Tabla Control de Viaje</comment>
+            </column>
+            <column name="nroViaje" not-null="true">
+                <comment>Indica el numero del viaje</comment>
+            </column>
         </many-to-one>
         <property name="fechaInc" type="timestamp">
-            <column name="fechaInc" length="19" not-null="true" />
+            <column name="fechaInc" length="19" not-null="true">
+                <comment>Fecha en la que se dio la incidencia</comment>
+            </column>
         </property>
         <property name="zona" type="string">
-            <column name="zona" length="100" not-null="true" />
+            <column name="zona" length="100" not-null="true">
+                <comment>Zona en la que se d</comment>
+            </column>
         </property>
         <property name="problema" type="string">
-            <column name="problema" length="45" not-null="true" />
+            <column name="problema" length="45" not-null="true">
+                <comment>El problema que se genero</comment>
+            </column>
         </property>
         <property name="horaProb" type="string">
-            <column name="horaProb" length="5" not-null="true" />
+            <column name="horaProb" length="5" not-null="true">
+                <comment>Hora en que se gener</comment>
+            </column>
         </property>
         <property name="observaciones" type="string">
-            <column name="observaciones" length="200" />
+            <column name="observaciones" length="200">
+                <comment>Alguna peque</comment>
+            </column>
         </property>
         <property name="soluc" type="string">
-            <column name="soluc" length="200" />
+            <column name="soluc" length="200">
+                <comment>La soluci</comment>
+            </column>
         </property>
     </class>
 </hibernate-mapping>

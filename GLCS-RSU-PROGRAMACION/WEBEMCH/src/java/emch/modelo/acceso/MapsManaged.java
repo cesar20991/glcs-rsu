@@ -105,4 +105,20 @@ public class MapsManaged {
          }*/
         return nuevoID;
     }
+    
+     public List listarRutaAsignadaxCamion(TDespachodet despachodet) {
+        List<TAsignarruta> listaLiq = null;
+        /*  try {*/
+        sesion = HibernateUtil.getSessionFactory().openSession();
+        qry = sesion.createQuery("SELECT ab FROM TAsignarruta  ab where ab.TDespachodet.id.cdDespacho='"+despachodet.getId().getCdDespacho()+"' and ab.TDespachodet.id.nro='"+despachodet.getId().getNro()+"'");
+        listaLiq = (List<TAsignarruta>) qry.list();
+        /* } catch (Exception ex) {
+         ex.printStackTrace();
+         } finally {
+         sesion.close();
+         }*/
+        return listaLiq;
+    }
+
+    
 }

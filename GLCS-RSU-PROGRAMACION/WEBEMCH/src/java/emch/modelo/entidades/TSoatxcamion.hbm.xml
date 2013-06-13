@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 05-jun-2013 2:10:38 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TSoatxcamion" table="t_soatxcamion" catalog="bd_emch">
         <composite-id name="id" class="emch.modelo.entidades.TSoatxcamionId">
@@ -16,13 +16,19 @@
             </key-property>
         </composite-id>
         <many-to-one name="TSoat" class="emch.modelo.entidades.TSoat" update="false" insert="false" fetch="select">
-            <column name="idSOAT" not-null="true" />
+            <column name="idSOAT" not-null="true">
+                <comment>Primary key de la Tabla SOAT</comment>
+            </column>
         </many-to-one>
         <many-to-one name="TCamion" class="emch.modelo.entidades.TCamion" update="false" insert="false" fetch="select">
-            <column name="cdCamion" length="6" not-null="true" />
+            <column name="cdCamion" length="6" not-null="true">
+                <comment>Primary Key de la Tabla Camion</comment>
+            </column>
         </many-to-one>
         <property name="obs" type="string">
-            <column name="obs" length="50" />
+            <column name="obs" length="50">
+                <comment>Alg</comment>
+            </column>
         </property>
     </class>
 </hibernate-mapping>
