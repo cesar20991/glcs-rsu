@@ -14,6 +14,11 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.LatLngBounds;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Rectangle;
 
 /**
  *
@@ -22,13 +27,16 @@ import javax.servlet.http.HttpServletRequest;
 @ManagedBean
 @SessionScoped
 public class AsignarRutaBean {
-
-    private TDespachodet selecteddespachodet;
+    
+    private MapModel rectangleModel;
+    public TDespachodet selecteddespachodet;
     private TAsignarruta asignaruta;
     private List<TDespachodet> listaDespachoDet;
     private List<TEmpresa> listarempresa;
+    private List<TAsignarruta> listasignarruta;
 
     public AsignarRutaBean() {
+        rectangleModel = new DefaultMapModel();
         asignaruta = new TAsignarruta();
         asignaruta.setTDespachodet(new TDespachodet());
         asignaruta.setTDespachodet(new TDespachodet(new TDespachodetId(1, null, null), null, null, 1));
@@ -43,7 +51,7 @@ public class AsignarRutaBean {
     }
 
     public String irAsignarRuta() {
-        
+        getListasignarruta();
         return "asignarruta";
     }
 
@@ -108,5 +116,41 @@ public class AsignarRutaBean {
     public void setListarempresa(List<TEmpresa> listarempresa) {
         this.listarempresa = listarempresa;
     }
+    
+    
+    public List<TAsignarruta> getListasignarruta() {
+        MapsManaged obj = new MapsManaged();
+        listasignarruta = obj.listarRutaAsignadaTodos(selecteddespachodet);
+        GenerarMapsTodos();
+        return listasignarruta;
+    }
+
+    public void setListasignarruta(List<TAsignarruta> listasignarruta) {
+        this.listasignarruta = listasignarruta;
+    }
+
+    private void GenerarMapsTodos() {
+        rectangleModel = new DefaultMapModel();
+        LatLng coord1;
+        LatLng coord2;
+        Rectangle rect;
+        //Shared coordinates  
+        for (int i = 0; i < listasignarruta.size(); i++) {
+            coord1 = new LatLng(listasignarruta.get(i).getLatn(), listasignarruta.get(i).getLngn());
+            coord2 = new LatLng(listasignarruta.get(i).getLats(), listasignarruta.get(i).getLngs());
+            //Rectangle  
+            rect = new Rectangle(new LatLngBounds(coord1, coord2));
+            rect.setStrokeColor("#d93c3c");
+            rect.setFillColor("#d93c3c");
+            rect.setFillOpacity(0.5);
+
+            rectangleModel.addOverlay(rect);
+        }
+    }
+    
+    public MapModel getRectangleModel() {
+        return rectangleModel;
+    }
+    
     
 }
