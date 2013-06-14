@@ -2,10 +2,13 @@ package emch.modelo.acceso;
 
 import emch.modelo.entidades.TAsistencia;
 import emch.modelo.entidades.TAsistenciaxtrabajador;
+import emch.modelo.entidades.TTrabajador;
 import util.HibernateUtil;
 import emch.modelo.entidades.TTrabajadorxcamion;
+import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Session;
+
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
  * object.
@@ -14,16 +17,39 @@ import org.hibernate.Session;
  */
 public class AsistenciaManaged {
     
+    public List<TTrabajador> todosTrabajador(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        return session.createQuery("FROM TTrabajador").list();
+    }
+    
+    public List<TTrabajador> todosTrabajadoresSinAsistencia(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        return session.createQuery("SELECT T FROM TTrabajador AS T WHERE (T.cdTrabajador) "
+      + "NOT IN(SELECT Taxt.TTrabajador.cdTrabajador FROM TAsistenciaxtrabajador AS Taxt WHERE Taxt.TAsistencia.cdAsistencia = 'AS50')").list();
+    }
+
+    public boolean ExisteIdAsistencia(String cdAsistencia){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        int i = session.createQuery("FROM TAsistencia AS Ta WHERE Ta.cdAsistencia = '"+cdAsistencia+"' ").list().size();
+        return i!=0? true : false;
+    }
+    
     public List<TTrabajadorxcamion> buscarTodos() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         return session.createQuery("FROM TTrabajadorxcamion").list();
     }
-    
+
     public TTrabajadorxcamion buscarPorId(String id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         return (TTrabajadorxcamion) session.load(TTrabajadorxcamion.class, id);
     }
-    
+
+    public List<TAsistenciaxtrabajador> buscarXTrabajador(String CdTrabajador) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        return session.createQuery("FROM TAsistenciaxtrabajador as taxt WHERE taxt.TTrabajador.cdTrabajador = '" + CdTrabajador + "' "
+                + "                 and taxt.asiste = 'false' and taxt.fustifica = 'false'").list();
+    }
+
     public void insertarAsistencia(TAsistencia tAsistencia) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -32,12 +58,12 @@ public class AsistenciaManaged {
             session.beginTransaction().commit();
         } catch (Exception e) {
             System.out.println("------------------------------------------------------------------------------------------------");
-            System.out.println("|ERROR EN INSERTAR: " + e.getMessage().toUpperCase() +"|\n |"+ e.getLocalizedMessage().toUpperCase() +"|");
+            System.out.println("|ERROR EN INSERTAR: " + e.getMessage().toUpperCase() + "|\n |" + e.getLocalizedMessage().toUpperCase() + "|");
             System.out.println("------------------------------------------------------------------------------------------------");
             session.beginTransaction().rollback();
         }
     }
-    
+
     public void insertarAsistencia(TAsistenciaxtrabajador tAsistenciaxtrabajador) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -46,9 +72,34 @@ public class AsistenciaManaged {
             session.beginTransaction().commit();
         } catch (Exception e) {
             System.out.println("------------------------------------------------------------------------------------------------");
-            System.out.println("|ERROR EN INSERTAR: " + e.getMessage().toUpperCase() +"|\n |"+ e.getLocalizedMessage().toUpperCase() +"|");
+            System.out.println("|ERROR EN INSERTAR: " + e.getMessage().toUpperCase() + "|\n |" + e.getLocalizedMessage().toUpperCase() + "|");
             System.out.println("------------------------------------------------------------------------------------------------");
             session.beginTransaction().rollback();
+        }
+    }
+    
+    public void prueba(){
+       
+        Session session = HibernateUtil.getSessionFactory().openSession();
+      
+        try {
+            List list = session.createQuery("FROM TAsistenciaxtrabajador as taxt WHERE taxt.TTrabajador.cdTrabajador = 'TR0012' "
+                    + "and taxt.asiste = 'false' and taxt.fustifica = 'false'").list();           
+            Iterator it = list.iterator();
+            if (!it.hasNext()) {
+                System.out.println("No any data!");
+            } else {
+                while (it.hasNext()) {
+                    Object[] row = (Object[]) it.next();
+                    for (int i = 0; i < row.length; i++) {
+                        System.out.print(row[i]);
+                        System.out.println();
+                    }
+                }
+            }
+            session.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
