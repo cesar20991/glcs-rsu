@@ -26,70 +26,36 @@
                     <h:form >
                         <h:outputText value="#{asistenciaBean.sfechaActual}" style="left: 150px; font-size: 30px;"/><br/>
                         <br/><br/>
-                        <p:dataTable var="Trabajadorxcamion" value="#{asistenciaBean.listaTrabajadorxcamion}" emptyMessage="No se encontraron Trabajadores" >
-
-                            <p:column headerText="TURNO" filterBy="#{Trabajadorxcamion.TTurno.nombTurno}" filterMatchMode="contains">
-                                <h:outputText value="#{Trabajadorxcamion.TTurno.nombTurno}" />
-                            </p:column>
-
-                            <p:column headerText="CodCamion" filterBy="#{Trabajadorxcamion.TCamion.cdCamion}" filterMatchMode="contains">
-                                <h:outputText value="#{Trabajadorxcamion.TCamion.cdCamion}" />
-                            </p:column>
-
-                            <p:column headerText="CodTrabajador" filterBy="#{Trabajadorxcamion.TTrabajador.cdTrabajador}" filterMatchMode="contains">
-                                <h:outputText value="#{Trabajadorxcamion.TTrabajador.cdTrabajador}" />
-                            </p:column>
-
-                            <p:column headerText="Apellidos">
-                                <h:outputText value="#{Trabajadorxcamion.TTrabajador.apellidos}" />
-                            </p:column>
-
-                            <p:column headerText="Nombres" >
-                                <h:outputText value="#{Trabajadorxcamion.TTrabajador.nombres}" />
-                            </p:column>
-
-                            <p:column>
-                                <p:commandButton value="Registrar Asistencia"  update=":formRegistrarAsistencia" oncomplete="RegistrarAsistenciaDlg.show();" actionListener="#{asistenciaBean.buscarDatosTrabajadorxcamion(Trabajadorxcamion.cdAsigCamion)}"/>
-                                <p:commandButton value="Justificar" update=":formJustificar" oncomplete="JustificarDlg.show();"/>
-                            </p:column>
-                        </p:dataTable>
+                        <p:commandButton value="REGISTRAR ASISTENCIAS - HOY" oncomplete="RegistrarAsistenciaDlg.show();"/>
+                        <p:commandButton value="MODFICAR ASISTENCIAS"/>
                     </h:form>
 
                     <h:form id="formRegistrarAsistencia">
                         <p:dialog id="dlgRegistrarAsistencia" widgetVar="RegistrarAsistenciaDlg" header="Registrar Asistencia" resizable="false" modal="false">                            
-                            <h:panelGrid id="pgRegistrarAsistencia" columns="2" cellpadding="4" style="margin: 0 auto;">
-                                <h:outputText value="Turno: "/>
-                                <h:outputText value="#{asistenciaBean.trabajadorxcamion.TTurno.nombTurno}"/>
+                            <p:dataTable id="tabRegistrarAsistencias" var="trabajador" value="#{asistenciaBean.listatrabajador}" emptyMessage="No se encontraron trabajadores">
+                                <p:column headerText="Tipo" filterBy="#{trabajador.TTipotrabajador.nombre}" filterMatchMode="contains">
+                                    <h:outputText value="#{trabajador.TTipotrabajador.nombre}" />
+                                </p:column>
+                                <p:column headerText="Codigo" filterBy="#{trabajador.cdTrabajador}" filterMatchMode="contains">
+                                    <h:outputText value="#{trabajador.cdTrabajador}" />
+                                </p:column>
+                                <p:column headerText="Apellidos" filterBy="#{trabajador.apellidos}" filterMatchMode="contains">
+                                    <h:outputText value="#{trabajador.apellidos}" />
+                                </p:column>
+                                <p:column headerText="Nombre" filterBy="#{trabajador.nombres}" filterMatchMode="contains">
+                                    <h:outputText value="#{trabajador.nombres}" />
+                                </p:column>
 
-                                <h:outputText value="Cod Trabajador: "/>
-                                <h:outputText value="#{asistenciaBean.trabajadorxcamion.TTrabajador.cdTrabajador}"/>
-
-                                <h:outputText value="Apellidos: "/>
-                                <h:outputText value="#{asistenciaBean.trabajadorxcamion.TTrabajador.apellidos}"/>
-
-                                <h:outputText value="Nombre: "/>
-                                <h:outputText value="#{asistenciaBean.trabajadorxcamion.TTrabajador.nombres}"/>
-
-                                <p:selectOneRadio id="options" value="#{asistenciaBean.opcion}">  
-                                    <f:selectItem itemLabel="A" itemValue="1" />  
-                                    <f:selectItem itemLabel="T" itemValue="2" />  
-                                    <f:selectItem itemLabel="F" itemValue="3" />  
-                                </p:selectOneRadio>                                 
-                                <h:outputText/>
-                                
-                                <p:commandButton value="Guardar" oncomplete="RegistrarAsistenciaDlg.hide();" actionListener="#{asistenciaBean.RegistrarAsistencia(asistenciaBean.trabajadorxcamion)}"/>
-                                <p:commandButton value="Cancelar" oncomplete="RegistrarAsistenciaDlg.hide();"/>
-
-                            </h:panelGrid>
+                                <p:column>
+                                    <p:splitButton value="Marcar">  
+                                        <p:menuitem value="Asistencia" />  
+                                        <p:menuitem value="Tardanza" />  
+                                        <p:menuitem value="Falta"/>
+                                    </p:splitButton>  
+                                </p:column>
+                            </p:dataTable>
                         </p:dialog>
                     </h:form>
-                    
-                    <h:form id="formJustificar">
-                        <p:dialog id="dlgJustificar" widgetVar="JustificarDlg" header="Justificar" resizable="false">                            
-
-                        </p:dialog>
-                    </h:form>
-
                 </ui:define>
 
                 <ui:define name="bottom">
