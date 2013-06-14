@@ -1,12 +1,104 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Administrar Empresa</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+
+        <ui:composition template="../plantillas/Template.xhtml">
+
+            <ui:define name="usuarios">
+            </ui:define>
+
+            <ui:define name="top">
+
+            </ui:define>
+
+            <ui:define name="content">
+                
+                <h:form>
+                     <h:outputText value="ADMINISTRAR - EMPRESAS" style="font-weight:bold;font-size:20px;color:#654B24" />
+                <f:facet name="header">  
+                            Información del Trabajador 
+                        </f:facet>
+                    <div style="padding-bottom: 10px;">                            
+                        <p:commandButton value="Nueva Empresa" action="#{empresaBean.irAgregar()}" icon="ui-icon-document" ajax="false">
+                        </p:commandButton>
+                    </div>     
+                    <br/>
+                    <h:form id="formEmpresa">
+                        <p:dataTable id="dtEmpresa" var="empresa" value="#{empresaBean.listaEmpresa}" rowKey="#{empresa.cdRuc}" 
+                                     paginator="true" rows="15"  
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15" style="font-weight:bold">
+                            <h:inputHidden value="#{empresa.cdRuc}"/>
+
+                            <p:column filterBy="#{empresa.TUbigeo.cdUbig}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="cd Ubigeo" />
+                                </f:facet> 
+                                <h:outputText value="#{empresa.TUbigeo.cdUbig}"/>
+                            </p:column>
+
+                            <p:column filterBy="#{empresa.rucE}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="ruc Empresa" />
+                                </f:facet> 
+                                <h:outputText value="#{empresa.rucE}"/>
+                            </p:column>
+
+                            <p:column filterBy="#{empresa.rsocial}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="rSocial" />
+                                </f:facet> 
+                                <h:outputText value="#{empresa.rsocial}"/>
+                            </p:column>
+
+                            <p:column filterBy="#{empresa.fechaIni}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="fecha Inicio" />
+                                </f:facet> 
+                                <h:outputText value="#{empresa.fechaIni}"/>
+                            </p:column>
+
+                            <p:column filterBy="#{empresa.direccion}}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Direccion" />
+                                </f:facet> 
+                                <h:outputText value="#{empresa.direccion}"/>
+                            </p:column>
+
+                            <p:column filterBy="#{empresa.telef}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Telefono" />
+                                </f:facet> 
+                                <h:outputText value="#{empresa.telef}"/>
+                            </p:column>
+
+                            <!--<p:column headerText="Edit." style="width:8%; text-align: center">  
+                                <p:commandButton oncomplete="editarEmpresaDialog.show();" icon="ui-icon-pencil" title="Editar" update=":formEmpresaEditar" actionListener="#{empresaBean.prepararEmpresa(empresa.rucE)}"/>
+                            </p:column> 
+                            <p:column headerText="Ver." style="width:8%; text-align: center"> 
+                                <p:commandButton oncomplete="verEmpresaDialog.show();" icon="ui-icon-search" title="Ver" update=":formEmpresaVer" actionListener="#{empresaBean.prepararEmpresa(empresa.rucE)}"/>
+                            </p:column> 
+                            -->
+                        </p:dataTable>
+                    </h:form>
+
+                </h:form>
+
+            </ui:define>
+
+            <ui:define name="bottom">
+            </ui:define>
+
+        </ui:composition>
+
     </h:body>
 </html>
 
