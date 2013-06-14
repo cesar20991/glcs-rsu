@@ -22,10 +22,10 @@ public class AsistenciaManaged {
         return session.createQuery("FROM TTrabajador").list();
     }
     
-    public List<TTrabajador> todosTrabajadoresSinAsistencia(){
+    public List<TTrabajador> todosTrabajadoresSinAsistencia(String cdAsistencia){
         Session session = HibernateUtil.getSessionFactory().openSession();
         return session.createQuery("SELECT T FROM TTrabajador AS T WHERE (T.cdTrabajador) "
-      + "NOT IN(SELECT Taxt.TTrabajador.cdTrabajador FROM TAsistenciaxtrabajador AS Taxt WHERE Taxt.TAsistencia.cdAsistencia = 'AS50')").list();
+      + "NOT IN(SELECT Taxt.TTrabajador.cdTrabajador FROM TAsistenciaxtrabajador AS Taxt WHERE Taxt.TAsistencia.cdAsistencia = '"+cdAsistencia+"')").list();
     }
 
     public boolean ExisteIdAsistencia(String cdAsistencia){
@@ -64,7 +64,7 @@ public class AsistenciaManaged {
         }
     }
 
-    public void insertarAsistencia(TAsistenciaxtrabajador tAsistenciaxtrabajador) {
+    public void insertarAsistenciaxTrabajador(TAsistenciaxtrabajador tAsistenciaxtrabajador) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
