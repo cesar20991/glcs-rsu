@@ -48,9 +48,8 @@
 
                                 <p:column>
                                     <p:splitButton value="Marcar">  
-                                        <p:menuitem value="Asistencia" />  
-                                        <p:menuitem value="Tardanza" />  
-                                        <p:menuitem value="Falta"/>
+                                        <p:menuitem value="Asistencia" actionListener="#{asistenciaBean.MarcarAsistencia(trabajador)}" update=":formRegistrarAsistencia:tabRegistrarAsistencias"/>  
+                                        <p:menuitem value="Tardanza" actionListener="#{asistenciaBean.MarcarTardanza(trabajador)}" update=":formRegistrarAsistencia:tabRegistrarAsistencias"/>
                                     </p:splitButton>  
                                 </p:column>
                             </p:dataTable>
