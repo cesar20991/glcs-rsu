@@ -7,7 +7,9 @@ import util.HibernateUtil;
 import emch.modelo.entidades.TTrabajadorxcamion;
 import java.util.Iterator;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -16,24 +18,43 @@ import org.hibernate.Session;
  * @author Mario
  */
 public class AsistenciaManaged {
-    
-    public List<TTrabajador> todosTrabajador(){
+
+    public List<TTrabajador> todosTrabajador() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         return session.createQuery("FROM TTrabajador").list();
     }
-    
-    public List<TTrabajador> todosTrabajadoresSinAsistencia(String cdAsistencia){
+
+    public List<TAsistencia> todasAsistencias() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        return session.createQuery("SELECT T FROM TTrabajador AS T WHERE (T.cdTrabajador) "
-      + "NOT IN(SELECT Taxt.TTrabajador.cdTrabajador FROM TAsistenciaxtrabajador AS Taxt WHERE Taxt.TAsistencia.cdAsistencia = '"+cdAsistencia+"')").list();
+        return session.createQuery("FROM TAsistencia").list();
     }
 
-    public boolean ExisteIdAsistencia(String cdAsistencia){
+    public List<TTrabajador> todosTrabajadoresSinAsistencia(String cdAsistencia) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        int i = session.createQuery("FROM TAsistencia AS Ta WHERE Ta.cdAsistencia = '"+cdAsistencia+"' ").list().size();
-        return i!=0? true : false;
+        return session.createQuery("SELECT T FROM TTrabajador AS T WHERE (T.cdTrabajador) "
+                + "NOT IN(SELECT Taxt.TTrabajador.cdTrabajador FROM TAsistenciaxtrabajador AS Taxt WHERE Taxt.TAsistencia.cdAsistencia = '" + cdAsistencia + "')").list();
     }
-    
+
+    public TAsistenciaxtrabajador AsistenciaxTrabajador(TAsistencia ta, TTrabajador tt) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Criteria criteria = session.createCriteria(TAsistenciaxtrabajador.class)
+                    .add(Restrictions.eq("TAsistencia", ta))
+                    .add(Restrictions.eq("TTrabajador", tt));
+            TAsistenciaxtrabajador taxt = (TAsistenciaxtrabajador) criteria.uniqueResult();
+            return taxt;
+            
+        } finally {
+            session.close();
+        }
+    }
+
+    public boolean ExisteIdAsistencia(String cdAsistencia) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        int i = session.createQuery("FROM TAsistencia AS Ta WHERE Ta.cdAsistencia = '" + cdAsistencia + "' ").list().size();
+        return i != 0 ? true : false;
+    }
+
     public List<TTrabajadorxcamion> buscarTodos() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         return session.createQuery("FROM TTrabajadorxcamion").list();
@@ -75,31 +96,6 @@ public class AsistenciaManaged {
             System.out.println("|ERROR EN INSERTAR: " + e.getMessage().toUpperCase() + "|\n |" + e.getLocalizedMessage().toUpperCase() + "|");
             System.out.println("------------------------------------------------------------------------------------------------");
             session.beginTransaction().rollback();
-        }
-    }
-    
-    public void prueba(){
-       
-        Session session = HibernateUtil.getSessionFactory().openSession();
-      
-        try {
-            List list = session.createQuery("FROM TAsistenciaxtrabajador as taxt WHERE taxt.TTrabajador.cdTrabajador = 'TR0012' "
-                    + "and taxt.asiste = 'false' and taxt.fustifica = 'false'").list();           
-            Iterator it = list.iterator();
-            if (!it.hasNext()) {
-                System.out.println("No any data!");
-            } else {
-                while (it.hasNext()) {
-                    Object[] row = (Object[]) it.next();
-                    for (int i = 0; i < row.length; i++) {
-                        System.out.print(row[i]);
-                        System.out.println();
-                    }
-                }
-            }
-            session.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
     }
 

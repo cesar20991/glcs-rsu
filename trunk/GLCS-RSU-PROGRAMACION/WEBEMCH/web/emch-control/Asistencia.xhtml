@@ -27,7 +27,7 @@
                         <h:outputText value="#{asistenciaBean.sfechaActual}" style="left: 150px; font-size: 30px;"/><br/>
                         <br/><br/>
                         <p:commandButton value="REGISTRAR ASISTENCIAS - HOY" oncomplete="RegistrarAsistenciaDlg.show();"/>
-                        <p:commandButton value="MODFICAR ASISTENCIAS"/>
+                        <p:commandButton value="MODFICAR ASISTENCIAS" oncomplete="ModificarAsistenciaDlg.show();"/>
                     </h:form>
 
                     <h:form id="formRegistrarAsistencia">
@@ -55,6 +55,51 @@
                             </p:dataTable>
                         </p:dialog>
                     </h:form>
+                    
+                    <h:form id="formModificarAsistencia">
+                        <p:dialog id="dlgModificarAsistencia" widgetVar="ModificarAsistenciaDlg" header="Modificar Asistencia" resizable="false" modal="false">                            
+                            <p:dataTable id="tabModificarAsistencia" var="asistencia" value="#{asistenciaBean.listaAsistencia}" emptyMessage="No se encontraron asistencia">
+
+                                <p:column headerText="Codigo">
+                                    <h:outputText value="#{asistencia.cdAsistencia}" />
+                                </p:column>
+                                <p:column headerText="Fecha">
+                                    <h:outputText value="#{asistencia.fecha}" />
+                                </p:column>
+                                <p:column headerText="Ver Registro">
+                                    <p:commandButton icon="ui-icon-search" oncomplete="AsistenciaxTrabajadorDlg.show();" actionListener="#{asistenciaBean.PreperarASistenciaCuadro(asistencia)}" update=":formAsistenciaxTrabajador:tabAsistenciaxTrabajador"/>
+                                </p:column>
+                                
+                            </p:dataTable>
+                        </p:dialog>
+                    </h:form>
+                    
+                    
+                    <h:form id="formAsistenciaxTrabajador">
+                        <p:dialog id="dlgAsistenciaxTrabajador" widgetVar="AsistenciaxTrabajadorDlg" header="AsistenciaxTrabajador" resizable="false" modal="false">                            
+                            <p:dataTable id="tabAsistenciaxTrabajador" var="trabajador2" value="#{asistenciaBean.listatrabajador2}" emptyMessage="No se encontraron trabajadores">
+                                <p:column headerText="Codigo" filterBy="#{trabajador2.cdTrabajador}" filterMatchMode="contains">
+                                    <h:outputText value="#{trabajador2.cdTrabajador}" />
+                                </p:column>
+                                <p:column headerText="Apellidos" filterBy="#{trabajador2.apellidos}" filterMatchMode="contains">
+                                    <h:outputText value="#{trabajador2.apellidos}" />
+                                </p:column>
+                                <p:column headerText="Nombre" filterBy="#{trabajador2.nombres}" filterMatchMode="contains">
+                                    <h:outputText value="#{trabajador2.nombres}" />
+                                </p:column>
+                                <p:column headerText="Estado">
+                                    <h:outputText value="#{asistenciaBean.EstadoAsistenciaxTrabajador(trabajador2)}" />
+                                </p:column>
+                                <p:column>
+                                    <p:splitButton value="Marcar">  
+                                        <p:menuitem value="Asistencia" actionListener="#{asistenciaBean.MarcarAsistencia(trabajador2)}" update=":formRegistrarAsistencia:tabRegistrarAsistencias"/>  
+                                        <p:menuitem value="Tardanza" actionListener="#{asistenciaBean.MarcarTardanza(trabajador2)}" update=":formRegistrarAsistencia:tabRegistrarAsistencias"/>
+                                    </p:splitButton>  
+                                </p:column>
+                            </p:dataTable>
+                        </p:dialog>
+                    </h:form>
+                    
                 </ui:define>
 
                 <ui:define name="bottom">
