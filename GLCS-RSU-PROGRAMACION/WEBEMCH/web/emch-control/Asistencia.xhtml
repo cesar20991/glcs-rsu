@@ -92,8 +92,9 @@
                                 </p:column>
                                 <p:column>
                                     <p:splitButton value="Marcar">  
-                                        <p:menuitem value="Asistencia" actionListener="#{asistenciaBean.MarcarAsistencia(trabajador2)}" update=":formRegistrarAsistencia:tabRegistrarAsistencias"/>  
-                                        <p:menuitem value="Tardanza" actionListener="#{asistenciaBean.MarcarTardanza(trabajador2)}" update=":formRegistrarAsistencia:tabRegistrarAsistencias"/>
+                                        <p:menuitem value="Asistencia" actionListener="#{asistenciaBean.ModificarAsistencia(trabajador2, 1)}" update=":formAsistenciaxTrabajador:tabAsistenciaxTrabajador"/>  
+                                        <p:menuitem value="Tardanza" actionListener="#{asistenciaBean.ModificarAsistencia(trabajador2, 2)}" update=":formAsistenciaxTrabajador:tabAsistenciaxTrabajador"/>
+                                        <p:menuitem value="Justificar" actionListener="#{asistenciaBean.ModificarAsistencia(trabajador2, 3)}" update=":formAsistenciaxTrabajador:tabAsistenciaxTrabajador"/>
                                     </p:splitButton>  
                                 </p:column>
                             </p:dataTable>

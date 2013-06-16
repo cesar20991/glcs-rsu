@@ -126,6 +126,26 @@ public class AsistenciaBean {
         obj.insertarAsistenciaxTrabajador(asistenciaxtrabajador);
     }
 
+    public void ModificarAsistencia(TTrabajador trabajador, int i) {
+        TAsistenciaxtrabajadorId asistenciaxtrabajadorId = new TAsistenciaxtrabajadorId(trabajador.getCdTrabajador(), asistenciaCuadro.getCdAsistencia());
+        TAsistenciaxtrabajador asistenciaxtrabajador = null;
+        AsistenciaManaged obj = new AsistenciaManaged();
+        switch (i) {
+            case 1:
+                asistenciaxtrabajador = new TAsistenciaxtrabajador(asistenciaxtrabajadorId, trabajador, asistencia, true, false, false);
+                obj.ModificarAsistenciaxTrabajador(asistenciaxtrabajador);
+                break;
+            case 2:
+                asistenciaxtrabajador = new TAsistenciaxtrabajador(asistenciaxtrabajadorId, trabajador, asistencia, false, true, false);
+                obj.ModificarAsistenciaxTrabajador(asistenciaxtrabajador);
+                break;
+            case 3:
+                asistenciaxtrabajador = new TAsistenciaxtrabajador(asistenciaxtrabajadorId, trabajador, asistencia, false, false, true);
+                obj.insertarAsistenciaxTrabajador(asistenciaxtrabajador);
+                break;
+        }
+    }
+
     public List<TAsistencia> getListaAsistencia() {
         AsistenciaManaged obj = new AsistenciaManaged();
         listaAsistencia = obj.todasAsistencias();
@@ -161,6 +181,8 @@ public class AsistenciaBean {
             return "Asistio";
         } else if (taxt.getTardanza()) {
             return "Tardanza";
+        } else if (taxt.getFustifica()) {
+            return "Falta Justificada";
         }
         return "";
     }
