@@ -84,6 +84,20 @@ public class AsistenciaManaged {
             session.beginTransaction().rollback();
         }
     }
+    
+    public void ModificarAsistenciaxTrabajador(TAsistenciaxtrabajador tAsistenciaxtrabajador) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(tAsistenciaxtrabajador);
+            session.beginTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("------------------------------------------------------------------------------------------------");
+            System.out.println("|ERROR EN MODIFICAR: " + e.getMessage().toUpperCase() + "|\n |" + e.getLocalizedMessage().toUpperCase() + "|");
+            System.out.println("------------------------------------------------------------------------------------------------");
+            session.beginTransaction().rollback();
+        }
+    }
 
     public void insertarAsistenciaxTrabajador(TAsistenciaxtrabajador tAsistenciaxtrabajador) {
         Session session = HibernateUtil.getSessionFactory().openSession();
