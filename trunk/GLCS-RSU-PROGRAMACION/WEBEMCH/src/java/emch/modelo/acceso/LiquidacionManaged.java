@@ -208,7 +208,7 @@ public class LiquidacionManaged {
             session.beginTransaction();
             if (!VerificarLiquidacionLiquidada(liquidacion.getCdLiq())) {
                 //if (actualizarPesajeAsociado(liquidacion.getCdLiq())){
-                session.delete("FROM TLiquidacion t WHERE t.cdLiq='"+liquidacion.getCdLiq()+"'");
+                session.delete("FROM TLiquidacion t WHERE t.cdLiq='" + liquidacion.getCdLiq() + "'");
                 session.beginTransaction().commit();
                 //}
                 //else {
@@ -222,7 +222,7 @@ public class LiquidacionManaged {
             System.out.println("Error en eliminar: " + e.getMessage());
             session.beginTransaction().rollback();
             return false;
-        }finally {
+        } finally {
             session.close();
         }
         return true;
@@ -253,23 +253,33 @@ public class LiquidacionManaged {
         try {
             sesion = HibernateUtil.getSessionFactory().openSession();
             trans = sesion.beginTransaction();
-            qry = sesion.createQuery("SELECT a FROM TPesaje a where a.TLiquidacion.cdLiq='" + codliq + "'");
-            listaPes = (List<TPesaje>) qry.list();
-            for (TPesaje tp : listaPes) {
-                TPesaje dtopesaje = new TPesaje();
-                dtopesaje = tp;
-                dtopesaje.setTLiquidacion(null);
-                sesion.merge(dtopesaje);                
-                //sesion.beginTransaction().commit(); no volver a hacer esto xD
+            if (!VerificarLiquidacionLiquidada(codliq)) {
+                qry = sesion.createQuery("SELECT a FROM TPesaje a where a.TLiquidacion.cdLiq='" + codliq + "'");
+                listaPes = (List<TPesaje>) qry.list();
+                for (TPesaje tp : listaPes) {
+                    TPesaje dtopesaje = new TPesaje();
+                    dtopesaje = tp;
+                    dtopesaje.setTLiquidacion(null);
+                    sesion.merge(dtopesaje);
+                    //sesion.beginTransaction().commit(); no volver a hacer esto xD
+                }
+                trans.commit();
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Liquidacion " + codliq + " no se puede eliminar ya que fue cobrada", "Verificar"));
+                return false;
             }
-            trans.commit();
         } catch (Exception ex) {
             trans.rollback();
             return false;
             //ex.printStackTrace();
-        }finally {
+        } finally {
             sesion.close();
         }
         return true;
     }
+    
+    public boolean EliminarEstadoxLiquidacion(TLiquidacion liquidacion){
+        return true;
+    }
+    
 }
