@@ -141,8 +141,10 @@ public class LiquidacionBean extends UsuarioBean {
 
     public String EliminarLiquidacion() {
         LiquidacionManaged viMgd = new LiquidacionManaged();
-        boolean resultado = viMgd.eliminarLiquidacion(getSelectedEstadoLiq());
-        if (resultado) {
+        boolean resultado = viMgd.actualizarPesajeAsociado(getSelectedEstadoLiq().getCdLiq());
+        if (resultado) {            
+            boolean resul2 = false;
+            boolean resul3 = viMgd.eliminarLiquidacion(getSelectedEstadoLiq());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Liquidacion " + getSelectedEstadoLiq().getCdLiq() + " se elimino correctamente", "Verificar"));            
         } 
             //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar Liquidación", "Verificar"));            

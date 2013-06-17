@@ -207,20 +207,23 @@ public class LiquidacionManaged {
         try {
             session.beginTransaction();
             if (!VerificarLiquidacionLiquidada(liquidacion.getCdLiq())) {
-                if (actualizarPesajeAsociado(liquidacion.getCdLiq())){
-                session.delete("FALTA AQUI ELIMINAR ESTADO X LIQUIDACION Y LUEGO ACTUALIZAR PESAJE ASOCIADO A NULL ó VACIO");
+                //if (actualizarPesajeAsociado(liquidacion.getCdLiq())){
+                session.delete("FROM TLiquidacion t WHERE t.cdLiq='"+liquidacion.getCdLiq()+"'");
                 session.beginTransaction().commit();
-                }
-                else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al quitar pesajes asociados", "Verificar"));
-                }
+                //}
+                //else {
+                //    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al quitar pesajes asociados", "Verificar"));
+                //}
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Liquidacion " + liquidacion.getCdLiq() + " no se puede eliminar ya que fue cobrada", "Verificar"));
+                return false;
             }
         } catch (Exception e) {
             System.out.println("Error en eliminar: " + e.getMessage());
             session.beginTransaction().rollback();
             return false;
+        }finally {
+            session.close();
         }
         return true;
     }
@@ -256,12 +259,16 @@ public class LiquidacionManaged {
                 TPesaje dtopesaje = new TPesaje();
                 dtopesaje = tp;
                 dtopesaje.setTLiquidacion(null);
-                sesion.merge(dtopesaje);
+                sesion.merge(dtopesaje);                
                 //sesion.beginTransaction().commit(); no volver a hacer esto xD
             }
+            trans.commit();
         } catch (Exception ex) {
+            trans.rollback();
             return false;
             //ex.printStackTrace();
+        }finally {
+            sesion.close();
         }
         return true;
     }
