@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
@@ -22,7 +22,7 @@ import javax.faces.event.ActionEvent;
  * @author Cesar
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class LiquidacionBean extends UsuarioBean {
 
     private TLiquidacion liquidacion;
@@ -80,7 +80,6 @@ public class LiquidacionBean extends UsuarioBean {
     public List<TPesaje> getListadopesaje() {
         LiquidacionManaged obj = new LiquidacionManaged();
         listadopesaje = obj.listarPesajePendiente(getEmpresa().getCdRuc(), liquidacion.getFechaInicio(), liquidacion.getFechaFin());
-
         return listadopesaje;
     }
 
@@ -121,10 +120,12 @@ public class LiquidacionBean extends UsuarioBean {
         boolean resultado = visitaMgd.IngresarLiquidacion(liquidacion,selectedpesaje);
         if (resultado) {
             context.addMessage(null, new FacesMessage("Liquidacion Generada Correctamente", "Verificar"));
+            setLiquidacion(null);
             return "liquidaciones";
         } else {
             //setEsEdicion(false);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Generar Liquidacion", "Verificar"));
+            setLiquidacion(null);
             return ""; //futuros errores
         }
         //return "";
