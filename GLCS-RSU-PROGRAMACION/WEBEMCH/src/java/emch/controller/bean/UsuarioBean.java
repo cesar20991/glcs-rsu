@@ -10,14 +10,15 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-/**
+/**s
  *
  * @author Cesar
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class UsuarioBean {
 
     public String nomusuario = "";

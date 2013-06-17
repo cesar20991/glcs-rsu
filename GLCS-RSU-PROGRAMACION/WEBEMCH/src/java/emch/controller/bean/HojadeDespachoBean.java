@@ -7,12 +7,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.DataModel;
 import javax.swing.JOptionPane;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class HojadeDespachoBean {
 
     private TDespacho despacho;
