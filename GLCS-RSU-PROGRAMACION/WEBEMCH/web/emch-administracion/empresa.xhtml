@@ -16,23 +16,23 @@
             </ui:define>
 
             <ui:define name="top">
-
+                <p:growl id="messages" autoUpdate="true"/> 
             </ui:define>
 
             <ui:define name="content">
-                
+
                 <h:form>
-                     <h:outputText value="ADMINISTRAR - EMPRESAS" style="font-weight:bold;font-size:20px;color:#654B24" />
-                <f:facet name="header">  
-                            Información del Trabajador 
-                        </f:facet>
+                    <h:outputText value="ADMINISTRAR - EMPRESAS" style="font-weight:bold;font-size:20px;color:#654B24" />
+                    <f:facet name="header">  
+                        Información del Trabajador 
+                    </f:facet>
                     <div style="padding-bottom: 10px;">                            
                         <p:commandButton value="Nueva Empresa" action="#{empresaBean.irAgregar()}" icon="ui-icon-document" ajax="false">
                         </p:commandButton>
                     </div>     
                     <br/>
                     <h:form id="formEmpresa">
-                        <p:dataTable id="dtEmpresa" var="empresa" value="#{empresaBean.listaEmpresa}" rowKey="#{empresa.cdRuc}" 
+                        <p:dataTable id="dtEmpresa" var="empresa" value="#{empresaBean.listaempresa}" rowKey="#{empresa.cdRuc}" 
                                      paginator="true" rows="15"  
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                      rowsPerPageTemplate="5,10,15" style="font-weight:bold">
@@ -79,6 +79,13 @@
                                 </f:facet> 
                                 <h:outputText value="#{empresa.telef}"/>
                             </p:column>
+                            
+                              <p:column headerText="Editar">
+                            <f:facet name="header">
+                                <h:outputText value="Editar"></h:outputText>
+                            </f:facet>
+                            <p:commandButton icon="ui-icon-pencil"  action="#{empresaBean.irActualizar()}" ajax="false" />
+                        </p:column>
 
                             <!--<p:column headerText="Edit." style="width:8%; text-align: center">  
                                 <p:commandButton oncomplete="editarEmpresaDialog.show();" icon="ui-icon-pencil" title="Editar" update=":formEmpresaEditar" actionListener="#{empresaBean.prepararEmpresa(empresa.rucE)}"/>

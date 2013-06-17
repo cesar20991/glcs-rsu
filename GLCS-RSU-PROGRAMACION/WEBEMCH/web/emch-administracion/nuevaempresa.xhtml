@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Administrar Empresas</title>
     </h:head>
@@ -12,37 +13,51 @@
         <ui:composition template="../plantillas/Template.xhtml">
 
             <ui:define name="usuarios">
+                <br></br>
+                Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
             </ui:define>
 
             <ui:define name="top">
-
+                <p:growl id="messages" autoUpdate="true"/> 
             </ui:define>
 
             <ui:define name="content">
                 <h:form >
-                    <p:panelGrid id="pgEmpresaNuevo" columns="2"  style="margin:0 auto;">
-                        <h:outputText value="cdRuc:" />
-                        <p:inputText value="#{empresaBean.empresa.cdRuc}" style="font-weight:bold"/>
+                    <h:outputText value="ADMINISTRAR - EMPRESAS" style="font-weight:bold;font-size:20px;color:#654B24" />
 
-                        <h:outputText value="cdUbig" />
-                        <p:inputText value="#{empresaBean.empresa.TUbigeo.cdUbig}" style="font-weight:bold"/>
+                    <p:panelGrid columns="2" style="width: 100%">
+                        <f:facet name="header">  
+                            Información de la Empresa
+                        </f:facet>
+                        <h:outputLabel value="cdUbig" />
+                        <p:selectOneMenu value="#{empresaBean.empresa.TUbigeo.cdUbig}" effect="fade" required="true">  
+                            <f:selectItem itemLabel="Select One" itemValue="" />  
+                            <f:selectItems value="#{empresaBean.listarUbigeo}" var="ubigeo" itemLabel="#{ubigeo.nombre}" itemValue="#{ubigeo.cdUbig}"/>  
+                        </p:selectOneMenu>
 
-                        <h:outputText value="ruc Empresa" />
-                        <p:inputText value="#{empresaBean.empresa.rucE}" style="font-weight:bold"/>
+                        <h:outputLabel value="ruc Empresa" />
+                        <p:inputText value="#{empresaBean.empresa.rucE}" required="true" requiredMessage="El campo Ruc empresa es obligatorio" />
 
-                        <h:outputText value="rsocial" />
-                        <p:inputText value="#{empresaBean.empresa.rsocial}" style="font-weight:bold"/>
+                        <h:outputLabel value="rsocial" />
+                        <p:inputText value="#{empresaBean.empresa.rsocial}" required="true" requiredMessage="El campo R Social Identidad es obligatorio" />
 
-                        <h:outputText value="fecha Inicio" />
-                        <p:inputText value="#{empresaBean.empresa.fechaIni}" style="font-weight:bold"/>
+                        <h:outputLabel value="fecha Inicio" />
+                        <p:calendar value="#{empresaBean.empresa.fechaIni}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold" required="true" requiredMessage="El campo Fecha Inicio es obligatorio">                                
+                        </p:calendar>
 
-                        <h:outputText value="direccion" />
-                        <p:inputText value="#{empresaBean.empresa.direccion}" style="font-weight:bold"/>
+                        <h:outputLabel value="direccion" />
+                        <p:inputText value="#{empresaBean.empresa.direccion}" required="true" requiredMessage="El campo Direccion es obligatorio" />
 
-                        <h:outputText value="telefono:" />
-                        <p:inputText value="#{empresaBean.empresa.telef}" style="font-weight:bold"/>
+                        <h:outputLabel value="telefono:" />
+                        <p:inputText value="#{empresaBean.empresa.telef}" required="true" requiredMessage="El campo Telefono es obligatorio" />
                     </p:panelGrid>
-
+                    <div style="padding-top: 10px;">
+                        <p:commandButton  value="#{empresaBean.accion}" action="#{empresaBean.ingresar()}"  ajax="false"  icon="ui-icon-check" style="margin:0"/>                                               
+                    </div>
                 </h:form>
             </ui:define>
         </ui:composition>
