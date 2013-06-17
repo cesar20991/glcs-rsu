@@ -53,31 +53,31 @@ public class LiquidacionManaged {
         return listaTLiq;
     }
 
-/*LISTAR LIQUIDACION POR CLIENTE*/    
+    /*LISTAR LIQUIDACION POR CLIENTE*/
     public List listarLiquidacionPorCliente(TComprobante selectedComprobante) {
         List<TLiquidacion> listaLiq = null;
-      /*  try {*/
-            sesion = HibernateUtil.getSessionFactory().openSession();
-            trans = sesion.beginTransaction();
-            qry = sesion.createQuery("SELECT b FROM TComprobante a inner join a.TLiquidacion b where b.cdLiq='"+selectedComprobante.getTLiquidacion()+"'");
-            listaLiq = (List<TLiquidacion>) qry.list();
-       /* } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            sesion.close();
-        }*/
+        /*  try {*/
+        sesion = HibernateUtil.getSessionFactory().openSession();
+        trans = sesion.beginTransaction();
+        qry = sesion.createQuery("SELECT b FROM TComprobante a inner join a.TLiquidacion b where b.cdLiq='" + selectedComprobante.getTLiquidacion() + "'");
+        listaLiq = (List<TLiquidacion>) qry.list();
+        /* } catch (Exception ex) {
+         ex.printStackTrace();
+         } finally {
+         sesion.close();
+         }*/
         return listaLiq;
-    }    
+    }
 
     //---------Lista pesaje que todavia no fueron cobrados por el cliente---------------------//
     public List listarPesajePendiente(String rucemp, Date fechaInicio, Date fechaFin) {
         List<TPesaje> listaTLiq = null;
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
-            //String fechaI=sdf.format(fechaInicio);
-            //String fechaF=sdf.format(fechaFin);
+            String fechaI = sdf.format(fechaInicio);
+            String fechaF = sdf.format(fechaFin);
             sesion = HibernateUtil.getSessionFactory().openSession();
-            qry = sesion.createQuery("SELECT p FROM TPesaje p inner join p.TControlviaje cv where p.estadoPesaje='PP' and cv.TDespachodet.id.cdRuc='" + rucemp + "' ");//and p.fechaPesaje between '"+fechaI+"' and '"+fechaF+"'");            
+            qry = sesion.createQuery("SELECT p FROM TPesaje p inner join p.TControlviaje cv where p.estadoPesaje='PP' and cv.TDespachodet.id.cdRuc='" + rucemp + "' and p.fechaPesaje between '" + fechaI + "' and '" + fechaF + "'");
             //qry = sesion.createQuery("SELECT p FROM TPesaje p where p.estadoPesaje='P' and p.TControlviaje.TDespachodet.id.cdRuc='" + rucemp + "' and p.fechaPesaje between '"+fechaI+"' and '"+fechaF+"'");            
             listaTLiq = (List<TPesaje>) qry.list();
         } catch (Exception ex) {
@@ -88,14 +88,15 @@ public class LiquidacionManaged {
          }*/
         return listaTLiq;
     }
-    public List listarPesajePendienteCons(String rucemp, String cdliq,Date fechaInicio, Date fechaFin) {
+
+    public List listarPesajePendienteCons(String rucemp, String cdliq, Date fechaInicio, Date fechaFin) {
         List<TPesaje> listaTLiq = null;
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
             //String fechaI=sdf.format(fechaInicio);
             //String fechaF=sdf.format(fechaFin);
             sesion = HibernateUtil.getSessionFactory().openSession();
-            qry = sesion.createQuery("SELECT p FROM TPesaje p where p.estadoPesaje='P' and p.TLiquidacion.cdLiq='"+cdliq+"' and p.TControlviaje.TDespachodet.id.cdRuc='" + rucemp + "' ");//and p.fechaPesaje between '"+fechaI+"' and '"+fechaF+"'");            
+            qry = sesion.createQuery("SELECT p FROM TPesaje p where p.estadoPesaje='P' and p.TLiquidacion.cdLiq='" + cdliq + "' and p.TControlviaje.TDespachodet.id.cdRuc='" + rucemp + "' ");//and p.fechaPesaje between '"+fechaI+"' and '"+fechaF+"'");            
             listaTLiq = (List<TPesaje>) qry.list();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -105,7 +106,6 @@ public class LiquidacionManaged {
          }*/
         return listaTLiq;
     }
-    
 
     public boolean IngresarLiquidacion(TLiquidacion liquidacion, TPesaje[] selectedPesaje) {
         FacesContext context1 = FacesContext.getCurrentInstance();
@@ -186,13 +186,13 @@ public class LiquidacionManaged {
             context1.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Actualiza Pesaje Asociados de Liquidacion", e.getMessage()));
         }
     }
-    
+
     /*LISTADO DE ESTADOS POR LIQUIDACION*/
-    public List ObtenerEstadoLiq(TLiquidacion liquidacion){
-        List<TEstadoxliquidacion> listaTLiq = null;        
+    public List ObtenerEstadoLiq(TLiquidacion liquidacion) {
+        List<TEstadoxliquidacion> listaTLiq = null;
         try {
             sesion = HibernateUtil.getSessionFactory().openSession();
-            qry = sesion.createQuery("SELECT e FROM TEstadoxliquidacion e where e.id.cdLiq='"+liquidacion.getCdLiq()+"'");            
+            qry = sesion.createQuery("SELECT e FROM TEstadoxliquidacion e where e.id.cdLiq='" + liquidacion.getCdLiq() + "'");
             listaTLiq = (List<TEstadoxliquidacion>) qry.list();
         } catch (Exception ex) {
             ex.getMessage();
@@ -201,5 +201,68 @@ public class LiquidacionManaged {
          }*/
         return listaTLiq;
     }
-    
+
+    public boolean eliminarLiquidacion(TLiquidacion liquidacion) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            if (!VerificarLiquidacionLiquidada(liquidacion.getCdLiq())) {
+                if (actualizarPesajeAsociado(liquidacion.getCdLiq())){
+                session.delete("FALTA AQUI ELIMINAR ESTADO X LIQUIDACION Y LUEGO ACTUALIZAR PESAJE ASOCIADO A NULL ó VACIO");
+                session.beginTransaction().commit();
+                }
+                else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al quitar pesajes asociados", "Verificar"));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Liquidacion " + liquidacion.getCdLiq() + " no se puede eliminar ya que fue cobrada", "Verificar"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en eliminar: " + e.getMessage());
+            session.beginTransaction().rollback();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean VerificarLiquidacionLiquidada(String codliq) {
+        List<TEstadoxliquidacion> verestado = null;
+        try {
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            trans = sesion.beginTransaction();
+            qry = sesion.createQuery("SELECT ab FROM TEstadoxliquidacion ab where ab.TLiquidacion.cdLiq='" + codliq + "' and ab.TEstadoliq.cdEstadoLiq='EL2'");
+
+            verestado = (List<TEstadoxliquidacion>) qry.list();
+            if (verestado.size() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            //Algun dia lo pondre como debe ser =)
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean actualizarPesajeAsociado(String codliq) {
+        List<TPesaje> listaPes = null;
+        try {
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            trans = sesion.beginTransaction();
+            qry = sesion.createQuery("SELECT a FROM TPesaje a where a.TLiquidacion.cdLiq='" + codliq + "'");
+            listaPes = (List<TPesaje>) qry.list();
+            for (TPesaje tp : listaPes) {
+                TPesaje dtopesaje = new TPesaje();
+                dtopesaje = tp;
+                dtopesaje.setTLiquidacion(null);
+                sesion.merge(dtopesaje);
+                //sesion.beginTransaction().commit(); no volver a hacer esto xD
+            }
+        } catch (Exception ex) {
+            return false;
+            //ex.printStackTrace();
+        }
+        return true;
+    }
 }

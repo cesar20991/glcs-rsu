@@ -67,19 +67,23 @@ public class LiquidacionBean extends UsuarioBean {
     public void setListatipoliq(List<TTipoliquidacion> listatipoliq) {
         this.listatipoliq = listatipoliq;
     }
-    
+
     public String irRegresar() {
         return "liquidaciones";
     }
 
     public String irAperturar() { //throws IOException {
         // FacesContext.getCurrentInstance().getExternalContext().redirect("generarliquidacion.xhtml");
+        putsesion("fechaInicio", liquidacion.getFechaInicio());
+        putsesion("fechaFin", liquidacion.getFechaFin());
         return "generarliquidacion";
     }
-    
+
     public List<TPesaje> getListadopesaje() {
         LiquidacionManaged obj = new LiquidacionManaged();
-        listadopesaje = obj.listarPesajePendiente(getEmpresa().getCdRuc(), liquidacion.getFechaInicio(), liquidacion.getFechaFin());
+        Date fi = (Date) obtsesion("fechaInicio");
+        Date ff = (Date) obtsesion("fechaFin");
+        listadopesaje = obj.listarPesajePendiente(getEmpresa().getCdRuc(), fi, ff);
         return listadopesaje;
     }
 
@@ -103,8 +107,8 @@ public class LiquidacionBean extends UsuarioBean {
 //        listadopesaje = obj.listarPesajePendiente(getEmpresa().getCdRuc(), fechaInicio,fechaFin);
 //    }
     public void irCalcularTN() {
-        BigDecimal SUMAtotalTN = new BigDecimal("0.000").setScale(2);        
-        for (int i = 0; i < selectedpesaje.length; i++) {            
+        BigDecimal SUMAtotalTN = new BigDecimal("0.000").setScale(2);
+        for (int i = 0; i < selectedpesaje.length; i++) {
             SUMAtotalTN = SUMAtotalTN.add(selectedpesaje[i].getPesoTn());
         }
         liquidacion.setTotalTn(SUMAtotalTN);
@@ -117,18 +121,32 @@ public class LiquidacionBean extends UsuarioBean {
         liquidacion.setUsuCrea(getUsuario2().getNomUsu());
         liquidacion.setFechaReg(liquidacion.getFechaApertura());
         LiquidacionManaged visitaMgd = new LiquidacionManaged();
-        boolean resultado = visitaMgd.IngresarLiquidacion(liquidacion,selectedpesaje);
+        boolean resultado = visitaMgd.IngresarLiquidacion(liquidacion, selectedpesaje);
         if (resultado) {
             context.addMessage(null, new FacesMessage("Liquidacion Generada Correctamente", "Verificar"));
-            setLiquidacion(null);
+            liquidacion = new TLiquidacion();
+            liquidacion.setTTipoliquidacion(new TTipoliquidacion());
+            liquidacion.setTEmpresa(new TEmpresa());
             return "liquidaciones";
         } else {
             //setEsEdicion(false);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Generar Liquidacion", "Verificar"));
-            setLiquidacion(null);
+            liquidacion = new TLiquidacion();
+            liquidacion.setTTipoliquidacion(new TTipoliquidacion());
+            liquidacion.setTEmpresa(new TEmpresa());
             return ""; //futuros errores
         }
         //return "";
+    }
+
+    public String EliminarLiquidacion() {
+        LiquidacionManaged viMgd = new LiquidacionManaged();
+        boolean resultado = viMgd.eliminarLiquidacion(getSelectedEstadoLiq());
+        if (resultado) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Liquidacion " + getSelectedEstadoLiq().getCdLiq() + " se elimino correctamente", "Verificar"));            
+        } 
+            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar Liquidación", "Verificar"));            
+        return "liquidaciones.xhtml";
     }
 
     /**
@@ -162,7 +180,6 @@ public class LiquidacionBean extends UsuarioBean {
     /**
      * @return the listaestadoliq
      */
-    
     public List<TEstadoxliquidacion> getListaestadoliq() {
         LiquidacionManaged viMgd = new LiquidacionManaged();
         listaestadoliq = viMgd.ObtenerEstadoLiq(getSelectedEstadoLiq());
@@ -190,4 +207,7 @@ public class LiquidacionBean extends UsuarioBean {
         this.selectedEstadoLiq = selectedEstadoLiq;
     }
 
+    public void putsesion(String k, Object v) {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(k, v);
+    }
 }

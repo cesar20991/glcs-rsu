@@ -25,7 +25,7 @@
 
             <ui:define name="content">
                 <h:form  prependId="false" id="generaliq">
-                    <p:commandButton  value="GENERAR" icon="ui-icon-document" action="#{liquidacionBean.insertar()}" ajax="false"> 
+                    <p:commandButton  value="GENERAR" icon="ui-icon-document" action="#{liquidacionBean.insertar}" ajax="false"> 
                     </p:commandButton> 
                     <p:commandButton  value="CANCELAR" action="#{liquidacionBean.irRegresar}" icon="ui-icon-arro1-wrefresh-1-w" ajax="false"> 
                     </p:commandButton> 
@@ -87,7 +87,7 @@
                     <!-- <p:outputPanel autoUpdate="true">-->
 
                     <p:dataTable  id="pesajeid" var="pesaje" value="#{liquidacionBean.listadopesaje}" 
-                                  paginator="true"   rows="100" rowKey="#{pesaje.cdPesaje}"
+                                  paginator="true"   rows="25" rowKey="#{pesaje.cdPesaje}"
                                   selection="#{liquidacionBean.selectedpesaje}" >
                         <p:ajax event="rowSelectCheckbox" listener="#{liquidacionBean.demo}"></p:ajax> 
                         <!--CABECERA DE LISTADOPESAJE-->
