@@ -45,6 +45,15 @@
                                 LISTADO DE LIQUIDACIONES APERTURADAS DE LA <h:outputText value="#{liquidacionBean.empresa.rsocial}"></h:outputText>
                             </f:facet>  
 
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Ver Info." />  
+                                </f:facet> 
+                                <p:commandButton update=":interesxin:display2" oncomplete="infoDialog.show()" icon="ui-icon-search" title="View">  
+                                    <f:setPropertyActionListener value="#{liquidacion}" target="#{consLiquidacionBean.liquidacion}" />  
+                                </p:commandButton>  
+                            </p:column>
+
                             <p:column > 
                                 <f:facet name="header">  
                                     <h:outputText value="CdLiquidacion" />  
@@ -103,14 +112,14 @@
                                 </p:commandButton>  
                             </p:column>
 
-                            <p:column>  
+                            <p:column style="width:8%; text-align: center">  
                                 <f:facet name="header">  
-                                    <h:outputText value="Ver Info." />  
-                                </f:facet> 
-                                <p:commandButton update=":interesxin:display2" oncomplete="infoDialog.show()" icon="ui-icon-search" title="View">  
-                                    <f:setPropertyActionListener value="#{liquidacion}" target="#{consLiquidacionBean.liquidacion}" />  
-                                </p:commandButton>  
-                            </p:column>
+                                    <h:outputText value="Elim" />  
+                                </f:facet>
+                                <p:commandButton update=":interesxin:display3" onclick="confirmation.show();" icon="ui-icon-cancel" title="View">  
+                                    <f:setPropertyActionListener value="#{liquidacion}" target="#{liquidacionBean.selectedEstadoLiq}" />  
+                                </p:commandButton> 
+                            </p:column> 
 
                         </p:dataTable>
 
@@ -182,6 +191,17 @@
                         </h:panelGrid>  
                     </p:dialog>
 
+                    <p:confirmDialog id="confirmDialog" message="¿Seguro que desea Eliminar la Liquidacion Seleccionada? Se quitaran los Pesajes Asociados"  
+                                     header="ELIMINAR LIQUIDACION" severity="alert" widgetVar="confirmation" appendToBody="true">  
+                        <p:panelGrid id="display3" columns="2" style="margin:0 auto;">                            
+                            <h:outputText value="Nro. Liquidación :" />  
+                            <h:outputText value="#{liquidacionBean.selectedEstadoLiq.cdLiq}"/>
+                        </p:panelGrid> 
+                        <p:commandButton id="confirm" value="SI" oncomplete="confirmation.hide()"  
+                                         actionListener="#{liquidacionBean.EliminarLiquidacion()}" />  
+                        <p:commandButton id="decline" value="NO" onclick="confirmation.hide();" type="button" />
+
+                    </p:confirmDialog>  
 
                 </h:form>
 
