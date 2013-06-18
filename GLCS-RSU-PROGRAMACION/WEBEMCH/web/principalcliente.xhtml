@@ -32,7 +32,7 @@
                             <h:outputLabel for="empresa" value="Empresa:" />                                                         
                             <f:facet name="footer">  
                                 <p:commandButton id="loginButton" value="Ingresar" update=":growl"   
-                                                 actionListener="#{loginBean.login}"   
+                                                 actionListener="#{loginBean.loginCliente}"   
                                                  oncomplete="handleLoginRequest(xhr, status, args)"/>  
                             </f:facet>  
                         </h:panelGrid>  
@@ -47,7 +47,7 @@
                         } else {
                             dlg.hide();
                             jQuery('#loginLink').fadeOut();
-                            window.location = "/WEBEMCH/faces/ComprobantesPorCliente.xhtml";
+                            window.location = "/WEBEMCH/faces/emch-operaciones/ComprobantesPorCliente.xhtml";
                         }
                     }
                 </script>  

@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import emch.modelo.acceso.UsuarioManaged;
 import emch.modelo.acceso.UsuarioManagedImpl;
+import emch.modelo.entidades.TCliente;
 import emch.modelo.entidades.TEmpresa;
 import emch.modelo.entidades.TUsuario;
 import java.util.List;
@@ -20,6 +21,7 @@ public class LoginBean {
 
     private TUsuario usuario;
     private TEmpresa empresa;
+    private TCliente cliente;
     private String nomusuario="";
     private List<TEmpresa> listarempresa;
     private String nomempresa="";
@@ -54,6 +56,28 @@ public class LoginBean {
             putsesion("tipo","usu");
             putsesion("empresa", empresa);
             putsesion("tipoe", "emp");
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido ", usuario.getNomUsu());  
+        } else {  
+            loggedIn = false;  
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials");  
+        } 
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+        context.addCallbackParam("loggedIn", loggedIn);  
+    }
+    
+        public void loginCliente(ActionEvent actionEvent) {  
+        RequestContext context = RequestContext.getCurrentInstance();  
+        FacesMessage msg = null;  
+        boolean loggedIn = false;  
+        UsuarioManaged obj = new UsuarioManagedImpl();
+        usuario = obj.buscarPorUsuario(usuario);
+        empresa = obj.buscarRuc(usuario);
+        //VERIFICANDO ESTA MAL PERO Q QUEDA SALE u.u
+        UsuarioManagedImpl obj2= new UsuarioManagedImpl();
+        if(usuario != null) {  
+            loggedIn = true;
+            putsesion("usuario",usuario);
+            putsesion("empresa", empresa);
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido ", usuario.getNomUsu());  
         } else {  
             loggedIn = false;  
