@@ -3,10 +3,12 @@ package emch.controller.bean;
 
 import emch.modelo.acceso.*;
 import emch.modelo.entidades.*;
+import java.io.IOException;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 
 @ManagedBean
@@ -23,8 +25,8 @@ public class ConsLiquidacionBean {
         
     }
     
-    public String irGenerar(){
-        return "nuevocomprobante";
+    public void irGenerar() throws IOException{
+        FacesContext.getCurrentInstance().getExternalContext().redirect("nuevocomprobante.xhtml");
     }
 
     public TLiquidacion getLiquidacion() {
