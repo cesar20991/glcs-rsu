@@ -36,7 +36,7 @@
                         </div>
 
                         <p:dataTable var="liquidacion" value="#{consLiquidacionBean.listarLiquidacion}" rowKey="#{liquidacion.cdLiq}" selectionMode="single" selection="#{comprobanteBean.selectedliquidacion}"
-                                     paginator="true" rows="15"  
+                                     paginator="true" rows="15"  id="datatblLiquid"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                      rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                  
 
@@ -197,7 +197,7 @@
                             <h:outputText value="Nro. Liquidación :" />  
                             <h:outputText value="#{liquidacionBean.selectedEstadoLiq.cdLiq}"/>
                         </p:panelGrid> 
-                        <p:commandButton id="confirm" value="SI" oncomplete="confirmation.hide()"  
+                        <p:commandButton id="confirm" value="SI" oncomplete="confirmation.hide()" update=":interesxin:datatblLiquid"  
                                          actionListener="#{liquidacionBean.EliminarLiquidacion()}" />  
                         <p:commandButton id="decline" value="NO" onclick="confirmation.hide();" type="button" />
 
