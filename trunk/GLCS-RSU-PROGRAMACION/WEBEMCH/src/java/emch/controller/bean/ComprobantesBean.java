@@ -41,6 +41,9 @@ public class ComprobantesBean extends UsuarioBean {
         comprobante.setTMoneda(new TMoneda());
         comprobante.setTTipodoc(new TTipodoc());
         cont = 0;
+        comprobanteDet=new TComprobantedet();
+        comprobanteDet.setTServicio(new TServicio());
+        comprobanteDet.setTComprobante(new TComprobante());
     }
 
     public void prepararComprobante(String id) {
@@ -64,6 +67,17 @@ public class ComprobantesBean extends UsuarioBean {
             comprobante.setTTipodoc(obj.buscarTiposDocTodos().get(0));
             obj.insertarComprobante(comprobante);
             FacesContext.getCurrentInstance().getExternalContext().redirect("generarcomprobante.xhtml");
+        } catch (IOException e) {
+            System.out.println("" + e.getMessage());
+        }
+    }
+
+    public void cancelar() {
+        try {
+            ComprobantesManaged obj = new ComprobantesManaged();
+            comprobante=obj.buscarComprobantePorId(idC);
+            obj.eliminar(comprobante);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("vistaliquidaciones.xhtml");
         } catch (IOException e) {
             System.out.println("" + e.getMessage());
         }

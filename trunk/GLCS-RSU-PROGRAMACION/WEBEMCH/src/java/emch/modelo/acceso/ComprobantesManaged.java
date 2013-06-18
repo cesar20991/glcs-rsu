@@ -67,7 +67,7 @@ public class ComprobantesManaged {
             session.beginTransaction().rollback();
         }
     }
-    
+
     public void actualizarComprobante(TComprobante comprobante) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -78,5 +78,22 @@ public class ComprobantesManaged {
             System.out.println("Error en actualizarComprobante: " + e.getMessage());
             session.beginTransaction().rollback();
         }
+    }
+
+    public void eliminar(TComprobante comprobante) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.delete(comprobante);
+            session.beginTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error en eliminar: " + e.getMessage());
+            session.beginTransaction().rollback();
+        }
+    }
+    
+    public TComprobante buscarComprobantePorId(String id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        return (TComprobante) session.load(TComprobante.class, id);
     }
 }
