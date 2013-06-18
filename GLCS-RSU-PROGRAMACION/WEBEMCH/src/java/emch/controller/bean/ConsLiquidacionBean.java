@@ -82,6 +82,9 @@ public class ConsLiquidacionBean {
     public void setListarpesajePorCliente(List<TPesaje> listarpesajePorCliente) {
         this.listarpesajePorCliente = listarpesajePorCliente;
     }   
- 
+    
+    public String irRegresarComprobante(){
+        return "ComprobantesPorCliente";
+    }
        
 }

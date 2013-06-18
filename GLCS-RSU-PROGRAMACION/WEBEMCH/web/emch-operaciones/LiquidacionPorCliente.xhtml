@@ -26,10 +26,11 @@
                 <ui:define name="content">
 
                     <h:form  prependId="false" id="interesxin">
-                        <h:outputText value="CONSULTAR LIQUIDACION" style="font-weight:bold;font-size:20px;color:#654B24" />
+                        <h:outputText value="LIQUIDACION ASOCIADA" style="font-weight:bold;font-size:20px;color:#654B24" />
                         <p:tab title="LIQUIDACION">
                             <div style="padding-bottom: 10px;">
-
+                                <p:commandButton  value="REGRESAR" action="#{consLiquidacionBean.irRegresarComprobante}" icon="ui-icon-arrowrefresh-1-w" ajax="false"> 
+                                </p:commandButton> 
                             </div>
 
                             <p:dataTable var="liquidacion" value="#{consLiquidacionBean.listarLiquidacionPorCliente}" 
@@ -39,7 +40,7 @@
 
 
                                 <f:facet name="header">  
-                                    Listado de Liquidaciones
+                                    LISTADO DE LIQUIDACIONES DEL COMPROBANTE <h:outputText value="#{consLiquidacionBean.selectedComprobante.idComprobante}"/>
                                 </f:facet>  
 
                                 <p:column rendered="false"> 
