@@ -28,20 +28,29 @@
                 <ui:define name="content">
 
                     <h:form  prependId="false" id="interesxin">
-                        <h:outputText value="BIENVENIDOS" style="font-weight:bold;font-size:20px;color:#654B24" />
+                        <h:outputText value="PESJAES ASOCIADOS" style="font-weight:bold;font-size:20px;color:#654B24" />
                         <p:tab title="LIQUIDACION">
                             <div style="padding-bottom: 10px;">
                                 
                             </div>
 
-                            <p:dataTable var="pesaje" value="#{pesajeBean.listarPesaje}" id="tablita"  
-                                         paginator="true" rows="15" 
+                            <p:dataTable var="pesaje" value="#{pesajeBean.listarPesaje}" id="tablita"  rowKey="#{pesaje.cdPesaje}"
+                                          paginator="true" rows="5" 
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                          rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
 
                                 <f:facet name="header">  
                                     LISTADO DE HOJAS DE PESAJE DE LA <h:outputText value="#{pesajeBean.empresa.rsocial}"/> DE LA LIQUIDACION <h:outputText value="#{pesajeBean.selectedLiquidacion.cdLiq}"></h:outputText>
                                 </f:facet>  
+                                
+                                <p:column style="width:4%">  
+                            <f:facet name="header">  
+                                <h:outputText value="Ver Info" />  
+                            </f:facet> 
+                            <p:commandButton update=":interesxin:display" oncomplete="carDialog.show()" icon="ui-icon-search" title="View">  
+                                <f:setPropertyActionListener value="#{pesaje}" target="#{pesajeBean.pesaje}"  />  
+                            </p:commandButton>  
+                                </p:column>
 
                                 <p:column rendered="false"> 
                                     <f:facet name="header">  
@@ -121,20 +130,37 @@
                                         <h:outputText value="Fecha Registrada"/>  
                                     </f:facet> 
                                     <h:outputText value="#{pesaje.fechaReg}"/>
-                                </p:column>
-                                <p:column  filterBy="#{pesaje.usuModf}" filterMatchMode="contains">
-                                    <f:facet name="header">  
-                                        <h:outputText value="Usu Modifica"/>  
-                                    </f:facet> 
-                                    <h:outputText value="#{pesaje.usuModf}"/>
-                                </p:column>
-                                <p:column  filterBy="#{pesaje.fechaModf}" filterMatchMode="contains">
-                                    <f:facet name="header">  
-                                        <h:outputText value="Fecha Modifica"/>  
-                                    </f:facet> 
-                                    <h:outputText value="#{pesaje.fechaModf}"/>
-                                </p:column>                     
-                            </p:dataTable>                            
+                                </p:column>                                                   
+                            </p:dataTable>    
+                            
+                            <p:dialog header="INFORMACION PESAJE" widgetVar="carDialog" resizable="false" id="carDlg"  
+                              showEffect="fade" hideEffect="explode" modal="true" appendToBody="true" >  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;" >  
+                            <f:facet name="header">
+                            </f:facet>
+
+                            <h:outputText value="Nro. Pesaje: " />  
+                            <h:outputText value="#{pesajeBean.pesaje.nroPesaje}" style="font-weight:bold"/>  
+                            <h:outputText value="Fecha Pesaje :" />  
+                            <h:outputText value="#{pesajeBean.pesaje.fechaPesaje}" style="font-weight:bold"/>  
+                            <h:outputText value="Peso Bruto :" />  
+                            <h:outputText value="#{pesajeBean.pesaje.pesoBruto}" style="font-weight:bold"/>  
+                            <h:outputText value="Placa :" />  
+                            <h:outputText value="#{pesajeBean.pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TCamion.placa}" style="font-weight:bold"/>  
+                            <h:outputText value="Trabajador :" />  
+                            <h:outputText value="#{pesajeBean.pesaje.TControlviaje.TDespachodet.TTrabajadorxcamion.TTrabajador.nombres}" style="font-weight:bold"/>                              
+                            <h:outputText value="Tara :" />  
+                            <h:outputText value="#{pesajeBean.pesaje.tara}" style="font-weight:bold"/>
+                            <h:outputText value="Peso TN :" />  
+                            <h:outputText value="#{pesajeBean.pesaje.pesoTn}" style="font-weight:bold"/>  
+                            <h:outputText value="Estado :" />  
+                            <h:outputText value="#{pesajeBean.pesaje.estadoPesaje}" style="font-weight:bold"/>  
+                        </h:panelGrid>  
+
+                    </p:dialog>
+                            
+                            
                         </p:tab>
                     </h:form>
 
