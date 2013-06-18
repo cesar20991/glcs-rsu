@@ -10,9 +10,13 @@
     </h:head>
     <h:body>
         <h:form>
-            <ui:composition template="../plantillas/Template.xhtml">
+            <ui:composition template="../plantillas/TemplateWebConsul.xhtml">
 
-                <ui:define name="usuarios">                    
+                <ui:define name="usuarios">
+                    <br></br>
+                    Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                    <br></br>
+                    Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText> 
                 </ui:define>
 
                 <ui:define name="top">
@@ -25,7 +29,7 @@
                         <h:outputText value="BIENVENIDOS" style="font-weight:bold;font-size:20px;color:#654B24" />
                         <p:tab title="LIQUIDACION">
                             <div style="padding-bottom: 10px;">
-                           
+
                             </div>
 
                             <p:dataTable var="pesaje" value="#{pesajeBean.listarPesaje}" id="tablita"  
