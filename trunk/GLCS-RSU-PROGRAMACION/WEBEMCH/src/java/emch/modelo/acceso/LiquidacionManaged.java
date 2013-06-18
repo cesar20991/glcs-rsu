@@ -227,6 +227,22 @@ public class LiquidacionManaged {
         }
         return true;
     }
+    
+    public boolean eliminarEstadoxLiquidacion(TLiquidacion liquidacion) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.delete("SELECT t FROM TEstadoxliquidacion t WHERE t.id.cdLiq='" + liquidacion.getCdLiq() + "'");
+            session.beginTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error en eliminar: " + e.getMessage());
+            session.beginTransaction().rollback();
+            return false;
+        } finally {
+            session.close();
+        }
+        return true;
+    }
 
     public boolean VerificarLiquidacionLiquidada(String codliq) {
         List<TEstadoxliquidacion> verestado = null;
@@ -278,8 +294,5 @@ public class LiquidacionManaged {
         return true;
     }
     
-    public boolean EliminarEstadoxLiquidacion(TLiquidacion liquidacion){
-        return true;
-    }
     
 }
