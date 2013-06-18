@@ -1,18 +1,16 @@
 package emch.controller.bean;
 
 import emch.modelo.acceso.ComprobanteManaged;
-import emch.modelo.acceso.TrabajadorxCamionManaged;
 import emch.modelo.entidades.TComprobante;
 import emch.modelo.entidades.TComprobantedet;
 import emch.modelo.entidades.TLiquidacion;
 import emch.modelo.entidades.TMoneda;
 import emch.modelo.entidades.TServicio;
 import emch.modelo.entidades.TTipodoc;
-import emch.modelo.entidades.TTrabajadorxcamion;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
@@ -21,7 +19,7 @@ import javax.faces.event.AjaxBehaviorEvent;
  * @author Cesar
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class ComprobanteBean extends UsuarioBean {
 
     private TComprobante comprobante;
