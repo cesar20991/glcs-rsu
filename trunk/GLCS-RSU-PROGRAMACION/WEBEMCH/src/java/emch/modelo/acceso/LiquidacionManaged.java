@@ -59,7 +59,7 @@ public class LiquidacionManaged {
         /*  try {*/
         sesion = HibernateUtil.getSessionFactory().openSession();
         trans = sesion.beginTransaction();
-        qry = sesion.createQuery("SELECT b FROM TComprobante a inner join a.TLiquidacion b where b.cdLiq='" + selectedComprobante.getTLiquidacion() + "'");
+        qry = sesion.createQuery("SELECT b FROM TComprobante a inner join a.TLiquidacion b where b.cdLiq='" + selectedComprobante.getTLiquidacion().getCdLiq() + "'");
         listaLiq = (List<TLiquidacion>) qry.list();
         /* } catch (Exception ex) {
          ex.printStackTrace();
