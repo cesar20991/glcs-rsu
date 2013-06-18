@@ -121,7 +121,7 @@ public class PesajeManaged {
       /*  try {*/
             sesion = HibernateUtil.getSessionFactory().openSession();
             trans = sesion.beginTransaction();
-            qry = sesion.createQuery("COLOCAR AKA!!!!!!!!!!!");
+            qry = sesion.createQuery("SELECT a FROM TPesaje a where a.TLiquidacion.cdLiq='"+ selectedComprobante.getTLiquidacion().getCdLiq() +"'");
             listaPes = (List<TPesaje>) qry.list();
        /* } catch (Exception ex) {
             ex.printStackTrace();
