@@ -10,6 +10,7 @@ import emch.modelo.entidades.TTipodoc;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Properties;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -39,13 +40,12 @@ public class ComprobanteBean extends UsuarioBean {
     private List<TComprobantedet> listcompdet;
     private List<TComprobante> listarComprobantes;
     private List<TComprobantedet> listarComprobantesDets;
-    
     /*--------DATOS CORREO--------*/
     private String De;
-    private String PwRemitente="";
+    private String PwRemitente = "";
     private String Para;
-    private String Asunto="";
-    private String Mensaje="";
+    private String Asunto = "";
+    private String Mensaje = "";
     /*----------------------------*/
 
     public ComprobanteBean() {
@@ -179,17 +179,23 @@ public class ComprobanteBean extends UsuarioBean {
         this.listarComprobantes = listarComprobantes;
     }
     String comprobanteA = "";
+
     public void buscarCompDet(AjaxBehaviorEvent event) {
         comprobanteA = comprobante.getIdComprobante();
         ComprobanteManaged obj = new ComprobanteManaged();
         listarComprobantesDets = obj.listarComprobantesDets(comprobante);
     }
-    
+
     public void ResulCorreo(AjaxBehaviorEvent event) {
-        De = "ola q ase";
-        Para ="la llamita";
-        Mensaje = "Pago del Comprobante " + comprobante.getIdComprobante();
-    }    
+        Asunto = "Cobro de liquidación " + comprobante.getTLiquidacion().getCdLiq() + " de la Empresa EMCH Servicios Ecologicos.";
+        Mensaje = "Se le hace recordar el cobro de la liquidación "+comprobante.getTLiquidacion().getTTipoliquidacion().getNombre()+" correspondiendoa las fechas entre "+comprobante.getTLiquidacion().getFechaInicio()+" y "+comprobante.getTLiquidacion().getFechaFin()+", con el total de TN "+comprobante.getTLiquidacion().getTotalTn()+"."
+                + " Haciendole mencion que se realizo la factura "+comprobante.getIdComprobante()+" correspondiente al monto de "+comprobante.getTotal()+", Por dispocicion final del servicio de recoleccion de residuos solidos.\n"
+                + "\n"
+                + "A la espera de su confirmacion.\n"
+                + "\n"
+                + "EMCH SERVICIOS ECOLOGICOS SAC\n"
+                + "Av. del aire  #1531";
+    }
 
     public List<TComprobantedet> getListarComprobantesDets() {
         return listarComprobantesDets;
@@ -238,10 +244,9 @@ public class ComprobanteBean extends UsuarioBean {
     public void setMensaje(String Mensaje) {
         this.Mensaje = Mensaje;
     }
-    
+
     /*----------------------ENVIO DE CORREO------------------------*/
-    
-     public String enviarEmail() {
+    public String enviarEmail() {
         try {
             // Propiedades de la conexión
             Properties props = new Properties();
@@ -274,13 +279,14 @@ public class ComprobanteBean extends UsuarioBean {
             t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
             // Cierre de la conexion.
             t.close();
-            return"";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se  Envio Correo Satisfactoriamente a " + getPara(), "Verificar"));
+            return "";
         } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al enviar correo", "Verificar"));
             e.printStackTrace();
             return "";
         }
     }
 
     /*-------------------------------------------------------------*/
-
 }
