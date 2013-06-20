@@ -34,6 +34,7 @@ public class LiquidacionBean extends UsuarioBean {
     private Date fechaFin;
     private List<TEstadoxliquidacion> listaestadoliq;
     private TLiquidacion selectedEstadoLiq;
+    
 
     public LiquidacionBean() {
         liquidacion = new TLiquidacion();
@@ -83,7 +84,7 @@ public class LiquidacionBean extends UsuarioBean {
         LiquidacionManaged obj = new LiquidacionManaged();
         Date fi = (Date) obtsesion("fechaInicio");
         Date ff = (Date) obtsesion("fechaFin");
-        listadopesaje = obj.listarPesajePendiente(getEmpresa().getCdRuc(), fi, ff);
+        listadopesaje = obj.listarPesajePendiente( getEmpresa().getCdRuc(), fi, ff);
         return listadopesaje;
     }
 
@@ -127,7 +128,7 @@ public class LiquidacionBean extends UsuarioBean {
             liquidacion = new TLiquidacion();
             liquidacion.setTTipoliquidacion(new TTipoliquidacion());
             liquidacion.setTEmpresa(new TEmpresa());
-            return "liquidaciones";
+            return "ConsultarLiquidacion";
         } else {
             //setEsEdicion(false);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Generar Liquidacion", "Verificar"));
