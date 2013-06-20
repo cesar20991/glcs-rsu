@@ -28,7 +28,7 @@
                 <ui:define name="content">
 
                     <h:form  prependId="false" id="interesxin">
-                        <h:outputText value="BIENVENIDOS" style="font-weight:bold;font-size:20px;color:#654B24" />
+                        <h:outputText value="CONSULTAR COMPROBANTES" style="font-weight:bold;font-size:20px;color:#654B24" />
                         <p:tab title="COMPROBANTES">
                             <div style="padding-bottom: 10px;">
                                 <p:commandButton  value="Ver Liquidaciones Asociadas" icon="ui-icon-document" action="#{pesajeBean.irLiquidacionPorCliente()}" ajax="false"> 
@@ -45,6 +45,15 @@
                                 <f:facet name="header">  
                                     Listado de Comprobantes
                                 </f:facet>  
+                                
+                                <p:column style="width:4%">  
+                            <f:facet name="header">  
+                                <h:outputText value="Ver Info" />  
+                            </f:facet> 
+                            <p:commandButton update=":interesxin:display" oncomplete="carDialog.show()" icon="ui-icon-search" title="View">  
+                                <f:setPropertyActionListener value="#{comprobante}" target="#{comprobanteBean.comprobante}"  />  
+                            </p:commandButton>  
+                                </p:column>
 
                                 <p:column rendered="false"> 
                                     <f:facet name="header">  
@@ -60,18 +69,18 @@
                                     <h:outputText value="#{comprobante.TLiquidacion.cdLiq}"/>
                                 </p:column>
 
-                                <p:column  filterBy="#{comprobante.TMoneda.cdMda}" filterMatchMode="contains">
+                                <p:column  filterBy="#{comprobante.TMoneda.nombre}" filterMatchMode="contains">
                                     <f:facet name="header">  
                                         <h:outputText value="Tipo Moneda" />  
                                     </f:facet> 
-                                    <h:outputText value="#{comprobante.TMoneda.cdMda}"/>
+                                    <h:outputText value="#{comprobante.TMoneda.nombre}"/>
                                 </p:column>
 
-                                <p:column filterBy="#{comprobante.TTipodoc.cdTd}" filterMatchMode="contains">
+                                <p:column filterBy="#{comprobante.TTipodoc.descrip}" filterMatchMode="contains">
                                     <f:facet name="header">  
                                         <h:outputText value="Tipo Documento" />  
                                     </f:facet> 
-                                    <h:outputText value="#{comprobante.TTipodoc.cdTd}"/>
+                                    <h:outputText value="#{comprobante.TTipodoc.descrip}"/>
                                 </p:column>
 
                                 <p:column filterBy="#{comprobante.fecMov}" filterMatchMode="contains">
@@ -113,31 +122,46 @@
                                     </f:facet> 
                                     <h:outputText value="#{comprobante.igv}"/>
                                 </p:column>
-                                <p:column  filterBy="#{comprobante.usuCrea}" filterMatchMode="contains">
-                                    <f:facet name="header">  
-                                        <h:outputText value="Usuario Creador"/>  
-                                    </f:facet> 
-                                    <h:outputText value="#{comprobante.usuCrea}"/>
-                                </p:column>
+                                
                                 <p:column  filterBy="#{comprobante.fechaReg}" filterMatchMode="contains">
                                     <f:facet name="header">  
                                         <h:outputText value="Fecha Registrada"/>  
                                     </f:facet> 
                                     <h:outputText value="#{comprobante.fechaReg}"/>
-                                </p:column>
-                                <p:column  filterBy="#{comprobante.usuModf}" filterMatchMode="contains">
-                                    <f:facet name="header">  
-                                        <h:outputText value="Usu Modifica"/>  
-                                    </f:facet> 
-                                    <h:outputText value="#{comprobante.usuModf}"/>
-                                </p:column>
-                                <p:column  filterBy="#{comprobante.fechaModf}" filterMatchMode="contains">
-                                    <f:facet name="header">  
-                                        <h:outputText value="Fecha Modifica"/>  
-                                    </f:facet> 
-                                    <h:outputText value="#{comprobante.fechaModf}"/>
-                                </p:column>                     
-                            </p:dataTable>                            
+                                </p:column>                                                
+                            </p:dataTable>
+                            
+                            <p:dialog header="INFORMACION COMPROBANTE" widgetVar="carDialog" resizable="false" id="carDlg"  
+                              showEffect="fade" hideEffect="explode" modal="true" appendToBody="true" >  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;" >  
+                            <f:facet name="header">
+                            </f:facet>
+
+                            <h:outputText value="Cod. Liquidación: " />  
+                            <h:outputText value="#{comprobanteBean.comprobante.TLiquidacion.cdLiq}" style="font-weight:bold"/>  
+                            <h:outputText value="Tipo Moneda:" />  
+                            <h:outputText value="#{comprobanteBean.comprobante.TMoneda.nombre}" style="font-weight:bold"/>  
+                            <h:outputText value="Tipo Documento :" />  
+                            <h:outputText value="#{comprobanteBean.comprobante.TTipodoc.descrip}" style="font-weight:bold"/>  
+                            <h:outputText value="Fecha Mov. :" />  
+                            <h:outputText value="#{comprobanteBean.comprobante.fecMov}" style="font-weight:bold"/>  
+                            <h:outputText value="Serie :" />  
+                            <h:outputText value="#{comprobanteBean.comprobante.serie}" style="font-weight:bold"/>                              
+                            <h:outputText value="Nro. Documento :" />  
+                            <h:outputText value="#{comprobanteBean.comprobante.nroDoc}" style="font-weight:bold"/>
+                            <h:outputText value="Total :" />  
+                            <h:outputText value="#{comprobanteBean.comprobante.total}" style="font-weight:bold"/>  
+                            <h:outputText value="Sub Total :" />  
+                            <h:outputText value="#{comprobanteBean.comprobante.subTotal}" style="font-weight:bold"/>  
+                            <h:outputText value="IGV :" />  
+                            <h:outputText value="#{comprobanteBean.comprobante.igv}" style="font-weight:bold"/> 
+                            <h:outputText value="Fecha Reg. :" />  
+                            <h:outputText value="#{comprobanteBean.comprobante.fechaReg}" style="font-weight:bold"/> 
+                        </h:panelGrid>  
+
+                    </p:dialog>
+                            
                         </p:tab>
                     </h:form>
 
