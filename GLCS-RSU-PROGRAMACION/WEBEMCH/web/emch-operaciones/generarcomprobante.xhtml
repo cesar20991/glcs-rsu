@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -115,28 +115,29 @@
                         </p:column>   
                     </p:dataTable>
                 </h:form>
+                <h:form id="formAgregarServicio">
+                    <p:dialog widgetVar="ListaServ" modal="false">
+                        <p:panelGrid columns="2" style="width: 100%">
+                            <f:facet name="header">
+                                AGREGA SERVICIO
+                            </f:facet>
+                            <h:outputLabel value="Servicio : "/>
+                            <p:selectOneMenu value="#{comprobantesBean.comprobanteDet.TServicio.cdServicio}" effect="fade" required="true" requiredMessage="Seleccione Servicio">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{comprobantesBean.listaServicios}" var="servicio" itemLabel="#{servicio.nombreServ}" itemValue="#{servicio.cdServicio}"/>
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Precio : "/>
+                            <p:inputText value ="#{comprobantesBean.comprobanteDet.precio}"></p:inputText>
+                            <h:outputLabel value="Cant. Toneladas Total : "/>
+                            <p:inputText value ="#{comprobantesBean.comprobanteDet.cantTn}"></p:inputText>
+                        </p:panelGrid>
+                        <p:commandButton value="Agregar" oncomplete="ListaServ.hide()" update=":generarNewComprobante" actionListener="#{comprobantesBean.agregarServicio()}"/>
+                        <p:commandButton value="Cancelar" oncomplete="ListaServ.hide()"/>
+                    </p:dialog>
+                </h:form>
             </ui:define>
         </ui:composition>
-        <h:form id="formAgregarServicio">
-            <p:dialog widgetVar="ListaServ" modal="false">
-                <p:panelGrid columns="2" style="width: 100%">
-                    <f:facet name="header">
-                        AGREGA SERVICIO
-                    </f:facet>
-                    <h:outputLabel value="Servicio : "/>
-                    <p:selectOneMenu value="#{comprobantesBean.comprobanteDet.TServicio.cdServicio}" effect="fade" required="true" requiredMessage="Seleccione Servicio">
-                        <f:selectItem itemLabel="Select One" itemValue="" />
-                        <f:selectItems value="#{comprobantesBean.listaServicios}" var="servicio" itemLabel="#{servicio.nombreServ}" itemValue="#{servicio.cdServicio}"/>
-                    </p:selectOneMenu>
-                    <h:outputLabel value="Precio : "/>
-                    <p:inputText value ="#{comprobantesBean.comprobanteDet.precio}"></p:inputText>
-                    <h:outputLabel value="Cant. Toneladas Total : "/>
-                    <p:inputText value ="#{comprobantesBean.comprobanteDet.cantTn}"></p:inputText>
-                </p:panelGrid>
-                <p:commandButton value="Agregar" oncomplete="ListaServ.hide()" update=":generarNewComprobante" actionListener="#{comprobantesBean.agregarServicio()}"/>
-                <p:commandButton value="Cancelar" oncomplete="ListaServ.hide()"/>
-            </p:dialog>
-        </h:form>
+
     </h:body>
 </html>
 
