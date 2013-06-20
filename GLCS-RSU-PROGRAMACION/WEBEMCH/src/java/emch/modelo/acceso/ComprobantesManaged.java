@@ -96,4 +96,29 @@ public class ComprobantesManaged {
         Session session = HibernateUtil.getSessionFactory().openSession();
         return (TComprobante) session.load(TComprobante.class, id);
     }
+    
+    public String getIDComprobanteDet() {
+        String nuevoID = "";
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Query qry = session.createSQLQuery("SELECT idComprobanteDet();");
+            ArrayList<String> idNuevo = (ArrayList<String>) qry.list();
+            nuevoID = idNuevo.size() > 0 ? idNuevo.get(0) : "";
+        } catch (Exception e) {
+            System.out.println("Error en getIDComprobante(): " + e.getMessage());
+        }
+        return nuevoID;
+    }
+    
+    public void insertarComprobanteDet(TComprobantedet comprobanteDet) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.save(comprobanteDet);
+            session.beginTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error en insertarComprobanteDet: " + e.getMessage());
+            session.beginTransaction().rollback();
+        }
+    }
 }

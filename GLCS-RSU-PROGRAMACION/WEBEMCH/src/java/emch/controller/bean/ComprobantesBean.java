@@ -9,6 +9,7 @@ import emch.modelo.entidades.TServicio;
 import emch.modelo.entidades.TTipodoc;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -41,9 +42,10 @@ public class ComprobantesBean extends UsuarioBean {
         comprobante.setTMoneda(new TMoneda());
         comprobante.setTTipodoc(new TTipodoc());
         cont = 0;
-        comprobanteDet=new TComprobantedet();
+        comprobanteDet = new TComprobantedet();
         comprobanteDet.setTServicio(new TServicio());
         comprobanteDet.setTComprobante(new TComprobante());
+        listaComprobanteDet = new ArrayList<TComprobantedet>();
     }
 
     public void prepararComprobante(String id) {
@@ -66,6 +68,7 @@ public class ComprobantesBean extends UsuarioBean {
             comprobante.setTMoneda(obj.buscarMonedasTodas().get(0));
             comprobante.setTTipodoc(obj.buscarTiposDocTodos().get(0));
             obj.insertarComprobante(comprobante);
+            //comprobante = obj.buscarComprobantePorId(comprobante.getIdComprobante());
             FacesContext.getCurrentInstance().getExternalContext().redirect("generarcomprobante.xhtml");
         } catch (IOException e) {
             System.out.println("" + e.getMessage());
@@ -75,8 +78,41 @@ public class ComprobantesBean extends UsuarioBean {
     public void cancelar() {
         try {
             ComprobantesManaged obj = new ComprobantesManaged();
-            comprobante=obj.buscarComprobantePorId(idC);
+            //comprobante = obj.buscarComprobantePorId(idC);
             obj.eliminar(comprobante);
+            comprobante = new TComprobante();
+            comprobanteDet = new TComprobantedet();
+            listaComprobanteDet = new ArrayList<TComprobantedet>();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("vistaliquidaciones.xhtml");
+        } catch (IOException e) {
+            System.out.println("" + e.getMessage());
+        }
+    }
+
+    public void agregarServicio() {
+        ComprobantesManaged obj = new ComprobantesManaged();
+        comprobanteDet.setItem(obj.getIDComprobanteDet());
+        comprobanteDet.setTotal(comprobanteDet.getPrecio().multiply(comprobanteDet.getCantTn()));
+        listaComprobanteDet.add(cont, comprobanteDet);
+        comprobante.setSubTotal(comprobante.getSubTotal().add(comprobanteDet.getTotal()));
+        comprobante.setIgv(comprobante.getSubTotal().multiply(BigDecimal.valueOf(0.19)));
+        comprobante.setTotal(comprobante.getSubTotal().add(comprobante.getIgv()));
+        comprobanteDet = new TComprobantedet();
+        cont++;
+    }
+
+    public void guardar() {
+        try {
+            ComprobantesManaged obj = new ComprobantesManaged();
+            obj.actualizarComprobante(comprobante);
+            for (TComprobantedet forComprobanteDet : listaComprobanteDet) {
+                forComprobanteDet.setTComprobante(comprobante);
+                obj.insertarComprobanteDet(forComprobanteDet);
+            }
+            cont = 0;
+            comprobante = new TComprobante();
+            comprobanteDet = new TComprobantedet();
+            listaComprobanteDet = new ArrayList<TComprobantedet>();
             FacesContext.getCurrentInstance().getExternalContext().redirect("vistaliquidaciones.xhtml");
         } catch (IOException e) {
             System.out.println("" + e.getMessage());
