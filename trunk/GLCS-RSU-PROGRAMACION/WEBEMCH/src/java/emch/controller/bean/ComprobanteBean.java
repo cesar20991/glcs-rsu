@@ -28,7 +28,7 @@ public class ComprobanteBean extends UsuarioBean {
     private TLiquidacion selectedliquidacion;
     private List<TServicio> listadoDeServicios;
     private TServicio servicio;
-    private TComprobantedet comprobantedet;  
+    private TComprobantedet comprobantedet;
     private List<TComprobantedet> listcompdet;
     private List<TComprobante> listarComprobantes;
     private List<TComprobantedet> listarComprobantesDets;
@@ -38,41 +38,18 @@ public class ComprobanteBean extends UsuarioBean {
         comprobante.setTLiquidacion(new TLiquidacion());
         comprobante.setTMoneda(new TMoneda());
         comprobante.setTTipodoc(new TTipodoc());
-        
+
         servicio = new TServicio();
         comprobantedet = new TComprobantedet();
         comprobantedet.setTServicio(new TServicio());
     }
 
     public String ingresar() {
-        /* HojadeDespachoManaged obj = new HojadeDespachoManaged();
-         listadotrabajadorXcamion = Arrays.asList(getSelectedTrabxCamion());
-         boolean resultado = isEsEdicion() ? obj.actualizar(despacho) 
-         : obj.insertar(despacho,listadotrabajadorXcamion);
-         if (resultado) {
-         return "nuevahojadespacho";
-         } else {
-         return ""; //futuros errores
-         }*/
         return "";
     }
 
     public String insertar() {
         FacesContext context = FacesContext.getCurrentInstance();
-        /*irCalcularTN();
-         liquidacion.setTEmpresa(getEmpresa());
-         liquidacion.setUsuCrea(getUsuario2().getNomUsu());
-         liquidacion.setFechaReg(liquidacion.getFechaApertura());
-         LiquidacionManaged visitaMgd = new LiquidacionManaged();
-         boolean resultado = visitaMgd.IngresarLiquidacion(liquidacion,selectedpesaje);
-         if (resultado) {
-         context.addMessage(null, new FacesMessage("Liquidacion Generada Correctamente", "Verificar"));
-         return "liquidaciones";
-         } else {
-         //setEsEdicion(false);
-         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Generar Liquidacion", "Verificar"));
-         return ""; //futuros errores
-         }*/
         return "";
     }
 
@@ -133,8 +110,8 @@ public class ComprobanteBean extends UsuarioBean {
     public void setListadoDeServicios(List<TServicio> listadoDeServicios) {
         this.listadoDeServicios = listadoDeServicios;
     }
-    
-   public List<TServicio> getTrabajadorXcamion() {
+
+    public List<TServicio> getTrabajadorXcamion() {
         return listadoDeServicios;
     }
 
@@ -153,11 +130,11 @@ public class ComprobanteBean extends UsuarioBean {
     public void setComprobantedet(TComprobantedet comprobantedet) {
         this.comprobantedet = comprobantedet;
     }
-    
-    public String irListoAgregar(){
+
+    public String irListoAgregar() {
         comprobantedet.setTServicio(servicio);
         comprobantedet.setItem("1");
-        BigDecimal total = new BigDecimal("1.00").setScale(2);        
+        BigDecimal total = new BigDecimal("1.00").setScale(2);
         BigDecimal CanTN = new BigDecimal("1.00");
         BigDecimal precio = new BigDecimal("1.00");
         CanTN.multiply(getComprobantedet().getCantTn());
@@ -169,16 +146,10 @@ public class ComprobanteBean extends UsuarioBean {
         return "nuevocomprobante";
     }
 
-    /**
-     * @return the listcompdet
-     */
     public List<TComprobantedet> getListcompdet() {
         return listcompdet;
     }
 
-    /**
-     * @param listcompdet the listcompdet to set
-     */
     public void setListcompdet(List<TComprobantedet> listcompdet) {
         this.listcompdet = listcompdet;
     }
@@ -192,12 +163,11 @@ public class ComprobanteBean extends UsuarioBean {
     public void setListarComprobantes(List<TComprobante> listarComprobantes) {
         this.listarComprobantes = listarComprobantes;
     }
-    
     String comprobanteA = "";
     public void buscarCompDet(AjaxBehaviorEvent event) {
         comprobanteA = comprobante.getIdComprobante();
         ComprobanteManaged obj = new ComprobanteManaged();
-        listarComprobantesDets = obj.listarComprobantesDets(comprobante);        
+        listarComprobantesDets = obj.listarComprobantesDets(comprobante);
     }
 
     public List<TComprobantedet> getListarComprobantesDets() {
@@ -207,5 +177,4 @@ public class ComprobanteBean extends UsuarioBean {
     public void setListarComprobantesDets(List<TComprobantedet> listarComprobantesDets) {
         this.listarComprobantesDets = listarComprobantesDets;
     }
-    
 }
