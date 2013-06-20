@@ -36,8 +36,16 @@
                             <p:dataTable var="liquidacion" value="#{consLiquidacionBean.listarLiquidacionPorCliente}" 
                                          paginator="true" rows="15"  
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                         rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                  
-
+                                         rowsPerPageTemplate="5,10,15" style="font-weight:bold">         
+                                
+                                <p:column style="width:4%">  
+                            <f:facet name="header">  
+                                <h:outputText value="Ver Info" />  
+                            </f:facet> 
+                            <p:commandButton update=":interesxin:display" oncomplete="carDialog.show()" icon="ui-icon-search" title="View">  
+                                <f:setPropertyActionListener value="#{liquidacion}" target="#{liquidacionBean.liquidacion}"  />  
+                            </p:commandButton>  
+                                </p:column>
 
                                 <f:facet name="header">  
                                     LISTADO DE LIQUIDACIONES DEL COMPROBANTE <h:outputText value="#{consLiquidacionBean.selectedComprobante.idComprobante}"/>
@@ -86,6 +94,27 @@
                                 </p:column>                             
 
                             </p:dataTable>
+                            
+                             <p:dialog header="INFORMACION LIQUIDACION" widgetVar="carDialog" resizable="false" id="carDlg"  
+                              showEffect="fade" hideEffect="explode" modal="true" appendToBody="true" >  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;" >  
+                            <f:facet name="header">
+                            </f:facet>
+
+                            <h:outputText value="Fecha Apertura: " />  
+                            <h:outputText value="#{liquidacionBean.liquidacion.fechaApertura}" style="font-weight:bold"/>  
+                            <h:outputText value="Fecha Inicio :" />  
+                            <h:outputText value="#{liquidacionBean.liquidacion.fechaInicio}" style="font-weight:bold"/>  
+                            <h:outputText value="Fecha Fin :" />  
+                            <h:outputText value="#{liquidacionBean.liquidacion.fechaFin}" style="font-weight:bold"/>  
+                            <h:outputText value="Total Toneladas :" />  
+                            <h:outputText value="#{liquidacionBean.liquidacion.totalTn}" style="font-weight:bold"/>  
+                            <h:outputText value="Asunto :" />  
+                            <h:outputText value="#{liquidacionBean.liquidacion.asunto}" style="font-weight:bold"/>                                                    
+                        </h:panelGrid>  
+
+                    </p:dialog>
 
                         </p:tab>
                     </h:form>
