@@ -25,18 +25,20 @@
 
             <ui:define name="content">
                 <h:form id="generarNewComprobante">
+                    <p:commandButton  value="GUARDAR" action="#{comprobantesBean.guardar()}" icon="ui-icon-arro1-wrefresh-1-w" ajax="false"> 
+                    </p:commandButton>
                     <p:commandButton  value="CANCELAR" action="#{comprobantesBean.cancelar()}" icon="ui-icon-arro1-wrefresh-1-w" ajax="false"> 
                     </p:commandButton>
-                    <p:panelGrid columns="2" style="width: 100%" >
+                    <p:panelGrid id="pngNew" columns="2" style="width: 100%" >
                         <f:facet name="header">  
                             GENERAR COMPROBANTE PARA LA <h:outputText value="#{comprobantesBean.liquidacion.TEmpresa.rsocial}"></h:outputText>
                         </f:facet>
-                        <p:panelGrid columns="2" style="width: 100%">
+                        <p:panelGrid id="newComp" columns="2" style="width: 100%">
                             <f:facet name="header">  
                                 DATOS DE APERTURA DE COMPROBANTE                             
                             </f:facet>
-                            <h:outputLabel value="Fecha de Emisió:"/>                            
-                            <p:calendar value="#{comprobantesBean.comprobante.fecMov}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold" >                                
+                            <h:outputLabel value="Fecha de Emisió:"/>
+                            <p:calendar value="#{comprobantesBean.comprobante.fecMov}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold" >
                             </p:calendar>
                             <h:outputLabel value="Numero de Serie"/>
                             <p:inputText value="#{comprobantesBean.comprobante.serie}" style="font-weight:bold"></p:inputText>
@@ -95,21 +97,21 @@
                             <h:outputText value="(*) Asigne Servicio al Comprobante" style="font-weight:bold"/>
                         </div>
                     </div>
-                    <p:dataTable id="dtServicios" var="due" value="#{comprobanteBean.listarServicio}" editable="true">
+                    <p:dataTable id="dtServicios" var="serv" value="#{comprobantesBean.listaComprobanteDet}" editable="true">
                         <f:facet name="header">
                             Servicios Asignados
                         </f:facet>
                         <p:column headerText="Codigo" >
-                            <h:outputText value="#{due.cdServicio}"/>
+                            <h:outputText value="#{serv.TServicio.cdServicio}"/>
                         </p:column>  
-                        <p:column headerText="Nombre de Servicio">
-                            <h:outputText value="#{due.nombreServ}"/>
+                        <p:column headerText="Precio">
+                            <h:outputText value="#{serv.precio}"/>
                         </p:column>
-                        <p:column headerText="Descripcion de Servicio" >
-                            <h:outputText value="#{due.descripServ}"/>
+                        <p:column headerText="Cantidad" >
+                            <h:outputText value="#{serv.cantTn}"/>
                         </p:column>                                        
-                        <p:column headerText="Nombre corto de Servicio" >
-                            <h:outputText value="#{due.ncortoServ}"/>
+                        <p:column headerText="Total" >
+                            <h:outputText value="#{serv.total}"/>
                         </p:column>   
                     </p:dataTable>
                 </h:form>
@@ -131,6 +133,8 @@
                     <h:outputLabel value="Cant. Toneladas Total : "/>
                     <p:inputText value ="#{comprobantesBean.comprobanteDet.cantTn}"></p:inputText>
                 </p:panelGrid>
+                <p:commandButton value="Agregar" oncomplete="ListaServ.hide()" update=":generarNewComprobante" actionListener="#{comprobantesBean.agregarServicio()}"/>
+                <p:commandButton value="Cancelar" oncomplete="ListaServ.hide()"/>
             </p:dialog>
         </h:form>
     </h:body>
