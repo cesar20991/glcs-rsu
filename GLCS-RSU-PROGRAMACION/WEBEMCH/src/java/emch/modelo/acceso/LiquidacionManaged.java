@@ -177,6 +177,7 @@ public class LiquidacionManaged {
             for (TPesaje tp : pesaje) {
                 TPesaje dtopesaje = new TPesaje();
                 dtopesaje = tp;
+                dtopesaje.setEstadoPesaje("CC");
                 dtopesaje.setTLiquidacion(liquidacion);
                 sesion.merge(dtopesaje);
                 //sesion.beginTransaction().commit(); no volver a hacer esto xD

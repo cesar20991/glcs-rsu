@@ -32,6 +32,11 @@
                         <p:ajax event="rowSelect" listener="#{comprobanteBean.buscarCompDet}" update=":frmcomprobante:compdet" >                                    
 
                         </p:ajax>
+
+                        <p:ajax event="rowSelect" listener="#{comprobanteBean.ResulCorreo}" update=":frmcomprobante:panelcorreo" >                                    
+
+                        </p:ajax>
+
                         <f:facet name="header">  
                             LISTADO DE COMPROBANTES
                         </f:facet>
@@ -112,6 +117,30 @@
                             <h:outputText value="#{comprobdet.total}"/>                        
                         </p:column>
                     </p:dataTable>
+
+                    <div style="padding-top: 10px;">
+                        <h:outputText value="(*) DEBE SELECCIONAR UN COMPROBANTE PARA ENVIAR CORREO" style="font-weight:bold"/>
+                    </div>
+
+                    <p:panelGrid id="panelcorreo" columns="2" style="width: 100%">
+                        <f:facet name="header">  
+                            ENVIO DE CORREO DEL COMPROBANTE <h:outputLabel value="#{comprobanteBean.comprobante.idComprobante}"></h:outputLabel> ASOCIADO A LA LIQUIDACION <h:outputLabel value="#{comprobanteBean.comprobante.TLiquidacion.cdLiq}"></h:outputLabel>
+                        </f:facet>
+                        <h:outputLabel value="PARA : "/>
+                        <h:inputText value="#{comprobanteBean.para}" required="true" />                        
+                        <h:outputLabel value="REMITENTE (gmail) :"/>
+                        <p:inputText  value="#{comprobanteBean.de}" style="font-weight:bold"/>                              
+                        <h:outputLabel value="CLAVE REMITENTE (gmail) :"/>
+                        <p:password  value="#{comprobanteBean.pwRemitente}" style="font-weight:bold"/>                              
+                        <h:outputLabel value="ASUNTO: "/>
+                        <p:inputText  value="#{comprobanteBean.asunto}" style="font-weight:bold"/>                              
+                        <h:outputLabel value="Mensaje"/>
+                        <p:inputTextarea  value="#{comprobanteBean.mensaje}" rows="4" cols="33" style="font-weight:bold"/>                                                          
+                    </p:panelGrid>
+
+                    <div style="padding-bottom: 10px;">
+                        <p:commandButton value="ENVIAR CORREO" action="#{comprobanteBean.enviarEmail()}" ajax="false" icon="ui-icon-check"/>                       
+                    </div>
 
                     <p:dialog header="INFORMACION DE COMPROBANTE" widgetVar="carDialog" resizable="false" id="carDlg"  
                               showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">  

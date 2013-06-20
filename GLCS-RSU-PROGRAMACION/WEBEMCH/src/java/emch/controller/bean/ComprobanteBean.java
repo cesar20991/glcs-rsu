@@ -9,10 +9,17 @@ import emch.modelo.entidades.TServicio;
 import emch.modelo.entidades.TTipodoc;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Properties;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -32,6 +39,14 @@ public class ComprobanteBean extends UsuarioBean {
     private List<TComprobantedet> listcompdet;
     private List<TComprobante> listarComprobantes;
     private List<TComprobantedet> listarComprobantesDets;
+    
+    /*--------DATOS CORREO--------*/
+    private String De;
+    private String PwRemitente="";
+    private String Para;
+    private String Asunto="";
+    private String Mensaje="";
+    /*----------------------------*/
 
     public ComprobanteBean() {
         comprobante = new TComprobante();
@@ -169,6 +184,12 @@ public class ComprobanteBean extends UsuarioBean {
         ComprobanteManaged obj = new ComprobanteManaged();
         listarComprobantesDets = obj.listarComprobantesDets(comprobante);
     }
+    
+    public void ResulCorreo(AjaxBehaviorEvent event) {
+        De = "ola q ase";
+        Para ="la llamita";
+        Mensaje = "Pago del Comprobante " + comprobante.getIdComprobante();
+    }    
 
     public List<TComprobantedet> getListarComprobantesDets() {
         return listarComprobantesDets;
@@ -177,4 +198,89 @@ public class ComprobanteBean extends UsuarioBean {
     public void setListarComprobantesDets(List<TComprobantedet> listarComprobantesDets) {
         this.listarComprobantesDets = listarComprobantesDets;
     }
+
+    public String getDe() {
+        return De;
+    }
+
+    public void setDe(String De) {
+        this.De = De;
+    }
+
+    public String getPwRemitente() {
+        return PwRemitente;
+    }
+
+    public void setPwRemitente(String PwRemitente) {
+        this.PwRemitente = PwRemitente;
+    }
+
+    public String getPara() {
+        return Para;
+    }
+
+    public void setPara(String Para) {
+        this.Para = Para;
+    }
+
+    public String getAsunto() {
+        return Asunto;
+    }
+
+    public void setAsunto(String Asunto) {
+        this.Asunto = Asunto;
+    }
+
+    public String getMensaje() {
+        return Mensaje;
+    }
+
+    public void setMensaje(String Mensaje) {
+        this.Mensaje = Mensaje;
+    }
+    
+    /*----------------------ENVIO DE CORREO------------------------*/
+    
+     public String enviarEmail() {
+        try {
+            // Propiedades de la conexión
+            Properties props = new Properties();
+            props.setProperty("mail.smtp.host", "smtp.gmail.com");
+            props.setProperty("mail.smtp.starttls.enable", "true");
+            props.setProperty("mail.smtp.port", "587");
+            props.setProperty("mail.smtp.auth", "true");
+            // Preparamos la sesion
+            Session session = Session.getDefaultInstance(props);
+
+            //Recoger los datos (OBTENIDOS DEL JSF)
+            //Obtenemos los destinatarios
+            String destinos[] = getPara().split(",");
+            // Construimos el mensaje
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(getDe()));
+            Address[] receptores = new Address[destinos.length];
+            int j = 0;
+            while (j < destinos.length) {
+                receptores[j] = new InternetAddress(destinos[j]);
+                j++;
+            }
+            //receptores.
+            message.addRecipients(Message.RecipientType.TO, receptores);
+            message.setSubject(getAsunto());
+            message.setText(getMensaje());
+            // Lo enviamos.
+            Transport t = session.getTransport("smtp");
+            t.connect(getDe(), getPwRemitente());
+            t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+            // Cierre de la conexion.
+            t.close();
+            return"";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    /*-------------------------------------------------------------*/
+
 }
