@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    </h:head>
+    <h:body>
+        <h:form id="mapita">  
+            <p:gmap id="gmap1" center="-12.075471,-76.995987" zoom="13" type="ROADMAP" style="width:700px;height:500px" model="#{asignarRutaBean.rectangleModel}" >  
+
+            </p:gmap> 
+        </h:form>
+    </h:body>
+</html>
+
