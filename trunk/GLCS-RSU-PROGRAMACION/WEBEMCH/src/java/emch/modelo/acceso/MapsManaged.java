@@ -32,7 +32,7 @@ public class MapsManaged {
         List<TAsignarruta> listaLiq = null;
         /*  try {*/
         sesion = HibernateUtil.getSessionFactory().openSession();
-        qry = sesion.createQuery("SELECT r FROM TAsignarruta r WHERE cdRuc='"+selecteddespachodet.getId().getCdRuc()+"' AND cdDespacho='"+selecteddespachodet.getId().getCdDespacho()+"'" );
+        qry = sesion.createQuery("SELECT r FROM TAsignarruta r WHERE r.TDespachodet.id.cdRuc='"+selecteddespachodet.getId().getCdRuc()+"' AND r.TDespachodet.id.cdDespacho='"+selecteddespachodet.getId().getCdDespacho()+"'" );
         listaLiq = (List<TAsignarruta>) qry.list();
         /* } catch (Exception ex) {
          ex.printStackTrace();
@@ -106,11 +106,11 @@ public class MapsManaged {
         return nuevoID;
     }
     
-     public List listarRutaAsignadaxCamion(TDespachodet despachodet) {
+     public List listarRutaAsignadaxCamion(TDespachodet selecteddespachodet) {
         List<TAsignarruta> listaLiq = null;
         /*  try {*/
         sesion = HibernateUtil.getSessionFactory().openSession();
-        qry = sesion.createQuery("SELECT ab FROM TAsignarruta  ab where ab.TDespachodet.id.cdDespacho='"+despachodet.getId().getCdDespacho()+"' and ab.TDespachodet.id.nro='"+despachodet.getId().getNro()+"'");
+        qry = sesion.createQuery("SELECT ab FROM TAsignarruta  ab where ab.TDespachodet.id.cdDespacho='"+selecteddespachodet.getId().getCdDespacho()+"' and ab.TDespachodet.id.cdRuc='"+selecteddespachodet.getId().getCdRuc()+"' AND ab.TDespachodet.id.nro='"+selecteddespachodet.getId().getNro()+"'");
         listaLiq = (List<TAsignarruta>) qry.list();
         /* } catch (Exception ex) {
          ex.printStackTrace();

@@ -34,6 +34,7 @@ public class AsignarRutaBean {
     private List<TDespachodet> listaDespachoDet;
     private List<TEmpresa> listarempresa;
     private List<TAsignarruta> listasignarruta;
+    private List<TAsignarruta> listasignarrutaXCamion;
 
     public AsignarRutaBean() {
         rectangleModel = new DefaultMapModel();
@@ -54,6 +55,11 @@ public class AsignarRutaBean {
         getListasignarruta();
         return "asignarruta";
     }
+    
+    public String verRutaXCamion() {
+        getListasignarrutaXCamion();
+        return "verRuta";
+    }
 
     public String irInsertar() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -62,7 +68,7 @@ public class AsignarRutaBean {
         boolean resultado = mgd.ingresarRuta(asignaruta,selecteddespachodet);
          if (resultado) {
             setAsignaruta(null);
-            context.addMessage(null, new FacesMessage("Ase asigno ruta correctamente", "Verificar"));
+            context.addMessage(null, new FacesMessage("se asigno ruta correctamente", "Verificar"));
             return "listardespacho";
         } else {
             //setEsEdicion(false);
@@ -151,6 +157,34 @@ public class AsignarRutaBean {
     public MapModel getRectangleModel() {
         return rectangleModel;
     }
-    
+
+    public List<TAsignarruta> getListasignarrutaXCamion() {
+        MapsManaged obj = new MapsManaged();
+        listasignarrutaXCamion = obj.listarRutaAsignadaxCamion(selecteddespachodet);
+        GenerarMapsXCamion();
+        return listasignarrutaXCamion;
+    }
+
+    public void setListasignarrutaXCamion(List<TAsignarruta> listasignarrutaXCamion) {
+        this.listasignarrutaXCamion = listasignarrutaXCamion;
+    }
+        private void GenerarMapsXCamion() {
+        rectangleModel = new DefaultMapModel();
+        LatLng coord1;
+        LatLng coord2;
+        Rectangle rect;
+        //Shared coordinates  
+        for (int i = 0; i < listasignarrutaXCamion.size(); i++) {
+            coord1 = new LatLng(listasignarrutaXCamion.get(i).getLatn(), listasignarrutaXCamion.get(i).getLngn());
+            coord2 = new LatLng(listasignarrutaXCamion.get(i).getLats(), listasignarrutaXCamion.get(i).getLngs());
+            //Rectangle  
+            rect = new Rectangle(new LatLngBounds(coord1, coord2));
+            rect.setStrokeColor("#d93c3c");
+            rect.setFillColor("#d93c3c");
+            rect.setFillOpacity(0.5);
+
+            rectangleModel.addOverlay(rect);
+        }
+    }
     
 }
