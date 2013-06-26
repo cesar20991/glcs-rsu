@@ -22,13 +22,13 @@
                 <ui:define name="content">
 
                     <h:form  prependId="false" id="interesxin">
+                        
                         <h:outputText value="CONTROL - DESPACHO - ASIGNAR RUTA" style="font-weight:bold;font-size:20px;color:#654B24" />
-                        <p:tab title="DESPACHOS">                            
+    
+                            <br></br>
                             <p:commandButton  value="Asignar Ruta" action="#{asignarRutaBean.irAsignarRuta}" ajax="false"> 
-                            </p:commandButton>
-                            <p:commandButton  value="Ver Ruta" action="#{asignarRutaBean.verRutaXCamion()}" ajax="false"> 
-                            </p:commandButton>
-                            <p:dataTable id="visita" var="listdesdet" value="#{asignarRutaBean.listaDespachoDet}" rowKey="#{listdesdet.id.nro}" selectionMode="single" selection="#{asignarRutaBean.selecteddespachodet}"
+                            </p:commandButton>                           
+                            <p:dataTable id="visita" var="listdesdet" value="#{asignarRutaBean.listaDespachoDet}" rowKey="#{listdesdet.id.cdDespacho}" selectionMode="single" selection="#{asignarRutaBean.selecteddespachodet}"
                                          paginator="true" rows="50"  
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                          rowsPerPageTemplate="5,10,15" style="font-weight:bold" >    
@@ -93,13 +93,13 @@
                                 </p:column>
                                 <p:column >
                                     <f:facet name="header">  
-                                        <h:outputText value="Ruta" />  
+                                        <h:outputText value="Ver Ruta" />  
                                     </f:facet> 
-                                    <p:commandButton  value="Ver Ruta" action="#{asignarRutaBean.irAsignarRuta()}" ajax="false"> 
+                                    <p:commandButton  value="Ruta" icon="ui-icon-image" action="#{asignarRutaBean.verRutaXCamion()}" ajax="false"> 
+                                        
                                     </p:commandButton>
                                 </p:column>
                             </p:dataTable>
-                        </p:tab>
                     </h:form>
 
                 </ui:define>

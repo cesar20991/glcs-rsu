@@ -39,8 +39,8 @@
                 </div>
             </p:layoutUnit>
 
-            <p:layoutUnit position="south" size="50" closable="true" collapsible="true">
-                Footer
+            <p:layoutUnit position="south" size="30" closable="true" collapsible="true">
+                <strong> © 2013 EMCH Servicios Ecológicos SAC. Todos los derechos reservados. comercial@emchsac.com - emchsac@emchsac.com</strong>
             </p:layoutUnit>
 
             <p:layoutUnit position="west" size="240" header="Menu Principal" collapsible="true">
@@ -60,9 +60,8 @@
                         <p:menuitem value="Despacho" url="../faces/emch-control/HojaDeDespacho.xhtml" icon="ui-icon-suitcase" />  
                         <p:menuitem value="Control de Viaje" url="../faces/emch-administracion/controlviaje.xhtml" icon="ui-icon-suitcase"  />  
                         <p:menuitem value="Asignar ruta" url="../faces/emch-control/listardespacho.xhtml" icon="ui-icon-suitcase" />  
-                        <p:menuitem value="Consultar ruta asignada" url="../faces/emch-control/consultarruta.xhtml" icon="ui-icon-suitcase" />  
                         <p:menuitem value="Control Incidencia" url="../faces/emch-control/incidencia.xhtml" icon="ui-icon-suitcase" />  
-                        <p:menuitem value="Control Asistencia" url="../faces/emch-control/asistencia.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Control Asistencia" url="../faces/emch-control/Asistencia.xhtml" icon="ui-icon-suitcase" />  
                     </p:submenu> 
                     <p:submenu label="OPERACIONES">                          
                         <p:menuitem value="Comprobante" url="../faces/emch-operaciones/comprobante.xhtml" icon="ui-icon-suitcase" />                          
@@ -76,8 +75,9 @@
             </p:layoutUnit>
 
             <p:layoutUnit position="center" size="210">
-
-                 <p align="center">Bienvenido al Sistema de Getión de Liquidaciones y Control de Servicio para la Empresa Empresa Emch Servicios Ecologicos(GLCS-RSU).
+                <h:outputText value="GLCS-RSU" style="font-weight:bold;font-size:20px;color:#654B24" />
+    
+                <p align="justify">Bienvenido al Sistema de Getión de Liquidaciones y Control de Servicio para la Empresa Empresa Emch Servicios Ecologicos(GLCS-RSU).
                         Aqui como Nuestro Usuario podra tomar acciones para la administracion de documentos, personal y camiones. Tambien tendra la 
                         posiblidad de llevar un control adecuado de los documentos generados. En nuestro sistema tambien se puede tener un control de incidencias de los camiones que estan trabajando.
                         Ademas con nuestro sistema se controlará los estados de los documentos como liquidaciones y comprobante de pago.</p>
