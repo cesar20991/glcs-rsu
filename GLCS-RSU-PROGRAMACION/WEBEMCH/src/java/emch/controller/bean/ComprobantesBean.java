@@ -3,6 +3,9 @@ package emch.controller.bean;
 import emch.modelo.acceso.ComprobantesManaged;
 import emch.modelo.entidades.TComprobante;
 import emch.modelo.entidades.TComprobantedet;
+import emch.modelo.entidades.TEstadoliq;
+import emch.modelo.entidades.TEstadoxliquidacion;
+import emch.modelo.entidades.TEstadoxliquidacionId;
 import emch.modelo.entidades.TLiquidacion;
 import emch.modelo.entidades.TMoneda;
 import emch.modelo.entidades.TServicio;
@@ -32,6 +35,8 @@ public class ComprobantesBean extends UsuarioBean {
     private List<TComprobantedet> listaComprobanteDet;
     private List<TMoneda> listaMonedas;
     private List<TTipodoc> listaTipoDocs;
+    private TEstadoxliquidacionId estadoXliquidacionId;
+    private TEstadoxliquidacion estadoXliquidacion;
     public int cont;
     public String idC;
     public Calendar cal;
@@ -46,6 +51,10 @@ public class ComprobantesBean extends UsuarioBean {
         comprobanteDet.setTServicio(new TServicio());
         comprobanteDet.setTComprobante(new TComprobante());
         listaComprobanteDet = new ArrayList<TComprobantedet>();
+        estadoXliquidacion = new TEstadoxliquidacion();
+        estadoXliquidacion.setTEstadoliq(new TEstadoliq());
+        estadoXliquidacion.setTLiquidacion(new TLiquidacion());
+        estadoXliquidacionId = new TEstadoxliquidacionId();
     }
 
     public void prepararComprobante(String id) {
@@ -68,7 +77,6 @@ public class ComprobantesBean extends UsuarioBean {
             comprobante.setTMoneda(obj.buscarMonedasTodas().get(0));
             comprobante.setTTipodoc(obj.buscarTiposDocTodos().get(0));
             obj.insertarComprobante(comprobante);
-            //comprobante = obj.buscarComprobantePorId(comprobante.getIdComprobante());
             FacesContext.getCurrentInstance().getExternalContext().redirect("generarcomprobante.xhtml");
         } catch (IOException e) {
             System.out.println("" + e.getMessage());
@@ -78,10 +86,15 @@ public class ComprobantesBean extends UsuarioBean {
     public void cancelar() {
         try {
             ComprobantesManaged obj = new ComprobantesManaged();
-            //comprobante = obj.buscarComprobantePorId(idC);
+            comprobante = obj.buscarComprobantePorId(idC);
             obj.eliminar(comprobante);
             comprobante = new TComprobante();
+            comprobante.setTLiquidacion(new TLiquidacion());
+            comprobante.setTMoneda(new TMoneda());
+            comprobante.setTTipodoc(new TTipodoc());
             comprobanteDet = new TComprobantedet();
+            comprobanteDet.setTServicio(new TServicio());
+            comprobanteDet.setTComprobante(new TComprobante());
             listaComprobanteDet = new ArrayList<TComprobantedet>();
             FacesContext.getCurrentInstance().getExternalContext().redirect("vistaliquidaciones.xhtml");
         } catch (IOException e) {
@@ -98,6 +111,8 @@ public class ComprobantesBean extends UsuarioBean {
         comprobante.setIgv(comprobante.getSubTotal().multiply(BigDecimal.valueOf(0.19)));
         comprobante.setTotal(comprobante.getSubTotal().add(comprobante.getIgv()));
         comprobanteDet = new TComprobantedet();
+        comprobanteDet.setTServicio(new TServicio());
+        comprobanteDet.setTComprobante(new TComprobante());
         cont++;
     }
 
@@ -107,12 +122,30 @@ public class ComprobantesBean extends UsuarioBean {
             obj.actualizarComprobante(comprobante);
             for (TComprobantedet forComprobanteDet : listaComprobanteDet) {
                 forComprobanteDet.setTComprobante(comprobante);
+                forComprobanteDet.setItem(obj.getIDComprobanteDet());
                 obj.insertarComprobanteDet(forComprobanteDet);
             }
+            estadoXliquidacionId.setCdEstadoLiq(obj.getNuevoEstado().getCdEstadoLiq());
+            estadoXliquidacionId.setCdLiq(liquidacion.getCdLiq());
+            estadoXliquidacionId.setFechaEstado(cal.getTime());
+            estadoXliquidacion.setId(estadoXliquidacionId);
+            estadoXliquidacion.setTEstadoliq(obj.getNuevoEstado());
+            estadoXliquidacion.setTLiquidacion(liquidacion);
+            estadoXliquidacion.setObs("");
+            obj.insertarEstadoXLiquidacion(estadoXliquidacion);
             cont = 0;
             comprobante = new TComprobante();
+            comprobante.setTLiquidacion(new TLiquidacion());
+            comprobante.setTMoneda(new TMoneda());
+            comprobante.setTTipodoc(new TTipodoc());
             comprobanteDet = new TComprobantedet();
+            comprobanteDet.setTServicio(new TServicio());
+            comprobanteDet.setTComprobante(new TComprobante());
             listaComprobanteDet = new ArrayList<TComprobantedet>();
+            estadoXliquidacion = new TEstadoxliquidacion();
+            estadoXliquidacion.setTEstadoliq(new TEstadoliq());
+            estadoXliquidacion.setTLiquidacion(new TLiquidacion());
+            estadoXliquidacionId = new TEstadoxliquidacionId();
             FacesContext.getCurrentInstance().getExternalContext().redirect("vistaliquidaciones.xhtml");
         } catch (IOException e) {
             System.out.println("" + e.getMessage());

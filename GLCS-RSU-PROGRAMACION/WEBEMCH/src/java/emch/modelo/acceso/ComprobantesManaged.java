@@ -2,6 +2,8 @@ package emch.modelo.acceso;
 
 import emch.modelo.entidades.TComprobante;
 import emch.modelo.entidades.TComprobantedet;
+import emch.modelo.entidades.TEstadoliq;
+import emch.modelo.entidades.TEstadoxliquidacion;
 import emch.modelo.entidades.TLiquidacion;
 import emch.modelo.entidades.TMoneda;
 import emch.modelo.entidades.TServicio;
@@ -118,6 +120,23 @@ public class ComprobantesManaged {
             session.beginTransaction().commit();
         } catch (Exception e) {
             System.out.println("Error en insertarComprobanteDet: " + e.getMessage());
+            session.beginTransaction().rollback();
+        }
+    }
+    
+    public TEstadoliq getNuevoEstado(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        return (TEstadoliq) session.createQuery("FROM TEstadoliq AS TE WHERE TE.cdEstadoLiq='EL2'").list().get(0);
+    }
+    
+    public void insertarEstadoXLiquidacion(TEstadoxliquidacion exl){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.save(exl);
+            session.beginTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error en insertarEstadoXLiquidacion: " + e.getMessage());
             session.beginTransaction().rollback();
         }
     }
