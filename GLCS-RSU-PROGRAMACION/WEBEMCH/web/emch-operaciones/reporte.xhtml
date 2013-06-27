@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../plantillas/Template.xhtml">
+            <ui:define name="usuarios">
+                <br></br>
+                Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+            </ui:define>
+            <ui:define name="top">
+                <p:growl id="messages" autoUpdate="true"/>                     
+            </ui:define>
+
+            <ui:define name="content">    
+
+                <h:form >               
+                    <h:outputText value="DATOS ESTADISTICOS AL AÑO 2013 - CONTROL DE SERVICIO" style="font-weight:bold;font-size:20px;color:#654B24" />
+                    <br></br><br></br>
+                    
+                    <p:barChart id="horizontal" value="#{reporteBean.categoryModel}" legendPosition="se" style="height:500px"  
+                                title="TONELADAS RECOGIDAS EN EL AÑO 2013" orientation="horizontal" min="600" max="2000"/>  
+
+
+                </h:form>
+                <br></br>
+                <br></br>
+                <br></br>
+                <h:form>                
+                    <p:barChart id="horizontal2" value="#{reporteBean.categoryModelV}" legendPosition="se" style="height:500px"  
+                                title="VIAJE REALIZADOS EN EL AÑO 2013" orientation="horizontal" min="100" max="200"/>  
+                </h:form>
+
+            </ui:define> 
+
+        </ui:composition>
+    </h:body>
+</html>
+

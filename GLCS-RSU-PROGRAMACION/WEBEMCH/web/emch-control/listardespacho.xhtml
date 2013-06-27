@@ -28,7 +28,7 @@
                             <br></br>
                             <p:commandButton  value="Asignar Ruta" action="#{asignarRutaBean.irAsignarRuta}" ajax="false"> 
                             </p:commandButton>                           
-                            <p:dataTable id="visita" var="listdesdet" value="#{asignarRutaBean.listaDespachoDet}" rowKey="#{listdesdet.id.cdDespacho}" selectionMode="single" selection="#{asignarRutaBean.selecteddespachodet}"
+                            <p:dataTable id="visita" var="listdesdet" value="#{asignarRutaBean.listaDespachoDet}" rowKey="#{listdesdet.id.nro}" selectionMode="single" selection="#{asignarRutaBean.selecteddespachodet}"
                                          paginator="true" rows="50"  
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                          rowsPerPageTemplate="5,10,15" style="font-weight:bold" >    
