@@ -15,7 +15,7 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class ConsLiquidacionBean {
     private TLiquidacion liquidacion;
-    private List<TLiquidacion> listarLiquidacion;
+    public List<TLiquidacion> listarLiquidacion;
     private TComprobante selectedComprobante;
     private List<TLiquidacion> listarLiquidacionPorCliente;
     private List<TPesaje> listarpesajePorCliente;    

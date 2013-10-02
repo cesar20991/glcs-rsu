@@ -10,7 +10,12 @@
     </h:head>
     <h:body>
         <ui:composition template="../plantillas/Template.xhtml">
-            <ui:define name="usuarios">
+            <ui:define name="usuarios"><br></br>
+                    Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                    <br></br>
+                    Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                    <br></br>
+                    RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>
             </ui:define>
             <ui:define name="top">
                 <p:growl id="messages" autoUpdate="true"/>  
@@ -24,10 +29,10 @@
                             Información del Trabajador 
                         </f:facet>
                         <h:outputLabel value="Nombres : *"/>
-                        <h:inputText value="#{trabajadorBean.trabajador.nombres}" required="true" onkeypress="soloLetras(event);"/>                        
+                        <p:inputText value="#{trabajadorBean.trabajador.nombres}" required="true" onkeypress="soloLetras(event);"/>                        
 
                         <h:outputLabel value="Apellidos: *"/>
-                        <h:inputText value="#{trabajadorBean.trabajador.apellidos}" required="true" onkeypress="soloLetras(event);"/>                        
+                        <p:inputText value="#{trabajadorBean.trabajador.apellidos}" required="true" onkeypress="soloLetras(event);"/>                        
 
                         <h:outputLabel value="DNI:"/>                                                
                         <p:inputText value="#{trabajadorBean.trabajador.dni}" required="true" requiredMessage="El campo Nro Doc. Identidad es obligatorio" >

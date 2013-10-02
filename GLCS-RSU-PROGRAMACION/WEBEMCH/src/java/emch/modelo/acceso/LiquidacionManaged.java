@@ -27,29 +27,17 @@ public class LiquidacionManaged {
 
     public List listarLiquidacion() {
         List<TLiquidacion> listaLiq = null;
-        /*  try {*/
         sesion = HibernateUtil.getSessionFactory().openSession();
         qry = sesion.createQuery("FROM TLiquidacion");
         listaLiq = (List<TLiquidacion>) qry.list();
-        /* } catch (Exception ex) {
-         ex.printStackTrace();
-         } finally {
-         sesion.close();
-         }*/
         return listaLiq;
     }
 
     public List ListarTipoLiquidacion() {
         List<TTipoliquidacion> listaTLiq = null;
-        /*  try {*/
         sesion = HibernateUtil.getSessionFactory().openSession();
         qry = sesion.createQuery("FROM TTipoliquidacion");
         listaTLiq = (List<TTipoliquidacion>) qry.list();
-        /* } catch (Exception ex) {
-         ex.printStackTrace();
-         } finally {
-         sesion.close();
-         }*/
         return listaTLiq;
     }
 
