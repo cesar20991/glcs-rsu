@@ -139,13 +139,13 @@
                                     <f:selectItems value="#{liquidacionBean.listatipoliq}" var="due" itemLabel="#{due.nombre}" itemValue="#{due.cdTipoLiq}"/>
                                 </p:selectOneMenu>
                                 <h:outputLabel value="Fecha de Apertura"/>
-                                <p:calendar value="#{liquidacionBean.liquidacion.fechaApertura}" required="true" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
+                                <p:calendar value="#{liquidacionBean.liquidacion.fechaApertura}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
                                 </p:calendar>
                                 <h:outputLabel value="Fecha de Inicio"/>
-                                <p:calendar value="#{liquidacionBean.liquidacion.fechaInicio}" required="true" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
+                                <p:calendar value="#{liquidacionBean.liquidacion.fechaInicio}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
                                 </p:calendar>
                                 <h:outputLabel value="Fecha de Fin"/>
-                                <p:calendar value="#{liquidacionBean.liquidacion.fechaFin}" required="true" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
+                                <p:calendar value="#{liquidacionBean.liquidacion.fechaFin}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
                                 </p:calendar>
                             </p:panelGrid>
 

@@ -74,10 +74,23 @@ public class LiquidacionBean extends UsuarioBean {
     }
 
     public String irAperturar() { //throws IOException {
+        FacesContext context = FacesContext.getCurrentInstance();
         // FacesContext.getCurrentInstance().getExternalContext().redirect("generarliquidacion.xhtml");
-        putsesion("fechaInicio", liquidacion.getFechaInicio());
-        putsesion("fechaFin", liquidacion.getFechaFin());
-        return "generarliquidacion";
+        if(liquidacion.getFechaInicio() == null) {
+             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe seleccionar Fecha de Inicio", "Verificar"));
+        }
+        else if(liquidacion.getFechaApertura()== null) {
+             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe seleccionar Fecha de Apertura", "Verificar"));
+        }
+        else if(liquidacion.getFechaFin()== null) {
+             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe seleccionar Fecha Fin", "Verificar"));
+        }
+        else {
+            putsesion("fechaInicio", liquidacion.getFechaInicio());
+            putsesion("fechaFin", liquidacion.getFechaFin());
+            return "generarliquidacion";
+        }
+        return "";
     }
 
     public List<TPesaje> getListadopesaje() {
