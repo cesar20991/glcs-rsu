@@ -7,6 +7,8 @@ import emch.modelo.entidades.TDespacho;
 import emch.modelo.entidades.TDespachodet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.hibernate.Query;
 import org.hibernate.classic.Session;
 
@@ -50,10 +52,11 @@ public class ControlViajeManaged {
                 session.save(nuevo);
             }
             session.beginTransaction().commit();
-        } catch (Exception e) {
+        } catch (Exception e) {     
             System.out.println("Error en insertar: " + e.getMessage());
             session.beginTransaction().rollback();
         }
+        
     }
 
     public String getIDControl() {

@@ -6,8 +6,10 @@ import emch.modelo.entidades.TControlviajeId;
 import emch.modelo.entidades.TDespacho;
 import emch.modelo.entidades.TDespachodet;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -56,13 +58,22 @@ public class ControlViajeBean {
     }
 
     public void generar() {
+        FacesContext context = FacesContext.getCurrentInstance();
         ControlViajeManaged obj = new ControlViajeManaged();
+        boolean flag = false;
         for (TDespacho tdespacho : selectedDespachos) {
             listaDespachodet = obj.buscarDespachosDet(tdespacho.getId().getCdDespacho());
             for (TDespachodet tDespachodet : listaDespachodet) {
                 obj.insertar(tDespachodet);
+                    flag = true;      
             }
         }
+        if (flag) {
+            context.addMessage(null, new FacesMessage("Hoja de Control de Viaje Generado Correctamente", "Verificar"));
+        }else{
+            context.addMessage(null, new FacesMessage("Debe Seleccionar por lo menos un Despacho", "Verificar"));
+        }
+
     }
 
     public List<TDespacho> getListaDespachos() {

@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Administrar Control de Viaje</title>
     </h:head>
@@ -20,14 +21,23 @@
                 <p:growl id="messages" autoUpdate="true"/>  
             </ui:define>
             <ui:define name="content">
+                
+                <h:outputText value="CONSULTAR HOJAS DE CONTROL DE VIAJE" style="font-weight:bold;font-size:20px;color:#654B24" />
+                
                 <h:form id="btnGenerar">
                     <p:commandButton value="Generar" oncomplete="generarControlDialog.show();" update=":formControlGenerar" icon="ui-icon-document" actionListener="#{controlViajeBean.prepararFaltantes()}"/>
                 </h:form>
 
                 <h:form id="formDespachos">
-                    <p:dataTable id="dtDespachos" var="despacho" value="#{controlViajeBean.listaDespachos}">
+                    <p:dataTable id="dtDespachos" var="despacho" paginator="true" rows="10"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15" style="font-weight:bold"
+                                 value="#{controlViajeBean.listaDespachos}">
+                        
                         <h:inputHidden value="#{despacho.id.cdDespacho}"/>
-
+                        <f:facet name="header">  
+                                    Listado de Hojas de Control de Viaje
+                        </f:facet>
                         <p:column headerText="Ubigeo">
                             <h:outputText value="#{despacho.TUbigeo.nombre}" />
                         </p:column>
