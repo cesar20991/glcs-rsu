@@ -41,13 +41,13 @@
                             <h:outputLabel value="Nro. COntrol:"/>   
                              <h:outputText value="#{incidenciaBean.selectedControl.id.cdControlViaje}"  />
                             <h:outputLabel value="Problema:"/>                                                
-                            <p:inputText value="#{incidenciaBean.incidencias.problema}" required="true" requiredMessage="El campo Nro Doc. Identidad es obligatorio" >
+                            <p:inputText value="#{incidenciaBean.incidencias.problema}" required="true" requiredMessage="El campo Problema es obligatorio" >
                                 
                             </p:inputText>                       
 
                             <h:outputLabel value="Hora del Problema: "/>
-                            <p:inputText value="#{incidenciaBean.incidencias.horaProb}" required="false" onkeypress="return validarNumero(event)" >
-                                
+                            <p:inputText value="#{incidenciaBean.incidencias.horaProb}"  required="false" onkeypress="return validarNumero(event)" >
+                                <f:validateLength minimum="5" maximum="5"/>
                             </p:inputText>
                             <h:outputLabel value="Observaciones :"/>
                             <p:inputText value="#{incidenciaBean.incidencias.observaciones}" required="false" onkeypress="return validarNumero(event)">

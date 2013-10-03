@@ -36,7 +36,7 @@
                                 INFORMACION DEL PESAJE
                             </f:facet>
                             <h:outputLabel value="NroPesaje: *"/>
-                            <h:inputText value="#{pesajeBean.pesaje.nroPesaje}" onkeypress="return validarNumero(event)"/>                        
+                            <p:inputText value="#{pesajeBean.pesaje.nroPesaje}" onkeypress="return validarNumero(event)"/>                        
                             <h:outputLabel value="Fecha Pesaje: *"/>
                             <p:calendar value="#{pesajeBean.pesaje.fechaPesaje}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold" >
                             </p:calendar>
