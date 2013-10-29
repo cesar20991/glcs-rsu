@@ -13,6 +13,11 @@
         <ui:composition template="../plantillas/Template.xhtml">
 
             <ui:define name="usuarios">
+                Usuario: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>
             </ui:define>
 
             <ui:define name="top">
@@ -21,7 +26,7 @@
 
             <ui:define name="content">
 
-                <h:form>
+                <h:form id="formEmpresa">
                     <h:outputText value="ADMINISTRAR - EMPRESAS" style="font-weight:bold;font-size:20px;color:#654B24" />
                     <f:facet name="header">  
                         Información del Trabajador 
@@ -31,72 +36,78 @@
                         </p:commandButton>
                     </div>     
                     <br/>
-                    <h:form id="formEmpresa">
-                        <p:dataTable id="dtEmpresa" var="empresa" value="#{empresaBean.listaempresa}" rowKey="#{empresa.cdRuc}" 
-                                     paginator="true" rows="15"  
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                     rowsPerPageTemplate="5,10,15" style="font-weight:bold">
-                            <h:inputHidden value="#{empresa.cdRuc}"/>
+                    <p:dataTable id="dtEmpresa" var="empresa" value="#{empresaBean.listaempresa}" rowKey="#{empresa.cdRuc}" 
+                                 paginator="true" rows="15"  
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5,10,15" style="font-weight:bold">
+                        <h:inputHidden value="#{empresa.cdRuc}"/>
 
-                            <p:column filterBy="#{empresa.TUbigeo.cdUbig}" filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="cd Ubigeo" />
-                                </f:facet> 
-                                <h:outputText value="#{empresa.TUbigeo.cdUbig}"/>
-                            </p:column>
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="Ver Info." />  
+                            </f:facet> 
+                            <p:commandButton update=":formEmpresa:display2" oncomplete="infoDialog.show()" icon="ui-icon-search" title="View">  
+                                <f:setPropertyActionListener value="#{empresa}" target="#{empresaBean.empresa}" />  
+                            </p:commandButton>  
+                        </p:column>
 
-                            <p:column filterBy="#{empresa.rucE}" filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="ruc Empresa" />
-                                </f:facet> 
-                                <h:outputText value="#{empresa.rucE}"/>
-                            </p:column>
+                        <p:column filterBy="#{empresa.rucE}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="RUC Empresa" />
+                            </f:facet> 
+                            <h:outputText value="#{empresa.rucE}"/>
+                        </p:column>
 
-                            <p:column filterBy="#{empresa.rsocial}" filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="rSocial" />
-                                </f:facet> 
-                                <h:outputText value="#{empresa.rsocial}"/>
-                            </p:column>
+                        <p:column filterBy="#{empresa.rsocial}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Razón Social" />
+                            </f:facet> 
+                            <h:outputText value="#{empresa.rsocial}"/>
+                        </p:column>
 
-                            <p:column filterBy="#{empresa.fechaIni}" filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="fecha Inicio" />
-                                </f:facet> 
-                                <h:outputText value="#{empresa.fechaIni}"/>
-                            </p:column>
+                        <p:column filterBy="#{empresa.fechaIni}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Fecha inicio" />
+                            </f:facet> 
+                            <h:outputText value="#{empresa.fechaIni}"/>
+                        </p:column>
 
-                            <p:column filterBy="#{empresa.direccion}}" filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="Direccion" />
-                                </f:facet> 
-                                <h:outputText value="#{empresa.direccion}"/>
-                            </p:column>
+                        <p:column filterBy="#{empresa.direccion}}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Direccion" />
+                            </f:facet> 
+                            <h:outputText value="#{empresa.direccion}"/>
+                        </p:column>
 
-                            <p:column filterBy="#{empresa.telef}" filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="Telefono" />
-                                </f:facet> 
-                                <h:outputText value="#{empresa.telef}"/>
-                            </p:column>
-                            
-                              <p:column headerText="Editar">
+                        <p:column filterBy="#{empresa.TUbigeo.nombre}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Distrito" />
+                            </f:facet> 
+                            <h:outputText value="#{empresa.TUbigeo.nombre}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{empresa.telef}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Teléfono" />
+                            </f:facet> 
+                            <h:outputText value="#{empresa.telef}"/>
+                        </p:column>
+
+                        <p:column headerText="Editar">
                             <f:facet name="header">
                                 <h:outputText value="Editar"></h:outputText>
                             </f:facet>
                             <p:commandButton icon="ui-icon-pencil"  action="#{empresaBean.irActualizar()}" ajax="false" />
                         </p:column>
 
-                            <!--<p:column headerText="Edit." style="width:8%; text-align: center">  
-                                <p:commandButton oncomplete="editarEmpresaDialog.show();" icon="ui-icon-pencil" title="Editar" update=":formEmpresaEditar" actionListener="#{empresaBean.prepararEmpresa(empresa.rucE)}"/>
-                            </p:column> 
-                            <p:column headerText="Ver." style="width:8%; text-align: center"> 
-                                <p:commandButton oncomplete="verEmpresaDialog.show();" icon="ui-icon-search" title="Ver" update=":formEmpresaVer" actionListener="#{empresaBean.prepararEmpresa(empresa.rucE)}"/>
-                            </p:column> 
-                            -->
-                        </p:dataTable>
-                    </h:form>
-
+                        <!--<p:column headerText="Edit." style="width:8%; text-align: center">  
+                            <p:commandButton oncomplete="editarEmpresaDialog.show();" icon="ui-icon-pencil" title="Editar" update=":formEmpresaEditar" actionListener="#{empresaBean.prepararEmpresa(empresa.rucE)}"/>
+                        </p:column> 
+                        <p:column headerText="Ver." style="width:8%; text-align: center"> 
+                            <p:commandButton oncomplete="verEmpresaDialog.show();" icon="ui-icon-search" title="Ver" update=":formEmpresaVer" actionListener="#{empresaBean.prepararEmpresa(empresa.rucE)}"/>
+                        </p:column> 
+                        -->
+                    </p:dataTable>
                 </h:form>
 
             </ui:define>

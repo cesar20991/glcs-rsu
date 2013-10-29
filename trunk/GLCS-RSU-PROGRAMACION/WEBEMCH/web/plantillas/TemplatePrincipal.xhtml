@@ -36,6 +36,10 @@
                 <div class="floatright">
                     <img src="../img/img-profile.jpg" alt="Profile Pic" />
                     <ui:insert name="usuarios"> usuario:  </ui:insert>
+                    <h:form>
+                        <p:commandButton id="btn" value="Cerrar sesión" action="#{usuarioBean.logout}" icon="ui-icon-document" ajax="false">
+                        </p:commandButton>
+                    </h:form>   
                 </div>
             </p:layoutUnit>
 
@@ -47,7 +51,7 @@
                 <p:menu style="width: 200px;">
                     <p:submenu label="Seguridad">                        
                         <p:menuitem value="Cambiar Contraseña" url="#" icon="ui-icon-suitcase" />  
-                        <p:menuitem value="Administrar Usuario" url="#" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Administrar Usuario" url="../faces/emch-seguridad/usuario.xhtml" icon="ui-icon-suitcase" />  
                         <p:menuitem value="Administrar Perfil" url="#" icon="ui-icon-suitcase" />  
                     </p:submenu>
                     <p:submenu label="         ADMINISTRACION             ">  
@@ -76,31 +80,31 @@
 
             <p:layoutUnit position="center" size="210">
                 <h:outputText value="GLCS-RSU" style="font-weight:bold;font-size:20px;color:#654B24" />
-    
+
                 <p align="justify">Bienvenido al Sistema de Getión de Liquidaciones y Control de Servicio para la Empresa Empresa Emch Servicios Ecologicos(GLCS-RSU).
-                        Aqui como Nuestro Usuario podra tomar acciones para la administracion de documentos, personal y camiones. Tambien tendra la 
-                        posiblidad de llevar un control adecuado de los documentos generados. En nuestro sistema tambien se puede tener un control de incidencias de los camiones que estan trabajando.
-                        Ademas con nuestro sistema se controlará los estados de los documentos como liquidaciones y comprobante de pago.</p>
-                    <p:fieldset legend="Módulo de Seguridad">  
-                        <h:panelGrid columns="2" cellpadding="10">  
-                            <p>Este es el módulo encargado de la seguridad del sistema en donde un administrador podra crear eliminar o editar a un usuario.Tambien un usuario normal podra cmabiar su propia contraseña.</p>
-                        </h:panelGrid>  
-                    </p:fieldset>
-                    <p:fieldset legend="Módulo de Administracion">  
-                        <h:panelGrid columns="2" cellpadding="10">  
-                            <p>En este módulo el usuario podra crear, eliminar, editar o consultar a trabajadores, camiones, empresas clientes o verificar comprobantes.</p>
-                        </h:panelGrid>  
-                    </p:fieldset>
-                    <p:fieldset legend="Control Transporte">  
-                        <h:panelGrid columns="2" cellpadding="10">  
-                            <p>En este módulo el usuario podra crear hojas de despacho, hojas de control de viaje, asignar rutas a camiones, consultar las rutas asignadas, llevar un control de las asistencias e incidencias ocurridas.</p>
-                        </h:panelGrid>  
-                    </p:fieldset>
-                    <p:fieldset legend="Operaciones">  
-                        <h:panelGrid columns="2" cellpadding="10">  
-                            <p>En este módulo se lleva el control de comprobantes, liquidaciones y reportes parte en la que el sistema realiza cálculos para sacar resultados finales para la empresa.</p>
-                        </h:panelGrid>  
-                    </p:fieldset>
+                    Aqui como Nuestro Usuario podra tomar acciones para la administracion de documentos, personal y camiones. Tambien tendra la 
+                    posiblidad de llevar un control adecuado de los documentos generados. En nuestro sistema tambien se puede tener un control de incidencias de los camiones que estan trabajando.
+                    Ademas con nuestro sistema se controlará los estados de los documentos como liquidaciones y comprobante de pago.</p>
+                <p:fieldset legend="Módulo de Seguridad">  
+                    <h:panelGrid columns="2" cellpadding="10">  
+                        <p>Este es el módulo encargado de la seguridad del sistema en donde un administrador podra crear eliminar o editar a un usuario.Tambien un usuario normal podra cmabiar su propia contraseña.</p>
+                    </h:panelGrid>  
+                </p:fieldset>
+                <p:fieldset legend="Módulo de Administracion">  
+                    <h:panelGrid columns="2" cellpadding="10">  
+                        <p>En este módulo el usuario podra crear, eliminar, editar o consultar a trabajadores, camiones, empresas clientes o verificar comprobantes.</p>
+                    </h:panelGrid>  
+                </p:fieldset>
+                <p:fieldset legend="Control Transporte">  
+                    <h:panelGrid columns="2" cellpadding="10">  
+                        <p>En este módulo el usuario podra crear hojas de despacho, hojas de control de viaje, asignar rutas a camiones, consultar las rutas asignadas, llevar un control de las asistencias e incidencias ocurridas.</p>
+                    </h:panelGrid>  
+                </p:fieldset>
+                <p:fieldset legend="Operaciones">  
+                    <h:panelGrid columns="2" cellpadding="10">  
+                        <p>En este módulo se lleva el control de comprobantes, liquidaciones y reportes parte en la que el sistema realiza cálculos para sacar resultados finales para la empresa.</p>
+                    </h:panelGrid>  
+                </p:fieldset>
                 <ui:insert name="content">
                 </ui:insert>
 

@@ -36,6 +36,10 @@
                 <div class="floatright">
                     <img src="../img/img-profile.jpg" alt="Profile Pic" />
                     <ui:insert name="usuarios"> usuario:  </ui:insert>
+                    <h:form>
+                        <p:commandButton id="btn" value="Cerrar sesión" action="#{usuarioBean.logout}" icon="ui-icon-document" ajax="false">
+                        </p:commandButton>
+                    </h:form> 
                 </div>
             </p:layoutUnit>
 
@@ -48,7 +52,7 @@
                 <p:menu style="width: 200px;">
                     <p:submenu label="Seguridad">                        
                         <p:menuitem value="Cambiar Contraseña" url="#" icon="ui-icon-suitcase" />  
-                        <p:menuitem value="Administrar Usuario" url="#" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Administrar Usuario" url="../faces/emch-seguridad/usuario.xhtml" icon="ui-icon-suitcase" />  
                         <p:menuitem value="Administrar Perfil" url="#" icon="ui-icon-suitcase" />  
                     </p:submenu>
                     <p:submenu label="         ADMINISTRACION             ">  
