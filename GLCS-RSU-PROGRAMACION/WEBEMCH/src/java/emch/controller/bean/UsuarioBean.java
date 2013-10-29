@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.model.MenuModel;
 
 /**s
  *
@@ -27,6 +28,7 @@ public class UsuarioBean {
     public String rucEmp = ""; //EJM: RC001 CodigoRUC
     private TUsuario usuario2;
     private TEmpresa empresa;
+    private MenuModel model;
 
     @PostConstruct
     public void init() {
@@ -44,6 +46,24 @@ public class UsuarioBean {
     public Object obtsesion(String k) {
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(k);
     }
+    
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "index.xhtml?faces-redirect=true";
+    }
+    
+    public void cargarMenu(){
+//        //First submenu  
+//        DefaultSubMenu firstSubmenu = new DefaultSubMenu("Dynamic Submenu");  
+//          
+//        DefaultMenuItem item = new DefaultMenuItem("External");  
+//        item.setUrl("http://www.primefaces.org");  
+//        item.setIcon("ui-icon-home");  
+//        firstSubmenu.addElement(item);  
+//          
+//        getModel().addElement(firstSubmenu);  
+    }
+    
 
     public String getNomusuario() {
         return nomusuario;
@@ -91,5 +111,13 @@ public class UsuarioBean {
 
     public void setEmpresa(TEmpresa empresa) {
         this.empresa = empresa;
+    }
+
+    public MenuModel getModel() {
+        return model;
+    }
+
+    public void setModel(MenuModel model) {
+        this.model = model;
     }
 }

@@ -24,13 +24,13 @@
                         <h:panelGrid columns="2" cellpadding="5">  
                             <h:outputLabel for="username" value="Usuario:" />  
                             <p:inputText value="#{loginBean.usuario.nomUsu}"   
-                                         id="username" required="true" label="username" />  
+                                         id="username" required="true" label="username" requiredMessage="Ingrese el nombre de usuario" />  
 
                             <h:outputLabel for="password" value="Contraseña:" />  
-                            <p:password value="#{loginBean.usuario.pass}" id="password" required="true" label="password">
+                            <p:password value="#{loginBean.usuario.pass}" id="password" required="true" requiredMessage="Ingese el password" label="password">
                             </p:password>  
                             <h:outputLabel for="empresa" value="Empresa:" />                             
-                            <p:selectOneMenu value="#{loginBean.empresa.cdRuc}" filter="true" filterMatchMode="contains" required="true"  >
+                            <p:selectOneMenu value="#{loginBean.empresa.cdRuc}" filter="true" filterMatchMode="contains" required="true" requiredMessage="Seleccione la Empresa para iniciar el servicio"  >
                                 <f:selectItem itemLabel="Seleccione Empresa" itemValue="" />  
                                 <f:selectItems value="#{loginBean.listarempresa}" var="empresa"  itemLabel="#{empresa.rsocial}" itemValue="#{empresa.cdRuc}"/>  
                             </p:selectOneMenu>

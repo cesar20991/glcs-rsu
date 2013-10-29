@@ -1,12 +1,123 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        
+        <ui:composition template="../plantillas/Template.xhtml">
+
+            <ui:define name="usuarios">
+                Usuario: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>
+            </ui:define>
+
+            <ui:define name="top">
+                <p:growl id="messages" autoUpdate="true"/> 
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form id="formUsuario">
+                    <h:outputText value="ADMINISTRAR - USUARIOS" style="font-weight:bold;font-size:20px;color:#654B24" />                   
+                    <div style="padding-bottom: 10px;">                            
+                        <p:commandButton value="Nuevo Usuario" action="#{admUsuarioBean.irAgregar()}" icon="ui-icon-document" ajax="false">
+                        </p:commandButton>
+                    </div>     
+                    <br/>
+                    <p:dataTable id="dtEmpresa" var="usuario" value="#{admUsuarioBean.listausuario}" rowKey="#{usuario.nomUsu}" 
+                                 paginator="true" rows="15"  
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5,10,15" style="font-weight:bold">
+                        <h:inputHidden value="#{usuario.nomUsu}"/>
+                        <f:facet name="header">  
+                            Listado de Usuarios
+                        </f:facet>
+
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="Ver Info." />  
+                            </f:facet> 
+                            <p:commandButton update=":formUsuario:display2" oncomplete="infoDialog.show()" icon="ui-icon-search" title="View">  
+                                <f:setPropertyActionListener value="#{usuario}" target="#{admUsuarioBean.usuario}" />  
+                            </p:commandButton>  
+                        </p:column>
+
+                        <p:column filterBy="#{usuario.nomUsu}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Usuario" />
+                            </f:facet> 
+                            <h:outputText value="#{usuario.nomUsu}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{usuario.pass}" rendered="false">
+                            <f:facet name="header">
+                                <h:outputText value="pass" />
+                            </f:facet> 
+                            <h:outputText value="#{usuario.pass}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{usuario.TPerfil.nombrePrf}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Perfil" />
+                            </f:facet> 
+                            <h:outputText value="#{usuario.TPerfil.nombrePrf}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{usuario.TPerfil.descripPrf}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Descripción Perfil" />
+                            </f:facet> 
+                            <h:outputText value="#{usuario.TPerfil.descripPrf}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{usuario.estado}}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Estado" />
+                            </f:facet> 
+                            <h:outputText value="#{usuario.estado ==true ? 'Habilitado' : 'Deshabilitado'}"/>
+                        </p:column>
+
+                        <p:column headerText="Editar">
+                            <f:facet name="header">
+                                <h:outputText value="Editar"></h:outputText>
+                            </f:facet>
+                            <p:commandButton icon="ui-icon-pencil"  action="#{admUsuarioBean.irActualizar()}" ajax="false" />
+                        </p:column>
+                    </p:dataTable>
+                    
+                    <p:dialog header="Info. del Usuario" widgetVar="infoDialog" resizable="false" id="carDlg"  
+                              showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">  
+
+                        <h:panelGrid id="display2" columns="2" cellpadding="4" style="margin:0 auto;">  
+                            <h:outputText value="Nombre de Usuario :" />  
+                            <h:outputText value="#{admUsuarioBean.usuario.nomUsu}" style="font-weight:bold"/>  
+                            <h:outputText value="Password :" />  
+                            <h:outputText value="#{admUsuarioBean.usuario.pass}" style="font-weight:bold"/>  
+                            <h:outputText value="Perfil Asignado :" />  
+                            <h:outputText value="#{admUsuarioBean.usuario.TPerfil.nombrePrf}" style="font-weight:bold"/>  
+                            <h:outputText value="Perfil Asignado :" />  
+                            <h:outputText value="#{admUsuarioBean.usuario.TPerfil.descripPrf}" style="font-weight:bold"/>  
+                            <h:outputText value="Estado :" />  
+                            <h:outputText value="#{admUsuarioBean.usuario.estado==true ? 'Habilitado' : 'Deshabilitado'}" style="font-weight:bold"/>  
+                        </h:panelGrid>  
+                    </p:dialog>
+                    
+                </h:form>
+            </ui:define>
+
+            <ui:define name="bottom">
+            </ui:define>
+
+        </ui:composition>
+
     </h:body>
 </html>
 
