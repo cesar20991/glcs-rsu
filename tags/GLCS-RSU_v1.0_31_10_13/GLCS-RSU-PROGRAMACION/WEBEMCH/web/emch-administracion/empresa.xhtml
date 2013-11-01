@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Administrar Empresa</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="../plantillas/Template.xhtml">
+
+            <ui:define name="usuarios">
+                Usuario: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>
+            </ui:define>
+
+            <ui:define name="top">
+                <p:growl id="messages" autoUpdate="true"/> 
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form id="formEmpresa">
+                    <h:outputText value="ADMINISTRAR - EMPRESAS" style="font-weight:bold;font-size:20px;color:#654B24" />
+                    <f:facet name="header">  
+                        Información del Trabajador 
+                    </f:facet>
+                    <div style="padding-bottom: 10px;">                            
+                        <p:commandButton value="Nueva Empresa" action="#{empresaBean.irAgregar()}" icon="ui-icon-document" ajax="false">
+                        </p:commandButton>
+                    </div>     
+                    <br/>
+                    <p:dataTable id="dtEmpresa" var="empresa" value="#{empresaBean.listaempresa}" rowKey="#{empresa.cdRuc}" 
+                                 paginator="true" rows="15"  
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5,10,15" style="font-weight:bold">
+                        <h:inputHidden value="#{empresa.cdRuc}"/>
+
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="Ver Info." />  
+                            </f:facet> 
+                            <p:commandButton update=":formEmpresa:display2" oncomplete="infoDialog.show()" icon="ui-icon-search" title="View">  
+                                <f:setPropertyActionListener value="#{empresa}" target="#{empresaBean.empresa}" />  
+                            </p:commandButton>  
+                        </p:column>
+
+                        <p:column filterBy="#{empresa.rucE}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="RUC Empresa" />
+                            </f:facet> 
+                            <h:outputText value="#{empresa.rucE}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{empresa.rsocial}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Razón Social" />
+                            </f:facet> 
+                            <h:outputText value="#{empresa.rsocial}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{empresa.fechaIni}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Fecha inicio" />
+                            </f:facet> 
+                            <h:outputText value="#{empresa.fechaIni}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{empresa.direccion}}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Direccion" />
+                            </f:facet> 
+                            <h:outputText value="#{empresa.direccion}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{empresa.TUbigeo.nombre}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Distrito" />
+                            </f:facet> 
+                            <h:outputText value="#{empresa.TUbigeo.nombre}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{empresa.telef}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Teléfono" />
+                            </f:facet> 
+                            <h:outputText value="#{empresa.telef}"/>
+                        </p:column>
+
+                        <p:column headerText="Editar">
+                            <f:facet name="header">
+                                <h:outputText value="Editar"></h:outputText>
+                            </f:facet>
+                            <p:commandButton icon="ui-icon-pencil"  action="#{empresaBean.irActualizar()}" ajax="false" />
+                        </p:column>
+
+                        <!--<p:column headerText="Edit." style="width:8%; text-align: center">  
+                            <p:commandButton oncomplete="editarEmpresaDialog.show();" icon="ui-icon-pencil" title="Editar" update=":formEmpresaEditar" actionListener="#{empresaBean.prepararEmpresa(empresa.rucE)}"/>
+                        </p:column> 
+                        <p:column headerText="Ver." style="width:8%; text-align: center"> 
+                            <p:commandButton oncomplete="verEmpresaDialog.show();" icon="ui-icon-search" title="Ver" update=":formEmpresaVer" actionListener="#{empresaBean.prepararEmpresa(empresa.rucE)}"/>
+                        </p:column> 
+                        -->
+                    </p:dataTable>
+                    
+                    <p:dialog header="Info. de  la Empresa" widgetVar="infoDialog" resizable="false" id="carDlg"  
+                              showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">  
+
+                        <h:panelGrid id="display2" columns="2" cellpadding="4" style="margin:0 auto;">  
+                            <h:outputText value="RUC Empresa :" />  
+                            <h:outputText value="#{empresaBean.empresa.rucE}" style="font-weight:bold"/>  
+                            <h:outputText value="Razón Social :" />  
+                            <h:outputText value="#{empresaBean.empresa.rsocial}" style="font-weight:bold"/>  
+                            <h:outputText value="Dirección :" />  
+                            <h:outputText value="#{empresaBean.empresa.direccion}" style="font-weight:bold"/>  
+                            <h:outputText value="Distrito :" />  
+                            <h:outputText value="#{empresaBean.empresa.TUbigeo.nombre}" style="font-weight:bold"/>  
+                            <h:outputText value="Telefono :" />  
+                            <h:outputText value="#{empresaBean.empresa.telef}" style="font-weight:bold"/>  
+                        </h:panelGrid>  
+                    </p:dialog>
+                    
+                </h:form>
+
+            </ui:define>
+
+            <ui:define name="bottom">
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

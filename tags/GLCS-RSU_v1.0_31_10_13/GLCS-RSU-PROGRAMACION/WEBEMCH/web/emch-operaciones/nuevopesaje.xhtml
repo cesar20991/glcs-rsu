@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="../plantillas/Template.xhtml">
+            <ui:define name="usuarios">
+                <br></br>
+                Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+            </ui:define>
+            <ui:define name="top">
+                <p:growl id="messages" autoUpdate="true"/>  
+            </ui:define>
+            <ui:define name="content">
+                <h:form >
+                    <h:outputText value="PESAJES" style="font-weight:bold;font-size:20px;color:#654B24" />
+
+                    <p:panelGrid columns="2" style="width: 100%" >
+                        <f:facet name="header">  
+                            AGREGAR PESAJE EN RELACION A LA  <h:outputText value="#{liquidacionBean.empresa.rsocial}"></h:outputText>
+                        </f:facet>
+
+                        <p:panelGrid columns="2" style="width: 100%">  
+                            <f:facet name="header">  
+                                INFORMACION DEL PESAJE
+                            </f:facet>
+                            <h:outputLabel value="NroPesaje: *"/>
+                            <p:inputText value="#{pesajeBean.pesaje.nroPesaje}" onkeypress="return validarNumero(event)"/>                        
+                            <h:outputLabel value="Fecha Pesaje: *"/>
+                            <p:calendar value="#{pesajeBean.pesaje.fechaPesaje}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold" >
+                            </p:calendar>
+                            <h:outputText value="Peso Bruto: *" />                          
+                            <p:inputText value="#{pesajeBean.pesaje.pesoBruto}"  onkeypress="return validarNumero(event)" >                            
+                            </p:inputText>
+                            <h:outputLabel value="Tara: "/>
+                            <p:inputText value="#{pesajeBean.pesaje.tara}" onkeypress="return validarNumero(event)">
+                            </p:inputText>
+                            <h:outputLabel value="Peso TN:"/>
+                            <p:inputText value="#{pesajeBean.pesaje.pesoTn}" />
+                            <h:outputLabel value="Obs: *"/>
+                            <p:inputTextarea  value="#{pesajeBean.pesaje.obs}" rows="4" cols="33" style="font-weight:bold"/>                              
+                            <h:outputLabel value="Control Viaje: *"/>
+                            <p:selectOneMenu value="#{pesajeBean.pesaje.TControlviaje.id.cdControlViaje}" filter="true" filterMatchMode="contains">  
+                                <f:selectItem itemLabel="Select One" itemValue="" />  
+                                <f:selectItems value="#{pesajeBean.listacontrolviaje}" var="vij" itemLabel="#{vij.id.cdControlViaje}" itemValue="#{vij.id.cdControlViaje}"/>  
+                            </p:selectOneMenu>
+                        </p:panelGrid>   
+
+                        <p:panelGrid columns="2" style="width: 100%">
+                            <f:facet name="header">  
+                                SELECCIONE CONTROL DE VIAJE A ASOCIAR                             
+                            </f:facet>
+                            <h:outputLabel value="EMPRESA: " style="font-weight:bold"/>
+                            <h:outputLabel value="#{liquidacionBean.empresa.rsocial}"  style="font-weight:bold"/>
+                            <h:outputLabel value="RUC:" style="font-weight:bold"/>
+                            <h:outputLabel value="#{liquidacionBean.empresa.rucE}"  style="font-weight:bold"/>
+                            <h:outputLabel value="Dirección :" style="font-weight:bold"/>
+                            <h:outputLabel value="#{liquidacionBean.empresa.direccion}"  style="font-weight:bold"/>
+                            <h:outputLabel value="Telefono :" style="font-weight:bold"/>
+                            <h:outputLabel value="#{liquidacionBean.empresa.telef}"  style="font-weight:bold"/>
+                            <h:outputLabel value="Imagen Empresa :" style="font-weight:bold"/>
+                            <h:outputLabel value="#{liquidacionBean.empresa.logo}"/>
+
+                        </p:panelGrid>
+                    </p:panelGrid>
+                    <div style="padding-top: 10px;">
+                        <p:commandButton  value="#{pesajeBean.accion}" action="#{pesajeBean.ingresar()}"  ajax="false"  icon="ui-icon-check" style="margin:0"/>                                               
+                    </div>                    
+                    <div style="padding-top: 10px;">
+                        <h:outputText value="(*) Solo puede Asociar un Control de Viaje por cada Pesaje" style="font-weight:bold"/>
+                    </div>                                        
+                    <div style="padding-top: 10px;">                        
+                    </div>
+                    <!--                TABLA CONTROL VIAJE                   -->
+                    <p:dataTable id="dataTable" var="viaje" value="#{pesajeBean.listacontrolviaje}" 
+                                 rowKey="#{viaje.id.cdControlViaje}" selectionMode="single" selection="#{pesajeBean.selectedcv}"
+                                 paginator="true" rows="30" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5,10,15" style="font-weight:bold" >                    
+                        <f:facet name="header">  
+                            Lista Hojas de Control de Viaje
+                        </f:facet>  
+                        <!--<p:ajax event="rowSelectCheckbox" listener=""></p:ajax> -->
+
+                        <p:column filterBy="#{viaje.id.cdControlViaje}" filterMatchMode="contains"> 
+                            <f:facet name="header">  
+                                <h:outputText value="Cod. C. Viaje" />  
+                            </f:facet>  
+                            <h:outputText value="#{viaje.id.cdControlViaje}" />  
+                        </p:column>                          
+
+                        <p:column filterBy="#{viaje.id.nroViaje}" filterMatchMode="contains">
+                            <f:facet name="header">  
+                                <h:outputText value="Nro. Viaje" />  
+                            </f:facet>  
+                            <h:outputText value="#{viaje.id.nroViaje}"/>                        
+                        </p:column>
+
+                        <p:column filterBy="#{viaje.fechaEmi}" filterMatchMode="contains">
+                            <f:facet name="header">  
+                                <h:outputText value="Fecha Emisión" />  
+                            </f:facet> 
+                            <h:outputText value="#{viaje.fechaEmi}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{viaje.TDespachodet.TDespacho.nroDespacho}" filterMatchMode="contains"> 
+                            <f:facet name="header">  
+                                <h:outputText value="Nro. Despacho" />  
+                            </f:facet>  
+                            <h:outputText value="#{viaje.TDespachodet.TDespacho.nroDespacho}"/>                        
+                        </p:column>
+
+                        <p:column filterBy="#{viaje.TDespachodet.TTrabajadorxcamion.TCamion.placa}" filterMatchMode="contains">
+                            <f:facet name="header">  
+                                <h:outputText value="Placa Camión" />  
+                            </f:facet> 
+                            <h:outputText value="#{viaje.TDespachodet.TTrabajadorxcamion.TCamion.placa}"/>
+                        </p:column>
+
+                        <p:column filterBy="#{viaje.TDespachodet.TTrabajadorxcamion.TTrabajador.nombres}" filterMatchMode="contains">
+                            <f:facet name="header">  
+                                <h:outputText value="Trabajador" />  
+                            </f:facet> 
+                            <h:outputText value="#{viaje.TDespachodet.TTrabajadorxcamion.TTrabajador.nombres}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                    <!--                FIN TABLA CONTROLVIAJE                   -->
+
+
+                </h:form>     
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

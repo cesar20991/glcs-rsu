@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TPesaje" table="t_pesaje" catalog="bd_emch">
+        <id name="cdPesaje" type="string">
+            <column name="cdPesaje" length="10" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="TControlviaje" class="emch.modelo.entidades.TControlviaje" fetch="select">
+            <column name="cdControlViaje" length="10" not-null="true">
+                <comment>Primary Key de la Tabla Control de Viaje</comment>
+            </column>
+            <column name="nroViaje" not-null="true">
+                <comment>Indica el numero del viaje</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="TLiquidacion" class="emch.modelo.entidades.TLiquidacion" fetch="select">
+            <column name="cdLiq" length="10">
+                <comment>Primary Key de la Tabla Liquidaci</comment>
+            </column>
+        </many-to-one>
+        <property name="nroPesaje" type="int">
+            <column name="nroPesaje" not-null="true" />
+        </property>
+        <property name="fechaPesaje" type="timestamp">
+            <column name="fechaPesaje" length="19" not-null="true">
+                <comment>Fecha en la que se hizo el Pesaje</comment>
+            </column>
+        </property>
+        <property name="pesoBruto" type="big_decimal">
+            <column name="pesoBruto" precision="7" not-null="true">
+                <comment>Peso</comment>
+            </column>
+        </property>
+        <property name="tara" type="big_decimal">
+            <column name="tara" precision="7" not-null="true">
+                <comment>Peso adicional</comment>
+            </column>
+        </property>
+        <property name="pesoTn" type="big_decimal">
+            <column name="pesoTN" precision="7" not-null="true" />
+        </property>
+        <property name="estadoPesaje" type="string">
+            <column name="estadoPesaje" length="2" not-null="true">
+                <comment>P: Pendiente , L:Liquidado,</comment>
+            </column>
+        </property>
+        <property name="usuCrea" type="string">
+            <column name="usuCrea" length="10" not-null="true">
+                <comment>Usuario que registro por primera vez el Pesaje</comment>
+            </column>
+        </property>
+        <property name="fechaReg" type="timestamp">
+            <column name="fechaReg" length="19" not-null="true">
+                <comment>Fecha en la que se registro el Pesaje</comment>
+            </column>
+        </property>
+        <property name="usuModf" type="string">
+            <column name="usuModf" length="10">
+                <comment>usuario que edita el pesaje</comment>
+            </column>
+        </property>
+        <property name="fechaModf" type="timestamp">
+            <column name="fechaModf" length="19">
+                <comment>Fecha en la que se modifico</comment>
+            </column>
+        </property>
+        <property name="obs" type="string">
+            <column name="Obs" length="100">
+                <comment>Se registra alguna observaci</comment>
+            </column>
+        </property>
+        <property name="imagenP" type="binary">
+            <column name="imagenP">
+                <comment>Imagen del Pesaje</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

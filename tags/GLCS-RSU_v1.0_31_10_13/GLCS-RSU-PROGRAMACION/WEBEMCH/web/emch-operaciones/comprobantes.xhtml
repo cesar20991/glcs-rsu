@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="../plantillas/Template.xhtml">
+            <ui:define name="usuarios">
+                <br></br>
+                Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+            </ui:define>
+            <ui:define name="top">
+                <p:growl id="messages" autoUpdate="true"/>  
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="frmcomprobante">
+                    <p:dataTable var="comprob" value="#{comprobanteBean.listarComprobantes}" id="tablacomprobante" rowKey="#{comprob.idComprobante}" selectionMode="single" selection="#{comprobanteBean.comprobante}"
+                                 paginator="true" rows="15" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5,10,15" style="font-weight:bold">
+                        <p:ajax event="rowSelect" listener="#{comprobanteBean.buscarCompDet}" update=":frmcomprobante:compdet" >                                    
+
+                        </p:ajax>
+
+                        <p:ajax event="rowSelect" listener="#{comprobanteBean.ResulCorreo}" update=":frmcomprobante:panelcorreo" >                                    
+
+                        </p:ajax>
+
+                        <f:facet name="header">  
+                            LISTADO DE COMPROBANTES
+                        </f:facet>
+                        <p:column style="width:4%">  
+                            <f:facet name="header">  
+                                <h:outputText value="Ver Info" />  
+                            </f:facet> 
+                            <p:commandButton update=":frmcomprobante:display" oncomplete="carDialog.show()" icon="ui-icon-search" title="View">  
+                                <f:setPropertyActionListener value="#{comprob}" target="#{comprobanteBean.comprobante}"  />  
+                            </p:commandButton>  
+                        </p:column>
+                        <p:column filterBy="#{comprob.idComprobante}" filterMatchMode="contains"> 
+                            <f:facet name="header">  
+                                <h:outputText value="ID COMPROBANTE" />  
+                            </f:facet>  
+                            <h:outputText value="#{comprob.idComprobante}"/>                        
+                        </p:column>
+                        <p:column filterBy="#{comprob.nroDoc}" filterMatchMode="contains"> 
+                            <f:facet name="header">  
+                                <h:outputText value="Numero de Documento" />  
+                            </f:facet>  
+                            <h:outputText value="#{comprob.nroDoc}"/>                        
+                        </p:column>
+                        <p:column filterBy="#{comprob.fecMov}" filterMatchMode="contains"> 
+                            <f:facet name="header">  
+                                <h:outputText value="Fecha de Movimiento" />  
+                            </f:facet>  
+                            <h:outputText value="#{comprob.fecMov}"/>                        
+                        </p:column>
+                        <p:column filterBy="#{comprob.serie}" filterMatchMode="contains"> 
+                            <f:facet name="header">  
+                                <h:outputText value="Numero de Serie" />  
+                            </f:facet>  
+                            <h:outputText value="#{comprob.serie}"/>                        
+                        </p:column>                        
+                        <p:column filterBy="#{comprob.subTotal}" filterMatchMode="contains"> 
+                            <f:facet name="header">  
+                                <h:outputText value="Subtotal" />  
+                            </f:facet>  
+                            <h:outputText value="#{comprob.subTotal}"/>                        
+                        </p:column>
+                        <p:column filterBy="#{comprob.total}" filterMatchMode="contains"> 
+                            <f:facet name="header">  
+                                <h:outputText value="Total" />  
+                            </f:facet>  
+                            <h:outputText value="#{comprob.total}"/>                        
+                        </p:column>
+                    </p:dataTable>
+                    <div style="padding-top: 10px;">
+                        <h:outputText value="(*) Seleccione un Comprobante para ver su detalle" style="font-weight:bold"/>
+                    </div>
+                    <p:dataTable id="compdet" var="comprobdet" value="#{comprobanteBean.listarComprobantesDets}">
+                        <f:facet name="header">  
+                            LISTADO DETALLE DE COMPROBANTES
+                        </f:facet>
+                        <p:column filterBy="#{comprobdet.item}" filterMatchMode="contains"> 
+                            <f:facet name="header">  
+                                <h:outputText value="Item" />  
+                            </f:facet>  
+                            <h:outputText value="#{comprobdet.item}"/>                        
+                        </p:column>
+                        <p:column filterBy="#{comprobdet.precio}" filterMatchMode="contains"> 
+                            <f:facet name="header">  
+                                <h:outputText value="Precio" />  
+                            </f:facet>  
+                            <h:outputText value="#{comprobdet.precio}"/>                        
+                        </p:column>
+                        <p:column filterBy="#{comprobdet.cantTn}" filterMatchMode="contains"> 
+                            <f:facet name="header">  
+                                <h:outputText value="Cantidad Toneladas" />  
+                            </f:facet>  
+                            <h:outputText value="#{comprobdet.cantTn}"/>                        
+                        </p:column>
+                        <p:column filterBy="#{comprobdet.total}" filterMatchMode="contains"> 
+                            <f:facet name="header">  
+                                <h:outputText value="Total" />  
+                            </f:facet>  
+                            <h:outputText value="#{comprobdet.total}"/>                        
+                        </p:column>
+                    </p:dataTable>
+
+                    <div style="padding-top: 10px;">
+                        <h:outputText value="(*) DEBE SELECCIONAR UN COMPROBANTE PARA ENVIAR CORREO" style="font-weight:bold"/>
+                    </div>
+
+                    <p:panelGrid id="panelcorreo" columns="2" style="width: 100%">
+                        <f:facet name="header">  
+                            ENVIO DE CORREO DEL COMPROBANTE <h:outputLabel value="#{comprobanteBean.comprobante.idComprobante}"></h:outputLabel> ASOCIADO A LA LIQUIDACION <h:outputLabel value="#{comprobanteBean.comprobante.TLiquidacion.cdLiq}"></h:outputLabel>
+                        </f:facet>
+                        <h:outputLabel value="PARA : "/>
+                        <h:inputText value="#{comprobanteBean.para}" required="true" />                        
+                        <h:outputLabel value="REMITENTE (gmail) :"/>
+                        <p:inputText  value="#{comprobanteBean.de}" style="font-weight:bold"/>                              
+                        <h:outputLabel value="CLAVE REMITENTE (gmail) :"/>
+                        <p:password  value="#{comprobanteBean.pwRemitente}" style="font-weight:bold"/>                              
+                        <h:outputLabel value="ASUNTO: "/>
+                        <p:inputText  value="#{comprobanteBean.asunto}" style="font-weight:bold"/>                              
+                        <h:outputLabel value="Mensaje"/>
+                        <p:inputTextarea  value="#{comprobanteBean.mensaje}" rows="8" cols="66" style="font-weight:bold"/>                                                          
+                    </p:panelGrid>
+
+                    <div style="padding-bottom: 10px;">
+                        <p:commandButton value="ENVIAR CORREO" action="#{comprobanteBean.enviarEmail()}" ajax="false" icon="ui-icon-check"/>                       
+                    </div>
+
+                    <p:dialog header="INFORMACION DE COMPROBANTE" widgetVar="carDialog" resizable="false" id="carDlg"  
+                              showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+                            <f:facet name="header"> 
+
+                            </f:facet>  
+                            <h:outputText value="Id Comprobante: " />  
+                            <h:outputText value="#{comprobanteBean.comprobante.idComprobante}" style="font-weight:bold"/>  
+                            <h:outputText value="Numero de Documento: " />  
+                            <h:outputText value="#{comprobanteBean.comprobante.nroDoc}" style="font-weight:bold"/>
+                            <h:outputText value="Fecha de movimiento: " />  
+                            <h:outputText value="#{comprobanteBean.comprobante.fecMov}" style="font-weight:bold"/>
+                            <h:outputText value="Numero de Serie: " />  
+                            <h:outputText value="#{comprobanteBean.comprobante.serie}" style="font-weight:bold"/>
+                            <h:outputText value="Subtotal: " />  
+                            <h:outputText value="#{comprobanteBean.comprobante.subTotal}" style="font-weight:bold"/>
+                            <h:outputText value="Total: " />  
+                            <h:outputText value="#{comprobanteBean.comprobante.total}" style="font-weight:bold"/>
+                        </h:panelGrid>  
+
+                    </p:dialog>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

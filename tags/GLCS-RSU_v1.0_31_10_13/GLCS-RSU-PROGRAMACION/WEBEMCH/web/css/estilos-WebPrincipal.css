@@ -1,0 +1,229 @@
+@charset "utf-8";
+/* cesar Augusto */
+
+body{        
+	background:#fff url(../img/fondo-2.jpg) repeat-x;
+	}
+
+/*-----------CSS MAQUTEACION-----------------------------*/
+header, section, nav, article, aside, footer, figure{
+	display:block
+}
+header{
+	/*width:950px;*/
+	height:150px;
+	/*padding:25px;*/
+	/*margin:0;*/
+}
+/*#cuadro1{
+	width:1000px;
+	height:572px;
+	background:#FFFFFF;
+	margin:0 auto;
+	margin-top:28px;
+}*/
+	
+#logo{ /*usa id*/
+	/*width:950px;*/
+	height:100px;
+	/*background:url(../img2/logo.png) no-repeat left;*/
+	/*margin:0 auto;*/
+}
+
+/*-----------------Barra menu-----------*/
+nav{
+	/*width:950px;*/
+	height:50px;
+	/*margin:0 auto;*/
+	/*background:url(../img2/barranav.png) no-repeat;*/
+	}
+nav ul{
+	/*margin:0;
+	padding: 0;*/	
+	list-style:none;
+	/*background:url(../img2/barranav.jpg) no-repeat;*/
+}
+/*border para adentro -> padding
+  border para afuera -> margin*/
+nav li a{
+	width:140px;
+	height:35px; /*original 36px*/
+	display:block;
+	padding-top:15px;
+	float:left;
+	text-align:center;
+	text-decoration: none;
+	/*font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;*/
+	color:#666666;
+	border-right:#FFF 1px solid;
+	font-weight:bold;
+}
+
+nav li a:hover { /*cuando se encuentre sobre la etiqueta mouse*/
+	background:  url(../img2/menupres.jpg); 
+	color:#ECEADE;
+}
+
+figure{
+	/*width:950px;*/
+	height:100px;
+	/*margin:0 auto;*/
+	/*padding:10px;*/
+}
+
+#contenedor{
+	width:1000px; /*tamño original 1000*/
+	height:280px;
+	background:url(../imagenes/contenedor.jpg) no-repeat;
+	margin:0 auto;
+}
+
+#acceder{
+	height:50px;
+	position:absolute;
+	left: 795px;
+	top: 1px;
+}
+#ab1{
+	position:relative;
+}
+.filtros{
+	height:1000px;
+}
+.margin2{
+	margin-top:15px;;	
+}
+
+.filtro{
+	height:1000px;background:#36F;
+}
+
+.titulo{
+	background:#E1EBF3;
+	color:#1487E4;
+	font-size:15px;
+	font-weight:bold;
+	text-align:center;
+}
+
+.subtitulo{background:#F7FAFA;color:#828282;}
+
+.principal{background:#1487E4;color:#FFF; border-radius:5px 5px 5px; margin-top:50px;; text-align:center; font-weight:bold; font-size:15px;}
+
+.principal2{background:#1487E4;color:#FFF; border-radius:5px 5px 5px; margin-top:15px; text-align:center; font-weight:bold; font-size:15px;}
+
+
+
+/*--------------ESTILO FOOTER WEB PRINCIPAL---------------*/
+.textopie{
+	text-align:center;
+	margin:2px;
+	line-height:normal;
+}
+
+a.enlacepie{
+	padding:4px;
+	text-decoration:none;
+}
+a:hover.enlacepie{
+	background:#007EE3;
+	color:#FFF
+}
+#fondoF{
+	background:#fff url(../img2/fondo-footer.png) repeat-x;
+	height:230px;
+}
+
+
+.footer_bloque {
+  height:150px;
+}
+
+.footer_bloque ul {
+  margin: 0 15px;
+}
+.footer_bloque ul li{
+  padding: 1px 0px;
+  list-style-image:url(../images/v2/bullet-arrow.gif);
+  /*list-style-image:url(../images/v2/bullet-footer.png);*/
+}
+
+/*--------------FIN FOOTER WEB PRINCIPAL---------------*/
+.InfoIn{
+	display:block;
+	text-align:center;
+	}
+/*--------------COLOR PARA LOS BOTONES-------------*/
+
+.btn-blue,
+.btn-blue:visited { background-color: #066ECD; border-color: #0561B4; }
+.btn-blue:hover { background-color: #0561B4; }
+
+/* 50% Opacity for darker colors */
+.btn-blue{ background-image: url(../img/bg-dark.png); }
+/* Buttons */
+.btn,
+.btn-icon,
+.btn-mini
+{
+	background-repeat: repeat-x;
+	color: #FFF;	
+	font-weight: bold;
+	display: inline-block;	
+	text-decoration: none;
+	border-width: 1px;
+	border-style: solid;
+	padding: 0 15px 4px;
+	*padding: 0 7px 4px;
+	margin: 0;
+	text-shadow: 1px 1px 1px rgba(0,0,0,.2);
+	-moz-box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+	-webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	filter: progid:DXImageTransform.Microsoft.Shadow(color=#999999,direction=135,strength=2);
+	cursor: pointer;
+	position: relative;
+	
+}
+/* Sizes */
+.btn, .btn-icon { background-position: 0 -80px; font-size: 12px; height: 32px; line-height: 29px; }
+
+/* Set default button colors */
+.btn, .btn-icon, .btn-mini,
+.btn:visited, .btn-icon:visited, .btn-mini:visited {
+	background-image: url(../img/bg-lite.png);
+	background-color: #066ECD;
+	border-color: #066ECD;
+	color: #FFF;
+}
+
+/*-----------------------------*/
+.flotar{
+	display:block;
+	position:absolute;
+	width:133px;
+	height:25px;
+	left: 475px;
+	top: 6px;
+}
+.flotar2{
+	display:block;
+	position:absolute;
+	width:217px;
+	height:42px;
+	left: 1px;
+	top: 24px;
+
+}
+.flotar3{
+	display:block;
+	position:absolute;
+	width:100px;
+	height:100px;
+
+}
+
+
+/*--------Tabs----------------*/

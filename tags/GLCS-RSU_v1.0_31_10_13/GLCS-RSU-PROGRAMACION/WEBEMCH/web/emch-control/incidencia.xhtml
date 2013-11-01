@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <ui:composition template="../plantillas/Template.xhtml">
+
+                <ui:define name="usuarios">
+                    <br></br>
+                    Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                    <br></br>
+                    Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                    <br></br>
+                    RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+                </ui:define>
+
+                <ui:define name="top">
+                    <p:growl id="messages" autoUpdate="true"/>                     
+                </ui:define>
+
+                <ui:define name="content">
+
+                    <h:form  prependId="false" id="interesxin">
+                        <h:outputText value="CONTROLAR INCIDENCIAS" style="font-weight:bold;font-size:20px;color:#654B24" />
+
+                        <p:tab title="CONTROLAR INCIDENCIAS">
+                            <div style="padding-bottom: 10px;">
+                                <p:commandButton  value="AGREGAR INCIDENCIAS" icon="ui-icon-document" action="#{incidenciaBean.irIncidencias()}" ajax="false"> 
+                                </p:commandButton> 
+                            </div>
+
+                            <p:dataTable var="control" value="#{incidenciaBean.listarControl}" selection="#{incidenciaBean.selectedControl}" selectionMode="single" rowKey="#{control.id.cdControlViaje}"
+                                         paginator="true" rows="15"  id="datatblLiquid"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                         rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                  
+
+
+                                <f:facet name="header">  
+                                    Agregar Incidencias
+                                </f:facet>  
+                                
+                                <p:column style="width:4%">  
+                            <f:facet name="header">  
+                                <h:outputText value="Ver Info" />  
+                            </f:facet> 
+                            <p:commandButton update=":interesxin:display" oncomplete="carDialog.show()" icon="ui-icon-search" title="View">  
+                                <f:setPropertyActionListener value="#{control}" target="#{incidenciaBean.control}"  />  
+                            </p:commandButton>  
+                                </p:column>
+                                
+                                <p:column> 
+                                    <f:facet name="header">  
+                                        <h:outputText value="Control de Viaje" />  
+                                    </f:facet>  
+                                    <h:outputText value="#{control.id.cdControlViaje}"/>                        
+                                </p:column>
+
+                                <p:column > 
+                                    <f:facet name="header">  
+                                        <h:outputText value="Nro. RUC" />  
+                                    </f:facet>  
+                                    <h:outputText value="#{control.TDespachodet.TDespacho.id.cdRuc}"/>                        
+                                </p:column>
+                                
+                                <p:column > 
+                                    <f:facet name="header">  
+                                        <h:outputText value="Nro. Viajes" />  
+                                    </f:facet>  
+                                    <h:outputText value="#{control.id.nroViaje}"/>                        
+                                </p:column>
+
+                                <p:column >
+                                    <f:facet name="header">  
+                                        <h:outputText value="Fecha Emision" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{control.fechaEmi}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">  
+                                        <h:outputText value="Hora Estimada" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{control.horaEstimada}"/>
+                                </p:column>
+
+                                <p:column >
+                                    <f:facet name="header">  
+                                        <h:outputText value="Hora Real" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{control.horaReal}"/>
+                                </p:column>
+
+
+
+                            </p:dataTable>
+                            
+                            
+                            <p:dialog header="INFORMACION CONTROL DE VIAJE" widgetVar="carDialog" resizable="false" id="carDlg"  
+                              showEffect="fade" hideEffect="explode" modal="true" appendToBody="true" >  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;" >  
+                            <f:facet name="header">
+                            </f:facet>
+
+                            <h:outputText value="Control de Viaje: " />  
+                            <h:outputText value="#{incidenciaBean.control.id.cdControlViaje}" style="font-weight:bold"/>  
+                            <h:outputText value="Nro de Viajes:" />  
+                            <h:outputText value="#{incidenciaBean.control.id.nroViaje}" style="font-weight:bold"/>  
+                            <h:outputText value="RUC :" />  
+                            <h:outputText value="#{incidenciaBean.control.TDespachodet.TDespacho.id.cdRuc}" style="font-weight:bold"/>  
+                            <h:outputText value="Despacho :" />  
+                            <h:outputText value="#{incidenciaBean.control.TDespachodet.TDespacho.id.cdDespacho}" style="font-weight:bold"/>                               
+                            <h:outputText value="Fecha Emision :" />  
+                            <h:outputText value="#{incidenciaBean.control.fechaEmi}" style="font-weight:bold"/>
+                            <h:outputText value="Hora Estimada :" />  
+                            <h:outputText value="#{incidenciaBean.control.horaEstimada}" style="font-weight:bold"/>  
+                            <h:outputText value="Hora Real :" />  
+                            <h:outputText value="#{incidenciaBean.control.horaReal}" style="font-weight:bold"/>  
+                            
+                        </h:panelGrid>  
+
+                    </p:dialog>
+
+                        </p:tab>                   
+
+
+                    </h:form>
+
+                </ui:define>
+
+            </ui:composition>
+
+
+        </h:form>
+    </h:body>
+</html>

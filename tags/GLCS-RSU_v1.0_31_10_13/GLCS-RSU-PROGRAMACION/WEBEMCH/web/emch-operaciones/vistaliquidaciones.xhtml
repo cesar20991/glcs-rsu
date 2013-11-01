@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../plantillas/Template.xhtml">
+            <ui:define name="usuarios">
+                <br></br>
+                Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+            </ui:define>
+
+            <ui:define name="top">
+                <p:growl id="messages" autoUpdate="true"/>                     
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="formVistaLiquidaciones">
+                    <p:dataTable id="dtLiquidaciones" var="liquidacion" value="#{liquidacionesBean.listaLiquidaciones}">
+                        <p:column headerText="cdLiquid">
+                            <h:outputText value="#{liquidacion.cdLiq}"/>
+                        </p:column>
+
+                        <p:column headerText="Tipo Liquid">
+                            <h:outputText value="#{liquidacion.TTipoliquidacion.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="Fecha Apertura">
+                            <h:outputText value="#{liquidacion.fechaApertura}" />
+                        </p:column>
+
+                        <p:column headerText="Fecha Inicio">
+                            <h:outputText value="#{liquidacion.fechaInicio}" />
+                        </p:column>
+
+                        <p:column headerText="Fecha Fin">
+                            <h:outputText value="#{liquidacion.fechaFin}" />
+                        </p:column>
+
+                        <p:column headerText="Total Toneladas">
+                            <h:outputText value="#{liquidacion.totalTn}" />
+                        </p:column>
+
+                        <p:column headerText="Asunto">
+                            <h:outputText value="#{liquidacion.asunto}" />
+                        </p:column>
+
+                        <p:column headerText="Agregar" style="width:8%; text-align: center"> 
+                            <p:commandButton icon="ui-icon-plus" actionListener="#{comprobantesBean.prepararComprobante(liquidacion.cdLiq)}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

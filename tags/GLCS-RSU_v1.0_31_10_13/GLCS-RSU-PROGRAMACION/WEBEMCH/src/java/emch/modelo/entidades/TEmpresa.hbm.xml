@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TEmpresa" table="t_empresa" catalog="bd_emch">
+        <id name="cdRuc" type="string">
+            <column name="cdRuc" length="6" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="TUbigeo" class="emch.modelo.entidades.TUbigeo" fetch="select">
+            <column name="cdUbig" length="6" not-null="true" />
+        </many-to-one>
+        <property name="rucE" type="string">
+            <column name="rucE" length="11" not-null="true" />
+        </property>
+        <property name="rsocial" type="string">
+            <column name="rSocial" length="150" not-null="true" />
+        </property>
+        <property name="fechaIni" type="timestamp">
+            <column name="fechaIni" length="19" not-null="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="200" not-null="true" />
+        </property>
+        <property name="telef" type="string">
+            <column name="telef" length="15" not-null="true" />
+        </property>
+        <property name="logo" type="binary">
+            <column name="logo" />
+        </property>
+        <set name="TLiquidacions" inverse="true">
+            <key>
+                <column name="cdRuc" length="6" not-null="true" />
+            </key>
+            <one-to-many class="emch.modelo.entidades.TLiquidacion" />
+        </set>
+        <set name="TAccesoes" inverse="true">
+            <key>
+                <column name="cdRuc" length="6" not-null="true" />
+            </key>
+            <one-to-many class="emch.modelo.entidades.TAccesoe" />
+        </set>
+        <set name="TDespachos" inverse="true">
+            <key>
+                <column name="cdRuc" length="6" not-null="true" />
+            </key>
+            <one-to-many class="emch.modelo.entidades.TDespacho" />
+        </set>
+        <set name="TClientes" inverse="true">
+            <key>
+                <column name="cdRuc" length="6" not-null="true" />
+            </key>
+            <one-to-many class="emch.modelo.entidades.TCliente" />
+        </set>
+    </class>
+</hibernate-mapping>

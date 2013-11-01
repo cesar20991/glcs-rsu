@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../plantillas/Template.xhtml">
+            <ui:define name="usuarios">
+                <br></br>
+                Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+            </ui:define>
+
+            <ui:define name="top">
+                <p:growl id="messages" autoUpdate="true"/>                     
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form  prependId="false" id="generaliq">
+                    <p:commandButton  value="GENERAR" icon="ui-icon-document" action="#{liquidacionBean.insertar}" ajax="false"> 
+                    </p:commandButton> 
+                    <p:commandButton  value="CANCELAR" action="#{liquidacionBean.irRegresar}" icon="ui-icon-arrowrefresh-1-w" ajax="false"> 
+                    </p:commandButton> 
+                    
+                    <div style="padding-top: 10px;">
+                        <h:outputText value="(*) El Calculo de TN a pagar se realiza automatico" style="font-weight:bold"/>
+                    </div>  
+                    <div style="padding-top: 10px;">
+                        
+                    </div>  
+                    <p:panelGrid columns="2" style="width: 100%" >
+                        <f:facet name="header">  
+                            GENERAR LIQUIDACION PARA LA MUNICIPALIDAD <h:outputText value="#{liquidacionBean.empresa.rsocial}"></h:outputText>
+                        </f:facet>
+                        <p:panelGrid columns="2" style="width: 100%">
+                            <f:facet name="header">  
+                                DATOS DE APERTURA DE LIQUIDACION                             
+                            </f:facet>
+                            <h:outputLabel value="Tipo de Liquidacion"/>
+                            <p:selectOneMenu value="#{liquidacionBean.liquidacion.TTipoliquidacion.cdTipoLiq}">
+                                <f:selectItems value="#{liquidacionBean.listatipoliq}" var="due" itemLabel="#{due.nombre}" itemValue="#{due.cdTipoLiq}"/>
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Fecha de Apertura"/>
+                            <p:calendar value="#{liquidacionBean.liquidacion.fechaApertura}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold" >                                
+                            </p:calendar>
+                            <h:outputLabel value="Fecha de Inicio"/>
+                            <p:calendar value="#{liquidacionBean.liquidacion.fechaInicio}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
+                            </p:calendar>
+                            <h:outputLabel value="Fecha de Fin"/>
+                            <p:calendar value="#{liquidacionBean.liquidacion.fechaFin}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
+                            </p:calendar>
+                            <h:outputLabel value="Asunto"/>
+                            <p:inputTextarea  value="#{liquidacionBean.liquidacion.asunto}" rows="4" cols="33" required="false" style="font-weight:bold"/>                              
+                        </p:panelGrid>
+
+                        <p:panelGrid columns="2" style="width: 100%">
+                            <f:facet name="header">  
+                                DATOS EMPRESA A LIQUIDAR                              
+                            </f:facet>
+                            <h:outputLabel value="EMPRESA: " style="font-weight:bold"/>
+                            <h:outputLabel value="#{liquidacionBean.empresa.rsocial}"  style="font-weight:bold"/>
+                            <h:outputLabel value="RUC:" style="font-weight:bold"/>
+                            <h:outputLabel value="#{liquidacionBean.empresa.rucE}"  style="font-weight:bold"/>
+                            <h:outputLabel value="Dirección :" style="font-weight:bold"/>
+                            <h:outputLabel value="#{liquidacionBean.empresa.direccion}"  style="font-weight:bold"/>
+                            <h:outputLabel value="Telefono :" style="font-weight:bold"/>
+                            <h:outputLabel value="#{liquidacionBean.empresa.telef}"  style="font-weight:bold"/>
+                            <h:outputLabel value="Imagen Empresa :" style="font-weight:bold"/>
+                            <h:outputLabel value="#{liquidacionBean.empresa.logo}"/>
+                        </p:panelGrid>
+
+                    </p:panelGrid>  
+                    <div style="padding-top: 10px;">
+                        <h:outputText value="(*) Para Liquidar debe seleccionar Pesajes correspondientes" style="font-weight:bold"/>
+                    </div>                    
+                    
+                    <div style="padding-top: 10px;">                        
+                    </div>
+                    <!-- <p:outputPanel autoUpdate="true">-->
+
+                    <p:dataTable  id="pesajeid" var="pesaje" value="#{liquidacionBean.listadopesaje}" 
+                                  paginator="true"   rows="25" rowKey="#{pesaje.cdPesaje}"
+                                  selection="#{liquidacionBean.selectedpesaje}" >
+                        <p:ajax event="rowSelectCheckbox" listener="#{liquidacionBean.demo}"></p:ajax> 
+                        <!--CABECERA DE LISTADOPESAJE-->
+                        <f:facet name="header">
+                            PESAJES OBTENIDOS
+                        </f:facet>
+
+                        <!--COLUMNAS-->
+                        <p:column selectionMode="multiple" style="width:18px"/>
+
+                        <p:column headerText="Cod. Asignacion" rendered="false">
+                            <h:outputText value="#{pesaje.cdPesaje}"/>
+                        </p:column>
+                        <p:column headerText="NR. DE PESAJE" >
+                            <h:outputText value="#{pesaje.nroPesaje}"/>
+                        </p:column>
+                        <p:column headerText="FECHA DE PESAJE">
+                            <h:outputText value="#{pesaje.fechaPesaje}"/>
+                        </p:column>
+                        <p:column headerText="PESO BRUTO">
+                            <h:outputText value="#{pesaje.pesoBruto}"/>
+                        </p:column>
+                        <p:column headerText="TARA">
+                            <h:outputText value="#{pesaje.tara}"/>
+                        </p:column>
+                        <p:column headerText="PESO TN">
+                            <h:outputText value="#{pesaje.pesoTn}"/>
+                        </p:column>
+                        <p:column headerText="Estado">
+                            <h:outputText value="#{pesaje.estadoPesaje}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <!--  </p:outputPanel>-->
+                </h:form> 
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

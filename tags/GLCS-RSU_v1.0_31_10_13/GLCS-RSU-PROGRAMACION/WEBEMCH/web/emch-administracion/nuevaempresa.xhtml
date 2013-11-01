@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Administrar Empresas</title>   
+    </h:head>
+    <h:body>
+
+        <ui:composition template="../plantillas/Template.xhtml">
+
+            <ui:define name="usuarios">
+                Usuario: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+            </ui:define>
+
+            <ui:define name="top">
+                <p:growl id="messages" autoUpdate="true"/> 
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form >
+                    <h:outputText value="ADMINISTRAR - EMPRESA" style="font-weight:bold;font-size:20px;color:#654B24" />
+
+                    <p:panelGrid columns="2" style="width: 100%">
+                        <f:facet name="header">  
+                            Información de la Empresa
+                        </f:facet>
+                        <h:outputLabel value="Distrito" />
+                        <p:selectOneMenu value="#{empresaBean.empresa.TUbigeo.cdUbig}" filter="true" filterMatchMode="contains" effect="fade" required="true" requiredMessage="Debe seleccionar un distrito" style="width:300px;">  
+                            <f:selectItem itemLabel="Select One" itemValue="" />  
+                            <f:selectItems value="#{empresaBean.listarUbigeo}" var="ubigeo" itemLabel="#{ubigeo.nombre}" itemValue="#{ubigeo.cdUbig}"/>  
+                        </p:selectOneMenu>
+
+                        <h:outputLabel value="RUC" />
+                        <p:inputText value="#{empresaBean.empresa.rucE}" style="width:300px;" required="true" requiredMessage="Campo RUC es obligatorio" />
+
+                        <h:outputLabel value="Razón Social" />
+                        <p:inputText value="#{empresaBean.empresa.rsocial}" style="width:300px;" required="true" requiredMessage="El campo Razón Social es obligatorio" />
+
+                        <h:outputLabel value="Fecha inicio" />
+                        <p:calendar value="#{empresaBean.empresa.fechaIni}" pattern="dd/MM/yyyy" style="font-weight:bold;" required="true" requiredMessage="Campo fecha es obligatorio">                                
+                        </p:calendar>
+
+                        <h:outputLabel value="direccion" />
+                        <p:inputText value="#{empresaBean.empresa.direccion}" style="width:300px;" required="true" requiredMessage="El campo dirección es obligatorio" />
+
+                        <h:outputLabel value="Teléfono:" />
+                        <p:inputText value="#{empresaBean.empresa.telef}" style="width:300px;" required="true" requiredMessage="El campo teléfono es obligatorio" />
+                    </p:panelGrid>
+                    <div style="padding-top: 10px;">
+                        <p:commandButton  value="#{empresaBean.accion}" action="#{empresaBean.ingresar()}"  ajax="false"  icon="ui-icon-check" style="margin:0"/>                                               
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+</html>
+

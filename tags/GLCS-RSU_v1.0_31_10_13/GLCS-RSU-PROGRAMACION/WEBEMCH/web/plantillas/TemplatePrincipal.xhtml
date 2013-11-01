@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        
+        <title>Facelets Template</title>
+        <style type="text/css">
+            html{
+                height: 100%;
+            }
+            body{
+                background-color: #ffffff;
+                font-size: 11px;
+                font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sanemch-serif;
+                color: #000000;  
+                margin: 10px;
+            }
+            .floatright{float:right;}
+        </style>
+    </h:head>
+
+    <h:body>
+
+
+        <p:layout fullPage="true">
+
+            <p:layoutUnit position="north" size="110" resizable="true" closable="true" collapsible="true">
+                <ui:insert name="top"> </ui:insert>
+                <a href="index.xhtml"><img src="../img/Logo.png" alt="Logo" width="200" height="100"></img></a>
+                <img src="../img/lema.png" width="600" height="100"></img>               
+                <div class="floatright">
+                    <img src="../img/img-profile.jpg" alt="Profile Pic" />
+                    <ui:insert name="usuarios"> usuario:  </ui:insert>
+                    <h:form>
+                        <p:commandButton id="btn" value="Cerrar sesión" action="#{usuarioBean.logout}" icon="ui-icon-document" ajax="false">
+                        </p:commandButton>
+                    </h:form>   
+                </div>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="30" closable="true" collapsible="true">
+                <strong> © 2013 EMCH Servicios Ecológicos SAC. Todos los derechos reservados. comercial@emchsac.com - emchsac@emchsac.com</strong>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" size="240" header="Menu Principal" collapsible="true">
+                <!--<h:form>
+                    <p:menu style="width:200px;" model=""/>  
+                </h:form>-->
+                <p:menu style="width: 200px;">
+                    <p:submenu label="Seguridad">                        
+                        <p:menuitem value="Cambiar Contraseña" url="#" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Administrar Usuario" url="../faces/emch-seguridad/usuario.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Administrar Perfil" url="#" icon="ui-icon-suitcase" />  
+                    </p:submenu>
+                    <p:submenu label="         ADMINISTRACION             ">  
+                        <p:menuitem value="Adm. Trabajador" url="../faces/emch-administracion/trabajador.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Adm. Camión" url="../faces/emch-administracion/camion.xhtml" icon="ui-icon-suitcase" />                          
+                        <p:menuitem value="Adm. Empresa" url="../faces/emch-administracion/empresa.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Verificar Comprobantes" url="../faces/emch-administracion/verificarcomprobante.xhtml" icon="ui-icon-suitcase" />                          
+                    </p:submenu>
+                    <p:submenu label="CONTROL TRANSPORTE">  
+                        <p:menuitem value="Despacho" url="../faces/emch-control/HojaDeDespacho.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Control de Viaje" url="../faces/emch-administracion/controlviaje.xhtml" icon="ui-icon-suitcase"  />  
+                        <p:menuitem value="Asignar ruta" url="../faces/emch-control/listardespacho.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Control Incidencia" url="../faces/emch-control/incidencia.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Control Asistencia" url="../faces/emch-control/Asistencia.xhtml" icon="ui-icon-suitcase" />  
+                    </p:submenu> 
+                    <p:submenu label="OPERACIONES">                          
+                        <p:menuitem value="Comprobante" url="../faces/emch-operaciones/comprobante.xhtml" icon="ui-icon-suitcase" />                          
+                        <p:menuitem value="Generar Comprobante" url="../faces/emch-operaciones/vistaliquidaciones.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Liquidacion" url="../faces/emch-operaciones/ConsultarLiquidacion.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Reporte (Estadístico)" url="../faces/emch-operaciones/reporte.xhtml" icon="ui-icon-suitcase" />  
+
+                    </p:submenu>
+
+                </p:menu>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center" size="210">
+                <h:outputText value="GLCS-RSU" style="font-weight:bold;font-size:20px;color:#654B24" />
+
+                <p align="justify">Bienvenido al Sistema de Getión de Liquidaciones y Control de Servicio para la Empresa Empresa Emch Servicios Ecologicos(GLCS-RSU).
+                    Aqui como Nuestro Usuario podra tomar acciones para la administracion de documentos, personal y camiones. Tambien tendra la 
+                    posiblidad de llevar un control adecuado de los documentos generados. En nuestro sistema tambien se puede tener un control de incidencias de los camiones que estan trabajando.
+                    Ademas con nuestro sistema se controlará los estados de los documentos como liquidaciones y comprobante de pago.</p>
+                <p:fieldset legend="Módulo de Seguridad">  
+                    <h:panelGrid columns="2" cellpadding="10">  
+                        <p>Este es el módulo encargado de la seguridad del sistema en donde un administrador podra crear eliminar o editar a un usuario.Tambien un usuario normal podra cmabiar su propia contraseña.</p>
+                    </h:panelGrid>  
+                </p:fieldset>
+                <p:fieldset legend="Módulo de Administracion">  
+                    <h:panelGrid columns="2" cellpadding="10">  
+                        <p>En este módulo el usuario podra crear, eliminar, editar o consultar a trabajadores, camiones, empresas clientes o verificar comprobantes.</p>
+                    </h:panelGrid>  
+                </p:fieldset>
+                <p:fieldset legend="Control Transporte">  
+                    <h:panelGrid columns="2" cellpadding="10">  
+                        <p>En este módulo el usuario podra crear hojas de despacho, hojas de control de viaje, asignar rutas a camiones, consultar las rutas asignadas, llevar un control de las asistencias e incidencias ocurridas.</p>
+                    </h:panelGrid>  
+                </p:fieldset>
+                <p:fieldset legend="Operaciones">  
+                    <h:panelGrid columns="2" cellpadding="10">  
+                        <p>En este módulo se lleva el control de comprobantes, liquidaciones y reportes parte en la que el sistema realiza cálculos para sacar resultados finales para la empresa.</p>
+                    </h:panelGrid>  
+                </p:fieldset>
+                <ui:insert name="content">
+                </ui:insert>
+
+            </p:layoutUnit>
+
+        </p:layout>
+
+
+
+
+    </h:body>
+
+</html>

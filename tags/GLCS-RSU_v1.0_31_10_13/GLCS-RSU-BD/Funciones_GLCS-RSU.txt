@@ -1,0 +1,142 @@
+--------------------------------------------------------------------------
+Poner Aqui sus funciones, luego de cada funcion escriban COMMIT;
+--------------------------------------------------------------------------
+
+CREATE FUNCTION idDespacho(
+) RETURNS VARCHAR( 10 ) BEGIN DECLARE idmax VARCHAR( 10 ) ;
+
+SET idmax = ( SELECT MAX( cdDespacho ) 
+FROM t_despacho ) ;
+
+SET idmax = CONCAT(  'DP', RIGHT( CONCAT(  '00000000', CONVERT( CONVERT( RIGHT( idmax, 8 ) , signed ) +1, CHAR ) ) , 8 ) ) ;
+
+RETURN idmax;
+
+END
+
+COMMIT;
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `idTrabajador2`() RETURNS varchar(6) CHARSET utf8
+BEGIN   
+ DECLARE idmax varchar(6);
+ SET idmax = (select max(cdTrabajador) from t_trabajador);
+ SET idmax = CONCAT('TR', right(CONCAT('0000', convert(convert(right(idmax, 4), signed) + 1, char)), 4));
+ RETURN idmax;
+END
+
+
+
+CREATE FUNCTION idLiquidacion2(
+) RETURNS VARCHAR( 10 ) BEGIN DECLARE idmax VARCHAR( 10 ) ;
+
+SET idmax = ( SELECT MAX(cdLiq) FROM t_liquidacion ) ;
+
+SET idmax = CONCAT(  'LQ', RIGHT( CONCAT(  '00000000', CONVERT( CONVERT( RIGHT( idmax, 8 ) , signed ) +1, CHAR ) ) , 8 ) ) ;
+
+RETURN idmax;
+END
+
+
+
+
+CREATE FUNCTION idPesaje(
+) RETURNS VARCHAR( 10 ) BEGIN DECLARE idmax VARCHAR( 10 ) ;
+
+SET idmax = ( SELECT MAX( cdPesaje ) 
+FROM t_pesaje ) ;
+
+SET idmax = CONCAT(  'PS', RIGHT( CONCAT(  '00000000', CONVERT( CONVERT( RIGHT( idmax, 8 ) , signed ) +1, CHAR ) ) , 8 ) ) ;
+
+RETURN idmax;
+
+END
+
+
+CREATE FUNCTION idAsignaruta(
+) RETURNS VARCHAR( 10 ) BEGIN DECLARE idmax VARCHAR( 10 ) ;
+
+SET idmax = ( SELECT MAX( cdRuta ) 
+FROM t_asignarruta ) ;
+
+SET idmax = CONCAT(  'AR', RIGHT( CONCAT(  '00000000', CONVERT( CONVERT( RIGHT( idmax, 8 ) , signed ) +1, CHAR ) ) , 8 ) ) ;
+
+RETURN idmax;
+
+END
+
+
+
+
+
+
+CREATE FUNCTION idControlviaje(
+)
+RETURNS VARCHAR( 10 )
+BEGIN
+DECLARE idmax VARCHAR( 10 ) ;
+SET idmax = ( SELECT IFNULL(MAX( cdControlViaje ),0) FROM t_controlviaje ) ;
+SET idmax = CONCAT(  'CV', RIGHT( CONCAT(  '00000000', CONVERT( CONVERT( RIGHT( idmax, 8 ) , signed ) +1, CHAR ) ) , 8 ) ) ;
+RETURN idmax;
+END
+
+
+CREATE FUNCTION idComprobante(
+)
+RETURNS VARCHAR( 10 )
+BEGIN
+DECLARE idmax VARCHAR( 10 ) ;
+SET idmax = ( SELECT IFNULL(MAX(idComprobante),0) FROM t_comprobante ) ;
+SET idmax = CONCAT(  'CP', RIGHT( CONCAT(  '00000000', CONVERT( CONVERT( RIGHT( idmax, 8 ) , signed ) +1, CHAR ) ) , 8 ) ) ;
+RETURN idmax;
+END
+
+
+CREATE FUNCTION idComprobanteDet(
+)
+RETURNS VARCHAR( 10 )
+BEGIN
+DECLARE idmax VARCHAR( 10 ) ;
+SET idmax = ( SELECT IFNULL(MAX(item),0) FROM t_comprobantedet ) ;
+SET idmax = CONCAT(  '', RIGHT( CONCAT(  '', CONVERT( CONVERT( RIGHT( idmax, 10 ) , signed ) +1, CHAR ) ) , 10 ) ) ;
+RETURN idmax;
+END
+
+
+
+
+CREATE FUNCTION idIncidencia(
+) RETURNS VARCHAR( 10 ) BEGIN DECLARE idmax VARCHAR( 10 ) ;
+
+SET idmax = ( SELECT MAX( cdInc ) 
+FROM t_incidencia ) ;
+
+SET idmax = CONCAT(  'CI', RIGHT( CONCAT(  '00000000', CONVERT( CONVERT( RIGHT( idmax, 8 ) , signed ) +1, CHAR ) ) , 8 ) ) ;
+
+RETURN idmax;
+
+END
+
+
+
+CREATE FUNCTION idRuc() RETURNS VARCHAR( 6 ) BEGIN DECLARE idmax VARCHAR( 6 ) ;
+
+SET idmax = ( SELECT MAX(cdRuc) FROM t_empresa) ;
+
+SET idmax = CONCAT(  'RC', RIGHT( CONCAT(  '0000', CONVERT( CONVERT( RIGHT( idmax, 4 ) , signed ) +1, CHAR ) ) , 4 ) ) ;
+
+RETURN idmax;
+
+END
+
+
+
+
+
+-- 
+-- Volcar la base de datos para la tabla `t_asignarruta`
+-- 
+
+INSERT INTO `t_asignarruta` (`CdRuta`, `Nro`, `cdDespacho`, `cdRuc`, `LATN`, `LNGN`, `LATS`, `LNGS`, `nroV`, `obs`) VALUES ('AR00000001', 1, 'DP00000001', 'RC0001', -12.0781204770152, -76.9894412333984, -12.0639059602679, -76.9752272333984, 0, NULL);
+INSERT INTO `t_asignarruta` (`CdRuta`, `Nro`, `cdDespacho`, `cdRuc`, `LATN`, `LNGN`, `LATS`, `LNGS`, `nroV`, `obs`) VALUES ('AR00000002', 1, 'DP00000001', 'RC0001', -12.088045, -77.023902, -12.074712, -77.013164, 1, 'Asignacion1');
+INSERT INTO `t_asignarruta` (`CdRuta`, `Nro`, `cdDespacho`, `cdRuc`, `LATN`, `LNGN`, `LATS`, `LNGS`, `nroV`, `obs`) VALUES ('AR00000003', 2, 'DP00000001', 'RC0001', -12.0802816831162, -77.0120056834105, -12.0687112031478, -77.0028737361449, 1, 'Asignaci');
+INSERT INTO `t_asignarruta` (`CdRuta`, `Nro`, `cdDespacho`, `cdRuc`, `LATN`, `LNGN`, `LATS`, `LNGS`, `nroV`, `obs`) VALUES ('AR00000004', 1, 'DP00000001', 'RC0001', -12.0574727359001, -77.0246318156737, -12.0432571245882, -77.0104178156737, 0, NULL);

@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../plantillas/Template.xhtml">
+            <ui:define name="usuarios">
+                <br></br>
+                Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+            </ui:define>
+
+            <ui:define name="top">
+                <p:growl id="messages" autoUpdate="true"/>                     
+            </ui:define>
+            <h:outputText value="#{comprobanteBean.selectedliquidacion.cdLiq}"></h:outputText>
+
+            <ui:define name="content">
+                <h:form  prependId="false" id="generarcomprobante">
+                    <p:commandButton  value="GENERAR COMPROBANTE" icon="ui-icon-document" action="#{comprobanteBean.insertar()}" ajax="false"> 
+                    </p:commandButton>
+                    <p:commandButton  value="CANCELAR" action="#{comprobanteBean.irRegresar()}" icon="ui-icon-arro1-wrefresh-1-w" ajax="false"> 
+                    </p:commandButton>
+                    <div style="padding-top: 10px;">
+                    </div>
+                    <p:panelGrid columns="2" style="width: 100%" >
+                        <f:facet name="header">  
+                            GENERAR COMPROBANTE PARA LA MUNICIPALIDAD <h:outputText value="#{comprobanteBean.empresa.rsocial}"></h:outputText>
+                        </f:facet>
+                        <p:panelGrid columns="2" style="width: 100%">
+                            <f:facet name="header">  
+                                DATOS DE APERTURA DE COMPROBANTE                             
+                            </f:facet>
+                            <h:outputLabel value="Fecha de Emisió:"/>                            
+                             <p:calendar value="#{comprobanteBean.comprobante.fecMov}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold" >                                
+                            </p:calendar>
+                            <h:outputLabel value="Numero de Serie"/>
+                            <p:inputText value="#{comprobanteBean.comprobante.serie}" style="font-weight:bold"></p:inputText>
+                            <h:outputLabel value="Numero de Documento"/>
+                            <p:inputText value="#{comprobanteBean.comprobante.nroDoc}" style="font-weight:bold"></p:inputText>
+                            <h:outputLabel value="Total"/>
+                            <p:inputText value="#{comprobanteBean.comprobante.total}" style="font-weight:bold"></p:inputText>
+                            <h:outputLabel value="Sub-Total"/>
+                            <p:inputText value="#{comprobanteBean.comprobante.subTotal}" style="font-weight:bold"></p:inputText>
+                            <h:outputLabel value="IGV"/>
+                            <p:inputText value="#{comprobanteBean.comprobante.igv}" style="font-weight:bold"></p:inputText>
+                        </p:panelGrid>
+
+                        <p:panelGrid columns="1" style="width: 100%">
+                            <p:panelGrid columns="2" style="width: 100%">
+                                <f:facet name="header">  
+                                    DATOS DE LA EMPRESA                              
+                                </f:facet>
+                                <h:outputLabel value="EMPRESA: " style="font-weight:bold"/>
+                                <h:outputLabel value="#{comprobanteBean.empresa.rsocial}"  style="font-weight:bold"/>
+                                <h:outputLabel value="RUC:" style="font-weight:bold"/>
+                                <h:outputLabel value="#{comprobanteBean.empresa.rucE}"  style="font-weight:bold"/>
+                                <h:outputLabel value="Dirección :" style="font-weight:bold"/>
+                                <h:outputLabel value="#{comprobanteBean.empresa.direccion}"  style="font-weight:bold"/>
+                                <h:outputLabel value="Telefono :" style="font-weight:bold"/>
+                                <h:outputLabel value="#{comprobanteBean.empresa.telef}"  style="font-weight:bold"/>
+                                <h:outputLabel value="Imagen Empresa :" style="font-weight:bold"/>
+                                <h:outputLabel value="#{comprobanteBean.empresa.logo}"/>                            
+                            </p:panelGrid>
+                            <p:panelGrid columns="2" style="width: 100%">
+                                <f:facet name="header">  
+                                    DATOS DE LA LIQUIDACION                        
+                                </f:facet>
+                                <p:dataTable var="liquid" value="#{comprobanteBean.selectedliquidacion}">             
+                                    <p:column headerText="Fecha Apertura">  
+                                        <h:outputText value="#{comprobanteBean.selectedliquidacion.fechaApertura}" />  
+                                    </p:column>
+                                    <p:column headerText="Fecha Inicio">  
+                                        <h:outputText value="#{comprobanteBean.selectedliquidacion.fechaInicio}" />  
+                                    </p:column>
+                                    <p:column headerText="Fecha Fin">  
+                                        <h:outputText value="#{comprobanteBean.selectedliquidacion.fechaFin}" />  
+                                    </p:column>
+                                    <p:column headerText="Total Toneladas">  
+                                        <h:outputText value="#{comprobanteBean.selectedliquidacion.totalTn}" />  
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panelGrid>
+                        </p:panelGrid>
+                    </p:panelGrid>
+                    <div style="padding-top: 10px;">
+                        <p:commandButton value="Agregar Servicio" onclick=" ListaServ.show();" type="button" icon="ui-icon-plus"/>
+                        <div style="padding-top: 10px;">
+                            <h:outputText value="(*) Asigne Servicio al Comprobante" style="font-weight:bold"/>
+                        </div>
+                    </div>
+
+                    <p:dataTable var="due" value="#{comprobanteBean.listarServicio}" editable="true">
+
+                        <!--CABECERA mostrar -->
+                        <f:facet name="header">
+                            Servicios Asignados
+                        </f:facet>
+
+                        <!--COLUMNAS cantidad de viaje y codigo de asignacion de camion-->
+                        <p:column headerText="Apellidos" >
+                            <h:outputText value="#{due.cdServicio}"/>
+                        </p:column>  
+                        <p:column headerText="Nombre de Servicio">
+                            <h:outputText value="#{due.nombreServ}"/>
+                        </p:column>
+
+                        <p:column headerText="Descripcion de Servicio" >
+                            <h:outputText value="#{due.descripServ}"/>
+                        </p:column>                                        
+
+                        <p:column headerText="Nombre corto de Servicio" >
+                            <h:outputText value="#{due.ncortoServ}"/>
+                        </p:column>   
+                    </p:dataTable>
+
+                    <p:dialog widgetVar="ListaServ" modal="false">
+                        <p:panelGrid columns="2" style="width: 100%">
+                            <f:facet name="header">  
+                                AGREGA SERVICIO                          
+                            </f:facet>
+                            <h:outputLabel value="Servicio : "/>  
+                            <p:selectOneMenu value="#{comprobanteBean.servicio.cdServicio}" effect="fade" required="true" requiredMessage="Seleccione Servicio">  
+                                <f:selectItem itemLabel="Select One" itemValue="" />  
+                                <f:selectItems value="#{comprobanteBean.listadoDeServicios}" var="turn" itemLabel="#{turn.nombreServ}" itemValue="#{turn.cdServicio}"/>  
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Precio : "/> 
+                            <p:inputText value ="#{comprobanteBean.comprobantedet.precio}"></p:inputText>
+                            <h:outputLabel value="Cant. Toneladas Total : "/> 
+                            <p:inputText value ="#{comprobanteBean.comprobantedet.cantTn}"></p:inputText>
+                            
+                        </p:panelGrid>
+                        <p:commandButton value="Listo" action="#{comprobanteBean.irListoAgregar}" ajax="false" icon="ui-icon-check"/>
+                    </p:dialog>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

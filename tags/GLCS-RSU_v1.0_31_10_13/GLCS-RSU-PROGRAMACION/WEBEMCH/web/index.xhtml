@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>INICIO-EMCH</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./plantillas/TemplateWeb.xhtml">
+            <ui:define name="demo" >
+                <h:outputLink id="loginLink" value="javascript:void(0)" onclick="dlg.show()" title="login">     
+                    <h:form>
+                                               
+                    <p:commandButton value="ACCEDER" />  
+                    </h:form> 
+                </h:outputLink> 
+                <p:growl id="growl" showDetail="true" life="3000" />  
+
+                <p:dialog id="dialog" header="Iniciar Sesión" widgetVar="dlg" modal="true" appendToBody="true">  
+                    <h:form>  
+                        <h:panelGrid columns="2" cellpadding="5">  
+                            <h:outputLabel for="username" value="Usuario:" />  
+                            <p:inputText value="#{loginBean.usuario.nomUsu}"   
+                                         id="username" required="true" label="username" requiredMessage="Ingrese el nombre de usuario" />  
+
+                            <h:outputLabel for="password" value="Contraseña:" />  
+                            <p:password value="#{loginBean.usuario.pass}" id="password" required="true" requiredMessage="Ingese el password" label="password">
+                            </p:password>  
+                            <h:outputLabel for="empresa" value="Empresa:" />                             
+                            <p:selectOneMenu value="#{loginBean.empresa.cdRuc}" filter="true" filterMatchMode="contains" required="true" requiredMessage="Seleccione la Empresa para iniciar el servicio"  >
+                                <f:selectItem itemLabel="Seleccione Empresa" itemValue="" />  
+                                <f:selectItems value="#{loginBean.listarempresa}" var="empresa"  itemLabel="#{empresa.rsocial}" itemValue="#{empresa.cdRuc}"/>  
+                            </p:selectOneMenu>
+                            <f:facet name="footer">  
+                                <p:commandButton id="loginButton" value="Ingresar" update=":growl"   
+                                                 actionListener="#{loginBean.login}"   
+                                                 oncomplete="handleLoginRequest(xhr, status, args)"/>  
+                            </f:facet>  
+                        </h:panelGrid>  
+
+                    </h:form>  
+                </p:dialog>  
+
+                <script type="text/javascript">  
+                    function handleLoginRequest(xhr, status, args) {  
+                        if(args.validationFailed || !args.loggedIn) {  
+                            jQuery('#dialog').effect("shake", { times:3 }, 100);  
+                        } else {  
+                            dlg.hide();  
+                            jQuery('#loginLink').fadeOut();  
+                            window.location="/WEBEMCH/faces/principal.xhtml";
+                        }  
+                    }  
+                </script>  
+            </ui:define>
+
+            <ui:define name="top" >
+
+            </ui:define>   
+
+            <ui:define name="content">
+                
+            </ui:define>   
+            
+        </ui:composition>
+    </h:body>
+</html>
+

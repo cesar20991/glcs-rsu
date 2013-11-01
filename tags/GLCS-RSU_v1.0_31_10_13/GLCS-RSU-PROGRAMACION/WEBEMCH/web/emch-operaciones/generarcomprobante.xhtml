@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../plantillas/Template.xhtml">
+            <ui:define name="usuarios">
+                <br></br>
+                Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+            </ui:define>
+
+            <ui:define name="top">
+
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="generarNewComprobante">
+                    <p:commandButton  value="GUARDAR" action="#{comprobantesBean.guardar()}" icon="ui-icon-arro1-wrefresh-1-w" ajax="false"> 
+                    </p:commandButton>
+                    <p:commandButton  value="CANCELAR" action="#{comprobantesBean.cancelar()}" icon="ui-icon-arro1-wrefresh-1-w" ajax="false"> 
+                    </p:commandButton>
+                    <p:panelGrid id="pngNew" columns="2" style="width: 100%" >
+                        <f:facet name="header">  
+                            GENERAR COMPROBANTE PARA LA <h:outputText value="#{comprobantesBean.liquidacion.TEmpresa.rsocial}"></h:outputText>
+                        </f:facet>
+                        <p:panelGrid id="newComp" columns="2" style="width: 100%">
+                            <f:facet name="header">  
+                                DATOS DE APERTURA DE COMPROBANTE                             
+                            </f:facet>
+                            <h:outputLabel value="Fecha de Emisió:"/>
+                            <p:calendar value="#{comprobantesBean.comprobante.fecMov}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold" >
+                            </p:calendar>
+                            <h:outputLabel value="Numero de Serie"/>
+                            <p:inputText value="#{comprobantesBean.comprobante.serie}" style="font-weight:bold"></p:inputText>
+                            <h:outputLabel value="Numero de Documento"/>
+                            <p:inputText value="#{comprobantesBean.comprobante.nroDoc}" style="font-weight:bold"></p:inputText>
+                            <h:outputLabel value="Tipo de Moneda"/>
+                            <p:selectOneMenu value="#{comprobantesBean.comprobante.TMoneda.cdMda}" effect="fade" required="true" requiredMessage="Seleccione Moneda">
+                                <f:selectItems value="#{comprobantesBean.listaMonedas}" var="moneda" itemLabel="#{moneda.nombre}" itemValue="#{moneda.cdMda}"/>
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Tipo de Doc."/>
+                            <p:selectOneMenu value="#{comprobantesBean.comprobante.TTipodoc.cdTd}" effect="fade" required="true" requiredMessage="Seleccione Tipo de Doc.">
+                                <f:selectItems value="#{comprobantesBean.listaTipoDocs}" var="tipo" itemLabel="#{tipo.descrip}" itemValue="#{tipo.cdTd}"/>
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Total"/>
+                            <p:inputText value="#{comprobantesBean.comprobante.total}" style="font-weight:bold"></p:inputText>
+                            <h:outputLabel value="Sub-Total"/>
+                            <p:inputText value="#{comprobantesBean.comprobante.subTotal}" style="font-weight:bold"></p:inputText>
+                            <h:outputLabel value="IGV"/>
+                            <p:inputText value="#{comprobantesBean.comprobante.igv}" style="font-weight:bold"></p:inputText>
+                        </p:panelGrid>
+
+                        <p:panelGrid columns="1" style="width: 100%">
+                            <p:panelGrid columns="2" style="width: 100%">
+                                <f:facet name="header">  
+                                    DATOS DE LA EMPRESA                              
+                                </f:facet>
+                                <h:outputLabel value="EMPRESA: " style="font-weight:bold"/>
+                                <h:outputLabel value="#{comprobantesBean.liquidacion.TEmpresa.rsocial}" style="font-weight:bold"/>
+                                <h:outputLabel value="RUC:" style="font-weight:bold"/>
+                                <h:outputLabel value="#{comprobantesBean.liquidacion.TEmpresa.rucE}" style="font-weight:bold"/>
+                                <h:outputLabel value="Dirección :" style="font-weight:bold"/>
+                                <h:outputLabel value="#{comprobantesBean.liquidacion.TEmpresa.direccion}" style="font-weight:bold"/>
+                                <h:outputLabel value="Telefono :" style="font-weight:bold"/>
+                                <h:outputLabel value="#{comprobantesBean.liquidacion.TEmpresa.telef}" style="font-weight:bold"/>
+                                <h:outputLabel value="Imagen Empresa :" style="font-weight:bold"/>
+                                <h:outputLabel value="#{comprobantesBean.liquidacion.TEmpresa.logo}"/>                            
+                            </p:panelGrid>
+                            <p:panelGrid columns="2" style="width: 100%">
+                                <f:facet name="header">  
+                                    DATOS DE LA LIQUIDACION                        
+                                </f:facet>
+                                <h:outputLabel value="Fecha Apertura" style="font-weight:bold"/>
+                                <h:outputText value="#{comprobantesBean.liquidacion.fechaApertura}" style="font-weight:bold"/>
+                                <h:outputLabel value="Fecha Inicio" style="font-weight:bold"/>
+                                <h:outputText value="#{comprobantesBean.liquidacion.fechaInicio}" style="font-weight:bold"/>
+                                <h:outputLabel value="Fecha Fin" style="font-weight:bold"/>
+                                <h:outputText value="#{comprobantesBean.liquidacion.fechaFin}" style="font-weight:bold"/>
+                                <h:outputLabel value="Total Toneladas" style="font-weight:bold"/>
+                                <h:outputText value="#{comprobantesBean.liquidacion.totalTn}" style="font-weight:bold"/>
+                            </p:panelGrid>
+                        </p:panelGrid>
+                    </p:panelGrid>
+                    <div style="padding-top: 10px;">
+                        <p:commandButton value="Agregar Servicio" onclick="ListaServ.show();" type="button" icon="ui-icon-plus"/>
+                        <div style="padding-top: 10px;">
+                            <h:outputText value="(*) Asigne Servicio al Comprobante" style="font-weight:bold"/>
+                        </div>
+                    </div>
+                    <p:dataTable id="dtServicios" var="serv" value="#{comprobantesBean.listaComprobanteDet}" editable="true">
+                        <f:facet name="header">
+                            Servicios Asignados
+                        </f:facet>
+                        <p:column headerText="Codigo" >
+                            <h:outputText value="#{serv.TServicio.cdServicio}"/>
+                        </p:column>  
+                        <p:column headerText="Precio">
+                            <h:outputText value="#{serv.precio}"/>
+                        </p:column>
+                        <p:column headerText="Cantidad" >
+                            <h:outputText value="#{serv.cantTn}"/>
+                        </p:column>                                        
+                        <p:column headerText="Total" >
+                            <h:outputText value="#{serv.total}"/>
+                        </p:column>   
+                    </p:dataTable>
+                </h:form>
+                <h:form id="formAgregarServicio">
+                    <p:dialog widgetVar="ListaServ" modal="false">
+                        <p:panelGrid columns="2" style="width: 100%">
+                            <f:facet name="header">
+                                AGREGA SERVICIO
+                            </f:facet>
+                            <h:outputLabel value="Servicio : "/>
+                            <p:selectOneMenu value="#{comprobantesBean.comprobanteDet.TServicio.cdServicio}" effect="fade" required="true" requiredMessage="Seleccione Servicio">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{comprobantesBean.listaServicios}" var="servicio" itemLabel="#{servicio.nombreServ}" itemValue="#{servicio.cdServicio}"/>
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Precio : "/>
+                            <p:inputText value ="#{comprobantesBean.comprobanteDet.precio}"></p:inputText>
+                            <h:outputLabel value="Cant. Toneladas Total : "/>
+                            <p:inputText value ="#{comprobantesBean.comprobanteDet.cantTn}"></p:inputText>
+                        </p:panelGrid>
+                        <p:commandButton value="Agregar" oncomplete="ListaServ.hide()" update=":generarNewComprobante" actionListener="#{comprobantesBean.agregarServicio()}"/>
+                        <p:commandButton value="Cancelar" oncomplete="ListaServ.hide()"/>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+

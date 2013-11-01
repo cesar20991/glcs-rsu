@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        
+        <title>Facelets Template</title>
+        <link rel="stylesheet" type="text/css" href="css/960.css" media="screen"></link>
+        <link rel="stylesheet" type="text/css" href="css/reset.css" media="screen" ></link>
+        <link rel="stylesheet" type="text/css" href="css/960_12_col.css" media="screen"></link>
+        <link rel="stylesheet" type="text/css" href="css/text.css" media="screen"></link>
+        <link rel="stylesheet" type="text/css" href="css/estilos-WebPrincipal.css" media="screen"></link>        
+        <link rel="stylesheet" type="text/css" href="css/otros1/jquery.asmselect.css"></link>
+        <link rel="stylesheet" type="text/css" href="css/otros1/example.css" ></link>
+        <style type="text/css">
+            html{
+                height: 100%;
+            }
+            body{
+                background-color: #ffffff;
+                font-size: 12px;
+                font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+                color: #000000; 
+            }
+            #centrado{
+                margin: 0px auto;
+            }
+            .floatright{float:right;}
+        </style>
+    </h:head>
+
+    <h:body>
+        <div class="container_12">
+            <div class="grid_12">
+                <header class="grid_12" id="ab1">
+                    <div id="logo" class="grid_2">
+                        <img src="../img/Logo.png" width="180" height="100"></img>
+                    </div>
+                    <div class="grid_2 " id="acceder">
+                        <ui:insert name="demo"> acceder </ui:insert> 
+                    </div>        
+                    <div class="clear"></div>                    
+                </header>        
+            </div>        
+            <div class="clear"></div>  
+
+            <div  >
+                <p:layout style="min-width:400px;min-height:200px;" >  
+                    <p:layoutUnit position="north" resizable="true" size="70" minSize="10" maxSize="100">  
+                        <p:menubar autoDisplay="false">  
+                            <p:menuitem value="INICIO" url="#" icon="ui-icon-home" />  
+                            <p:submenu  label="SERVICIOS" icon="ui-icon-home">  
+
+                            </p:submenu>  
+
+                            <p:submenu label="NUESTRA FLOTA" icon="ui-icon-home">  
+
+                            </p:submenu>  
+                            <p:submenu label="CONTACTO" icon="ui-icon-home">  
+
+                            </p:submenu> 
+                        </p:menubar> 
+                    </p:layoutUnit>  
+
+                    <p:layoutUnit position="center" size="210" style="height: 900px;">
+                        contenido
+                        <ui:insert name="content"> content </ui:insert>
+
+                    </p:layoutUnit>
+                </p:layout>                 
+
+
+
+            </div>
+
+        </div> 
+
+    </h:body>
+
+</html>

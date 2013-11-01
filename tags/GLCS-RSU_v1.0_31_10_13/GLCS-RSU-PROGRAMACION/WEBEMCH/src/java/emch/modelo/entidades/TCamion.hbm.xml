@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TCamion" table="t_camion" catalog="bd_emch">
+        <id name="cdCamion" type="string">
+            <column name="cdCamion" length="6" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="TClase" class="emch.modelo.entidades.TClase" fetch="select">
+            <column name="idClase" not-null="true">
+                <comment>Primary Key de la Tabla Clase</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="TMarca" class="emch.modelo.entidades.TMarca" fetch="select">
+            <column name="idMarca" not-null="true">
+                <comment>Primary Key de la Tabla Marca</comment>
+            </column>
+        </many-to-one>
+        <property name="unidad" type="int">
+            <column name="unidad" not-null="true" />
+        </property>
+        <property name="placa" type="string">
+            <column name="placa" length="8" not-null="true">
+                <comment>Nro de Placa del Camion</comment>
+            </column>
+        </property>
+        <property name="anioFab" type="string">
+            <column name="anioFab" length="4" not-null="true">
+                <comment>A</comment>
+            </column>
+        </property>
+        <property name="anioAdq" type="string">
+            <column name="anioAdq" length="4" not-null="true">
+                <comment>A</comment>
+            </column>
+        </property>
+        <property name="nroMotor" type="string">
+            <column name="nroMotor" length="40" not-null="true">
+                <comment>Nro del Motor</comment>
+            </column>
+        </property>
+        <property name="pesoBruto" type="big_decimal">
+            <column name="pesoBruto" precision="5" scale="4" not-null="true">
+                <comment>Peso bruto del Camion</comment>
+            </column>
+        </property>
+        <property name="tipoCombustible" type="string">
+            <column name="tipoCombustible" length="20" not-null="true">
+                <comment>Tipo de combustible utiliza el camion</comment>
+            </column>
+        </property>
+        <property name="kilometraje" type="big_decimal">
+            <column name="kilometraje" precision="13" scale="4" not-null="true">
+                <comment>Kilometraje del Camion</comment>
+            </column>
+        </property>
+        <property name="imagen" type="binary">
+            <column name="imagen">
+                <comment>Imagen del camion</comment>
+            </column>
+        </property>
+        <property name="estado" type="boolean">
+            <column name="estado" not-null="true">
+                <comment>Estado si que indica si el camion est</comment>
+            </column>
+        </property>
+        <set name="TTrabajadorxcamions" inverse="true">
+            <key>
+                <column name="cdCamion" length="6" not-null="true" />
+            </key>
+            <one-to-many class="emch.modelo.entidades.TTrabajadorxcamion" />
+        </set>
+        <set name="TSoatxcamions" inverse="true">
+            <key>
+                <column name="cdCamion" length="6" not-null="true">
+                    <comment>Primary Key de la Tabla Camion</comment>
+                </column>
+            </key>
+            <one-to-many class="emch.modelo.entidades.TSoatxcamion" />
+        </set>
+        <set name="TSeguroxcamions" inverse="true">
+            <key>
+                <column name="cdCamion" length="6" not-null="true">
+                    <comment>Primary Key de la Tabla Camion</comment>
+                </column>
+            </key>
+            <one-to-many class="emch.modelo.entidades.TSeguroxcamion" />
+        </set>
+    </class>
+</hibernate-mapping>

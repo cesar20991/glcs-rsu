@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+            <ui:composition template="../plantillas/Template.xhtml">
+
+                <ui:define name="usuarios">
+                    <br></br>
+                    Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                    <br></br>
+                    Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                    <br></br>
+                    RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+                </ui:define>
+
+                <ui:define name="top">
+                    <p:growl id="messages" autoUpdate="true"/>                     
+                </ui:define>
+
+                <ui:define name="content">
+
+                    <h:form  prependId="false" id="formincidencia">
+                        <h:outputText value="CONTROLAR INCIDENCIAS" style="font-weight:bold;font-size:20px;color:#654B24" />
+
+
+                        <!--AQUI AGREGAS EL FORMULARIO PARA LLENAR LA INCIDENCIA-->
+                       
+
+                        <p:panelGrid columns="2" style="width: 100%">  
+                            <f:facet name="header">  
+                                Agregar Incidencias 
+                            </f:facet>                        
+                            <h:outputLabel value="Nro. COntrol:"/>   
+                             <h:outputText value="#{incidenciaBean.selectedControl.id.cdControlViaje}"  />
+                            <h:outputLabel value="Problema:"/>                                                
+                            <p:inputText value="#{incidenciaBean.incidencias.problema}" required="true" requiredMessage="El campo Problema es obligatorio" >
+                                
+                            </p:inputText>                       
+
+                            <h:outputLabel value="Hora del Problema: "/>
+                            <p:inputText value="#{incidenciaBean.incidencias.horaProb}"  required="false" onkeypress="return validarNumero(event)" >
+                                <f:validateLength minimum="5" maximum="5"/>
+                            </p:inputText>
+                            <h:outputLabel value="Observaciones :"/>
+                            <p:inputText value="#{incidenciaBean.incidencias.observaciones}" required="false" onkeypress="return validarNumero(event)">
+                               
+                            </p:inputText>
+
+                            <h:outputLabel value="Solucion:"/>
+                            <p:inputText value="#{incidenciaBean.incidencias.soluc}" required="false" />
+                            
+                            <h:outputLabel value="Fecha de Inicio"/>
+                            <p:calendar value="#{incidenciaBean.incidencias.fechaInc}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold" >                                
+                            </p:calendar>
+                            
+                            <h:outputLabel value="Zona:"/>
+                            <p:inputText value="#{incidenciaBean.incidencias.zona}" required="false" />
+
+
+                        </p:panelGrid>      
+                        <div style="padding-top: 10px;">
+                            <p:commandButton  value="Registrar Incidencia" action="#{incidenciaBean.irAgregar()}" update=":formincidencia:datatblLiquid" icon="ui-icon-check" style="margin:0"/>                                               
+                        </div>
+
+
+
+
+                        <!--Listado de INCIDENCIAS DEL CONTROL SELECCIONADO-->
+                        <p:tab title="CONTROLAR INCIDENCIAS">
+                            <div style="padding-bottom: 10px;">
+
+                            </div>
+
+                            <p:dataTable var="control" value="#{incidenciaBean.listarControlPorIncidencia}" 
+                                         paginator="true" rows="15"  id="datatblLiquid"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                         rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                
+                                <f:facet name="header">  
+                                    Ver Incidencias
+                                </f:facet>  
+                                <p:column rendered="false"> 
+                                    <f:facet name="header">  
+                                        <h:outputText value="Control de Viaje" />  
+                                    </f:facet>  
+                                    <h:outputText value="#{control.TControlviaje.id.cdControlViaje}"/>                        
+                                </p:column>
+
+                                <p:column > 
+                                    <f:facet name="header">  
+                                        <h:outputText value="Fecha de Inicio" />  
+                                    </f:facet>  
+                                    <h:outputText value="#{control.fechaInc}"/>                        
+                                </p:column>
+
+                                <p:column >
+                                    <f:facet name="header">  
+                                        <h:outputText value="Zona" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{control.zona}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">  
+                                        <h:outputText value="Problema" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{control.problema}"/>
+                                </p:column>
+
+                                <p:column >
+                                    <f:facet name="header">  
+                                        <h:outputText value="Hora del Problema" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{control.horaProb}"/>
+                                </p:column>
+
+                                <p:column >
+                                    <f:facet name="header">  
+                                        <h:outputText value="Observaciones" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{control.observaciones}"/>
+                                </p:column>
+
+                                <p:column >
+                                    <f:facet name="header">  
+                                        <h:outputText value="Solucion" />  
+                                    </f:facet> 
+                                    <h:outputText value="#{control.soluc}"/>
+                                </p:column>
+
+
+                            </p:dataTable>
+
+                        </p:tab>                   
+
+
+                    </h:form>
+
+                </ui:define>
+
+            </ui:composition>
+
+
+        
+    </h:body>
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TEstadoxliquidacion" table="t_estadoxliquidacion" catalog="bd_emch">
+        <composite-id name="id" class="emch.modelo.entidades.TEstadoxliquidacionId">
+            <key-property name="fechaEstado" type="timestamp">
+                <column name="fechaEstado" length="19" />
+            </key-property>
+            <key-property name="cdEstadoLiq" type="string">
+                <column name="cdEstadoLiq" length="3" />
+            </key-property>
+            <key-property name="cdLiq" type="string">
+                <column name="cdLiq" length="10" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="TEstadoliq" class="emch.modelo.entidades.TEstadoliq" update="false" insert="false" fetch="select">
+            <column name="cdEstadoLiq" length="3" not-null="true">
+                <comment>Primary Key de la tabla Estado de Liquidaci</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="TLiquidacion" class="emch.modelo.entidades.TLiquidacion" update="false" insert="false" fetch="select">
+            <column name="cdLiq" length="10" not-null="true">
+                <comment>Primary Key de la Tabla Liquidaci</comment>
+            </column>
+        </many-to-one>
+        <property name="obs" type="string">
+            <column name="Obs" length="100">
+                <comment>Observacion sobre el estado de la Liquidaci</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

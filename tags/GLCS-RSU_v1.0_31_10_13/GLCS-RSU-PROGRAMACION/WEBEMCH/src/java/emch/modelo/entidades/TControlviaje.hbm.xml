@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TControlviaje" table="t_controlviaje" catalog="bd_emch">
+        <composite-id name="id" class="emch.modelo.entidades.TControlviajeId">
+            <key-property name="cdControlViaje" type="string">
+                <column name="cdControlViaje" length="10" />
+            </key-property>
+            <key-property name="nroViaje" type="int">
+                <column name="nroViaje" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="TDespachodet" class="emch.modelo.entidades.TDespachodet" fetch="select">
+            <column name="Nro" not-null="true">
+                <comment>Nro del Documento despacho</comment>
+            </column>
+            <column name="cdDespacho" length="10" not-null="true">
+                <comment>C</comment>
+            </column>
+            <column name="cdRuc" length="6" not-null="true">
+                <comment>Ruc de la Empresa</comment>
+            </column>
+        </many-to-one>
+        <property name="fechaEmi" type="timestamp">
+            <column name="fechaEmi" length="19" not-null="true">
+                <comment>Fecha en la que se emite el documento</comment>
+            </column>
+        </property>
+        <property name="horaEstimada" type="string">
+            <column name="horaEstimada" length="5" />
+        </property>
+        <property name="horaReal" type="string">
+            <column name="horaReal" length="5" />
+        </property>
+        <property name="obs" type="string">
+            <column name="Obs" length="300">
+                <comment>Alguna observaci</comment>
+            </column>
+        </property>
+        <set name="TIncidencias" inverse="true">
+            <key>
+                <column name="cdControlViaje" length="10" not-null="true">
+                    <comment>Primary Key de la Tabla Control de Viaje</comment>
+                </column>
+                <column name="nroViaje" not-null="true">
+                    <comment>Indica el numero del viaje</comment>
+                </column>
+            </key>
+            <one-to-many class="emch.modelo.entidades.TIncidencia" />
+        </set>
+        <set name="TPesajes" inverse="true">
+            <key>
+                <column name="cdControlViaje" length="10" not-null="true">
+                    <comment>Primary Key de la Tabla Control de Viaje</comment>
+                </column>
+                <column name="nroViaje" not-null="true">
+                    <comment>Indica el numero del viaje</comment>
+                </column>
+            </key>
+            <one-to-many class="emch.modelo.entidades.TPesaje" />
+        </set>
+    </class>
+</hibernate-mapping>

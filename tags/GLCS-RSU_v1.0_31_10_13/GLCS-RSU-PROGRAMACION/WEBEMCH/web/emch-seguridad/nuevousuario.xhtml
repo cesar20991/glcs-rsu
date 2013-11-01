@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Administrar Empresas</title>   
+    </h:head>
+    <h:body>
+
+        <ui:composition template="../plantillas/Template.xhtml">
+
+            <ui:define name="usuarios">
+                Usuario: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+            </ui:define>
+
+            <ui:define name="top">
+                <p:growl id="messages" autoUpdate="true"/> 
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form >
+                    <h:outputText value="ADMINISTRAR - USUARIO" style="font-weight:bold;font-size:20px;color:#654B24" />
+
+                    <p:panelGrid columns="2" style="width: 100%">
+                        <f:facet name="header">  
+                            Información del Usuario
+                        </f:facet>
+
+                        <p:panelGrid columns="2" style="width: 100%">
+                            <f:facet name="header">  
+                                Usuario
+                            </f:facet>
+                            <h:outputLabel value="Nombre Usuario : *" />
+                            <p:inputText value="#{admUsuarioBean.usuario.nomUsu}" style="width:300px;" required="true" requiredMessage="Nomre de Usuario es obligatorio" />
+
+                            <h:outputLabel for="pwd1" value="Password : *" />  
+                            <p:password id="pwd1" value="#{admUsuarioBean.usuario.pass}" style="width:300px;" match="pwd2" label="Password 1" required="true" feedback="true"/>  
+
+                            <h:outputLabel for="pwd2" value="Password : *" />  
+                            <p:password id="pwd2" value="#{admUsuarioBean.usuario.pass}" style="width:300px;" label="Password 2" required="true" feedback="true"/>  
+
+                            <h:outputLabel value="Perfil :" />
+                            <p:selectOneMenu value="#{admUsuarioBean.usuario.TPerfil.cdPerfil}" filter="true" filterMatchMode="contains" effect="fade" required="true" requiredMessage="Debe seleccionar un Perfil" style="width:300px;">  
+                                <f:selectItem itemLabel="Select One" itemValue="" />  
+                                <f:selectItems value="#{admUsuarioBean.listarPerfil}" var="perfil" itemLabel="#{perfil.nombrePrf}" itemValue="#{perfil.cdPerfil}"/>  
+                            </p:selectOneMenu>
+
+                            <h:outputLabel value="Estado :" />
+                            <p:selectOneMenu value="#{admUsuarioBean.usuario.estado}">  
+                                <f:selectItem itemLabel="Habilitado" itemValue="true"/>  
+                                <f:selectItem itemLabel="Deshabilitado" itemValue="false"/>  
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <p:panelGrid columns="2" style="width: 100%">
+                            <f:facet name="header">  
+                                Información de Perfiles
+                            </f:facet>
+                            <h:outputLabel value="Perfil Administrador : " style="font-weight:bold"/>
+                            <h:outputLabel value="Acceso a todos los modulos"  style="font-weight:bold"/>
+                            <h:outputLabel value="Perfil Supervisor :" style="font-weight:bold"/>
+                            <h:outputLabel value="Acceso a los modulos Administración, Control, Operaciones"  style="font-weight:bold"/>
+                            <h:outputLabel value="Despachador :" style="font-weight:bold"/>
+                            <h:outputLabel value="Acceso a los modulos Administración, Control"  style="font-weight:bold"/>
+                            <h:outputLabel value="Perfil Contador :" style="font-weight:bold"/>
+                            <h:outputLabel value="Acceso al módulo de operaciones"  style="font-weight:bold"/>
+
+                        </p:panelGrid>
+                    </p:panelGrid>
+                    <div style="padding-top: 10px;">
+                        <p:commandButton  value="#{admUsuarioBean.accion}" action="#{admUsuarioBean.ingresar()}"  ajax="false"  icon="ui-icon-check" style="margin:0"/>                                               
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+</html>
+

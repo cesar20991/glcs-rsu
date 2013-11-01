@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../plantillas/Template.xhtml">
+            <ui:define name="usuarios">
+                <br></br>
+                Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+            </ui:define>
+
+            <ui:define name="top">
+                <p:growl id="messages" autoUpdate="true"/>                     
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form  prependId="false" id="interesxin"> 
+                    <h:outputText value="GENERAR LIQUIDACION - APERTURA" style="font-weight:bold;font-size:20px;color:#654B24" />
+                    <p:tab title="LIQUIDACION">
+                        <div style="padding-bottom: 10px;">
+                            <p:commandButton  value="Generar Liquidación / Pesajes" icon="ui-icon-plus" onclick="liqDialog.show();" ajax="false"  type="button"> 
+                            </p:commandButton>      
+                            <p:commandButton  value="Generar Comprobante" icon="ui-icon-document" action="#{consLiquidacionBean.irGenerar()}" ajax="false"> 
+                            </p:commandButton>                                  
+                        </div>
+
+                        <p:dataTable var="liquidacion" value="#{consLiquidacionBean.listarLiquidacion}" rowKey="#{liquidacion.cdLiq}" selectionMode="single" selection="#{comprobanteBean.selectedliquidacion}"
+                                     paginator="true" rows="15"  id="datatblLiquid"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                  
+
+
+                            <f:facet name="header">  
+                                LISTADO DE LIQUIDACIONES APERTURADAS DE LA <h:outputText value="#{liquidacionBean.empresa.rsocial}"></h:outputText>
+                            </f:facet>  
+
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Ver Info." />  
+                                </f:facet> 
+                                <p:commandButton update=":interesxin:display2" oncomplete="infoDialog.show()" icon="ui-icon-search" title="View">  
+                                    <f:setPropertyActionListener value="#{liquidacion}" target="#{consLiquidacionBean.liquidacion}" />  
+                                </p:commandButton>  
+                            </p:column>
+
+                            <p:column > 
+                                <f:facet name="header">  
+                                    <h:outputText value="CdLiquidacion" />  
+                                </f:facet>  
+                                <h:outputText value="#{liquidacion.cdLiq}"/>                        
+                            </p:column>
+
+                            <p:column > 
+                                <f:facet name="header">  
+                                    <h:outputText value="Tipo Liquidacion" />  
+                                </f:facet>  
+                                <h:outputText value="#{liquidacion.TTipoliquidacion.nombre}"/>                        
+                            </p:column>
+
+                            <p:column  filterBy="#{liquidacion.fechaApertura}" filterMatchMode="contains">
+                                <f:facet name="header">  
+                                    <h:outputText value="Fecha Apertura" />  
+                                </f:facet> 
+                                <h:outputText value="#{liquidacion.fechaApertura}"/>
+                            </p:column>
+
+                            <p:column  filterBy="#{liquidacion.fechaInicio}" filterMatchMode="contains">
+                                <f:facet name="header">  
+                                    <h:outputText value="Fecha Inicio" />  
+                                </f:facet> 
+                                <h:outputText value="#{liquidacion.fechaInicio}"/>
+                            </p:column>
+
+                            <p:column filterBy="#{liquidacion.fechaFin}" filterMatchMode="contains">
+                                <f:facet name="header">  
+                                    <h:outputText value="Fecha Fin" />  
+                                </f:facet> 
+                                <h:outputText value="#{liquidacion.fechaFin}"/>
+                            </p:column>
+
+                            <p:column filterBy="#{liquidacion.totalTn}" filterMatchMode="contains">
+                                <f:facet name="header">  
+                                    <h:outputText value="Total Toneladas"/>  
+                                </f:facet> 
+                                <h:outputText value="#{liquidacion.totalTn}"/>
+                            </p:column>
+
+                            <p:column filterBy="#{liquidacion.asunto}" filterMatchMode="contains">
+                                <f:facet name="header">  
+                                    <h:outputText value="Asunto" />  
+                                </f:facet> 
+                                <h:outputText value="#{liquidacion.asunto}"/>
+                            </p:column>                             
+
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="Ver Estado" />  
+                                </f:facet> 
+                                <p:commandButton update=":interesxin:display" oncomplete="carDialog.show()" icon="ui-icon-search" title="View">  
+                                    <f:setPropertyActionListener value="#{liquidacion}" target="#{liquidacionBean.selectedEstadoLiq}" />  
+                                </p:commandButton>  
+                            </p:column>
+
+                            <p:column style="width:8%; text-align: center">  
+                                <f:facet name="header">  
+                                    <h:outputText value="Elim" />  
+                                </f:facet>
+                                <p:commandButton update=":interesxin:display3" onclick="confirmation.show();" icon="ui-icon-cancel" title="View">  
+                                    <f:setPropertyActionListener value="#{liquidacion}" target="#{liquidacionBean.selectedEstadoLiq}" />  
+                                </p:commandButton> 
+                            </p:column> 
+
+                        </p:dataTable>
+
+                    </p:tab>
+
+                    <p:dialog id="doIt" header="Fecha de Liquidación" widgetVar="liqDialog" modal="false" >                        
+                        <p:panelGrid id="panelconsultor" columns="2" style="width: 100%">
+                            <h:outputLabel value="Tipo de Liquidacion"/>
+                            <p:selectOneMenu value="#{liquidacionBean.liquidacion.TTipoliquidacion.cdTipoLiq}">
+                                <f:selectItems value="#{liquidacionBean.listatipoliq}" var="due" itemLabel="#{due.nombre}" itemValue="#{due.cdTipoLiq}"/>
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Fecha de Apertura"/>
+                            <p:calendar value="#{liquidacionBean.liquidacion.fechaApertura}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
+                            </p:calendar>
+                            <h:outputLabel value="Fecha de Inicio"/>
+                            <p:calendar value="#{liquidacionBean.liquidacion.fechaInicio}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
+                            </p:calendar>
+                            <h:outputLabel value="Fecha de Fin"/>
+                            <p:calendar value="#{liquidacionBean.liquidacion.fechaFin}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold">                                
+                            </p:calendar>
+                        </p:panelGrid>
+
+                        <div style="padding-bottom: 10px;">
+                            <p:commandButton value="Aperturar" action="#{liquidacionBean.irAperturar}" ajax="false" icon="ui-icon-check"/>
+                        </div>
+                    </p:dialog>
+
+                    <p:dialog header="" widgetVar="carDialog" resizable="false" showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">
+                        <p:dataTable id="display" var="con" value="#{liquidacionBean.listaestadoliq}" style="font-weight:bold">
+                            <f:facet name="header">
+                                Estado de Liquidacion
+                            </f:facet>
+                            <p:column headerText="Liquidacion Nro">
+                                <h:outputText value="#{con.id.cdLiq}" />
+                            </p:column>
+                            <p:column headerText="Fecha Estado">
+                                <h:outputText value="#{con.id.fechaEstado}" />
+                            </p:column>
+                            <p:column headerText="Estado">
+                                <h:outputText value="#{con.TEstadoliq.nombre}" />
+                            </p:column>
+                            <p:column headerText="Observaciones">
+                                <h:outputText value="#{con.obs}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                    <p:dialog header="Info. de Liquidación" widgetVar="infoDialog" resizable="false" id="carDlg"  
+                              showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">  
+
+                        <h:panelGrid id="display2" columns="2" cellpadding="4" style="margin:0 auto;">  
+                            <h:outputText value="Nro. Liquidación :" />  
+                            <h:outputText value="#{consLiquidacionBean.liquidacion.cdLiq}" style="font-weight:bold"/>  
+                            <h:outputText value="Tipo :" />  
+                            <h:outputText value="#{consLiquidacionBean.liquidacion.TTipoliquidacion.nombre}" style="font-weight:bold"/>  
+                            <h:outputText value="Fecha Apertura:" />  
+                            <h:outputText value="#{consLiquidacionBean.liquidacion.fechaApertura}" style="font-weight:bold"/>  
+                            <h:outputText value="Fecha Inicio:" />  
+                            <h:outputText value="#{consLiquidacionBean.liquidacion.fechaInicio}" style="font-weight:bold"/>  
+                            <h:outputText value="Fecha Fin" />  
+                            <h:outputText value="#{consLiquidacionBean.liquidacion.fechaFin}" style="font-weight:bold"/>  
+                            <h:outputText value="Total TN a Cobrar:" />  
+                            <h:outputText value="#{consLiquidacionBean.liquidacion.totalTn}" style="font-weight:bold"/>  
+                            <h:outputText value="Asunto:" />  
+                            <h:outputText value="#{consLiquidacionBean.liquidacion.asunto}" style="font-weight:bold"/>  
+                            <h:outputText value="Usuario Creador:" />  
+                            <h:outputText value="#{consLiquidacionBean.liquidacion.usuCrea}" style="font-weight:bold"/>                              
+
+                        </h:panelGrid>  
+                    </p:dialog>
+
+                    <p:confirmDialog id="confirmDialog" message="¿Seguro que desea Eliminar la Liquidacion Seleccionada? Se quitaran los Pesajes Asociados"  
+                                     header="ELIMINAR LIQUIDACION" severity="alert" widgetVar="confirmation" appendToBody="true">  
+                        <p:panelGrid id="display3" columns="2" style="margin:0 auto;">                            
+                            <h:outputText value="Nro. Liquidación :" />  
+                            <h:outputText value="#{liquidacionBean.selectedEstadoLiq.cdLiq}"/>
+                        </p:panelGrid> 
+                        <p:commandButton id="confirm" value="SI" oncomplete="confirmation.hide()" update=":interesxin:datatblLiquid"  
+                                         actionListener="#{liquidacionBean.EliminarLiquidacion()}" />  
+                        <p:commandButton id="decline" value="NO" onclick="confirmation.hide();" type="button" />
+
+                    </p:confirmDialog>  
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+

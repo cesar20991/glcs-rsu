@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TMarca" table="t_marca" catalog="bd_emch">
+        <id name="idMarca" type="int">
+            <column name="idMarca" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreMarca" type="string">
+            <column name="nombreMarca" length="40" not-null="true">
+                <comment>Nombre de la marca de camion</comment>
+            </column>
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="45">
+                <comment>Breve Descripci</comment>
+            </column>
+        </property>
+        <set name="TCamions" inverse="true">
+            <key>
+                <column name="idMarca" not-null="true">
+                    <comment>Primary Key de la Tabla Marca</comment>
+                </column>
+            </key>
+            <one-to-many class="emch.modelo.entidades.TCamion" />
+        </set>
+    </class>
+</hibernate-mapping>

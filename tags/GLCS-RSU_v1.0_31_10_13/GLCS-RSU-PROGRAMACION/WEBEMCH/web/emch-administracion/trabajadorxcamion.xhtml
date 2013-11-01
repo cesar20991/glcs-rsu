@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Asignar Trabajador por Camion</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <ui:composition template="../plantillas/Template.xhtml">
+
+                <ui:define name="usuarios"><br></br>
+                    Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                    <br></br>
+                    Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                    <br></br>
+                    RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>
+                </ui:define>
+
+                <ui:define name="top">
+                    <h:form>
+                        <p:growl id="messages" autoUpdate="true"/>                     
+                    </h:form>
+                </ui:define>
+
+                <ui:define name="content">
+
+                    <h:form id="btnGuardar">
+                        <p:commandButton value="Guaradr" icon="ui-icon-disk" />
+                    </h:form>
+                    <h:form id="btnCancelar">
+                        <p:commandButton value="Cancelar" icon="ui-icon-cancel" action="#{trabajadorXCamionBean.administrar}"/>
+                    </h:form>
+
+                    <h:form id="formChoferes">
+                        <p:dataTable id="dtChoferes" var="chofer" value="#{trabajadorXCamionBean.choferes}" rowKey="#{chofer.cdTrabajador}" selection="#{trabajadorXCamionBean.selectChofer}">
+                            <h:inputHidden value="#{chofer.cdTrabajador}"/>
+
+                            <p:column selectionMode="single" style="width:2%" /> 
+
+                            <p:column headerText="DNI">
+                                <h:outputText value="#{chofer.dni}" />
+                            </p:column>
+
+                            <p:column headerText="Apellidos y Nombres">
+                                <h:outputText value="#{chofer.apellidos}, #{chofer.nombres}" />
+                            </p:column>
+
+                            <p:column headerText="Telefono">
+                                <h:outputText value="#{chofer.telefono}" />
+                            </p:column>
+
+                            <p:column headerText="Celular">
+                                <h:outputText value="#{chofer.celular}" />
+                            </p:column>
+
+                            <p:column headerText="Email">
+                                <h:outputText value="#{chofer.email}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+
+                </ui:define>
+
+                <ui:define name="bottom">
+                </ui:define>
+
+            </ui:composition>
+        </h:form>
+    </h:body>
+</html>

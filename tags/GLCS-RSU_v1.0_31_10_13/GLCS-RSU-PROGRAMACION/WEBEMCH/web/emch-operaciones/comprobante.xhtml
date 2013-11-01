@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../plantillas/Template.xhtml">
+            <ui:define name="usuarios">
+                <br></br>
+                Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                <br></br>
+                Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+            </ui:define>
+            <ui:define name="top">
+                <p:growl id="messages" autoUpdate="true"/>                     
+            </ui:define>
+
+            <ui:define name="content">           
+                <h:form prependId="false" id="interesxin">
+                    <h:outputText value="SELECCIONAR COMPROBANTE / PESAJE A REALIZAR" style="font-weight:bold;font-size:20px;color:#654B24" />
+                    <div style="margin-bottom: 10px;">                            
+                    </div>                       
+                    <p:commandButton value="PESAJE" style="width:250px; height:250px;" action="#{comprobanteBean.irPesaje()}" ajax="false">
+                    </p:commandButton>
+                    <p:commandButton value="COMPROBANTE" style="width:250px; height:250px;" action="#{comprobanteBean.irComprobante}" ajax="false">                                                       
+                    </p:commandButton>
+                </h:form>
+            </ui:define> 
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

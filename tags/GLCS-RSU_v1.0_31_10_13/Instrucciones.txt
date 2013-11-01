@@ -1,0 +1,6 @@
+
+
+PROGRA:
+- Una vez levantada la progra en su maquina, primero Build and clean
+- luego pueden avanzar con normalidad
+- Para la base de datos: las funciones lo hacen uno por uno guiense 

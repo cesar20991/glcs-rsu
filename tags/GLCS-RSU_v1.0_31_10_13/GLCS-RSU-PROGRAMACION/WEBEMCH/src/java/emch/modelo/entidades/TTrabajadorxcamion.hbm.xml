@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="emch.modelo.entidades.TTrabajadorxcamion" table="t_trabajadorxcamion" catalog="bd_emch">
+        <id name="cdAsigCamion" type="string">
+            <column name="cdAsigCamion" length="10" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="TTurno" class="emch.modelo.entidades.TTurno" fetch="select">
+            <column name="cdTurno" length="4" not-null="true" />
+        </many-to-one>
+        <many-to-one name="TTrabajador" class="emch.modelo.entidades.TTrabajador" fetch="select">
+            <column name="cdTrabajador" length="6" not-null="true" />
+        </many-to-one>
+        <many-to-one name="TCamion" class="emch.modelo.entidades.TCamion" fetch="select">
+            <column name="cdCamion" length="6" not-null="true" />
+        </many-to-one>
+        <property name="fechaAsig" type="timestamp">
+            <column name="fechaAsig" length="19" not-null="true" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="estado" not-null="true" />
+        </property>
+        <property name="observacion" type="string">
+            <column name="observacion" length="200" />
+        </property>
+        <set name="TDespachodets" inverse="true">
+            <key>
+                <column name="cdAsigCamion" length="10" not-null="true" />
+            </key>
+            <one-to-many class="emch.modelo.entidades.TDespachodet" />
+        </set>
+    </class>
+</hibernate-mapping>
