@@ -1,0 +1,14 @@
+------------------------------------------------------------------------------------------
+- No tiene parte mobile integrada
+- Las funcionalidades estan a un 75% implementadas
+- Para esta versión se debe usar el script de BD - ScriptBDEMCH_phpMyAdmin_FINAL2_CambioData.sql
+- Utilizar JAR de Primefaces 3.4
+- todas las funciones se utilizan
+- No esta integrado el desliegue de menus por perfil
+- Falta arreglar data en ciertas tablas
+- Hay 37 tablas en la BD
+- Se quitaron permisos a algunos usuarios de hacer commit o ver progra (eric,diego,mario)
+- Esta versión fue presentada en Julio de 2013 - Taller de proyectos-exposición final.
+- 2 funcionalidades no funcionan en mi PC (cesar), pero en otras maquinas si. Se debe desplegar otro WAR si se quiere probar.
+- Se debe arreglar la parte de Cliente (verificar su liquidación).
+------------------------------------------------------------------------------------------
