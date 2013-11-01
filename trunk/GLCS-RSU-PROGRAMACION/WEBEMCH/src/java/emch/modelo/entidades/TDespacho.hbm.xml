@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TDespacho" table="t_despacho" catalog="bd_emch">
         <composite-id name="id" class="emch.modelo.entidades.TDespachoId">
@@ -13,54 +13,88 @@
             </key-property>
         </composite-id>
         <many-to-one name="TTurno" class="emch.modelo.entidades.TTurno" fetch="select">
-            <column name="cdTurno" length="4" not-null="true" />
+            <column name="cdTurno" length="4" not-null="true">
+                <comment>Primary key de la tabla Turno, aqui nos permitira identificar a que turno corresponde el despacho</comment>
+            </column>
         </many-to-one>
         <many-to-one name="TUbigeo" class="emch.modelo.entidades.TUbigeo" fetch="select">
-            <column name="cdUbig" length="6" not-null="true" />
+            <column name="cdUbig" length="6" not-null="true">
+                <comment>Primary key de la tabla Ubigeo, aqui nos permitira identificar a que distrito corresponde este despacho</comment>
+            </column>
         </many-to-one>
         <many-to-one name="TEmpresa" class="emch.modelo.entidades.TEmpresa" update="false" insert="false" fetch="select">
-            <column name="cdRuc" length="6" not-null="true" />
+            <column name="cdRuc" length="6" not-null="true">
+                <comment>Primary key de la tabla empresa, aqui nos permitira identificar a que empresa le corresponde la liquidaci&#243;n</comment>
+            </column>
         </many-to-one>
         <property name="nroDespacho" type="string">
-            <column name="nroDespacho" length="10" not-null="true" />
+            <column name="nroDespacho" length="10" not-null="true">
+                <comment>Nro interno del despacho</comment>
+            </column>
         </property>
         <property name="fechaEmi" type="timestamp">
-            <column name="fechaEmi" length="19" not-null="true" />
+            <column name="fechaEmi" length="19" not-null="true">
+                <comment>Fecha en la que se emitio</comment>
+            </column>
         </property>
         <property name="zona" type="string">
-            <column name="zona" length="50" not-null="true" />
+            <column name="zona" length="50" not-null="true">
+                <comment>Zona a la que corresponde este despacho</comment>
+            </column>
         </property>
         <property name="dineroEnviado" type="big_decimal">
-            <column name="dineroEnviado" precision="13" scale="4" />
+            <column name="dineroEnviado" precision="13" scale="4">
+                <comment>Dinero que se envio en el despacho</comment>
+            </column>
         </property>
         <property name="totalDineroUso" type="big_decimal">
-            <column name="totalDineroUso" precision="13" scale="4" />
+            <column name="totalDineroUso" precision="13" scale="4">
+                <comment>Total del dinero que se utilizo</comment>
+            </column>
         </property>
         <property name="totalDineroSinUso" type="big_decimal">
-            <column name="totalDineroSinUso" precision="13" scale="4" />
+            <column name="totalDineroSinUso" precision="13" scale="4">
+                <comment>Total de dinero que no se utilizo</comment>
+            </column>
         </property>
         <property name="usuCrea" type="string">
-            <column name="usuCrea" length="10" not-null="true" />
+            <column name="usuCrea" length="10" not-null="true">
+                <comment>usuario que crea el despacho</comment>
+            </column>
         </property>
         <property name="fechaReg" type="timestamp">
-            <column name="fechaReg" length="19" not-null="true" />
+            <column name="fechaReg" length="19" not-null="true">
+                <comment>Fecha en la que se registro</comment>
+            </column>
         </property>
         <property name="usuModf" type="string">
-            <column name="usuModf" length="10" />
+            <column name="usuModf" length="10">
+                <comment>Usuario que modifica el despacho</comment>
+            </column>
         </property>
         <property name="fechaModf" type="timestamp">
-            <column name="fechaModf" length="19" />
+            <column name="fechaModf" length="19">
+                <comment>Fecha en la que se modifico</comment>
+            </column>
         </property>
         <property name="evaluacion" type="string">
-            <column name="evaluacion" length="2" />
+            <column name="evaluacion" length="2">
+                <comment>se evalua si el despacho fue bueno o malo</comment>
+            </column>
         </property>
         <property name="obs" type="string">
-            <column name="obs" length="200" />
+            <column name="obs" length="200">
+                <comment>Alguna observaci&#243;n en el despacho</comment>
+            </column>
         </property>
         <set name="TDespachodets" inverse="true">
             <key>
-                <column name="cdDespacho" length="10" not-null="true" />
-                <column name="cdRuc" length="6" not-null="true" />
+                <column name="cdDespacho" length="10" not-null="true">
+                    <comment>Primary Key de la Tabla Despacho, aqui nos permitira identificar a que despacho le corresponde el detalle</comment>
+                </column>
+                <column name="cdRuc" length="6" not-null="true">
+                    <comment>Primary key de la tabla Empresa, aqui nos permitira saber que empresa esta relacionada a este detalle</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TDespachodet" />
         </set>

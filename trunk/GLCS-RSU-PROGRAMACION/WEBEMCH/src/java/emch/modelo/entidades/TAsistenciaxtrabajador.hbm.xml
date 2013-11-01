@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TAsistenciaxtrabajador" table="t_asistenciaxtrabajador" catalog="bd_emch">
         <composite-id name="id" class="emch.modelo.entidades.TAsistenciaxtrabajadorId">
@@ -13,19 +13,29 @@
             </key-property>
         </composite-id>
         <many-to-one name="TTrabajador" class="emch.modelo.entidades.TTrabajador" update="false" insert="false" fetch="select">
-            <column name="cdTrabajador" length="6" not-null="true" />
+            <column name="cdTrabajador" length="6" not-null="true">
+                <comment>Primary Key de la Tabla Trabajador, aqui nos permitira identificar de que trabajador es la asitencia</comment>
+            </column>
         </many-to-one>
         <many-to-one name="TAsistencia" class="emch.modelo.entidades.TAsistencia" update="false" insert="false" fetch="select">
-            <column name="cdAsistencia" length="5" not-null="true" />
+            <column name="cdAsistencia" length="5" not-null="true">
+                <comment>Primary key de la tabla Asistencia, aqui nos permitira identificar la asistencia</comment>
+            </column>
         </many-to-one>
         <property name="asiste" type="java.lang.Boolean">
-            <column name="Asiste" />
+            <column name="Asiste">
+                <comment>Variable que nos permitira identificar si asistio o no</comment>
+            </column>
         </property>
         <property name="tardanza" type="java.lang.Boolean">
-            <column name="Tardanza" />
+            <column name="Tardanza">
+                <comment>Variable que nos permitira identificar si llego tarde</comment>
+            </column>
         </property>
         <property name="fustifica" type="java.lang.Boolean">
-            <column name="Fustifica" />
+            <column name="Fustifica">
+                <comment>Variable que nos permitira identificar si justifico la falta que pudo tener</comment>
+            </column>
         </property>
     </class>
 </hibernate-mapping>

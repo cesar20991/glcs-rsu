@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TPesaje" table="t_pesaje" catalog="bd_emch">
         <id name="cdPesaje" type="string">
@@ -18,7 +18,7 @@
         </many-to-one>
         <many-to-one name="TLiquidacion" class="emch.modelo.entidades.TLiquidacion" fetch="select">
             <column name="cdLiq" length="10">
-                <comment>Primary Key de la Tabla Liquidaci</comment>
+                <comment>Primary Key de la Tabla Liquidaci&#243;n</comment>
             </column>
         </many-to-one>
         <property name="nroPesaje" type="int">
@@ -69,7 +69,7 @@
         </property>
         <property name="obs" type="string">
             <column name="Obs" length="100">
-                <comment>Se registra alguna observaci</comment>
+                <comment>Se registra alguna observaci&#243;n</comment>
             </column>
         </property>
         <property name="imagenP" type="binary">

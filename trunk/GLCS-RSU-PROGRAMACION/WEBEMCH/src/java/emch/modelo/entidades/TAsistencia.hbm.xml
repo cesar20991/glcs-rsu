@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TAsistencia" table="t_asistencia" catalog="bd_emch">
         <id name="cdAsistencia" type="string">
@@ -9,26 +9,40 @@
             <generator class="assigned" />
         </id>
         <many-to-one name="TTurno" class="emch.modelo.entidades.TTurno" fetch="select">
-            <column name="cdTurno" length="4" not-null="true" />
+            <column name="cdTurno" length="4" not-null="true">
+                <comment>Primary key de la tabla turno, aqui nos ayudara a saber en que turno se tomo la asistencia</comment>
+            </column>
         </many-to-one>
         <property name="fecha" type="timestamp">
-            <column name="fecha" length="19" not-null="true" />
+            <column name="fecha" length="19" not-null="true">
+                <comment>Fecha de la asisitencia</comment>
+            </column>
         </property>
         <property name="usuCrea" type="string">
-            <column name="usuCrea" length="10" not-null="true" />
+            <column name="usuCrea" length="10" not-null="true">
+                <comment>Usuario que crea la asistencia</comment>
+            </column>
         </property>
         <property name="fechaReg" type="timestamp">
-            <column name="fechaReg" length="19" not-null="true" />
+            <column name="fechaReg" length="19" not-null="true">
+                <comment>fecha en la que se registra la asistencia</comment>
+            </column>
         </property>
         <property name="usuModf" type="string">
-            <column name="usuModf" length="10" />
+            <column name="usuModf" length="10">
+                <comment>Usuario que modifica la asistencia</comment>
+            </column>
         </property>
         <property name="fechModf" type="timestamp">
-            <column name="fechModf" length="19" />
+            <column name="fechModf" length="19">
+                <comment>fecha en la que se registra la asistencia</comment>
+            </column>
         </property>
         <set name="TAsistenciaxtrabajadors" inverse="true">
             <key>
-                <column name="cdAsistencia" length="5" not-null="true" />
+                <column name="cdAsistencia" length="5" not-null="true">
+                    <comment>Primary key de la tabla Asistencia, aqui nos permitira identificar la asistencia</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TAsistenciaxtrabajador" />
         </set>

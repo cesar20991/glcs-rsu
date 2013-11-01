@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TComprobantedet" table="t_comprobantedet" catalog="bd_emch">
         <id name="item" type="string">
@@ -9,19 +9,29 @@
             <generator class="assigned" />
         </id>
         <many-to-one name="TComprobante" class="emch.modelo.entidades.TComprobante" fetch="select">
-            <column name="idComprobante" length="10" not-null="true" />
+            <column name="idComprobante" length="10" not-null="true">
+                <comment>Primary key de la tabla comprobante, aqui nos permitira saber a que comprobante pertenece el detalle</comment>
+            </column>
         </many-to-one>
         <many-to-one name="TServicio" class="emch.modelo.entidades.TServicio" fetch="select">
-            <column name="cdServicio" length="6" not-null="true" />
+            <column name="cdServicio" length="6" not-null="true">
+                <comment>Primary key de la tabla Servicio, no permitira identificar que servicio se realizo</comment>
+            </column>
         </many-to-one>
         <property name="precio" type="big_decimal">
-            <column name="precio" precision="7" not-null="true" />
+            <column name="precio" precision="7" not-null="true">
+                <comment>Precio de la tonelada</comment>
+            </column>
         </property>
         <property name="cantTn" type="big_decimal">
-            <column name="cantTN" precision="7" not-null="true" />
+            <column name="cantTN" precision="7" not-null="true">
+                <comment>Canttidad de toneladas</comment>
+            </column>
         </property>
         <property name="total" type="big_decimal">
-            <column name="total" precision="7" not-null="true" />
+            <column name="total" precision="7" not-null="true">
+                <comment>Total a pagar</comment>
+            </column>
         </property>
     </class>
 </hibernate-mapping>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TTipoliquidacion" table="t_tipoliquidacion" catalog="bd_emch">
         <id name="cdTipoLiq" type="string">
@@ -10,12 +10,14 @@
         </id>
         <property name="nombre" type="string">
             <column name="Nombre" length="50" not-null="true">
-                <comment>Nombre del Tipo de liquidaci</comment>
+                <comment>Nombre del Tipo de liquidaci&#243;n</comment>
             </column>
         </property>
         <set name="TLiquidacions" inverse="true">
             <key>
-                <column name="cdTipoLiq" length="4" not-null="true" />
+                <column name="cdTipoLiq" length="4" not-null="true">
+                    <comment>Primary key de la tabla tipo Liquidaci&#243;n, no permitira saber que tipo de liquidaci&#243;n es</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TLiquidacion" />
         </set>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TAsignarruta" table="t_asignarruta" catalog="bd_emch">
         <id name="cdRuta" type="string">
@@ -9,27 +9,45 @@
             <generator class="assigned" />
         </id>
         <many-to-one name="TDespachodet" class="emch.modelo.entidades.TDespachodet" fetch="select">
-            <column name="Nro" not-null="true" />
-            <column name="cdDespacho" length="10" not-null="true" />
-            <column name="cdRuc" length="6" not-null="true" />
+            <column name="Nro" not-null="true">
+                <comment>Numero de la ruta</comment>
+            </column>
+            <column name="cdDespacho" length="10" not-null="true">
+                <comment>Primary key de la tabla Despacho, aqui nos permitira identificar a que despacho pertenece esta ruta</comment>
+            </column>
+            <column name="cdRuc" length="6" not-null="true">
+                <comment>Primary key de la tabla empresa, aqui nos permitira identificar a para que empresa se recorrera esta ruta</comment>
+            </column>
         </many-to-one>
         <property name="latn" type="java.lang.Double">
-            <column name="LATN" precision="22" scale="0" />
+            <column name="LATN" precision="22" scale="0">
+                <comment>Latitud Norte de la ruta</comment>
+            </column>
         </property>
         <property name="lngn" type="java.lang.Double">
-            <column name="LNGN" precision="22" scale="0" />
+            <column name="LNGN" precision="22" scale="0">
+                <comment>Longitud Norte de la ruta</comment>
+            </column>
         </property>
         <property name="lats" type="java.lang.Double">
-            <column name="LATS" precision="22" scale="0" />
+            <column name="LATS" precision="22" scale="0">
+                <comment>Latitud sur de la Ruta</comment>
+            </column>
         </property>
         <property name="lngs" type="java.lang.Double">
-            <column name="LNGS" precision="22" scale="0" />
+            <column name="LNGS" precision="22" scale="0">
+                <comment>Longitud Sur de la Ruta</comment>
+            </column>
         </property>
         <property name="nroV" type="int">
-            <column name="nroV" not-null="true" />
+            <column name="nroV" not-null="true">
+                <comment>Numero de veces que se debe realizar la ruta(1-2)</comment>
+            </column>
         </property>
         <property name="obs" type="string">
-            <column name="obs" length="100" />
+            <column name="obs" length="100">
+                <comment>Alguna observaci&#243;n acerca de la Ruta</comment>
+            </column>
         </property>
     </class>
 </hibernate-mapping>

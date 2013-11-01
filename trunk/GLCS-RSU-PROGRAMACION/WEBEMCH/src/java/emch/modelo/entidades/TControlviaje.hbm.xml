@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TControlviaje" table="t_controlviaje" catalog="bd_emch">
         <composite-id name="id" class="emch.modelo.entidades.TControlviajeId">
@@ -17,7 +17,7 @@
                 <comment>Nro del Documento despacho</comment>
             </column>
             <column name="cdDespacho" length="10" not-null="true">
-                <comment>C</comment>
+                <comment>C&#243;digo del Despacho</comment>
             </column>
             <column name="cdRuc" length="6" not-null="true">
                 <comment>Ruc de la Empresa</comment>
@@ -29,14 +29,18 @@
             </column>
         </property>
         <property name="horaEstimada" type="string">
-            <column name="horaEstimada" length="5" />
+            <column name="horaEstimada" length="5">
+                <comment>Hora en la que se esperaba se comienze el viaje</comment>
+            </column>
         </property>
         <property name="horaReal" type="string">
-            <column name="horaReal" length="5" />
+            <column name="horaReal" length="5">
+                <comment>Hora el la que se realizo el viaje</comment>
+            </column>
         </property>
         <property name="obs" type="string">
             <column name="Obs" length="300">
-                <comment>Alguna observaci</comment>
+                <comment>Alguna observaci&#243;n que se halla dado en el control del Viaje</comment>
             </column>
         </property>
         <set name="TIncidencias" inverse="true">

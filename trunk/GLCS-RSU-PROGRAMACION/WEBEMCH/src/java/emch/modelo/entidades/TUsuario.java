@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 13-jun-2013 0:55:31 by Hibernate Tools 3.2.1.GA
+// Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -15,6 +15,8 @@ public class TUsuario  implements java.io.Serializable {
      private TPerfil TPerfil;
      private String pass;
      private boolean estado;
+     private boolean accesoWeb;
+     private Boolean accesoMobile;
      private Set<TTrabajador> TTrabajadors = new HashSet<TTrabajador>(0);
      private Set<TCliente> TClientes = new HashSet<TCliente>(0);
 
@@ -22,17 +24,20 @@ public class TUsuario  implements java.io.Serializable {
     }
 
 	
-    public TUsuario(String nomUsu, TPerfil TPerfil, String pass, boolean estado) {
+    public TUsuario(String nomUsu, TPerfil TPerfil, String pass, boolean estado, boolean accesoWeb) {
         this.nomUsu = nomUsu;
         this.TPerfil = TPerfil;
         this.pass = pass;
         this.estado = estado;
+        this.accesoWeb = accesoWeb;
     }
-    public TUsuario(String nomUsu, TPerfil TPerfil, String pass, boolean estado, Set<TTrabajador> TTrabajadors, Set<TCliente> TClientes) {
+    public TUsuario(String nomUsu, TPerfil TPerfil, String pass, boolean estado, boolean accesoWeb, Boolean accesoMobile, Set<TTrabajador> TTrabajadors, Set<TCliente> TClientes) {
        this.nomUsu = nomUsu;
        this.TPerfil = TPerfil;
        this.pass = pass;
        this.estado = estado;
+       this.accesoWeb = accesoWeb;
+       this.accesoMobile = accesoMobile;
        this.TTrabajadors = TTrabajadors;
        this.TClientes = TClientes;
     }
@@ -64,6 +69,20 @@ public class TUsuario  implements java.io.Serializable {
     
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+    public boolean isAccesoWeb() {
+        return this.accesoWeb;
+    }
+    
+    public void setAccesoWeb(boolean accesoWeb) {
+        this.accesoWeb = accesoWeb;
+    }
+    public Boolean getAccesoMobile() {
+        return this.accesoMobile;
+    }
+    
+    public void setAccesoMobile(Boolean accesoMobile) {
+        this.accesoMobile = accesoMobile;
     }
     public Set<TTrabajador> getTTrabajadors() {
         return this.TTrabajadors;

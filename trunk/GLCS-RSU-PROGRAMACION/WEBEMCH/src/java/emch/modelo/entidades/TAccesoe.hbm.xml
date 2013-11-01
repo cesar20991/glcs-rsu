@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TAccesoe" table="t_accesoe" catalog="bd_emch">
         <id name="idAe" type="int">
@@ -9,13 +9,19 @@
             <generator class="assigned" />
         </id>
         <many-to-one name="TGrupoacceso" class="emch.modelo.entidades.TGrupoacceso" fetch="select">
-            <column name="cdGA" not-null="true" />
+            <column name="cdGA" not-null="true">
+                <comment>Primary key de la tabla grupo acceso</comment>
+            </column>
         </many-to-one>
         <many-to-one name="TPerfil" class="emch.modelo.entidades.TPerfil" fetch="select">
-            <column name="cdPerfil" length="4" not-null="true" />
+            <column name="cdPerfil" length="4" not-null="true">
+                <comment>Primary key de la tabla perfil</comment>
+            </column>
         </many-to-one>
         <many-to-one name="TEmpresa" class="emch.modelo.entidades.TEmpresa" fetch="select">
-            <column name="cdRuc" length="6" not-null="true" />
+            <column name="cdRuc" length="6" not-null="true">
+                <comment>Primary key de la tabla empresa, aqui nos permitira identificar de que empresa es ese acceso</comment>
+            </column>
         </many-to-one>
     </class>
 </hibernate-mapping>
