@@ -118,6 +118,16 @@ END
 
 
 
+CREATE FUNCTION idRuc() RETURNS VARCHAR( 6 ) BEGIN DECLARE idmax VARCHAR( 6 ) ;
+
+SET idmax = ( SELECT MAX(cdRuc) FROM t_empresa) ;
+
+SET idmax = CONCAT(  'RC', RIGHT( CONCAT(  '0000', CONVERT( CONVERT( RIGHT( idmax, 4 ) , signed ) +1, CHAR ) ) , 4 ) ) ;
+
+RETURN idmax;
+
+END
+
 
 
 
