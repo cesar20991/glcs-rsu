@@ -17,5 +17,6 @@ public interface UsuarioManaged {
     public List ListarPerfilTodos();
     public boolean ingresarUsuario(TUsuario usuario);
     public boolean actualizarUsuario(TUsuario usuario);
+    public List obtenerListadoMenu(String nomusuario, String ruce);
     
 }
