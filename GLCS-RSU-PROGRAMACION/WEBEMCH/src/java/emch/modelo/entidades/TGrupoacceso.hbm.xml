@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TGrupoacceso" table="t_grupoacceso" catalog="bd_emch">
         <id name="cdGa" type="int">
@@ -9,20 +9,28 @@
             <generator class="assigned" />
         </id>
         <property name="descrip" type="string">
-            <column name="descrip" length="100" not-null="true" />
+            <column name="descrip" length="100" not-null="true">
+                <comment>Descripcion del Grupo de acceso</comment>
+            </column>
         </property>
         <property name="estado" type="boolean">
-            <column name="estado" not-null="true" />
+            <column name="estado" not-null="true">
+                <comment>si esta o no habilitado</comment>
+            </column>
         </property>
         <set name="TAccesoes" inverse="true">
             <key>
-                <column name="cdGA" not-null="true" />
+                <column name="cdGA" not-null="true">
+                    <comment>Primary key de la tabla grupo acceso</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TAccesoe" />
         </set>
         <set name="TAccesoms" inverse="true">
             <key>
-                <column name="cdGA" not-null="true" />
+                <column name="cdGA" not-null="true">
+                    <comment>Primary key de la tabla grupo acceso</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TAccesom" />
         </set>

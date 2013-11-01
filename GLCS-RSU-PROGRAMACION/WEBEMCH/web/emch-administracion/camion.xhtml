@@ -35,18 +35,18 @@
                                      rowsPerPageTemplate="5,10,15" style="font-weight:bold">
                             <h:inputHidden value="#{camion.cdCamion}"/>
                             
-                            <p:column filterBy="#{camion.TClase.nombre}" filterMatchMode="contains">
+                            <p:column filterBy="#{camion.clase}" filterMatchMode="contains">
                                 <f:facet name="header">
                                 <h:outputText value="Nombre Clase" />
                                 </f:facet> 
-                                <h:outputText value="#{camion.TClase.nombre}"/>
+                                <h:outputText value="#{camion.clase}"/>
                             </p:column>
                             
-                            <p:column filterBy="#{camion.TMarca.nombreMarca}" filterMatchMode="contains">
+                            <p:column filterBy="#{camion.marca}" filterMatchMode="contains">
                                 <f:facet name="header">
                                 <h:outputText value="Nombre Marca" />
                                 </f:facet> 
-                                <h:outputText value="#{camion.TMarca.nombreMarca}"/>
+                                <h:outputText value="#{camion.marca}"/>
                             </p:column>
                             
                             <p:column filterBy="#{camion.unidad}" filterMatchMode="contains">
@@ -139,7 +139,7 @@
                                 <p:inputText value="#{camionBean.camion.placa}" style="font-weight:bold"/>
 
                                 <h:outputText value="Marca:" />
-                                <p:inputText value="#{camionBean.camion.TMarca.descripcion}" style="font-weight:bold"/>
+                                <p:inputText value="#{camionBean.camion.marca}" style="font-weight:bold"/>
 
                                 <h:outputText value="Año Fab.:" />
                                 <p:inputText value="#{camionBean.camion.anioFab}" style="font-weight:bold"/>
@@ -171,7 +171,7 @@
                                 <p:inputText value="#{camionBean.camion.placa}" style="font-weight:bold"/>
 
                                 <h:outputText value="Marca:" />
-                                <p:inputText value="#{camionBean.camion.TMarca.descripcion}" style="font-weight:bold"/>
+                                <p:inputText value="#{camionBean.camion.marca}" style="font-weight:bold"/>
 
                                 <h:outputText value="Año Fab.:" />
                                 <p:inputText value="#{camionBean.camion.anioFab}" style="font-weight:bold"/>
@@ -201,7 +201,7 @@
                                 <p:inputText value="#{camionBean.camion.placa}" style="font-weight:bold"/>
 
                                 <h:outputText value="Marca:" />
-                                <p:inputText value="#{camionBean.camion.TMarca.descripcion}" style="font-weight:bold"/>
+                                <p:inputText value="#{camionBean.camion.marca}" style="font-weight:bold"/>
 
                                 <h:outputText value="Año Fab.:" />
                                 <p:inputText value="#{camionBean.camion.anioFab}" style="font-weight:bold"/>

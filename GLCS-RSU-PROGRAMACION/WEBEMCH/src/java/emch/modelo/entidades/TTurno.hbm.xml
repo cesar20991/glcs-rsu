@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TTurno" table="t_turno" catalog="bd_emch">
         <id name="cdTurno" type="string">
@@ -9,26 +9,36 @@
             <generator class="assigned" />
         </id>
         <property name="nombTurno" type="string">
-            <column name="nombTurno" length="20" not-null="true" />
+            <column name="nombTurno" length="20" not-null="true">
+                <comment>Nombre del Turno de trabajo</comment>
+            </column>
         </property>
         <property name="obs" type="string">
-            <column name="Obs" length="100" />
+            <column name="Obs" length="100">
+                <comment>Alguna observaci&#243;n acerca del turno</comment>
+            </column>
         </property>
         <set name="TDespachos" inverse="true">
             <key>
-                <column name="cdTurno" length="4" not-null="true" />
+                <column name="cdTurno" length="4" not-null="true">
+                    <comment>Primary key de la tabla Turno, aqui nos permitira identificar a que turno corresponde el despacho</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TDespacho" />
         </set>
         <set name="TTrabajadorxcamions" inverse="true">
             <key>
-                <column name="cdTurno" length="4" not-null="true" />
+                <column name="cdTurno" length="4" not-null="true">
+                    <comment>Primary key de la tabla turno, aqui nos permitira saber en que turno deben estar los trabajadores y el camion</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TTrabajadorxcamion" />
         </set>
         <set name="TAsistencias" inverse="true">
             <key>
-                <column name="cdTurno" length="4" not-null="true" />
+                <column name="cdTurno" length="4" not-null="true">
+                    <comment>Primary key de la tabla turno, aqui nos ayudara a saber en que turno se tomo la asistencia</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TAsistencia" />
         </set>

@@ -1,23 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TCamion" table="t_camion" catalog="bd_emch">
         <id name="cdCamion" type="string">
             <column name="cdCamion" length="6" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="TClase" class="emch.modelo.entidades.TClase" fetch="select">
-            <column name="idClase" not-null="true">
-                <comment>Primary Key de la Tabla Clase</comment>
-            </column>
-        </many-to-one>
-        <many-to-one name="TMarca" class="emch.modelo.entidades.TMarca" fetch="select">
-            <column name="idMarca" not-null="true">
-                <comment>Primary Key de la Tabla Marca</comment>
-            </column>
-        </many-to-one>
         <property name="unidad" type="int">
             <column name="unidad" not-null="true" />
         </property>
@@ -26,14 +16,24 @@
                 <comment>Nro de Placa del Camion</comment>
             </column>
         </property>
+        <property name="marca" type="string">
+            <column name="marca" length="20" not-null="true">
+                <comment>Marca que utiliza la empresa: - SCANIA - IVECO - INTERNATIONAL - KIA - HUINDAY - DONG FENG - VOLKSWAGEN</comment>
+            </column>
+        </property>
+        <property name="clase" type="string">
+            <column name="clase" length="40" not-null="true">
+                <comment>Clase que utiliza la empresa: - Compactadora - Baranda - Barredora</comment>
+            </column>
+        </property>
         <property name="anioFab" type="string">
             <column name="anioFab" length="4" not-null="true">
-                <comment>A</comment>
+                <comment>A&#241;o de Fabricaci&#243;n del Camion</comment>
             </column>
         </property>
         <property name="anioAdq" type="string">
             <column name="anioAdq" length="4" not-null="true">
-                <comment>A</comment>
+                <comment>A&#241;o en que se adquirio el camion</comment>
             </column>
         </property>
         <property name="nroMotor" type="string">
@@ -63,30 +63,16 @@
         </property>
         <property name="estado" type="boolean">
             <column name="estado" not-null="true">
-                <comment>Estado si que indica si el camion est</comment>
+                <comment>Estado si que indica si el camion est&#225; habilitado o no</comment>
             </column>
         </property>
         <set name="TTrabajadorxcamions" inverse="true">
             <key>
-                <column name="cdCamion" length="6" not-null="true" />
+                <column name="cdCamion" length="6" not-null="true">
+                    <comment>Primary key de la tabla camion, aqui nos permitira saber a que camion estaran asignados los trabajadores</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TTrabajadorxcamion" />
-        </set>
-        <set name="TSoatxcamions" inverse="true">
-            <key>
-                <column name="cdCamion" length="6" not-null="true">
-                    <comment>Primary Key de la Tabla Camion</comment>
-                </column>
-            </key>
-            <one-to-many class="emch.modelo.entidades.TSoatxcamion" />
-        </set>
-        <set name="TSeguroxcamions" inverse="true">
-            <key>
-                <column name="cdCamion" length="6" not-null="true">
-                    <comment>Primary Key de la Tabla Camion</comment>
-                </column>
-            </key>
-            <one-to-many class="emch.modelo.entidades.TSeguroxcamion" />
         </set>
     </class>
 </hibernate-mapping>

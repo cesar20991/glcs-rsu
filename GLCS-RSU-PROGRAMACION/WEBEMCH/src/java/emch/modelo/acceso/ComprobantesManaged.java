@@ -5,9 +5,7 @@ import emch.modelo.entidades.TComprobantedet;
 import emch.modelo.entidades.TEstadoliq;
 import emch.modelo.entidades.TEstadoxliquidacion;
 import emch.modelo.entidades.TLiquidacion;
-import emch.modelo.entidades.TMoneda;
 import emch.modelo.entidades.TServicio;
-import emch.modelo.entidades.TTipodoc;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -35,15 +33,15 @@ public class ComprobantesManaged {
         return session.createQuery("FROM TComprobantedet").list();
     }
 
-    public List<TMoneda> buscarMonedasTodas() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        return session.createQuery("FROM TMoneda").list();
-    }
-
-    public List<TTipodoc> buscarTiposDocTodos() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        return session.createQuery("FROM TTipodoc").list();
-    }
+//    public List<TMoneda> buscarMonedasTodas() {
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        return session.createQuery("FROM TMoneda").list();
+//    }
+//
+//    public List<TTipodoc> buscarTiposDocTodos() {
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        return session.createQuery("FROM TTipodoc").list();
+//    }
 
     public String getIDComprobante() {
         String nuevoID = "";

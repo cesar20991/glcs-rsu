@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TPerfil" table="t_perfil" catalog="bd_emch">
         <id name="cdPerfil" type="string">
@@ -9,23 +9,33 @@
             <generator class="assigned" />
         </id>
         <property name="nombrePrf" type="string">
-            <column name="nombrePrf" length="30" not-null="true" />
+            <column name="nombrePrf" length="30" not-null="true">
+                <comment>Nombre del usuario al que le corresponde el perfil</comment>
+            </column>
         </property>
         <property name="descripPrf" type="string">
-            <column name="descripPrf" length="200" />
+            <column name="descripPrf" length="200">
+                <comment>Descripcion del usuario al que le corresponde el perfil</comment>
+            </column>
         </property>
         <property name="estado" type="boolean">
-            <column name="estado" not-null="true" />
+            <column name="estado" not-null="true">
+                <comment>Estado si esta o no habilitado</comment>
+            </column>
         </property>
         <set name="TAccesoes" inverse="true">
             <key>
-                <column name="cdPerfil" length="4" not-null="true" />
+                <column name="cdPerfil" length="4" not-null="true">
+                    <comment>Primary key de la tabla perfil</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TAccesoe" />
         </set>
         <set name="TUsuarios" inverse="true">
             <key>
-                <column name="cdPerfil" length="4" not-null="true" />
+                <column name="cdPerfil" length="4" not-null="true">
+                    <comment>Primary key de la tabla perfil</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TUsuario" />
         </set>

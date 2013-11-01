@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 13-jun-2013 0:55:31 by Hibernate Tools 3.2.1.GA
+// Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -14,12 +14,12 @@ public class TComprobante  implements java.io.Serializable {
 
 
      private String idComprobante;
-     private TMoneda TMoneda;
-     private TTipodoc TTipodoc;
      private TLiquidacion TLiquidacion;
+     private String tipoDocumento;
      private Date fecMov;
      private String serie;
      private String nroDoc;
+     private String moneda;
      private BigDecimal total;
      private BigDecimal subTotal;
      private BigDecimal igv;
@@ -34,14 +34,14 @@ public class TComprobante  implements java.io.Serializable {
     }
 
 	
-    public TComprobante(String idComprobante, TMoneda TMoneda, TTipodoc TTipodoc, TLiquidacion TLiquidacion, Date fecMov, String serie, String nroDoc, BigDecimal total, BigDecimal subTotal, BigDecimal igv, String usuCrea, Date fechaReg, String estado) {
+    public TComprobante(String idComprobante, TLiquidacion TLiquidacion, String tipoDocumento, Date fecMov, String serie, String nroDoc, String moneda, BigDecimal total, BigDecimal subTotal, BigDecimal igv, String usuCrea, Date fechaReg, String estado) {
         this.idComprobante = idComprobante;
-        this.TMoneda = TMoneda;
-        this.TTipodoc = TTipodoc;
         this.TLiquidacion = TLiquidacion;
+        this.tipoDocumento = tipoDocumento;
         this.fecMov = fecMov;
         this.serie = serie;
         this.nroDoc = nroDoc;
+        this.moneda = moneda;
         this.total = total;
         this.subTotal = subTotal;
         this.igv = igv;
@@ -49,14 +49,14 @@ public class TComprobante  implements java.io.Serializable {
         this.fechaReg = fechaReg;
         this.estado = estado;
     }
-    public TComprobante(String idComprobante, TMoneda TMoneda, TTipodoc TTipodoc, TLiquidacion TLiquidacion, Date fecMov, String serie, String nroDoc, BigDecimal total, BigDecimal subTotal, BigDecimal igv, String usuCrea, Date fechaReg, String usuModf, Date fechaModf, String estado, Set<TComprobantedet> TComprobantedets) {
+    public TComprobante(String idComprobante, TLiquidacion TLiquidacion, String tipoDocumento, Date fecMov, String serie, String nroDoc, String moneda, BigDecimal total, BigDecimal subTotal, BigDecimal igv, String usuCrea, Date fechaReg, String usuModf, Date fechaModf, String estado, Set<TComprobantedet> TComprobantedets) {
        this.idComprobante = idComprobante;
-       this.TMoneda = TMoneda;
-       this.TTipodoc = TTipodoc;
        this.TLiquidacion = TLiquidacion;
+       this.tipoDocumento = tipoDocumento;
        this.fecMov = fecMov;
        this.serie = serie;
        this.nroDoc = nroDoc;
+       this.moneda = moneda;
        this.total = total;
        this.subTotal = subTotal;
        this.igv = igv;
@@ -75,26 +75,19 @@ public class TComprobante  implements java.io.Serializable {
     public void setIdComprobante(String idComprobante) {
         this.idComprobante = idComprobante;
     }
-    public TMoneda getTMoneda() {
-        return this.TMoneda;
-    }
-    
-    public void setTMoneda(TMoneda TMoneda) {
-        this.TMoneda = TMoneda;
-    }
-    public TTipodoc getTTipodoc() {
-        return this.TTipodoc;
-    }
-    
-    public void setTTipodoc(TTipodoc TTipodoc) {
-        this.TTipodoc = TTipodoc;
-    }
     public TLiquidacion getTLiquidacion() {
         return this.TLiquidacion;
     }
     
     public void setTLiquidacion(TLiquidacion TLiquidacion) {
         this.TLiquidacion = TLiquidacion;
+    }
+    public String getTipoDocumento() {
+        return this.tipoDocumento;
+    }
+    
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
     public Date getFecMov() {
         return this.fecMov;
@@ -116,6 +109,13 @@ public class TComprobante  implements java.io.Serializable {
     
     public void setNroDoc(String nroDoc) {
         this.nroDoc = nroDoc;
+    }
+    public String getMoneda() {
+        return this.moneda;
+    }
+    
+    public void setMoneda(String moneda) {
+        this.moneda = moneda;
     }
     public BigDecimal getTotal() {
         return this.total;

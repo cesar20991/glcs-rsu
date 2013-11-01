@@ -1,51 +1,75 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TComprobante" table="t_comprobante" catalog="bd_emch">
         <id name="idComprobante" type="string">
             <column name="idComprobante" length="10" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="TMoneda" class="emch.modelo.entidades.TMoneda" fetch="select">
-            <column name="cdMda" length="2" not-null="true" />
-        </many-to-one>
-        <many-to-one name="TTipodoc" class="emch.modelo.entidades.TTipodoc" fetch="select">
-            <column name="cdTD" length="2" not-null="true" />
-        </many-to-one>
         <many-to-one name="TLiquidacion" class="emch.modelo.entidades.TLiquidacion" fetch="select">
-            <column name="cdLiq" length="10" not-null="true" />
+            <column name="cdLiq" length="10" not-null="true">
+                <comment>Primary key de la tabla liquidaci&#243;n</comment>
+            </column>
         </many-to-one>
+        <property name="tipoDocumento" type="string">
+            <column name="tipoDocumento" length="20" not-null="true" />
+        </property>
         <property name="fecMov" type="timestamp">
-            <column name="fecMov" length="19" not-null="true" />
+            <column name="fecMov" length="19" not-null="true">
+                <comment>Fecha en la que se realizo la compra</comment>
+            </column>
         </property>
         <property name="serie" type="string">
-            <column name="serie" length="4" not-null="true" />
+            <column name="serie" length="4" not-null="true">
+                <comment>Serie del comprobante</comment>
+            </column>
         </property>
         <property name="nroDoc" type="string">
-            <column name="nroDoc" length="15" not-null="true" />
+            <column name="nroDoc" length="15" not-null="true">
+                <comment>Nro de documento del comprobante</comment>
+            </column>
+        </property>
+        <property name="moneda" type="string">
+            <column name="moneda" length="2" not-null="true">
+                <comment>SS:SOLES / DD: DOLARES</comment>
+            </column>
         </property>
         <property name="total" type="big_decimal">
-            <column name="total" precision="7" not-null="true" />
+            <column name="total" precision="7" not-null="true">
+                <comment>Total que se pago</comment>
+            </column>
         </property>
         <property name="subTotal" type="big_decimal">
-            <column name="subTotal" precision="7" not-null="true" />
+            <column name="subTotal" precision="7" not-null="true">
+                <comment>Sub total pagado</comment>
+            </column>
         </property>
         <property name="igv" type="big_decimal">
-            <column name="IGV" precision="7" not-null="true" />
+            <column name="IGV" precision="7" not-null="true">
+                <comment>IGV del pago</comment>
+            </column>
         </property>
         <property name="usuCrea" type="string">
-            <column name="usuCrea" length="10" not-null="true" />
+            <column name="usuCrea" length="10" not-null="true">
+                <comment>Usuario que creo el comprobante</comment>
+            </column>
         </property>
         <property name="fechaReg" type="timestamp">
-            <column name="fechaReg" length="19" not-null="true" />
+            <column name="fechaReg" length="19" not-null="true">
+                <comment>Fecha en la que se registro el comprobante</comment>
+            </column>
         </property>
         <property name="usuModf" type="string">
-            <column name="usuModf" length="10" />
+            <column name="usuModf" length="10">
+                <comment>Usuario que modifico el comprobante</comment>
+            </column>
         </property>
         <property name="fechaModf" type="timestamp">
-            <column name="fechaModf" length="19" />
+            <column name="fechaModf" length="19">
+                <comment>Fecha en la que se modifico el comprobante</comment>
+            </column>
         </property>
         <property name="estado" type="string">
             <column name="estado" length="2" not-null="true">
@@ -54,7 +78,9 @@
         </property>
         <set name="TComprobantedets" inverse="true">
             <key>
-                <column name="idComprobante" length="10" not-null="true" />
+                <column name="idComprobante" length="10" not-null="true">
+                    <comment>Primary key de la tabla comprobante, aqui nos permitira saber a que comprobante pertenece el detalle</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TComprobantedet" />
         </set>

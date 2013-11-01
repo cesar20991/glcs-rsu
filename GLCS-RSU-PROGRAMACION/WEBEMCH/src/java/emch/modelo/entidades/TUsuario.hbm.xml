@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TUsuario" table="t_usuario" catalog="bd_emch">
         <id name="nomUsu" type="string">
@@ -9,23 +9,39 @@
             <generator class="assigned" />
         </id>
         <many-to-one name="TPerfil" class="emch.modelo.entidades.TPerfil" fetch="select">
-            <column name="cdPerfil" length="4" not-null="true" />
+            <column name="cdPerfil" length="4" not-null="true">
+                <comment>Primary key de la tabla perfil</comment>
+            </column>
         </many-to-one>
         <property name="pass" type="string">
-            <column name="pass" length="10" not-null="true" />
+            <column name="pass" length="10" not-null="true">
+                <comment>Contrase&#241;a del usuario</comment>
+            </column>
         </property>
         <property name="estado" type="boolean">
-            <column name="estado" not-null="true" />
+            <column name="estado" not-null="true">
+                <comment>estado si esta o no habilitado</comment>
+            </column>
+        </property>
+        <property name="accesoWeb" type="boolean">
+            <column name="accesoWeb" not-null="true" />
+        </property>
+        <property name="accesoMobile" type="java.lang.Boolean">
+            <column name="accesoMobile" />
         </property>
         <set name="TTrabajadors" inverse="true">
             <key>
-                <column name="nomUsu" length="10" />
+                <column name="nomUsu" length="10">
+                    <comment>nombre de usuario que tiene el trabajador en el sistema</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TTrabajador" />
         </set>
         <set name="TClientes" inverse="true">
             <key>
-                <column name="nomUsu" length="10" not-null="true" />
+                <column name="nomUsu" length="10" not-null="true">
+                    <comment>Primary key de la tabla Usuario, En este caso este es el nombre de usuario del cliente</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TCliente" />
         </set>

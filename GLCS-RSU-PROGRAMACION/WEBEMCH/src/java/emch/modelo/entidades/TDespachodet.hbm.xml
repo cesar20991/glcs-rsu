@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TDespachodet" table="t_despachodet" catalog="bd_emch">
         <composite-id name="id" class="emch.modelo.entidades.TDespachodetId">
@@ -16,14 +16,22 @@
             </key-property>
         </composite-id>
         <many-to-one name="TDespacho" class="emch.modelo.entidades.TDespacho" update="false" insert="false" fetch="select">
-            <column name="cdDespacho" length="10" not-null="true" />
-            <column name="cdRuc" length="6" not-null="true" />
+            <column name="cdDespacho" length="10" not-null="true">
+                <comment>Primary Key de la Tabla Despacho, aqui nos permitira identificar a que despacho le corresponde el detalle</comment>
+            </column>
+            <column name="cdRuc" length="6" not-null="true">
+                <comment>Primary key de la tabla Empresa, aqui nos permitira saber que empresa esta relacionada a este detalle</comment>
+            </column>
         </many-to-one>
         <many-to-one name="TTrabajadorxcamion" class="emch.modelo.entidades.TTrabajadorxcamion" fetch="select">
-            <column name="cdAsigCamion" length="10" not-null="true" />
+            <column name="cdAsigCamion" length="10" not-null="true">
+                <comment>Primary key de la Tabla TrabajadorxCamion</comment>
+            </column>
         </many-to-one>
         <property name="cantViaje" type="int">
-            <column name="cantViaje" not-null="true" />
+            <column name="cantViaje" not-null="true">
+                <comment>Nro de Viajes que se realizaron</comment>
+            </column>
         </property>
         <property name="evaluacion" type="java.lang.Character">
             <column name="evaluacion" length="1">
@@ -36,7 +44,7 @@
                     <comment>Nro del Documento despacho</comment>
                 </column>
                 <column name="cdDespacho" length="10" not-null="true">
-                    <comment>C</comment>
+                    <comment>C&#243;digo del Despacho</comment>
                 </column>
                 <column name="cdRuc" length="6" not-null="true">
                     <comment>Ruc de la Empresa</comment>
@@ -46,9 +54,15 @@
         </set>
         <set name="TAsignarrutas" inverse="true">
             <key>
-                <column name="Nro" not-null="true" />
-                <column name="cdDespacho" length="10" not-null="true" />
-                <column name="cdRuc" length="6" not-null="true" />
+                <column name="Nro" not-null="true">
+                    <comment>Numero de la ruta</comment>
+                </column>
+                <column name="cdDespacho" length="10" not-null="true">
+                    <comment>Primary key de la tabla Despacho, aqui nos permitira identificar a que despacho pertenece esta ruta</comment>
+                </column>
+                <column name="cdRuc" length="6" not-null="true">
+                    <comment>Primary key de la tabla empresa, aqui nos permitira identificar a para que empresa se recorrera esta ruta</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TAsignarruta" />
         </set>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TTipotrabajador" table="t_tipotrabajador" catalog="bd_emch">
         <id name="cdTipoTrabajador" type="string">
@@ -9,11 +9,15 @@
             <generator class="assigned" />
         </id>
         <property name="nombre" type="string">
-            <column name="Nombre" length="50" not-null="true" />
+            <column name="Nombre" length="50" not-null="true">
+                <comment>Nombre del tipo de trabajador</comment>
+            </column>
         </property>
         <set name="TTrabajadors" inverse="true">
             <key>
-                <column name="cdTipoTrabajador" length="3" not-null="true" />
+                <column name="cdTipoTrabajador" length="3" not-null="true">
+                    <comment>Primary key de la tabla tipo trabajador, aqui nos permitir&#225; identificar que tipo de trabajador es</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TTrabajador" />
         </set>

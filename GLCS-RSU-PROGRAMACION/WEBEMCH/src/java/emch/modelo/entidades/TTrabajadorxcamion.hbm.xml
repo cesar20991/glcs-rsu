@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TTrabajadorxcamion" table="t_trabajadorxcamion" catalog="bd_emch">
         <id name="cdAsigCamion" type="string">
@@ -9,26 +9,40 @@
             <generator class="assigned" />
         </id>
         <many-to-one name="TTurno" class="emch.modelo.entidades.TTurno" fetch="select">
-            <column name="cdTurno" length="4" not-null="true" />
+            <column name="cdTurno" length="4" not-null="true">
+                <comment>Primary key de la tabla turno, aqui nos permitira saber en que turno deben estar los trabajadores y el camion</comment>
+            </column>
         </many-to-one>
         <many-to-one name="TTrabajador" class="emch.modelo.entidades.TTrabajador" fetch="select">
-            <column name="cdTrabajador" length="6" not-null="true" />
+            <column name="cdTrabajador" length="6" not-null="true">
+                <comment>Primary key de la tabla trabajador, aqui nos permitira saber que trabajador es asignado</comment>
+            </column>
         </many-to-one>
         <many-to-one name="TCamion" class="emch.modelo.entidades.TCamion" fetch="select">
-            <column name="cdCamion" length="6" not-null="true" />
+            <column name="cdCamion" length="6" not-null="true">
+                <comment>Primary key de la tabla camion, aqui nos permitira saber a que camion estaran asignados los trabajadores</comment>
+            </column>
         </many-to-one>
         <property name="fechaAsig" type="timestamp">
-            <column name="fechaAsig" length="19" not-null="true" />
+            <column name="fechaAsig" length="19" not-null="true">
+                <comment>Fecha en la que se ha asignado</comment>
+            </column>
         </property>
         <property name="estado" type="boolean">
-            <column name="estado" not-null="true" />
+            <column name="estado" not-null="true">
+                <comment>Estado que determinara si est&#225; asignacion seguira o no vigente.</comment>
+            </column>
         </property>
         <property name="observacion" type="string">
-            <column name="observacion" length="200" />
+            <column name="observacion" length="200">
+                <comment>Alguna observaci&#243;n de esta asignaci&#243;n</comment>
+            </column>
         </property>
         <set name="TDespachodets" inverse="true">
             <key>
-                <column name="cdAsigCamion" length="10" not-null="true" />
+                <column name="cdAsigCamion" length="10" not-null="true">
+                    <comment>Primary key de la Tabla TrabajadorxCamion</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TDespachodet" />
         </set>

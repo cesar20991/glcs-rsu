@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 13-jun-2013 0:55:31 by Hibernate Tools 3.2.1.GA
+// Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -13,10 +13,10 @@ public class TCamion  implements java.io.Serializable {
 
 
      private String cdCamion;
-     private TClase TClase;
-     private TMarca TMarca;
      private int unidad;
      private String placa;
+     private String marca;
+     private String clase;
      private String anioFab;
      private String anioAdq;
      private String nroMotor;
@@ -26,19 +26,17 @@ public class TCamion  implements java.io.Serializable {
      private byte[] imagen;
      private boolean estado;
      private Set<TTrabajadorxcamion> TTrabajadorxcamions = new HashSet<TTrabajadorxcamion>(0);
-     private Set<TSoatxcamion> TSoatxcamions = new HashSet<TSoatxcamion>(0);
-     private Set<TSeguroxcamion> TSeguroxcamions = new HashSet<TSeguroxcamion>(0);
 
     public TCamion() {
     }
 
 	
-    public TCamion(String cdCamion, TClase TClase, TMarca TMarca, int unidad, String placa, String anioFab, String anioAdq, String nroMotor, BigDecimal pesoBruto, String tipoCombustible, BigDecimal kilometraje, boolean estado) {
+    public TCamion(String cdCamion, int unidad, String placa, String marca, String clase, String anioFab, String anioAdq, String nroMotor, BigDecimal pesoBruto, String tipoCombustible, BigDecimal kilometraje, boolean estado) {
         this.cdCamion = cdCamion;
-        this.TClase = TClase;
-        this.TMarca = TMarca;
         this.unidad = unidad;
         this.placa = placa;
+        this.marca = marca;
+        this.clase = clase;
         this.anioFab = anioFab;
         this.anioAdq = anioAdq;
         this.nroMotor = nroMotor;
@@ -47,12 +45,12 @@ public class TCamion  implements java.io.Serializable {
         this.kilometraje = kilometraje;
         this.estado = estado;
     }
-    public TCamion(String cdCamion, TClase TClase, TMarca TMarca, int unidad, String placa, String anioFab, String anioAdq, String nroMotor, BigDecimal pesoBruto, String tipoCombustible, BigDecimal kilometraje, byte[] imagen, boolean estado, Set<TTrabajadorxcamion> TTrabajadorxcamions, Set<TSoatxcamion> TSoatxcamions, Set<TSeguroxcamion> TSeguroxcamions) {
+    public TCamion(String cdCamion, int unidad, String placa, String marca, String clase, String anioFab, String anioAdq, String nroMotor, BigDecimal pesoBruto, String tipoCombustible, BigDecimal kilometraje, byte[] imagen, boolean estado, Set<TTrabajadorxcamion> TTrabajadorxcamions) {
        this.cdCamion = cdCamion;
-       this.TClase = TClase;
-       this.TMarca = TMarca;
        this.unidad = unidad;
        this.placa = placa;
+       this.marca = marca;
+       this.clase = clase;
        this.anioFab = anioFab;
        this.anioAdq = anioAdq;
        this.nroMotor = nroMotor;
@@ -62,8 +60,6 @@ public class TCamion  implements java.io.Serializable {
        this.imagen = imagen;
        this.estado = estado;
        this.TTrabajadorxcamions = TTrabajadorxcamions;
-       this.TSoatxcamions = TSoatxcamions;
-       this.TSeguroxcamions = TSeguroxcamions;
     }
    
     public String getCdCamion() {
@@ -72,20 +68,6 @@ public class TCamion  implements java.io.Serializable {
     
     public void setCdCamion(String cdCamion) {
         this.cdCamion = cdCamion;
-    }
-    public TClase getTClase() {
-        return this.TClase;
-    }
-    
-    public void setTClase(TClase TClase) {
-        this.TClase = TClase;
-    }
-    public TMarca getTMarca() {
-        return this.TMarca;
-    }
-    
-    public void setTMarca(TMarca TMarca) {
-        this.TMarca = TMarca;
     }
     public int getUnidad() {
         return this.unidad;
@@ -100,6 +82,20 @@ public class TCamion  implements java.io.Serializable {
     
     public void setPlaca(String placa) {
         this.placa = placa;
+    }
+    public String getMarca() {
+        return this.marca;
+    }
+    
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+    public String getClase() {
+        return this.clase;
+    }
+    
+    public void setClase(String clase) {
+        this.clase = clase;
     }
     public String getAnioFab() {
         return this.anioFab;
@@ -163,20 +159,6 @@ public class TCamion  implements java.io.Serializable {
     
     public void setTTrabajadorxcamions(Set<TTrabajadorxcamion> TTrabajadorxcamions) {
         this.TTrabajadorxcamions = TTrabajadorxcamions;
-    }
-    public Set<TSoatxcamion> getTSoatxcamions() {
-        return this.TSoatxcamions;
-    }
-    
-    public void setTSoatxcamions(Set<TSoatxcamion> TSoatxcamions) {
-        this.TSoatxcamions = TSoatxcamions;
-    }
-    public Set<TSeguroxcamion> getTSeguroxcamions() {
-        return this.TSeguroxcamions;
-    }
-    
-    public void setTSeguroxcamions(Set<TSeguroxcamion> TSeguroxcamions) {
-        this.TSeguroxcamions = TSeguroxcamions;
     }
 
 

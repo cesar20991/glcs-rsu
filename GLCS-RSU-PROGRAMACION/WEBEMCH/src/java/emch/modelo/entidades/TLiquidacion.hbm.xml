@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TLiquidacion" table="t_liquidacion" catalog="bd_emch">
         <id name="cdLiq" type="string">
@@ -9,56 +9,80 @@
             <generator class="assigned" />
         </id>
         <many-to-one name="TTipoliquidacion" class="emch.modelo.entidades.TTipoliquidacion" fetch="select">
-            <column name="cdTipoLiq" length="4" not-null="true" />
+            <column name="cdTipoLiq" length="4" not-null="true">
+                <comment>Primary key de la tabla tipo Liquidaci&#243;n, no permitira saber que tipo de liquidaci&#243;n es</comment>
+            </column>
         </many-to-one>
         <many-to-one name="TEmpresa" class="emch.modelo.entidades.TEmpresa" fetch="select">
-            <column name="cdRuc" length="6" not-null="true" />
+            <column name="cdRuc" length="6" not-null="true">
+                <comment>Primary key de la tabla Empresa, aqui nos permitira identificar a que empresa le pertenece esta liquidaci&#243;n</comment>
+            </column>
         </many-to-one>
         <property name="fechaApertura" type="timestamp">
-            <column name="fechaApertura" length="19" not-null="true" />
+            <column name="fechaApertura" length="19" not-null="true">
+                <comment>Fecha de apertura es la fecha en la que se crea la liquidaci&#243;n</comment>
+            </column>
         </property>
         <property name="fechaInicio" type="timestamp">
-            <column name="fechaInicio" length="19" not-null="true" />
+            <column name="fechaInicio" length="19" not-null="true">
+                <comment>Iindica desde que fecha se cobrara</comment>
+            </column>
         </property>
         <property name="fechaFin" type="timestamp">
-            <column name="fechaFin" length="19" not-null="true" />
+            <column name="fechaFin" length="19" not-null="true">
+                <comment>Indica desde hasta que fecha se cobrara</comment>
+            </column>
         </property>
         <property name="totalTn" type="big_decimal">
-            <column name="totalTN" precision="7" />
+            <column name="totalTN" precision="7">
+                <comment>Total de toneladas que se cobraran</comment>
+            </column>
         </property>
         <property name="asunto" type="string">
-            <column name="asunto" length="100" />
+            <column name="asunto" length="100">
+                <comment>alguna observaci&#243;n que se quiera dejar</comment>
+            </column>
         </property>
         <property name="usuCrea" type="string">
-            <column name="usuCrea" length="10" not-null="true" />
+            <column name="usuCrea" length="10" not-null="true">
+                <comment>Usuario que crea la liquidaci&#243;n</comment>
+            </column>
         </property>
         <property name="fechaReg" type="timestamp">
-            <column name="fechaReg" length="19" not-null="true" />
+            <column name="fechaReg" length="19" not-null="true">
+                <comment>Fecha en la que se realizo la creaci&#243;n de la liquidaci&#243;n</comment>
+            </column>
         </property>
         <property name="usuModf" type="string">
-            <column name="usuModf" length="10" />
+            <column name="usuModf" length="10">
+                <comment>Usuario que modifico la liquidaci&#243;n</comment>
+            </column>
         </property>
         <property name="fechaModf" type="timestamp">
-            <column name="fechaModf" length="19" />
+            <column name="fechaModf" length="19">
+                <comment>Fecha en la que se modifico la liquidaci&#243;n</comment>
+            </column>
         </property>
         <set name="TPesajes" inverse="true">
             <key>
                 <column name="cdLiq" length="10">
-                    <comment>Primary Key de la Tabla Liquidaci</comment>
+                    <comment>Primary Key de la Tabla Liquidaci&#243;n</comment>
                 </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TPesaje" />
         </set>
         <set name="TComprobantes" inverse="true">
             <key>
-                <column name="cdLiq" length="10" not-null="true" />
+                <column name="cdLiq" length="10" not-null="true">
+                    <comment>Primary key de la tabla liquidaci&#243;n</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TComprobante" />
         </set>
         <set name="TEstadoxliquidacions" inverse="true">
             <key>
                 <column name="cdLiq" length="10" not-null="true">
-                    <comment>Primary Key de la Tabla Liquidaci</comment>
+                    <comment>Primary Key de la Tabla Liquidaci&#243;n</comment>
                 </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TEstadoxliquidacion" />

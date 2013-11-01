@@ -4,9 +4,7 @@ import emch.modelo.acceso.ComprobanteManaged;
 import emch.modelo.entidades.TComprobante;
 import emch.modelo.entidades.TComprobantedet;
 import emch.modelo.entidades.TLiquidacion;
-import emch.modelo.entidades.TMoneda;
 import emch.modelo.entidades.TServicio;
-import emch.modelo.entidades.TTipodoc;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Properties;
@@ -51,8 +49,8 @@ public class ComprobanteBean extends UsuarioBean {
     public ComprobanteBean() {
         comprobante = new TComprobante();
         comprobante.setTLiquidacion(new TLiquidacion());
-        comprobante.setTMoneda(new TMoneda());
-        comprobante.setTTipodoc(new TTipodoc());
+        //comprobante.setTMoneda(new TMoneda());
+        //comprobante.setTTipodoc(new TTipodoc());
 
         servicio = new TServicio();
         comprobantedet = new TComprobantedet();

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TServicio" table="t_servicio" catalog="bd_emch">
         <id name="cdServicio" type="string">
@@ -9,17 +9,25 @@
             <generator class="assigned" />
         </id>
         <property name="nombreServ" type="string">
-            <column name="nombreServ" length="100" not-null="true" />
+            <column name="nombreServ" length="100" not-null="true">
+                <comment>Nombre del servicio</comment>
+            </column>
         </property>
         <property name="descripServ" type="string">
-            <column name="descripServ" length="300" not-null="true" />
+            <column name="descripServ" length="300" not-null="true">
+                <comment>Descripci&#243;n del servicio</comment>
+            </column>
         </property>
         <property name="ncortoServ" type="string">
-            <column name="nCortoServ" length="10" />
+            <column name="nCortoServ" length="10">
+                <comment>Abreviacion del Nombre del servicio</comment>
+            </column>
         </property>
         <set name="TComprobantedets" inverse="true">
             <key>
-                <column name="cdServicio" length="6" not-null="true" />
+                <column name="cdServicio" length="6" not-null="true">
+                    <comment>Primary key de la tabla Servicio, no permitira identificar que servicio se realizo</comment>
+                </column>
             </key>
             <one-to-many class="emch.modelo.entidades.TComprobantedet" />
         </set>

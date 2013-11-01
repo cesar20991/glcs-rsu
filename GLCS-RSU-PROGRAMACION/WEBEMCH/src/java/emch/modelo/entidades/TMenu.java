@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 13-jun-2013 0:55:31 by Hibernate Tools 3.2.1.GA
+// Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -21,10 +21,9 @@ public class TMenu  implements java.io.Serializable {
     }
 
 	
-    public TMenu(String cdMenu, String nombre, String ruta, boolean estado) {
+    public TMenu(String cdMenu, String nombre, boolean estado) {
         this.cdMenu = cdMenu;
         this.nombre = nombre;
-        this.ruta = ruta;
         this.estado = estado;
     }
     public TMenu(String cdMenu, String nombre, String ruta, boolean estado, Set<TAccesom> TAccesoms) {

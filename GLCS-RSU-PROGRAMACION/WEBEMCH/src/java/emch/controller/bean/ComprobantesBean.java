@@ -7,9 +7,7 @@ import emch.modelo.entidades.TEstadoliq;
 import emch.modelo.entidades.TEstadoxliquidacion;
 import emch.modelo.entidades.TEstadoxliquidacionId;
 import emch.modelo.entidades.TLiquidacion;
-import emch.modelo.entidades.TMoneda;
 import emch.modelo.entidades.TServicio;
-import emch.modelo.entidades.TTipodoc;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -33,8 +31,6 @@ public class ComprobantesBean extends UsuarioBean {
     private TComprobante comprobante;
     private TComprobantedet comprobanteDet;
     private List<TComprobantedet> listaComprobanteDet;
-    private List<TMoneda> listaMonedas;
-    private List<TTipodoc> listaTipoDocs;
     private TEstadoxliquidacionId estadoXliquidacionId;
     private TEstadoxliquidacion estadoXliquidacion;
     public int cont;
@@ -44,8 +40,8 @@ public class ComprobantesBean extends UsuarioBean {
     public ComprobantesBean() {
         comprobante = new TComprobante();
         comprobante.setTLiquidacion(new TLiquidacion());
-        comprobante.setTMoneda(new TMoneda());
-        comprobante.setTTipodoc(new TTipodoc());
+        //comprobante.setTMoneda(new TMoneda());
+        //comprobante.setTTipodoc(new TTipodoc());
         cont = 0;
         comprobanteDet = new TComprobantedet();
         comprobanteDet.setTServicio(new TServicio());
@@ -74,8 +70,8 @@ public class ComprobantesBean extends UsuarioBean {
             comprobante.setTotal(BigDecimal.ZERO);
             comprobante.setNroDoc("");
             comprobante.setSerie("");
-            comprobante.setTMoneda(obj.buscarMonedasTodas().get(0));
-            comprobante.setTTipodoc(obj.buscarTiposDocTodos().get(0));
+            //comprobante.setTMoneda(obj.buscarMonedasTodas().get(0));
+            //comprobante.setTTipodoc(obj.buscarTiposDocTodos().get(0));
             obj.insertarComprobante(comprobante);
             FacesContext.getCurrentInstance().getExternalContext().redirect("generarcomprobante.xhtml");
         } catch (IOException e) {
@@ -90,8 +86,8 @@ public class ComprobantesBean extends UsuarioBean {
             obj.eliminar(comprobante);
             comprobante = new TComprobante();
             comprobante.setTLiquidacion(new TLiquidacion());
-            comprobante.setTMoneda(new TMoneda());
-            comprobante.setTTipodoc(new TTipodoc());
+            //comprobante.setTMoneda(new TMoneda());
+            //comprobante.setTTipodoc(new TTipodoc());
             comprobanteDet = new TComprobantedet();
             comprobanteDet.setTServicio(new TServicio());
             comprobanteDet.setTComprobante(new TComprobante());
@@ -136,8 +132,8 @@ public class ComprobantesBean extends UsuarioBean {
             cont = 0;
             comprobante = new TComprobante();
             comprobante.setTLiquidacion(new TLiquidacion());
-            comprobante.setTMoneda(new TMoneda());
-            comprobante.setTTipodoc(new TTipodoc());
+            //comprobante.setTMoneda(new TMoneda());
+            //comprobante.setTTipodoc(new TTipodoc());
             comprobanteDet = new TComprobantedet();
             comprobanteDet.setTServicio(new TServicio());
             comprobanteDet.setTComprobante(new TComprobante());
@@ -202,23 +198,4 @@ public class ComprobantesBean extends UsuarioBean {
         this.comprobante = comprobante;
     }
 
-    public List<TMoneda> getListaMonedas() {
-        ComprobantesManaged obj = new ComprobantesManaged();
-        listaMonedas = obj.buscarMonedasTodas();
-        return listaMonedas;
-    }
-
-    public void setListaMonedas(List<TMoneda> listaMonedas) {
-        this.listaMonedas = listaMonedas;
-    }
-
-    public List<TTipodoc> getListaTipoDocs() {
-        ComprobantesManaged obj = new ComprobantesManaged();
-        listaTipoDocs = obj.buscarTiposDocTodos();
-        return listaTipoDocs;
-    }
-
-    public void setListaTipoDocs(List<TTipodoc> listaTipoDocs) {
-        this.listaTipoDocs = listaTipoDocs;
-    }
 }

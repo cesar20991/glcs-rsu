@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-jun-2013 0:55:32 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TIncidencia" table="t_incidencia" catalog="bd_emch">
         <id name="cdInc" type="string">
@@ -23,7 +23,7 @@
         </property>
         <property name="zona" type="string">
             <column name="zona" length="100" not-null="true">
-                <comment>Zona en la que se d</comment>
+                <comment>Zona en la que se d&#237;a</comment>
             </column>
         </property>
         <property name="problema" type="string">
@@ -33,17 +33,17 @@
         </property>
         <property name="horaProb" type="string">
             <column name="horaProb" length="5" not-null="true">
-                <comment>Hora en que se gener</comment>
+                <comment>Hora en que se gener&#243; el problema</comment>
             </column>
         </property>
         <property name="observaciones" type="string">
             <column name="observaciones" length="200">
-                <comment>Alguna peque</comment>
+                <comment>Alguna peque&#241;a observaci&#243;n acerca del problema</comment>
             </column>
         </property>
         <property name="soluc" type="string">
             <column name="soluc" length="200">
-                <comment>La soluci</comment>
+                <comment>La soluci&#243;n si es que se le di&#243; al problema</comment>
             </column>
         </property>
     </class>
