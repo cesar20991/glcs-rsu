@@ -108,6 +108,24 @@
                         </p:column> 
                         -->
                     </p:dataTable>
+                    
+                    <p:dialog header="Info. de  la Empresa" widgetVar="infoDialog" resizable="false" id="carDlg"  
+                              showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">  
+
+                        <h:panelGrid id="display2" columns="2" cellpadding="4" style="margin:0 auto;">  
+                            <h:outputText value="RUC Empresa :" />  
+                            <h:outputText value="#{empresaBean.empresa.rucE}" style="font-weight:bold"/>  
+                            <h:outputText value="Razón Social :" />  
+                            <h:outputText value="#{empresaBean.empresa.rsocial}" style="font-weight:bold"/>  
+                            <h:outputText value="Dirección :" />  
+                            <h:outputText value="#{empresaBean.empresa.direccion}" style="font-weight:bold"/>  
+                            <h:outputText value="Distrito :" />  
+                            <h:outputText value="#{empresaBean.empresa.TUbigeo.nombre}" style="font-weight:bold"/>  
+                            <h:outputText value="Telefono :" />  
+                            <h:outputText value="#{empresaBean.empresa.telef}" style="font-weight:bold"/>  
+                        </h:panelGrid>  
+                    </p:dialog>
+                    
                 </h:form>
 
             </ui:define>

@@ -4,17 +4,26 @@
  */
 package emch.controller.bean;
 
+import emch.modelo.acceso.UsuarioManaged;
+import emch.modelo.acceso.UsuarioManagedImpl;
+import emch.modelo.entidades.TAccesom;
 import emch.modelo.entidades.TEmpresa;
 import emch.modelo.entidades.TUsuario;
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.model.MenuModel;
+import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultMenuModel;
+import org.primefaces.model.menu.DefaultSubMenu;
+import org.primefaces.model.menu.MenuModel;
 
-/**s
+/**
+ * s
  *
  * @author Cesar
  */
@@ -28,7 +37,9 @@ public class UsuarioBean {
     public String rucEmp = ""; //EJM: RC001 CodigoRUC
     private TUsuario usuario2;
     private TEmpresa empresa;
-    private MenuModel model;
+    //PARA EL MENU
+//    private MenuModel model;
+//    private List<TAccesom> listaAccesoM;
 
     @PostConstruct
     public void init() {
@@ -37,7 +48,7 @@ public class UsuarioBean {
         nomusuario = getUsuario2().getNomUsu();
         nomEmpresa = getEmpresa().getRsocial();
         rucEmp = getEmpresa().getCdRuc();
-        setRuc(getEmpresa().getRucE());        
+        setRuc(getEmpresa().getRucE());
     }
 
     public UsuarioBean() {
@@ -46,24 +57,134 @@ public class UsuarioBean {
     public Object obtsesion(String k) {
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(k);
     }
-    
-    public String logout() {
+
+    public void logout() throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index.xhtml?faces-redirect=true";
+        String s = FacesContext.getCurrentInstance().getExternalContext().getRequestPathInfo();
+        System.out.print(s);
+        if(s.contains("emch-seguridad") || s.contains("emch-administracion") || s.contains("emch-control") || s.contains("operaciones")){
+            
+            FacesContext.getCurrentInstance().getExternalContext().redirect( "/WEBEMCH");
+        }
+        else{
+            FacesContext.getCurrentInstance().getExternalContext().redirect( "index.xhtml");
+        }
+        
+        //return "index.xhtml?faces-redirect=true";
     }
-    
-    public void cargarMenu(){
-//        //First submenu  
-//        DefaultSubMenu firstSubmenu = new DefaultSubMenu("Dynamic Submenu");  
-//          
-//        DefaultMenuItem item = new DefaultMenuItem("External");  
-//        item.setUrl("http://www.primefaces.org");  
-//        item.setIcon("ui-icon-home");  
-//        firstSubmenu.addElement(item);  
-//          
-//        getModel().addElement(firstSubmenu);  
-    }
-    
+
+//    public void cargarMenu() {
+//        //Valido Menus
+//        if(nomusuario.equals("") && rucEmp.equals("")) return;
+//        UsuarioManaged usu = new UsuarioManagedImpl();
+//        listaAccesoM = usu.obtenerListadoMenu(nomusuario, rucEmp);
+//        model = new DefaultMenuModel();
+//        //
+//        
+//        for (int i = 0; i < listaAccesoM.size(); i++) {
+//            if(listaAccesoM.get(i).getTMenu().getRuta().equals("")){
+//                if(listaAccesoM.get(i).getTMenu().getNombre().equals("SEGURIDAD")){
+//                    DefaultSubMenu firstSubmenu = new DefaultSubMenu(listaAccesoM.get(i).getTMenu().getNombre());
+//                    
+//                    DefaultMenuItem item = new DefaultMenuItem(listaAccesoM.get(i+1).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+1).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    
+//                    item = new DefaultMenuItem(listaAccesoM.get(i+2).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+2).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    
+//                    item = new DefaultMenuItem(listaAccesoM.get(i+3).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+3).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    i=0;
+//                    model.addElement(firstSubmenu);
+//                }
+//                else if(listaAccesoM.get(i).getTMenu().getNombre().equals("ADMINISTRACION")){
+//                     DefaultSubMenu firstSubmenu = new DefaultSubMenu(listaAccesoM.get(i).getTMenu().getNombre());
+//                    
+//                    DefaultMenuItem item = new DefaultMenuItem(listaAccesoM.get(i+1).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+1).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    
+//                    item = new DefaultMenuItem(listaAccesoM.get(i+2).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+2).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    
+//                    item = new DefaultMenuItem(listaAccesoM.get(i+3).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+3).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    
+//                    item = new DefaultMenuItem(listaAccesoM.get(i+4).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+4).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    listaAccesoM.remove(i);
+//                    i=0;
+//                    model.addElement(firstSubmenu);
+//                 }
+//                else if(listaAccesoM.get(i).getTMenu().getNombre().equals("CONTROL DE TRANSPORTE")){
+//                     DefaultSubMenu firstSubmenu = new DefaultSubMenu(listaAccesoM.get(i).getTMenu().getNombre());
+//                    
+//                    DefaultMenuItem item = new DefaultMenuItem(listaAccesoM.get(i+1).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+1).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    
+//                    item = new DefaultMenuItem(listaAccesoM.get(i+2).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+2).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    
+//                    item = new DefaultMenuItem(listaAccesoM.get(i+3).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+3).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    
+//                    item = new DefaultMenuItem(listaAccesoM.get(i+4).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+4).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    
+//                    item = new DefaultMenuItem(listaAccesoM.get(i+5).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+5).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    listaAccesoM.remove(i);
+//                    i=0;
+//                    model.addElement(firstSubmenu);
+//                 }
+//                else if(listaAccesoM.get(i).getTMenu().getNombre().equals("OPERACIONES")){
+//                     DefaultSubMenu firstSubmenu = new DefaultSubMenu(listaAccesoM.get(i).getTMenu().getNombre());
+//                    
+//                    DefaultMenuItem item = new DefaultMenuItem(listaAccesoM.get(i+1).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+1).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    
+//                    item = new DefaultMenuItem(listaAccesoM.get(i+2).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+2).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    
+//                    item = new DefaultMenuItem(listaAccesoM.get(i+3).getTMenu().getNombre());
+//                    item.setUrl(listaAccesoM.get(i+3).getTMenu().getRuta());
+//                    item.setIcon("ui-icon-suitcase");
+//                    firstSubmenu.addElement(item);
+//                    listaAccesoM.remove(i);
+//                    i=0;
+//                    model.addElement(firstSubmenu);
+//                 }
+//            }         
+//            
+//        }
+//    }
 
     public String getNomusuario() {
         return nomusuario;
@@ -111,13 +232,5 @@ public class UsuarioBean {
 
     public void setEmpresa(TEmpresa empresa) {
         this.empresa = empresa;
-    }
-
-    public MenuModel getModel() {
-        return model;
-    }
-
-    public void setModel(MenuModel model) {
-        this.model = model;
     }
 }
