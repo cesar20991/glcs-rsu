@@ -50,13 +50,14 @@
                             <p:selectOneMenu value="#{admUsuarioBean.usuario.TPerfil.cdPerfil}" filter="true" filterMatchMode="contains" effect="fade" required="true" requiredMessage="Debe seleccionar un Perfil" style="width:300px;">  
                                 <f:selectItem itemLabel="Select One" itemValue="" />  
                                 <f:selectItems value="#{admUsuarioBean.listarPerfil}" var="perfil" itemLabel="#{perfil.nombrePrf}" itemValue="#{perfil.cdPerfil}"/>  
-                            </p:selectOneMenu>
-
+                            </p:selectOneMenu>                           
                             <h:outputLabel value="Estado :" />
                             <p:selectOneMenu value="#{admUsuarioBean.usuario.estado}">  
                                 <f:selectItem itemLabel="Habilitado" itemValue="true"/>  
                                 <f:selectItem itemLabel="Deshabilitado" itemValue="false"/>  
                             </p:selectOneMenu>
+                            <p:selectBooleanCheckbox id="accesoWeb" value="#{admUsuarioBean.usuario.accesoWeb}" label="accesoWeb"  itemLabel="Acceso Web" />                            
+                            <p:selectBooleanCheckbox id="accesoMobile" value="#{admUsuarioBean.usuario.accesoMobile}" label="accesomovil"  itemLabel="Acceso Móvil" />
                         </p:panelGrid>
                         <p:panelGrid columns="2" style="width: 100%">
                             <f:facet name="header">  
