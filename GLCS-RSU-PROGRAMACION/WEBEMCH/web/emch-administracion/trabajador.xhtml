@@ -22,7 +22,7 @@
                 <p:growl id="messages" autoUpdate="true"/>  
             </ui:define>
             <ui:define name="content">
-                <h:form >
+                <h:form id="formTrabajador" >
                     <h:outputText value="ADMINISTRAR - TRABAJADORES" style="font-weight:bold;font-size:20px;color:#654B24" />
                     <div style="padding-bottom: 10px;">                            
                         <p:commandButton value="Nuevo" action="#{trabajadorBean.irAgregar()}" icon="ui-icon-document" ajax="false">
@@ -37,6 +37,15 @@
                         <f:facet name="header">  
                             Lista Trabajadores
                         </f:facet>  
+
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="Ver Info." />  
+                            </f:facet> 
+                            <p:commandButton update=":formTrabajador:display2" oncomplete="infoDialog.show()" icon="ui-icon-search" title="View">  
+                                <f:setPropertyActionListener value="#{trabajador}" target="#{trabajadorBean.trabajador}" />  
+                            </p:commandButton>  
+                        </p:column>
 
                         <p:column rendered="false">  
 
@@ -111,6 +120,41 @@
 
                     </p:dataTable>
                     <!--                FIN TABLA TRABAJADOR                   -->
+
+                    <p:dialog header="Información del Trabajador" widgetVar="infoDialog" resizable="false" id="carDlg"  
+                              showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">  
+
+                        <h:panelGrid id="display2" columns="2" cellpadding="4" style="margin:0 auto;">  
+                            <h:outputText value="Nombre(s) :" />  
+                            <h:outputText value="#{trabajadorBean.trabajador.nombres}" style="font-weight:bold"/>  
+                            <h:outputText value="Apellidos :" />  
+                            <h:outputText value="#{trabajadorBean.trabajador.apellidos}" style="font-weight:bold"/>  
+                            <h:outputText value="DNI :" />  
+                            <h:outputText value="#{trabajadorBean.trabajador.dni}" style="font-weight:bold"/>  
+                            <h:outputText value="Tipo Trabajador :" />  
+                            <h:outputText value="#{trabajadorBean.trabajador.TTipotrabajador.nombre}" style="font-weight:bold"/>  
+                            <h:outputText value="Residencia :" />  
+                            <h:outputText value="#{trabajadorBean.trabajador.TUbigeo.nombre}" style="font-weight:bold"/>  
+                            <h:outputText value="Teléfono :" />  
+                            <h:outputText value="#{trabajadorBean.trabajador.telefono}" style="font-weight:bold"/>  
+                            <h:outputText value="Celular :" />  
+                            <h:outputText value="#{trabajadorBean.trabajador.celular}" style="font-weight:bold"/> 
+                            <h:outputText value="Correo :" />  
+                            <h:outputText value="#{trabajadorBean.trabajador.email}" style="font-weight:bold"/> 
+                            <h:outputText value="Estado :" />  
+                            <h:outputText value="#{trabajadorBean.trabajador.estado}" style="font-weight:bold"/>
+
+                        </h:panelGrid>  
+                        <p:separator/>
+                        <h:panelGrid id="display3" columns="2" cellpadding="4" >
+                            <h:outputText value="Usuario :" />  
+                            <h:outputText value="#{trabajadorBean.trabajador.TUsuario.nomUsu}" style="font-weight:bold"/>
+                            <h:outputText value="Acceso Web :" />  
+                            <h:outputText value="#{trabajadorBean.trabajador.TUsuario.accesoWeb}" style="font-weight:bold"/>
+                            <h:outputText value="Acceso Mobile:" />  
+                            <h:outputText value="#{trabajadorBean.trabajador.TUsuario.accesoMobile}" style="font-weight:bold"/>
+                        </h:panelGrid>
+                    </p:dialog>
 
                 </h:form>
             </ui:define> 
