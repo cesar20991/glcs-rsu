@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 01/11/2013 08:35:40 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="emch.modelo.entidades.TUsuario" table="t_usuario" catalog="bd_emch">
         <id name="nomUsu" type="string">
@@ -26,8 +26,8 @@
         <property name="accesoWeb" type="boolean">
             <column name="accesoWeb" not-null="true" />
         </property>
-        <property name="accesoMobile" type="java.lang.Boolean">
-            <column name="accesoMobile" />
+        <property name="accesoMobile" type="boolean">
+            <column name="accesoMobile" not-null="true" />
         </property>
         <set name="TTrabajadors" inverse="true">
             <key>

@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `BD_EMCH`.`T_Usuario` (
   `pass` VARCHAR(10) NOT NULL COMMENT 'Contraseña del usuario',
   `estado` TINYINT(1) NOT NULL COMMENT 'estado si esta o no habilitado',
   `accesoWeb` TINYINT(1) NOT NULL,
-  `accesoMobile` TINYINT(1) NULL,
+  `accesoMobile` TINYINT(1) NOT NULL,
   PRIMARY KEY (`nomUsu`),
   INDEX `fk_T_Usuario_T_Perfil1_idx` (`cdPerfil` ASC),
   CONSTRAINT `fk_T_Usuario_T_Perfil1`
@@ -744,11 +744,11 @@ START TRANSACTION;
 USE `BD_EMCH`;
 INSERT INTO `BD_EMCH`.`T_Usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('coropeza', 'PF01', '12345', 1, 1, 1);
 INSERT INTO `BD_EMCH`.`T_Usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('mvalois', 'PF01', '12345', 1, 1, 1);
-INSERT INTO `BD_EMCH`.`T_Usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('dparraga', 'PF01', '12345', 1, 1, NULL);
-INSERT INTO `BD_EMCH`.`T_Usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('mrobles', 'PF01', '12345', 1, 1, NULL);
+INSERT INTO `BD_EMCH`.`T_Usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('dparraga', 'PF01', '12345', 1, 1, 0);
+INSERT INTO `BD_EMCH`.`T_Usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('mrobles', 'PF01', '12345', 1, 1, 0);
 INSERT INTO `BD_EMCH`.`T_Usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('vnunez', 'PF01', '12345', 1, 1, 1);
-INSERT INTO `BD_EMCH`.`T_Usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('cmiranda', 'PF05', '12345', 1, 1, NULL);
-INSERT INTO `BD_EMCH`.`T_Usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('aperez', 'PF05', '12345', 1, 1, NULL);
+INSERT INTO `BD_EMCH`.`T_Usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('cmiranda', 'PF05', '12345', 1, 1, 0);
+INSERT INTO `BD_EMCH`.`T_Usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('aperez', 'PF05', '12345', 1, 1, 0);
 INSERT INTO `BD_EMCH`.`T_Usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('glopez', 'PF01', '12345', 1, 1, 1);
 
 COMMIT;

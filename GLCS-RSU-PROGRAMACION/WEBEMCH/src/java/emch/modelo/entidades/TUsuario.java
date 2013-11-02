@@ -1,5 +1,5 @@
 package emch.modelo.entidades;
-// Generated 01/11/2013 03:25:49 PM by Hibernate Tools 3.2.1.GA
+// Generated 01/11/2013 08:35:39 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -16,7 +16,7 @@ public class TUsuario  implements java.io.Serializable {
      private String pass;
      private boolean estado;
      private boolean accesoWeb;
-     private Boolean accesoMobile;
+     private boolean accesoMobile;
      private Set<TTrabajador> TTrabajadors = new HashSet<TTrabajador>(0);
      private Set<TCliente> TClientes = new HashSet<TCliente>(0);
 
@@ -24,14 +24,15 @@ public class TUsuario  implements java.io.Serializable {
     }
 
 	
-    public TUsuario(String nomUsu, TPerfil TPerfil, String pass, boolean estado, boolean accesoWeb) {
+    public TUsuario(String nomUsu, TPerfil TPerfil, String pass, boolean estado, boolean accesoWeb, boolean accesoMobile) {
         this.nomUsu = nomUsu;
         this.TPerfil = TPerfil;
         this.pass = pass;
         this.estado = estado;
         this.accesoWeb = accesoWeb;
+        this.accesoMobile = accesoMobile;
     }
-    public TUsuario(String nomUsu, TPerfil TPerfil, String pass, boolean estado, boolean accesoWeb, Boolean accesoMobile, Set<TTrabajador> TTrabajadors, Set<TCliente> TClientes) {
+    public TUsuario(String nomUsu, TPerfil TPerfil, String pass, boolean estado, boolean accesoWeb, boolean accesoMobile, Set<TTrabajador> TTrabajadors, Set<TCliente> TClientes) {
        this.nomUsu = nomUsu;
        this.TPerfil = TPerfil;
        this.pass = pass;
@@ -77,11 +78,11 @@ public class TUsuario  implements java.io.Serializable {
     public void setAccesoWeb(boolean accesoWeb) {
         this.accesoWeb = accesoWeb;
     }
-    public Boolean getAccesoMobile() {
+    public boolean isAccesoMobile() {
         return this.accesoMobile;
     }
     
-    public void setAccesoMobile(Boolean accesoMobile) {
+    public void setAccesoMobile(boolean accesoMobile) {
         this.accesoMobile = accesoMobile;
     }
     public Set<TTrabajador> getTTrabajadors() {
