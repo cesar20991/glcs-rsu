@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Servidor: localhost
--- Tiempo de generación: 01-11-2013 a las 17:13:11
+-- Tiempo de generación: 01-11-2013 a las 21:33:54
 -- Versión del servidor: 5.0.51
 -- Versión de PHP: 5.2.6
 
@@ -1376,7 +1376,7 @@ CREATE TABLE `t_usuario` (
   `pass` varchar(10) NOT NULL COMMENT 'Contraseña del usuario',
   `estado` tinyint(1) NOT NULL COMMENT 'estado si esta o no habilitado',
   `accesoWeb` tinyint(1) NOT NULL,
-  `accesoMobile` tinyint(1) default NULL,
+  `accesoMobile` tinyint(1) NOT NULL,
   PRIMARY KEY  (`nomUsu`),
   KEY `fk_T_Usuario_T_Perfil1_idx` (`cdPerfil`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1385,12 +1385,12 @@ CREATE TABLE `t_usuario` (
 -- Volcar la base de datos para la tabla `t_usuario`
 -- 
 
-INSERT INTO `t_usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('aperez', 'PF05', '12345', 1, 1, NULL);
-INSERT INTO `t_usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('cmiranda', 'PF05', '12345', 1, 1, NULL);
+INSERT INTO `t_usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('aperez', 'PF05', '12345', 1, 1, 0);
+INSERT INTO `t_usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('cmiranda', 'PF05', '12345', 1, 1, 0);
 INSERT INTO `t_usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('coropeza', 'PF01', '12345', 1, 1, 1);
-INSERT INTO `t_usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('dparraga', 'PF01', '12345', 1, 1, NULL);
+INSERT INTO `t_usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('dparraga', 'PF01', '12345', 1, 1, 0);
 INSERT INTO `t_usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('glopez', 'PF01', '12345', 1, 1, 1);
-INSERT INTO `t_usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('mrobles', 'PF01', '12345', 1, 1, NULL);
+INSERT INTO `t_usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('mrobles', 'PF01', '12345', 1, 1, 0);
 INSERT INTO `t_usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('mvalois', 'PF01', '12345', 1, 1, 1);
 INSERT INTO `t_usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `accesoMobile`) VALUES ('vnunez', 'PF01', '12345', 1, 1, 1);
 
@@ -1402,8 +1402,8 @@ INSERT INTO `t_usuario` (`nomUsu`, `cdPerfil`, `pass`, `estado`, `accesoWeb`, `a
 -- Filtros para la tabla `t_accesoe`
 -- 
 ALTER TABLE `t_accesoe`
-  ADD CONSTRAINT `fk_T_AccesoE_T_Empresa1` FOREIGN KEY (`cdRuc`) REFERENCES `t_empresa` (`cdRuc`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_T_AccesoE_T_GrupoAcceso1` FOREIGN KEY (`cdGA`) REFERENCES `t_grupoacceso` (`cdGA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_T_AccesoE_T_Empresa1` FOREIGN KEY (`cdRuc`) REFERENCES `t_empresa` (`cdRuc`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_T_AccesoE_T_Perfil1` FOREIGN KEY (`cdPerfil`) REFERENCES `t_perfil` (`cdPerfil`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- 
@@ -1429,16 +1429,16 @@ ALTER TABLE `t_asistencia`
 -- Filtros para la tabla `t_asistenciaxtrabajador`
 -- 
 ALTER TABLE `t_asistenciaxtrabajador`
-  ADD CONSTRAINT `fk_AsistenciaXTrabajador_T_Asistencia1` FOREIGN KEY (`cdAsistencia`) REFERENCES `t_asistencia` (`cdAsistencia`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_AsistenciaXTrabajador_T_Trabajador1` FOREIGN KEY (`cdTrabajador`) REFERENCES `t_trabajador` (`cdTrabajador`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_AsistenciaXTrabajador_T_Trabajador1` FOREIGN KEY (`cdTrabajador`) REFERENCES `t_trabajador` (`cdTrabajador`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_AsistenciaXTrabajador_T_Asistencia1` FOREIGN KEY (`cdAsistencia`) REFERENCES `t_asistencia` (`cdAsistencia`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- 
 -- Filtros para la tabla `t_cliente`
 -- 
 ALTER TABLE `t_cliente`
-  ADD CONSTRAINT `fk_T_Cliente_T_Empresa1` FOREIGN KEY (`cdRuc`) REFERENCES `t_empresa` (`cdRuc`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_T_Cliente_T_Ubigeo1` FOREIGN KEY (`cdUbig`) REFERENCES `t_ubigeo` (`cdUbig`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_T_Cliente_T_Usuario1` FOREIGN KEY (`nomUsu`) REFERENCES `t_usuario` (`nomUsu`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_T_Cliente_T_Usuario1` FOREIGN KEY (`nomUsu`) REFERENCES `t_usuario` (`nomUsu`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_T_Cliente_T_Empresa1` FOREIGN KEY (`cdRuc`) REFERENCES `t_empresa` (`cdRuc`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- 
 -- Filtros para la tabla `t_comprobante`
@@ -1450,8 +1450,8 @@ ALTER TABLE `t_comprobante`
 -- Filtros para la tabla `t_comprobantedet`
 -- 
 ALTER TABLE `t_comprobantedet`
-  ADD CONSTRAINT `fk_T_ComprobanteDet_T_Comprobante1` FOREIGN KEY (`idComprobante`) REFERENCES `t_comprobante` (`idComprobante`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_T_FacturaDet_T_Servicio1` FOREIGN KEY (`cdServicio`) REFERENCES `t_servicio` (`cdServicio`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_T_FacturaDet_T_Servicio1` FOREIGN KEY (`cdServicio`) REFERENCES `t_servicio` (`cdServicio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_T_ComprobanteDet_T_Comprobante1` FOREIGN KEY (`idComprobante`) REFERENCES `t_comprobante` (`idComprobante`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- 
 -- Filtros para la tabla `t_controlviaje`
@@ -1463,16 +1463,16 @@ ALTER TABLE `t_controlviaje`
 -- Filtros para la tabla `t_despacho`
 -- 
 ALTER TABLE `t_despacho`
-  ADD CONSTRAINT `fk_T_Despacho_T_Empresa1` FOREIGN KEY (`cdRuc`) REFERENCES `t_empresa` (`cdRuc`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_T_Despacho_T_Ubigeo1` FOREIGN KEY (`cdUbig`) REFERENCES `t_ubigeo` (`cdUbig`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_T_Despacho_T_Turno1` FOREIGN KEY (`cdTurno`) REFERENCES `t_turno` (`cdTurno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_T_Despacho_T_Ubigeo1` FOREIGN KEY (`cdUbig`) REFERENCES `t_ubigeo` (`cdUbig`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_T_Despacho_T_Empresa1` FOREIGN KEY (`cdRuc`) REFERENCES `t_empresa` (`cdRuc`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- 
 -- Filtros para la tabla `t_despachodet`
 -- 
 ALTER TABLE `t_despachodet`
-  ADD CONSTRAINT `fk_T_DespachoDet_T_Despacho1` FOREIGN KEY (`cdDespacho`, `cdRuc`) REFERENCES `t_despacho` (`cdDespacho`, `cdRuc`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_T_DespachoDet_T_TrabajadorXCamion1` FOREIGN KEY (`cdAsigCamion`) REFERENCES `t_trabajadorxcamion` (`cdAsigCamion`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_T_DespachoDet_T_TrabajadorXCamion1` FOREIGN KEY (`cdAsigCamion`) REFERENCES `t_trabajadorxcamion` (`cdAsigCamion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_T_DespachoDet_T_Despacho1` FOREIGN KEY (`cdDespacho`, `cdRuc`) REFERENCES `t_despacho` (`cdDespacho`, `cdRuc`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- 
 -- Filtros para la tabla `t_empresa`
@@ -1504,8 +1504,8 @@ ALTER TABLE `t_liquidacion`
 -- Filtros para la tabla `t_pesaje`
 -- 
 ALTER TABLE `t_pesaje`
-  ADD CONSTRAINT `fk_T_Pesaje_T_ControlViaje1` FOREIGN KEY (`cdControlViaje`, `nroViaje`) REFERENCES `t_controlviaje` (`cdControlViaje`, `nroViaje`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_T_Pesaje_T_Liquidacion1` FOREIGN KEY (`cdLiq`) REFERENCES `t_liquidacion` (`cdLiq`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_T_Pesaje_T_Liquidacion1` FOREIGN KEY (`cdLiq`) REFERENCES `t_liquidacion` (`cdLiq`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_T_Pesaje_T_ControlViaje1` FOREIGN KEY (`cdControlViaje`, `nroViaje`) REFERENCES `t_controlviaje` (`cdControlViaje`, `nroViaje`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- 
 -- Filtros para la tabla `t_trabajador`
