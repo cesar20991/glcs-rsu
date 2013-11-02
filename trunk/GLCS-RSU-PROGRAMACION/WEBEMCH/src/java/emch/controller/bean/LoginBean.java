@@ -42,33 +42,51 @@ public class LoginBean {
         this.usuario = usuario;
     }
 
+    @SuppressWarnings("UnusedAssignment")
     public void login(ActionEvent actionEvent) throws IOException {
+        //VERIFICANDO ESTA MAL PERO Q QUEDA SALE u.u
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = null;
         boolean loggedIn = false;
         UsuarioManaged obj = new UsuarioManagedImpl();
         usuario = obj.buscarPorUsuario(usuario);
         empresa = obj.BuscarPorEmpresa(empresa);
-        if (isAccesoMovil()) {
-            //HACER ALGO
-        } else {
-
-            //VERIFICANDO ESTA MAL PERO Q QUEDA SALE u.u
-            UsuarioManagedImpl obj2 = new UsuarioManagedImpl();
-            if (usuario != null) {
-                loggedIn = true;
-                putsesion("usuario", usuario);
-                putsesion("tipo", "usu");
-                putsesion("empresa", empresa);
-                putsesion("tipoe", "emp");
-                msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido ", usuario.getNomUsu());
-            } else {
-                loggedIn = false;
-                msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials");
+        if (usuario != null) {
+            if (isAccesoMovil()) { // TIENE ACCESO MOVIL
+                if (usuario.isAccesoMobile()) {
+                    loggedIn = true;
+                    putsesion("usuario", usuario);
+                    putsesion("tipo", "usu");
+                    putsesion("empresa", empresa);
+                    putsesion("tipoe", "emp");
+                    context.addCallbackParam("loggedIn", loggedIn);
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("faces/mobile/principalMobile.xhtml");
+                } else { //NO TIENE ACESO MOBILE
+                    loggedIn = false;
+                    msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "No tiene acceso a la función Móvil", "Verificar");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+            } else { // ACCESO WEB
+                if (usuario.isAccesoWeb()) { // TIENE ACCESO WEB
+                    loggedIn = true;
+                    putsesion("usuario", usuario);
+                    putsesion("tipo", "usu");
+                    putsesion("empresa", empresa);
+                    putsesion("tipoe", "emp");
+                    msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido ", usuario.getNomUsu());
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    context.addCallbackParam("loggedIn", loggedIn);
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("faces/principal.xhtml");
+                } else { //NO TIENE ACESO WEB
+                    loggedIn = false;
+                    msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "No tiene acceso a la función Web", "Verificar");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
             }
+        } else {
+            loggedIn = false;
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            context.addCallbackParam("loggedIn", loggedIn);
-            FacesContext.getCurrentInstance().getExternalContext().redirect("faces/principal.xhtml");
         }
     }
 
