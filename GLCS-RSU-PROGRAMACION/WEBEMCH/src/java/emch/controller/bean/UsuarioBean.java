@@ -62,8 +62,10 @@ public class UsuarioBean {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         String s = FacesContext.getCurrentInstance().getExternalContext().getRequestPathInfo();
         System.out.print(s);
-        if(s.contains("emch-seguridad") || s.contains("emch-administracion") || s.contains("emch-control") || s.contains("operaciones")){
-            
+        if(s.contains("emch-seguridad") || s.contains("emch-administracion") || s.contains("emch-control") || s.contains("operaciones")){            
+            FacesContext.getCurrentInstance().getExternalContext().redirect( "/WEBEMCH");
+        }
+        else if(s.contains("mobile")){
             FacesContext.getCurrentInstance().getExternalContext().redirect( "/WEBEMCH");
         }
         else{

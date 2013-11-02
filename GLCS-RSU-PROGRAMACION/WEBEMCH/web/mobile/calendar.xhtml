@@ -9,11 +9,10 @@
 
     <pm:page id="page" title="Calendar">                                                 
 
-        <f:facet name="postinit">          
-            
-            <h:outputStylesheet name="calendar.css" />
-            <h:outputScript name="calendar.js" />            
-            
+        <f:facet name="postinit">                        
+            <h:outputStylesheet library="primefaces-mobile" name="calendar/calendar.css"  />
+            <h:outputScript library="primefaces-mobile" name="calendar/calendar.js" />            
+
             <script type="text/javascript">
                 (function($) {
                     $.mobiscroll.i18n['pt_BR'] = $.extend($.mobiscroll.i18n['pt_BR'], {
@@ -99,4 +98,4 @@
             </pm:content>
         </pm:view>
     </pm:page>       
-</f:view> 
+</f:view>

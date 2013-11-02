@@ -7,81 +7,51 @@
         contentType="text/html" 
         renderKitId="PRIMEFACES_MOBILE"        
         xmlns:c="http://java.sun.com/jsp/jstl/core">   
-     <style>
-            #map-canvas {
-                margin: 0;
-                padding: 0;
-                height: 500px;
-                width: 100%;
-            }
-        </style>
-       <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
-        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-        <script type="text/javascript">
-            var map = null;
 
-            function initialize() {
-                var parliament = new google.maps.LatLng(-12.075471, -76.995987);
-                var mapOptions = {
-                    zoom: 13,
-                    center: parliament,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                map = new google.maps.Map($("#map-canvas").get(0), mapOptions);
-
-                infoWindow = new google.maps.InfoWindow();
-
-                //$.each(Coordenadas, function(i, coordenada){ 
-                var rectangle = new google.maps.Rectangle({
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.35,
-                    map: map,
-                    editable: true,
-                    draggable: true,
-                    bounds: new google.maps.LatLngBounds(
-                            new google.maps.LatLng(-12.087856258007099, -77.039566355468719),
-                            new google.maps.LatLng(-12.07364225800709, -77.02535235546871)
-                            )
-                });
-                //});
-
-                google.maps.event.addListener(rectangle, 'dragend', function() {
-                    openInfoWindow2(rectangle);
-                });
-                google.maps.event.addListener(rectangle, 'click', function() {
-                    openInfoWindow2(rectangle);
-                });
-            }
-
-            function openInfoWindow2(rectangle) {
-
-                var rectangleLatLng = rectangle.getBounds();
-                //$("#NorthEast").val(rectangleLatLng.getNorthEast());
-                $("#longN").val(rectangleLatLng.getNorthEast().lng());
-                $("#latN").val(rectangleLatLng.getNorthEast().lat());
-                //$("#SouthWest").val(rectangleLatLng.getSouthWest());
-                $("#longS").val(rectangleLatLng.getSouthWest().lng());
-                $("#latS").val(rectangleLatLng.getSouthWest().lat());
-            }
-
-            $(document).ready(function() {
-                initialize();
-            });
-        </script>
-    
-        <pm:page title="EMCH Servicios Ecologicos">
+    <pm:page title="EMCH Servicios Ecologicos">
         <f:facet name="preinit">
             <link type="text/css" rel="stylesheet" href="../themes/mobile.css" />
             <!-- AQUI DEBE IR EL TEMA DE JQUERY -->
         </f:facet>
 
+        <f:facet name="postinit">                        
+            <h:outputStylesheet library="primefaces-mobile" name="calendar/calendar.css"  />
+            <h:outputScript library="primefaces-mobile" name="calendar/calendar.js" />            
+
+            <script type="text/javascript">
+                (function($) {
+                    $.mobiscroll.i18n['pt_BR'] = $.extend($.mobiscroll.i18n['pt_BR'], {
+                        dateFormat: 'dd/mm/yy',
+                        dateOrder: 'ddMMyy',
+                        dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
+                        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                        dayText: 'Dia',
+                        hourText: 'Hora',
+                        minuteText: 'Minutos',
+                        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                        monthText: 'Mês',
+                        secText: 'Segundo',
+                        timeFormat: 'HH:ii',
+                        timeWheels: 'HHii',
+                        yearText: 'Ano',
+                        setText: 'Selecionar',
+                        cancelText: 'Cancelar',
+                        nowText: 'Agora'
+                    });
+                })(jQuery);
+            </script>
+        </f:facet>   
+
         <!--PÁGINA PRINCIPAL-->
         <pm:view id="consultas">
-            <pm:header title="GLCS-RSU - Menú Principal">
-            </pm:header>
+            <pm:header title="GLCS-RSU - Menú Principal">               
+                <pm:navBar>
+                    <p:button value="Inicio" icon="home" href="#consultas?reverse=true"/>
+                    <p:button value="Usuario: #{usuarioBean.nomusuario}" icon="grid" onclick="PF('dlgBasic1').show()"/>                                                         
+                    <p:commandButton value="Cerrar sesión" icon="minus" action="#{usuarioBean.logout()}"></p:commandButton>
+                </pm:navBar>
+            </pm:header>           
             <pm:content>
 
                 <p:dataList type="inset">                    
@@ -98,53 +68,57 @@
                     <h:outputLink value="#ConsultasComprobantes">Comprobantes</h:outputLink>                    
                     <h:outputLink value="#ConsultasMapas">Mapas</h:outputLink>                                                       
                 </p:dataList>      
-
-                <p:outputPanel>
-                    <h3>Visualización de Reservas</h3>
-                    <h:form id="formVerReservas">
-                        <c:forEach var="reserva" items="#{reservaAlumnoMobileJSFBean.listaReservas}" >
-                            <p:panel header="#{reserva.fechaReserva} - #{reserva.estadoReservaString}" collapsed="true" >
-                                <h:panelGrid columns="2">
-                                    <h:outputText value="Entrada"/>
-                                    <h:outputText value="#{reserva.carta.entrada.nombreEntrada}"/>
-                                    <h:outputText value="Fondo"/>
-                                    <h:outputText value="#{reserva.carta.fondo.nombreFondo}"/>
-                                    <h:outputText value="Postre"/>
-                                    <h:outputText value="#{reserva.carta.refresco.nombreRefresco}"/>
-                                    <h:outputText value="Refresco"/>
-                                    <h:outputText value="#{reserva.carta.postre.nombrePostre}"/>
-                                </h:panelGrid>
-                            </p:panel> 
-                        </c:forEach>
-                       
-                    </h:form>
-
-                </p:outputPanel>
-                <p:button value="Nueva Reserva" href="#consultasAcademicas"/>
             </pm:content>
             <!-- INICIO FOOTER-->
             <pm:footer>
-                <h:outputLink styleClass="text_title" style="font-size: 11px" value="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" >
-                    <h:outputText styleClass="text_title" value="Cerrar Sesión"/>
-                </h:outputLink>
+                <pm:header title="Empresa (Cliente): #{usuarioBean.nomEmpresa}">                    
+                </pm:header>    
                 <h:panelGrid style="text-align: center">
                     <h:outputText style="font-size: 11px; text-align: center; margin-left: 2px; margin-right: 2px; margin-bottom: 0px" 
                                   value="© 2013 EMCH Servicios Ecológicos SAC. | Todos los derechos reservados. | comercial@emchsac.com - emchsac@emchsac.com" />
                 </h:panelGrid>
             </pm:footer>
             <!-- FIN FOOTER-->
+            <p:dialog header="Información Usuario" widgetVar="dlgBasic1" modal="true">
+                <h:panelGrid columns="2">
+                    Usuario: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"/>
+                    Empresa (Cliente): <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"/>
+                    RUC (Cliente):<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"/>
+                </h:panelGrid>
+            </p:dialog>
         </pm:view> 
-
 
         <!--Consultar Despacho-->
         <pm:view id="ConsultasDespacho">
             <pm:header title="Consultar Despacho">
                 <f:facet name="left"><p:button value="Regresar" icon="back" href="#consultas?reverse=true"/></f:facet>
-            </pm:header>
+                <pm:navBar>
+                    <p:button value="Inicio" icon="home" href="#consultas?reverse=true"/>
+                    <p:button value="Usuario: #{usuarioBean.nomusuario}" icon="grid" onclick="PF('dlgBasic2').show()"/>                                                         
+                    <p:commandButton value="Cerrar sesión" icon="minus" action="#{usuarioBean.logout()}"></p:commandButton>                   
+                </pm:navBar>
+            </pm:header>             
             <pm:content>
-                <h3>Visualización de Despacho de acuerdo a fechas</h3>
+                <h3>Visualizar Despachos</h3>
+
+                <p:outputLabel value="Desde : " style="font-weight:bold;"/>
+                <p:calendar value="#{despachoMobileBean.fecDesde}" effect="fade"/>
+
+                <p:outputLabel  value="Hasta : " style="font-weight:bold;"/>
+                <p:calendar value="#{despachoMobileBean.fecHasta}" effect="fade"/>                
+                <pm:field>
+                    <h:outputLabel value="Turno : " style="font-weight:bold;"/>
+                    <h:selectOneMenu id="selectOneMenu"> 
+                        <f:selectItem itemLabel="Mañana" itemValue="TN01" />
+                        <f:selectItem itemLabel="Noche" itemValue="TN02" />
+                    </h:selectOneMenu>
+                </pm:field>
+                <h:form>
+                    <p:commandButton value="Buscar" type="button" action="#{despachoMobileBean.irBuscarDespacho}"/>
+                </h:form>
+
                 <h:form id="ConsultasDespachoForm">
-                    <c:forEach var="despacho" items="#{despachoMobileBean.listaDespacho}" >                            
+                    <c:forEach id="listDesp" var="despacho" items="#{despachoMobileBean.listaDespacho}" >                            
                         <p:panel header="DESPACHO : #{despacho.nroDespacho} - Fecha #{despacho.fechaEmi}" collapsed="true" >
                             <h:panelGrid columns="4">
                                 <h:outputText value="Fecha : " style="font-weight:bold;"/>
@@ -163,83 +137,29 @@
                                 <h:outputText value="#{despacho.obs}"/>
                             </h:panelGrid>
                             <p:button value="Ver Trabajadores Asignados"  href="#consultasAcademicas">
-                                
+
                             </p:button>
                         </p:panel> 
                     </c:forEach>
-                     <pm:field>
-                            <h:outputLabel for="txt" value="Text:" />
-                            <p:inputText id="txt" value="#{showcaseView.text}" />
-                        </pm:field>                    
-
-                        <p:commandButton value="PrimeFaces" actionListener="#{showcaseView.add}" update="txt txts" process="@form"/>                    
-
-                        <p:dataList id="txts" var="text" value="#{showcaseView.texts}" type="inset">
-                            <f:facet name="header">Values</f:facet>
-                                #{text}
-                        </p:dataList>
-                        <p:panel header="mapa prueba" collapsed="true" >
-                             <div id="map-canvas"></div><br/>
-                        </p:panel>
-                       
                 </h:form>
             </pm:content>  
             <!-- INICIO FOOTER-->
             <pm:footer>
-                <h:outputLink styleClass="text_title" style="font-size: 11px" value="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" >
-                    <h:outputText styleClass="text_title" value="Cerrar Sesión"/>
-                </h:outputLink>
+                <pm:header title="Empresa (Cliente): #{usuarioBean.nomEmpresa}">                    
+                </pm:header>    
                 <h:panelGrid style="text-align: center">
                     <h:outputText style="font-size: 11px; text-align: center; margin-left: 2px; margin-right: 2px; margin-bottom: 0px" 
                                   value="© 2013 EMCH Servicios Ecológicos SAC. | Todos los derechos reservados. | comercial@emchsac.com - emchsac@emchsac.com" />
                 </h:panelGrid>
             </pm:footer>
             <!-- FIN FOOTER-->
-        </pm:view> 
-
-        <!--Consultar Control de Viaje -FALTA COMPLETAR -->
-        <pm:view id="ConsultasViaje">
-            <pm:header title="Consultar Control de Viaje">
-                <f:facet name="left"><p:button value="Regresar" icon="back" href="#consultas?reverse=true"/></f:facet>
-            </pm:header>
-            <pm:content>
-                <h3>Visualización de Control de viaje de acuerdo a fechas</h3>
-                <h:form id="ConsultasViajeForm">
-                    <c:forEach var="despacho" items="#{despachoMobileBean.listaDespacho}" >                            
-                        <p:panel header="DESPACHO : #{despacho.nroDespacho} - Fecha #{despacho.fechaEmi}" collapsed="true" >
-                            <h:panelGrid columns="4">
-                                <h:outputText value="Fecha : " style="font-weight:bold;"/>
-                                <h:outputText value="#{despacho.fechaEmi}"/>
-                                <h:outputText value="Turno: " style="font-weight:bold;"/>
-                                <h:outputText value="#{despacho.TTurno.nombTurno}"/>
-                                <h:outputText value="Zona: " style="font-weight:bold;"/>
-                                <h:outputText value="#{despacho.zona}" />
-                                <h:outputText value="(S/.) Enviado : " style="font-weight:bold;"/>
-                                <h:outputText value="#{despacho.dineroEnviado}"/>
-                                <h:outputText value="Total S/. en Uso :" style="font-weight:bold;"/>
-                                <h:outputText value="#{despacho.totalDineroUso}"/>
-                                <h:outputText value="Total S/. sin Uso: " style="font-weight:bold;"/>
-                                <h:outputText value="#{despacho.totalDineroSinUso}"/>
-                                <h:outputText value="Obs: " style="font-weight:bold;"/>
-                                <h:outputText value="#{despacho.obs}"/>
-                            </h:panelGrid>
-                            <p:button value="Ver Trabajadores Asignados" href="#consultasAcademicas"/>
-                        </p:panel> 
-                    </c:forEach>
-                </h:form>
-            </pm:content>  
-            <!-- INICIO FOOTER-->
-            <pm:footer>
-                <h:outputLink styleClass="text_title" style="font-size: 11px" value="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" >
-                    <h:outputText styleClass="text_title" value="Cerrar Sesión"/>
-                </h:outputLink>
-                <h:panelGrid style="text-align: center">
-                    <h:outputText style="font-size: 11px; text-align: center; margin-left: 2px; margin-right: 2px; margin-bottom: 0px" 
-                                  value="© 2013 EMCH Servicios Ecológicos SAC. | Todos los derechos reservados. | comercial@emchsac.com - emchsac@emchsac.com" />
+            <p:dialog header="Información Usuario" widgetVar="dlgBasic2" modal="true">
+                <h:panelGrid columns="2">
+                    Usuario: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"/>
+                    Empresa (Cliente): <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"/>
+                    RUC (Cliente):<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"/>
                 </h:panelGrid>
-            </pm:footer>
-            <!-- FIN FOOTER-->
+            </p:dialog>
         </pm:view> 
-
     </pm:page>
 </f:view>
