@@ -13,8 +13,8 @@
             <ui:define name="demo" >
                 <h:outputLink id="loginLink" value="javascript:void(0)" onclick="dlg.show()" title="login">     
                     <h:form>
-                                               
-                    <p:commandButton value="ACCEDER" />  
+
+                        <p:commandButton value="ACCEDER" />  
                     </h:form> 
                 </h:outputLink> 
                 <p:growl id="growl" showDetail="true" life="3000" />  
@@ -33,7 +33,9 @@
                             <p:selectOneMenu value="#{loginBean.empresa.cdRuc}" filter="true" filterMatchMode="contains" required="true" requiredMessage="Seleccione la Empresa para iniciar el servicio"  >
                                 <f:selectItem itemLabel="Seleccione Empresa" itemValue="" />  
                                 <f:selectItems value="#{loginBean.listarempresa}" var="empresa"  itemLabel="#{empresa.rsocial}" itemValue="#{empresa.cdRuc}"/>  
-                            </p:selectOneMenu>
+                            </p:selectOneMenu>   
+                            <h:outputLabel value="" />  
+                            <p:selectBooleanCheckbox id="accesomovil" value="#{loginBean.accesoMovil}" label="accesomovil"  itemLabel="Iniciar Móvil" />
                             <f:facet name="footer">  
                                 <p:commandButton id="loginButton" value="Ingresar" update=":growl"   
                                                  actionListener="#{loginBean.login}"   
@@ -44,16 +46,18 @@
                     </h:form>  
                 </p:dialog>  
 
-                <script type="text/javascript">  
-                    function handleLoginRequest(xhr, status, args) {  
-                        if(args.validationFailed || !args.loggedIn) {  
-                            jQuery('#dialog').effect("shake", { times:3 }, 100);  
-                        } else {  
-                            dlg.hide();  
-                            jQuery('#loginLink').fadeOut();  
-                            window.location="/WEBEMCH/faces/principal.xhtml";
-                        }  
-                    }  
+                <script type="text/javascript">
+                    function handleLoginRequest(xhr, status, args) {
+                        //var movil = document.getElementById("Loginn:accesomovil_input");
+                        //var username = document.getElementById("Loginn:username");
+                        if (args.validationFailed || !args.loggedIn) {
+                            jQuery('#dialog').effect("shake", {times: 3}, 100);
+                        } else {
+                            dlg.hide();
+                            jQuery('#loginLink').fadeOut();
+                            //window.location = "/WEBEMCH/faces/principal.xhtml";
+                        }
+                    }
                 </script>  
             </ui:define>
 
@@ -62,9 +66,9 @@
             </ui:define>   
 
             <ui:define name="content">
-                
+
             </ui:define>   
-            
+
         </ui:composition>
     </h:body>
 </html>

@@ -13,6 +13,11 @@
             <ui:composition template="../plantillas/Template.xhtml">
 
                 <ui:define name="usuarios">
+                    Usuario: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
+                    <br></br>
+                    Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
+                    <br></br>
+                    RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>
                 </ui:define>
 
                 <ui:define name="top">
@@ -20,7 +25,7 @@
                 </ui:define>
 
                 <ui:define name="content">
-
+                     <h:outputText value="ADMINISTRAR - CAMIÓN" style="font-weight:bold;font-size:20px;color:#654B24" />
                     <h:form id="btnAgregar">
                         <p:commandButton value="Nuevo" oncomplete="nuevoCamionDialog.show();" update=":formCamionNuevo" icon="ui-icon-document" actionListener="#{camionBean.prepararInsertar()}"/>
                     </h:form>
@@ -34,82 +39,81 @@
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                      rowsPerPageTemplate="5,10,15" style="font-weight:bold">
                             <h:inputHidden value="#{camion.cdCamion}"/>
-                            
-                            <p:column filterBy="#{camion.clase}" filterMatchMode="contains">
+                            <f:facet name="header">  
+                                Lista de Camiones
+                            </f:facet>  
+
+                            <p:column headerText="Ver Info." style="width:8%; text-align: center"> 
+                                <p:commandButton oncomplete="verCamionDialog.show();" icon="ui-icon-search" title="Ver" update=":formCamionVer" actionListener="#{camionBean.prepararCamion(camion.cdCamion)}"/>
+                            </p:column> 
+                            <p:column filterBy="#{camion.unidad}" filterMatchMode="contains" rendered="false">
                                 <f:facet name="header">
-                                <h:outputText value="Nombre Clase" />
-                                </f:facet> 
-                                <h:outputText value="#{camion.clase}"/>
-                            </p:column>
-                            
-                            <p:column filterBy="#{camion.marca}" filterMatchMode="contains">
-                                <f:facet name="header">
-                                <h:outputText value="Nombre Marca" />
-                                </f:facet> 
-                                <h:outputText value="#{camion.marca}"/>
-                            </p:column>
-                            
-                            <p:column filterBy="#{camion.unidad}" filterMatchMode="contains">
-                                <f:facet name="header">
-                                <h:outputText value="Unidad" />
+                                    <h:outputText value="Unidad" />
                                 </f:facet> 
                                 <h:outputText value="#{camion.unidad}"/>
                             </p:column>
 
                             <p:column filterBy="#{camion.placa}" filterMatchMode="contains">
                                 <f:facet name="header">
-                                <h:outputText value="Placa" />
+                                    <h:outputText value="Placa" />
                                 </f:facet> 
                                 <h:outputText value="#{camion.placa}"/>
                             </p:column>
 
+                            <p:column filterBy="#{camion.clase}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Clase" />
+                                </f:facet> 
+                                <h:outputText value="#{camion.clase}"/>
+                            </p:column>
+
+                            <p:column filterBy="#{camion.marca}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Marca" />
+                                </f:facet> 
+                                <h:outputText value="#{camion.marca}"/>
+                            </p:column>
+
                             <p:column filterBy="#{camion.anioFab}}" filterMatchMode="contains">
-                                 <f:facet name="header">
-                                <h:outputText value="Anio Fabricación" />
-                                 </f:facet> 
+                                <f:facet name="header">
+                                    <h:outputText value="Año Fabricación" />
+                                </f:facet> 
                                 <h:outputText value="#{camion.anioFab}"/>
                             </p:column>
-                            
+
                             <p:column filterBy="#{camion.anioAdq}" filterMatchMode="contains">
-                                 <f:facet name="header">
-                                <h:outputText value="Anio Adquirido" />
-                                 </f:facet> 
+                                <f:facet name="header">
+                                    <h:outputText value="Año Adquirido" />
+                                </f:facet> 
                                 <h:outputText value="#{camion.anioAdq}"/>
                             </p:column>
-                            
+
                             <p:column filterBy="#{camion.nroMotor}" filterMatchMode="contains">
-                                 <f:facet name="header">
-                                <h:outputText value="Nro. Motor" />
-                                 </f:facet> 
+                                <f:facet name="header">
+                                    <h:outputText value="Nro. Motor" />
+                                </f:facet> 
                                 <h:outputText value="#{camion.nroMotor}"/>
                             </p:column>
-                            
+
                             <p:column filterBy="#{camion.pesoBruto}" filterMatchMode="contains">
-                                 <f:facet name="header">
-                                <h:outputText value="Peso Bruto" />
-                                 </f:facet> 
+                                <f:facet name="header">
+                                    <h:outputText value="Peso Bruto" />
+                                </f:facet> 
                                 <h:outputText value="#{camion.pesoBruto}"/>
                             </p:column>
 
                             <p:column filterBy="#{camion.tipoCombustible}}" filterMatchMode="contains">
                                 <f:facet name="header">
-                                <h:outputText value="Tipo Combustible" />
+                                    <h:outputText value="Tipo Combustible" />
                                 </f:facet>
-                                    <h:outputText value="#{camion.tipoCombustible}"/>
+                                <h:outputText value="#{camion.tipoCombustible}"/>
                             </p:column>
 
                             <p:column filterBy="#{camion.kilometraje}}" filterMatchMode="contains">
                                 <f:facet name="header">
-                                <h:outputText value="Kilometraje" />
+                                    <h:outputText value="Kilometraje" />
                                 </f:facet>
                                 <h:outputText value="#{camion.kilometraje}"/>
-                            </p:column>
-                            
-                            <p:column filterBy="#{camion.imagen}}" filterMatchMode="contains">
-                                <f:facet name="header">
-                                <h:outputText value="Imagen" />
-                                </f:facet>
-                                <h:outputText value="#{camion.imagen}"/>
                             </p:column>
 
                             <p:column headerText="Estado">
@@ -118,10 +122,7 @@
 
                             <p:column headerText="Edit." style="width:8%; text-align: center">  
                                 <p:commandButton oncomplete="editarCamionDialog.show();" icon="ui-icon-pencil" title="Editar" update=":formCamionEditar" actionListener="#{camionBean.prepararCamion(camion.cdCamion)}"/>
-                            </p:column> 
-                            <p:column headerText="Ver." style="width:8%; text-align: center"> 
-                                <p:commandButton oncomplete="verCamionDialog.show();" icon="ui-icon-search" title="Ver" update=":formCamionVer" actionListener="#{camionBean.prepararCamion(camion.cdCamion)}"/>
-                            </p:column> 
+                            </p:column>                             
                             <p:column headerText="Hab./Des." style="width:8%; text-align: center"> 
                                 <p:commandButton  icon="#{camion.estado == true ? 'ui-icon-check' : 'ui-icon-pencil'}" title="Cambiar estado" update=":formCamiones" actionListener="#{camionBean.cambiarEstado(camion.cdCamion)}"/>
                             </p:column> 
@@ -133,13 +134,28 @@
                         <p:dialog id="dlgCamionEditar" header="Editar Camión" widgetVar="editarCamionDialog" resizable="false" modal="false">
                             <h:panelGrid id="pgCamionEditar" columns="2" cellpadding="4" style="margin:0 auto;">
                                 <h:outputText value="Codigo" />
-                                <p:inputText value="#{camionBean.camion.cdCamion}" style="font-weight:bold" disabled="true"/>
+                                <p:outputLabel value="#{camionBean.camion.cdCamion}" style="font-weight:bold"/>
 
                                 <h:outputText value="Placa:" />
                                 <p:inputText value="#{camionBean.camion.placa}" style="font-weight:bold"/>
 
                                 <h:outputText value="Marca:" />
-                                <p:inputText value="#{camionBean.camion.marca}" style="font-weight:bold"/>
+                                <p:selectOneMenu value="#{camionBean.camion.marca}">  
+                                    <f:selectItem itemLabel="SCANIA" itemValue="SCANIA"/>  
+                                    <f:selectItem itemLabel="IVECO" itemValue="IVECO"/>  
+                                    <f:selectItem itemLabel="INTERNATIONAL" itemValue="INTERNATIONAL"/>  
+                                    <f:selectItem itemLabel="KIA" itemValue="KIA"/>  
+                                    <f:selectItem itemLabel="HUINDAY" itemValue="HUINDAY"/>  
+                                    <f:selectItem itemLabel="DONG FENG" itemValue="DONG FENG"/>  
+                                    <f:selectItem itemLabel="VOLKSWAGEN" itemValue="VOLKSWAGEN"/>  
+                                </p:selectOneMenu>
+
+                                <h:outputText value="Clase: " />                                 
+                                <p:selectOneMenu value="#{camionBean.camion.clase}">  
+                                    <f:selectItem itemLabel="Compactadora" itemValue="Compactadora"/>  
+                                    <f:selectItem itemLabel="Baranda" itemValue="Baranda"/>  
+                                    <f:selectItem itemLabel="Barredora" itemValue="Barredora"/>  
+                                </p:selectOneMenu>
 
                                 <h:outputText value="Año Fab.:" />
                                 <p:inputText value="#{camionBean.camion.anioFab}" style="font-weight:bold"/>
@@ -162,28 +178,31 @@
                     </h:form>
 
                     <h:form id="formCamionVer">
-                        <p:dialog id="dlgCamionVer" header="Detalle del Camión" widgetVar="verCamionDialog" resizable="false" modal="false">
+                        <p:dialog id="dlgCamionVer" header="Información del Camión" widgetVar="verCamionDialog" resizable="false" modal="true" showEffect="fade" hideEffect="explode" appendToBody="true">
                             <h:panelGrid id="pgCamionVer" columns="2" cellpadding="4" style="margin:0 auto;">
                                 <h:outputText value="Codigo" />
-                                <p:inputText value="#{camionBean.camion.cdCamion}" style="font-weight:bold" disabled="true"/>
+                                <p:outputLabel value="#{camionBean.camion.cdCamion}" style="font-weight:bold"/>
 
                                 <h:outputText value="Placa:" />
-                                <p:inputText value="#{camionBean.camion.placa}" style="font-weight:bold"/>
+                                <p:outputLabel value="#{camionBean.camion.placa}" style="font-weight:bold"/>
 
                                 <h:outputText value="Marca:" />
-                                <p:inputText value="#{camionBean.camion.marca}" style="font-weight:bold"/>
+                                <p:outputLabel value="#{camionBean.camion.marca}" style="font-weight:bold"/>
+
+                                <h:outputText value="Clase:" />
+                                <p:outputLabel value="#{camionBean.camion.clase}" style="font-weight:bold"/>
 
                                 <h:outputText value="Año Fab.:" />
-                                <p:inputText value="#{camionBean.camion.anioFab}" style="font-weight:bold"/>
+                                <p:outputLabel value="#{camionBean.camion.anioFab}" style="font-weight:bold"/>
 
                                 <h:outputText value="Peso bruto:" />
-                                <p:inputText value="#{camionBean.camion.pesoBruto}" style="font-weight:bold"/>
+                                <p:outputLabel value="#{camionBean.camion.pesoBruto}" style="font-weight:bold"/>
 
-                                <h:outputText value="Tipo de combustible:" />
-                                <p:inputText value="#{camionBean.camion.tipoCombustible}" style="font-weight:bold"/>
+                                <h:outputText value="Combustible:" />
+                                <p:outputLabel value="#{camionBean.camion.tipoCombustible}" style="font-weight:bold"/>
 
                                 <h:outputText value="Kilometraje:" />
-                                <p:inputText value="#{camionBean.camion.kilometraje}" style="font-weight:bold"/>
+                                <p:outputLabel value="#{camionBean.camion.kilometraje}" style="font-weight:bold"/>
                                 <h:outputText value="Estado:" />
                                 <h:outputText value="#{camionBean.camion.estado == true ? 'Habilitado' : 'Deshabilitado'}"/>
                             </h:panelGrid>
@@ -200,8 +219,23 @@
                                 <h:outputText value="Placa:" />
                                 <p:inputText value="#{camionBean.camion.placa}" style="font-weight:bold"/>
 
-                                <h:outputText value="Marca:" />
-                                <p:inputText value="#{camionBean.camion.marca}" style="font-weight:bold"/>
+                                <h:outputText value="Marca:" />                                
+                                <p:selectOneMenu value="#{camionBean.camion.marca}">  
+                                    <f:selectItem itemLabel="SCANIA" itemValue="SCANIA"/>  
+                                    <f:selectItem itemLabel="IVECO" itemValue="IVECO"/>  
+                                    <f:selectItem itemLabel="INTERNATIONAL" itemValue="INTERNATIONAL"/>  
+                                    <f:selectItem itemLabel="KIA" itemValue="KIA"/>  
+                                    <f:selectItem itemLabel="HUINDAY" itemValue="HUINDAY"/>  
+                                    <f:selectItem itemLabel="DONG FENG" itemValue="DONG FENG"/>  
+                                    <f:selectItem itemLabel="VOLKSWAGEN" itemValue="VOLKSWAGEN"/>  
+                                </p:selectOneMenu>
+
+                                <h:outputText value="Clase: " />                                 
+                                <p:selectOneMenu value="#{camionBean.camion.clase}">  
+                                    <f:selectItem itemLabel="Compactadora" itemValue="SCANIA"/>  
+                                    <f:selectItem itemLabel="Baranda" itemValue="IVECO"/>  
+                                    <f:selectItem itemLabel="Barredora" itemValue="INTERNATIONAL"/>  
+                                </p:selectOneMenu>
 
                                 <h:outputText value="Año Fab.:" />
                                 <p:inputText value="#{camionBean.camion.anioFab}" style="font-weight:bold"/>
