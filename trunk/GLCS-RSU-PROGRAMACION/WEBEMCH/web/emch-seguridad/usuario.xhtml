@@ -107,6 +107,10 @@
                             <h:outputText value="#{admUsuarioBean.usuario.TPerfil.descripPrf}" style="font-weight:bold"/>  
                             <h:outputText value="Estado :" />  
                             <h:outputText value="#{admUsuarioBean.usuario.estado==true ? 'Habilitado' : 'Deshabilitado'}" style="font-weight:bold"/>  
+                            <h:outputText value="Acceso Web :" />  
+                            <h:outputText value="#{admUsuarioBean.usuario.accesoWeb==true ? 'SI' : 'NO'}" style="font-weight:bold"/> 
+                            <h:outputText value="Acceso Móvil :" />  
+                            <h:outputText value="#{admUsuarioBean.usuario.accesoMobile==true ? 'SI' : 'NO'}" style="font-weight:bold"/>                             
                         </h:panelGrid>  
                     </p:dialog>
                     
