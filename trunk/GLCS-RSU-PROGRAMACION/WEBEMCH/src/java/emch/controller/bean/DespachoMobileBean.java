@@ -17,15 +17,30 @@ public class DespachoMobileBean {
     private List<TDespacho> listaDespacho;
     private Date fecDesde;
     private Date fecHasta;
+    private TDespacho selectedDespacho;
+    private List<TDespachodet> listaDespachoDet;
+    String rucempresa = "";
 
-    @PostConstruct
-    public void init() {
-        
+    public void DespachoMobileBean() {
     }
 
     public void irBuscarDespacho() {
+        // NO PUEDO TRAER CALENDAR SALE NULL
+        //VerificarComprobanteManaged obj = new VerificarComprobanteManaged();
+        //listaDespacho = obj.listarDespacho(fecDesde, fecHasta, rucempresa);
         HojadeDespachoManaged obj = new HojadeDespachoManaged();
         listaDespacho = obj.buscarTodos();
+    }
+
+    public void irClearDespacho() {
+        listaDespacho = null;
+    }
+
+    public void buscarDespachoDet() {
+        HojadeDespachoManaged obj = new HojadeDespachoManaged();
+        if (selectedDespacho != null) {
+            listaDespachoDet = obj.ListarDespachoxDespachoDet(selectedDespacho);
+        }
     }
 
     public List<TDespacho> getListaDespacho() {
@@ -60,5 +75,23 @@ public class DespachoMobileBean {
 
     public void setFecHasta(Date fecHasta) {
         this.fecHasta = fecHasta;
+    }
+
+    public TDespacho getSelectedDespacho() {
+        return selectedDespacho;
+    }
+
+    public void setSelectedDespacho(TDespacho selectedDespacho) {
+        HojadeDespachoManaged obj = new HojadeDespachoManaged();
+        listaDespachoDet = obj.ListarDespachoxDespachoDet(selectedDespacho);
+        this.selectedDespacho = selectedDespacho;
+    }
+
+    public List<TDespachodet> getListaDespachoDet() {
+        return listaDespachoDet;
+    }
+
+    public void setListaDespachoDet(List<TDespachodet> listaDespachoDet) {
+        this.listaDespachoDet = listaDespachoDet;
     }
 }
