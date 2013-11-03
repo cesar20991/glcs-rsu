@@ -102,10 +102,12 @@
                 <h3>Visualizar Despachos</h3>
 
                 <p:outputLabel value="Desde : " style="font-weight:bold;"/>
-                <p:calendar value="#{despachoMobileBean.fecDesde}" effect="fade"/>
+                <p:calendar value="#{despachoMobileBean.fecDesde}" effect="fade" pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13">
+                </p:calendar>
 
                 <p:outputLabel  value="Hasta : " style="font-weight:bold;"/>
-                <p:calendar value="#{despachoMobileBean.fecHasta}" effect="fade"/>                
+                <p:calendar value="#{despachoMobileBean.fecHasta}" effect="fade" pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13">
+                </p:calendar>                
                 <pm:field>
                     <h:outputLabel value="Turno : " style="font-weight:bold;"/>
                     <h:selectOneMenu id="selectOneMenu"> 
@@ -113,10 +115,8 @@
                         <f:selectItem itemLabel="Noche" itemValue="TN02" />
                     </h:selectOneMenu>
                 </pm:field>
-                <h:form>
-                    <p:commandButton value="Buscar" type="button" action="#{despachoMobileBean.irBuscarDespacho}"/>
-                </h:form>
-
+                <p:commandButton value="Buscar" icon="search" action="#{despachoMobileBean.irBuscarDespacho()}" update="ConsultasDespachoForm"></p:commandButton>
+                <p:commandButton value="Limpiar Resultado" action="#{despachoMobileBean.irClearDespacho()}" update="ConsultasDespachoForm"></p:commandButton>
                 <h:form id="ConsultasDespachoForm">
                     <c:forEach id="listDesp" var="despacho" items="#{despachoMobileBean.listaDespacho}" >                            
                         <p:panel header="DESPACHO : #{despacho.nroDespacho} - Fecha #{despacho.fechaEmi}" collapsed="true" >
@@ -136,9 +136,11 @@
                                 <h:outputText value="Obs: " style="font-weight:bold;"/>
                                 <h:outputText value="#{despacho.obs}"/>
                             </h:panelGrid>
-                            <p:button value="Ver Trabajadores Asignados"  href="#consultasAcademicas">
+                            <p:commandButton value="Ver Trabajadores Asignados" icon="arrow-r" actionListener="#{despachoMobileBean.buscarDespachoDet}" 
+                                             action="pm:ConsultasDespachoDet" update=":ConsultasDespachoDetForm">
+                                <f:setPropertyActionListener value="#{despacho}" target="#{despachoMobileBean.selectedDespacho}" />
+                            </p:commandButton>
 
-                            </p:button>
                         </p:panel> 
                     </c:forEach>
                 </h:form>
@@ -161,5 +163,60 @@
                 </h:panelGrid>
             </p:dialog>
         </pm:view> 
+
+        <!--Consultar DespachoDet (Trabajadores Asignados -->
+        <pm:view id="ConsultasDespachoDet">
+            <pm:header title="Consultar Despacho Detalle">
+                <f:facet name="left"><p:button value="Regresar" icon="back" href="#ConsultasDespacho?reverse=true"/></f:facet>
+                <pm:navBar>
+                    <p:button value="Inicio" icon="home" href="#consultas?reverse=true"/>
+                    <p:button value="Usuario: #{usuarioBean.nomusuario}" icon="grid" onclick="PF('dlgBasic3').show()"/>                                                         
+                    <p:commandButton value="Cerrar sesión" icon="minus" action="#{usuarioBean.logout()}"></p:commandButton>                   
+                </pm:navBar>
+            </pm:header>   
+            <pm:content>
+                <h:form id="ConsultasDespachoDetForm">
+                    <h:outputText value="DESPACHO : " style="font-weight:bold;"/>
+                    <h:outputText value="#{despachoMobileBean.selectedDespacho.nroDespacho}"/>
+                    <br></br>
+                    <h:outputText value="Fecha : " style="font-weight:bold;"/>
+                    <h:outputText value="#{despachoMobileBean.selectedDespacho.fechaEmi}"/>
+                    <br></br>
+                    <h:outputText value="Turno : " style="font-weight:bold;"/>
+                    <h:outputText value="#{despachoMobileBean.selectedDespacho.TTurno.nombTurno}"/>                    
+                    <c:forEach id="listDespDet" var="despachoDet" items="#{despachoMobileBean.listaDespachoDet}" >                            
+                        <p:panel header="Trabajador #{despachoDet.TTrabajadorxcamion.TTrabajador.nombres} - Camión : #{despachoDet.TTrabajadorxcamion.TCamion.placa}" collapsed="true" >
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Nombre(s) : " style="font-weight:bold;"/>
+                                <h:outputText value="#{despachoDet.TTrabajadorxcamion.TTrabajador.nombres}"/>
+                                <h:outputText value="Apellidos(s) : " style="font-weight:bold;"/>
+                                <h:outputText value="#{despachoDet.TTrabajadorxcamion.TTrabajador.apellidos}"/>
+                                <h:outputText value="Camión Asignado : " style="font-weight:bold;"/>
+                                <h:outputText value="#{despachoDet.TTrabajadorxcamion.TCamion.placa}"/>
+                                <h:outputText value="Cant. Viajes : " style="font-weight:bold;"/>
+                                <h:outputText value="#{despachoDet.cantViaje}"/>
+                            </h:panelGrid>
+                        </p:panel> 
+                    </c:forEach>
+                </h:form>
+            </pm:content>
+            <!-- INICIO FOOTER-->
+            <pm:footer>
+                <pm:header title="Empresa (Cliente): #{usuarioBean.nomEmpresa}">                    
+                </pm:header>    
+                <h:panelGrid style="text-align: center">
+                    <h:outputText style="font-size: 11px; text-align: center; margin-left: 2px; margin-right: 2px; margin-bottom: 0px" 
+                                  value="© 2013 EMCH Servicios Ecológicos SAC. | Todos los derechos reservados. | comercial@emchsac.com - emchsac@emchsac.com" />
+                </h:panelGrid>
+            </pm:footer>
+            <!-- FIN FOOTER-->
+            <p:dialog header="Información Usuario" widgetVar="dlgBasic3" modal="true">
+                <h:panelGrid columns="2">
+                    Usuario: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"/>
+                    Empresa (Cliente): <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"/>
+                    RUC (Cliente):<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"/>
+                </h:panelGrid>
+            </p:dialog>
+        </pm:view>
     </pm:page>
 </f:view>
