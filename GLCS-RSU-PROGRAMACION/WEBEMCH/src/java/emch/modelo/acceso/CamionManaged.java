@@ -4,6 +4,8 @@ import util.HibernateUtil;
 import emch.modelo.entidades.TCamion;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -20,8 +22,10 @@ public class CamionManaged {
             String nuevoID = getIDCamion();
             camion.setCdCamion(nuevoID);
             camion.setEstado(true);
+            camion.setUnidad((int) (Math.random()*1000));
             session.save(camion);
             session.beginTransaction().commit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se  agrego Camión correctamente", "Verificar"));
         } catch (Exception e) {
             System.out.println("Error en insertar: " + e.getMessage());
             session.beginTransaction().rollback();
@@ -47,6 +51,7 @@ public class CamionManaged {
             session.beginTransaction();
             session.merge(camion);
             session.beginTransaction().commit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se  Actualizó Camión correctamente", "Verificar")); 
         } catch (Exception e) {
             System.out.println("Error en actualizar: " + e.getMessage());
             session.beginTransaction().rollback();
