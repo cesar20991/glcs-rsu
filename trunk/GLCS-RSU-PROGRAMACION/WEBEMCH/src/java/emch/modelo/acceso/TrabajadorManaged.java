@@ -6,6 +6,8 @@ import emch.modelo.entidades.TTrabajador;
 import emch.modelo.entidades.TUbigeo;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.hibernate.Query;
 import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
@@ -27,6 +29,7 @@ public class TrabajadorManaged {
             trabajador.setCdTrabajador(idcl);
             sesion.save(trabajador);
             trans.commit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se  agrego Trabajador correctamente", "Verificar")); 
         } catch (Exception ex) {
             //despues agrego para que salgan mensajes de error            
             trans.rollback();
@@ -44,6 +47,7 @@ public class TrabajadorManaged {
                  sesion.beginTransaction();
                  sesion.merge(trabajador);
                  sesion.beginTransaction().commit();
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se  Actualizó Trabajador "+trabajador.getNombres()+" correctamente", "Verificar"));    
             } catch (Exception e) {
                  System.out.println("Error en actualizar" + e.getMessage());
                  sesion.beginTransaction().rollback();
