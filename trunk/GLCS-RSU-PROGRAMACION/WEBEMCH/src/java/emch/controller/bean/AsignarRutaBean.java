@@ -20,10 +20,6 @@ import org.primefaces.model.map.LatLngBounds;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Rectangle;
 
-/**
- *
- * @author Administrador
- */
 @ManagedBean
 @SessionScoped
 public class AsignarRutaBean {
