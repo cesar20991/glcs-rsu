@@ -187,7 +187,7 @@
                     <c:forEach id="listDespDet" var="despachoDet" items="#{despachoMobileBean.listaDespachoDet}" >                            
                         <p:panel header="Trabajador #{despachoDet.TTrabajadorxcamion.TTrabajador.nombres} - Camión : #{despachoDet.TTrabajadorxcamion.TCamion.placa}" collapsed="true" >
                             <h:panelGrid columns="2">
-                                <h:outputText value="Nombre(s) : " style="font-weight:bold;"/>
+                                 <h:outputText value="Nombre(s) : " style="font-weight:bold;"/>
                                 <h:outputText value="#{despachoDet.TTrabajadorxcamion.TTrabajador.nombres}"/>
                                 <h:outputText value="Apellidos(s) : " style="font-weight:bold;"/>
                                 <h:outputText value="#{despachoDet.TTrabajadorxcamion.TTrabajador.apellidos}"/>
