@@ -174,9 +174,6 @@ public class HojadeDespachoBean {
         return "nuevahojadespacho";
     }
 
-    /**
-     * @return the listadotrabajadorXcamion
-     */
     public List<TTrabajadorxcamion> getListadotrabajadorXcamion() {
         return listadotrabajadorXcamion;
     }
