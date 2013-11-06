@@ -66,6 +66,7 @@
                     <f:facet name="header">Operaciones</f:facet>
                     <h:outputLink value="#ConsultasLiquidaciones">Liquidaciones</h:outputLink>                    
                     <h:outputLink value="#ConsultasComprobantes">Comprobantes</h:outputLink>                    
+                    <h:outputLink value="#ConsultasClientes">Clientes</h:outputLink>
                     <h:outputLink value="#ConsultasMapas">Mapas</h:outputLink>                                                       
                 </p:dataList>      
             </pm:content>
@@ -218,5 +219,51 @@
                 </h:panelGrid>
             </p:dialog>
         </pm:view>
+        
+        <!--Consultar Clientes -->
+        <pm:view id="ConsultasClientes">
+            <pm:header title="Consultar Clientes">
+                <f:facet name="left"><p:button value="Regresar" icon="back" 
+                                               href="#consultas?reverse=true"/></f:facet>
+            </pm:header>
+            <pm:content>
+                <h3>Visualización de Clientes</h3>
+                <h:form id="ConsultasClientesForm">
+                    <c:forEach var="cliente" items="#{clienteMobileBean.listaCliente}" >                            
+                        <p:panel header="CLIENTE : #{cliente.cdCliente} - 
+                                 Nombre: #{cliente.nombreComp}" collapsed="true" >
+                            <h:panelGrid columns="4">
+                                <h:outputText value="Empresa: " style="font-weight:bold;"/>
+                                <h:outputText value="#{cliente.TEmpresa.rsocial}"/>
+                                <h:outputText value="Nombre de Usuario: " style="font-weight:bold;"/>
+                                <h:outputText value="#{cliente.TUsuario.nomUsu}"/>
+                                <h:outputText value="Tipo de documento: " style="font-weight:bold;"/>
+                                <h:outputText value="#{cliente.tipoDocI}" />
+                                <h:outputText value="Nº de documento: " style="font-weight:bold;"/>
+                                <h:outputText value="#{cliente.nroDocI}"/>
+                                <h:outputText value="Celular:" style="font-weight:bold;"/>
+                                <h:outputText value="#{cliente.celular}"/>   
+                            </h:panelGrid>
+                   
+                        </p:panel> 
+                    </c:forEach>                         
+                  
+                </h:form>
+            </pm:content>  
+            <!-- INICIO FOOTER-->
+            <pm:footer>
+                <h:outputLink styleClass="text_title" style="font-size: 11px" value="#
+                              {facesContext.externalContext.requestContextPath}/j_spring_security_logout" >
+                    <h:outputText styleClass="text_title" value="Cerrar Sesión"/>
+                </h:outputLink>
+                <h:panelGrid style="text-align: center">
+                    <h:outputText style="font-size: 11px; text-align: center; margin-left: 2px; margin-right: 2px; margin-bottom: 0px" 
+                                  value="© 2013 EMCH Servicios Ecológicos SAC. | Todos 
+                                  los derechos reservados. | comercial@emchsac.com - emchsac@emchsac.com" />
+                </h:panelGrid>
+            </pm:footer>
+            <!-- FIN FOOTER-->
+            </pm:view> 
+        
     </pm:page>
 </f:view>
