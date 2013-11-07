@@ -2,6 +2,7 @@
 package emch.controller.bean;
 
 import emch.modelo.acceso.LiquidacionManaged;
+import emch.modelo.entidades.TCliente;
 import emch.modelo.entidades.TLiquidacion;
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +15,9 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class ConsLiquidacionMobileBean {
      private TLiquidacion liquidacion;
-    public List<TLiquidacion> listarLiquidacion;  
+    private List<TLiquidacion> listarLiquidacion;
+     private TCliente selectedCliente;
+     private List<TLiquidacion> listarLiquidacionXCliente;
     
     @PostConstruct
     public void init() {
@@ -37,5 +40,30 @@ public class ConsLiquidacionMobileBean {
 
     public void setListarLiquidacion(List<TLiquidacion> listarLiquidacion) {
         this.listarLiquidacion = listarLiquidacion;
-    }   
+    }
+    
+    public void buscarLiqPorCliente() {
+        LiquidacionManaged obj = new LiquidacionManaged();
+        if (getSelectedCliente() != null) {
+            listarLiquidacionXCliente = obj.ListarLiqxCliente(selectedCliente);
+        }
+    }
+
+    public TCliente getSelectedCliente() {
+        return selectedCliente;
+    }
+
+    public void setSelectedCliente(TCliente selectedCliente) {
+        LiquidacionManaged obj = new LiquidacionManaged();
+        listarLiquidacionXCliente = obj.ListarLiqxCliente(selectedCliente);
+        this.selectedCliente = selectedCliente;
+    }
+
+    public List<TLiquidacion> getListarLiquidacionXCliente() {
+        return listarLiquidacionXCliente;
+    }
+
+    public void setListarLiquidacionXCliente(List<TLiquidacion> listarLiquidacionXCliente) {
+        this.listarLiquidacionXCliente = listarLiquidacionXCliente;
+    }
 }

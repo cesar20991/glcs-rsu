@@ -1,5 +1,6 @@
 package emch.modelo.acceso;
 
+import emch.modelo.entidades.TCliente;
 import emch.modelo.entidades.TEstadoliq;
 import emch.modelo.entidades.TEstadoxliquidacion;
 import emch.modelo.entidades.TEstadoxliquidacionId;
@@ -216,7 +217,7 @@ public class LiquidacionManaged {
         }
         return true;
     }
-    
+
     public boolean eliminarEstadoxLiquidacion(TLiquidacion liquidacion) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -282,6 +283,17 @@ public class LiquidacionManaged {
         }
         return true;
     }
-    
-    
+
+    public List ListarLiqxCliente(TCliente cliente) {
+        List<TLiquidacion> listaLiqs = null;
+        try {
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            qry = sesion.createQuery("SELECT i FROM TEmpresa e inner join e.TLiquidacions i inner join e.TClientes c where e.cdRuc= '"+cliente.getTEmpresa().getCdRuc()+"'");
+            listaLiqs = (List<TLiquidacion>) qry.list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        //finally{sesion.close();}
+        return listaLiqs;
+    }
 }
