@@ -10,13 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import util.HibernateUtil;
-
-/**
- *
- * @author rick
- */
+    
 public class ComprobantesManaged {
+    
+    Session sesion;
+    Transaction trans;
+    Query qry;
+    
+    public List<TComprobante> buscarTodos() {
+            List<TComprobante> listacomprobante = null;
+      /*  try {*/
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            trans = sesion.beginTransaction();
+            qry = sesion.createQuery("FROM TComprobante");
+            listacomprobante = (List<TComprobante>) qry.list();
+            return listacomprobante;
+    }
 
     public TLiquidacion buscarPorId(String id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
