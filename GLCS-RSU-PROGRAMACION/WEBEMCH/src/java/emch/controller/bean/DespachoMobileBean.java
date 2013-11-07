@@ -8,6 +8,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.LatLngBounds;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Rectangle;
 
 @ManagedBean
 @SessionScoped
@@ -19,6 +24,9 @@ public class DespachoMobileBean {
     private Date fecHasta;
     private TDespacho selectedDespacho;
     private List<TDespachodet> listaDespachoDet;
+    private MapModel rectangleModel;
+    private TDespachodet selectedDespachoDet;
+    private List<TAsignarruta> listasignarrutaXCamion;
     String rucempresa = "";
 
     public void DespachoMobileBean() {
@@ -41,6 +49,29 @@ public class DespachoMobileBean {
         if (selectedDespacho != null) {
             listaDespachoDet = obj.ListarDespachoxDespachoDet(selectedDespacho);
         }
+    }
+
+    private void GenerarMapsXCamion() {
+        setRectangleModel(new DefaultMapModel());
+        LatLng coord1;
+        LatLng coord2;
+        Rectangle rect;
+        //Shared coordinates  
+        for (int i = 0; i < listasignarrutaXCamion.size(); i++) {
+            coord1 = new LatLng(listasignarrutaXCamion.get(i).getLatn(), listasignarrutaXCamion.get(i).getLngn());
+            coord2 = new LatLng(listasignarrutaXCamion.get(i).getLats(), listasignarrutaXCamion.get(i).getLngs());
+            //Rectangle  
+            rect = new Rectangle(new LatLngBounds(coord1, coord2));
+            rect.setStrokeColor("#d93c3c");
+            rect.setFillColor("#d93c3c");
+            rect.setFillOpacity(0.5);
+
+            getRectangleModel().addOverlay(rect);
+        }
+    }
+
+    public void verRutaXCamion() {
+        getListasignarrutaXCamion();
     }
 
     public List<TDespacho> getListaDespacho() {
@@ -93,5 +124,35 @@ public class DespachoMobileBean {
 
     public void setListaDespachoDet(List<TDespachodet> listaDespachoDet) {
         this.listaDespachoDet = listaDespachoDet;
+    }
+
+    public TDespachodet getSelectedDespachoDet() {
+        return selectedDespachoDet;
+    }
+
+    public void setSelectedDespachoDet(TDespachodet selectedDespachoDet) {
+        MapsManaged obj = new MapsManaged();
+        listasignarrutaXCamion = obj.listarRutaAsignadaxCamion(selectedDespachoDet);
+        GenerarMapsXCamion();
+        this.selectedDespachoDet = selectedDespachoDet;
+    }
+
+    public List<TAsignarruta> getListasignarrutaXCamion() {
+        //MapsManaged obj = new MapsManaged();
+        //listasignarrutaXCamion = obj.listarRutaAsignadaxCamion(selectedDespachoDet);
+        //GenerarMapsXCamion();
+        return listasignarrutaXCamion;
+    }
+
+    public void setListasignarrutaXCamion(List<TAsignarruta> listasignarrutaXCamion) {
+        this.listasignarrutaXCamion = listasignarrutaXCamion;
+    }
+
+    public MapModel getRectangleModel() {
+        return rectangleModel;
+    }
+
+    public void setRectangleModel(MapModel rectangleModel) {
+        this.rectangleModel = rectangleModel;
     }
 }
