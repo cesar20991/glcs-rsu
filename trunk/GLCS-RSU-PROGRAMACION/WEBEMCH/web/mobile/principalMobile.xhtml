@@ -225,6 +225,7 @@
             </p:dialog>
         </pm:view>
 
+        <!-- Consultar ruta Asignada -->
         <pm:view id="ConsultaRuta">
             <pm:header title="Ver Ruta Asignada">
                 <f:facet name="left"><p:button value="Regresar" icon="back" href="#ConsultasDespachoDet?reverse=true"/></f:facet>
@@ -365,7 +366,7 @@
                                 <h:outputText value="#{cliente.celular}"/>   
                             </h:panelGrid>
                             <p:commandButton value="Ver Liquidaciones" icon="arrow-r" actionListener="#{consLiquidacionMobileBean.buscarLiqPorCliente()}" 
-                                             action="pm:ConsultasLiquidaciones" update=":ConsultasLiquidacionForm">
+                                             action="pm:ConsultaLiquidacionesDeClientes" update=":ConsultaLiquidacionesDeClientesForm">
                                 <f:setPropertyActionListener value="#{cliente}" target="#{consLiquidacionMobileBean.selectedCliente}" />
                             </p:commandButton>
                         </p:panel> 
@@ -384,6 +385,66 @@
             </pm:footer>
             <!-- FIN FOOTER-->
             <p:dialog header="Información Usuario" widgetVar="dlgBasic6" modal="true">
+                <h:panelGrid columns="2">
+                    Usuario: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"/>
+                    Empresa (Cliente): <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"/>
+                    RUC (Cliente):<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"/>
+                </h:panelGrid>
+            </p:dialog>      
+        </pm:view> 
+
+        <!--Consultar Liquidacion por cliente-->
+        <pm:view id="ConsultaLiquidacionesDeClientes">
+            <pm:header title="GLCS-RSU - Menú Principal">       
+                <f:facet name="left"><p:button value="Regresar" icon="back" href="#ConsultasClientes?reverse=true"/></f:facet>
+                <pm:navBar>
+                    <p:button value="Inicio" icon="home" href="#consultas?reverse=true"/>
+                    <p:button value="Usuario: #{usuarioBean.nomusuario}" icon="grid" onclick="PF('dlgBasic7').show()"/>                                                         
+                    <p:commandButton value="Cerrar sesión" icon="minus" action="#{usuarioBean.logout()}"></p:commandButton>
+                </pm:navBar>
+            </pm:header>       
+            <pm:content>
+                <h3>Visualización de Liquidaciones</h3>
+                <h:form id="ConsultaLiquidacionesDeClientesForm">
+                    <c:forEach var="liquidacion" items="#{consLiquidacionMobileBean.listarLiquidacionXCliente}" >                            
+                        <p:panel header="LIQUIDACION :  Fecha Apertura #{liquidacion.fechaApertura}" collapsed="true" >
+                            <h:panelGrid columns="4">
+                                <h:outputText value="Estado : " style="font-weight:bold;"/>
+                                <h:outputText value="#{liquidacion}"/>
+                                <h:outputText value="Fecha Apertura : " style="font-weight:bold;"/>
+                                <h:outputText value="#{liquidacion.fechaApertura}"/>
+                                <h:outputText value="Fecha Inicio : " style="font-weight:bold;"/>
+                                <h:outputText value="#{liquidacion.fechaInicio}"/>
+                                <h:outputText value="Fecha Fin : " style="font-weight:bold;"/>
+                                <h:outputText value="#{liquidacion.fechaFin}"/>
+                                <h:outputText value="Total TN : " style="font-weight:bold;"/>
+                                <h:outputText value="#{liquidacion.totalTn}"/>
+                                <h:outputText value="Asunto : " style="font-weight:bold;"/>
+                                <h:outputText value="#{liquidacion.asunto}"/>
+                                <h:outputText value="Usuario Creador  : " style="font-weight:bold;"/>
+                                <h:outputText value="#{liquidacion.usuCrea}" />
+                                <h:outputText value="Fecha de Registro : " style="font-weight:bold;"/>
+                                <h:outputText value="#{liquidacion.fechaReg}"/>
+                                <h:outputText value="Usuario Modif :" style="font-weight:bold;"/>
+                                <h:outputText value="#{liquidacion.usuModf}"/>
+                                <h:outputText value="Fecha Modif : " style="font-weight:bold;"/>
+                                <h:outputText value="#{liquidacion.fechaModf}"/>
+                            </h:panelGrid>
+                        </p:panel> 
+                    </c:forEach>
+                </h:form>
+            </pm:content>  
+            <!-- INICIO FOOTER-->
+            <pm:footer>
+                <pm:header title="Empresa (Cliente): #{usuarioBean.nomEmpresa}">                    
+                </pm:header>    
+                <h:panelGrid style="text-align: center">
+                    <h:outputText style="font-size: 11px; text-align: center; margin-left: 2px; margin-right: 2px; margin-bottom: 0px" 
+                                  value="© 2013 EMCH Servicios Ecológicos SAC. | Todos los derechos reservados. | comercial@emchsac.com - emchsac@emchsac.com" />
+                </h:panelGrid>
+            </pm:footer>
+            <!-- FIN FOOTER-->
+            <p:dialog header="Información Usuario" widgetVar="dlgBasic7" modal="true">
                 <h:panelGrid columns="2">
                     Usuario: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"/>
                     Empresa (Cliente): <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"/>
@@ -430,27 +491,10 @@
                                 <h:outputText value="#{liquidacion.fechaModf}"/>
 
                             </h:panelGrid>
-
-                        </p:panel> 
-                    </c:forEach>
-                </h:form>
-
-                <h:form id="ConsultasLiquidacionEditarForm">
-                    <c:forEach var="pesaje" items="#{consLiquidacionMobileBean.listarLiquidacion}" >                            
-                        <p:panel header="Editar Pesaje #{liquidacion.fechaApertura}" collapsed="true" >
-                            <h:panelGrid columns="4">
-                                <h:outputText value="Nro. Pesaje : " style="font-weight:bold;"/>
-                                <h:outputText value="#{liquidacion}"/>
-                                <h:outputText value="Fecha Pesaje : " style="font-weight:bold;"/>
-                                <h:outputText value="#{liquidacion.fechaApertura}"/>
-                                <h:outputText value="Peso Bruto : " style="font-weight:bold;"/>
-                                <h:outputText value="#{liquidacion.fechaInicio}"/>
-                                <h:outputText value="Tara : " style="font-weight:bold;"/>
-                                <h:outputText value="#{liquidacion.fechaInicio}"/>
-                                <h:outputText value="Peso TN : " style="font-weight:bold;"/>
-                                <h:outputText value="#{liquidacion.fechaInicio}"/>
-                            </h:panelGrid>
-
+                            <p:commandButton value="Ver Pesajes" icon="arrow-r" actionListener="#{consLiquidacionMobileBean.buscarLiqPorCliente()}" 
+                                             action="pm:ConsultaLiquidacionesDeClientes" update=":ConsultaLiquidacionesDeClientesForm">
+                                <f:setPropertyActionListener value="#{cliente}" target="#{consLiquidacionMobileBean.selectedCliente}" />
+                            </p:commandButton>
                         </p:panel> 
                     </c:forEach>
                 </h:form>
