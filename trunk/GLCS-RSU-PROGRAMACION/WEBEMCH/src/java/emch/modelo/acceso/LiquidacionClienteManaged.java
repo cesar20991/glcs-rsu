@@ -30,11 +30,11 @@ public class LiquidacionClienteManaged {
     }
    
 
-    public List ListarLiquidacionxCliente(TLiquidacion liquidacion) {
+    public List ListarLiquidacionxCliente(TLiquidacion liquidacion,TEmpresa ruc) {
         List<TCliente> listaCliente = null;
         try {
             sesion = HibernateUtil.getSessionFactory().openSession();
-            qry = sesion.createQuery("SELECT ab from TLiquidacion  v inner join v.TEmpresa ab where v.cdLiq ='" + liquidacion.getCdLiq() + "'");
+            qry = sesion.createQuery("SELECT ab from TLiquidacion  v inner join v.TEmpresa ab inner join ab.TCliente c where v.cdRuc ='" + liquidacion.getCdLiq()+ "' and ab.cdRuc='"+ ruc.getCdRuc()+"'");
             listaCliente = (List<TCliente>) qry.list();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -43,11 +43,11 @@ public class LiquidacionClienteManaged {
         return listaCliente;
     }
 
-    public List ListarLiquidacionxCliente(String liquidacion) {
+    public List ListarLiquidacionxCliente(String liquidacion,String ruc) {
         List<TCliente> listaCliente = null;
         try {
             sesion = HibernateUtil.getSessionFactory().openSession();
-            qry = sesion.createQuery("SELECT ab from TLiquidacion  v inner join v.TEmpresa ab where v.cdLiq ='" + liquidacion + "'");
+            qry = sesion.createQuery("SELECT ab from TLiquidacion  v inner join v.TEmpresa ab inner join ab.TCliente c where v.cdLiq ='" + liquidacion + "'and ab.cdRuc='"+ ruc+"'");
             listaCliente = (List<TCliente>) qry.list();
         } catch (Exception ex) {
             ex.printStackTrace();
