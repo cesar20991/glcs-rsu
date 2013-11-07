@@ -15,14 +15,11 @@ public class LiquidacionClienteMobileBean {
 
     private TLiquidacion liquidacion;
     private List<TLiquidacion> listaLiquidacion;
-    private TDespacho selectedLiquidacion;
-    private List<TDespachodet> listaCliente;
+    private TLiquidacion selectedLiquidacion;
+    private List<TCliente> listaCliente;
     
 
-    public void irBuscarDespacho() {
-        // NO PUEDO TRAER CALENDAR SALE NULL
-        //VerificarComprobanteManaged obj = new VerificarComprobanteManaged();
-        //listaDespacho = obj.listarDespacho(fecDesde, fecHasta, rucempresa);
+    public void irBuscarLiquidacion() {
         LiquidacionClienteManaged obj = new LiquidacionClienteManaged();
         listaLiquidacion = obj.buscarTodos();
     }
@@ -34,14 +31,12 @@ public class LiquidacionClienteMobileBean {
 //    public void buscarCliente() {
 //        LiquidacionClienteManaged obj = new LiquidacionClienteManaged();
 //        if (selectedLiquidacion != null) {
-//            listaCliente = obj.ListarLiquidacionxCliente(selectedLiquidacion);
+//            listaCliente = obj.ListarLiquidacionxCliente(selectedLiquidacion,"");
 //        }
 //    }
 
     public List<TLiquidacion> getListaLiquidacion() {
-        //HojadeDespachoManaged obj = new HojadeDespachoManaged();
-        //listaDespacho = obj.buscarTodos();
-        return listaLiquidacion;
+         return listaLiquidacion;
     }
 
     public void setListaLiquidacion(List<TLiquidacion> listaLiquidacion) {
@@ -52,14 +47,14 @@ public class LiquidacionClienteMobileBean {
         return liquidacion;
     }
 
-//    public void setLiquidacion(TLiquidacion liquidacion) {
-//    }        this.liquidacion = liquidacion;
-//
-//
-//    
-//    public TDespacho getSelectedDespacho() {
-//        return selectedDespacho;
-//    }
+    public void setLiquidacion(TLiquidacion liquidacion) {
+            this.liquidacion = liquidacion;
+    }
+
+    
+    public TLiquidacion getSelectedLiquidacion() {
+        return selectedLiquidacion;
+    }
 
 //    public void setSelectedLiquidacion(TLiquidacion selectedLiquidacion) {
 //        LiquidacionClienteManaged obj = new LiquidacionClienteManaged();
@@ -67,11 +62,11 @@ public class LiquidacionClienteMobileBean {
 //        this.selectedLiquidacion = selectedLiquidacion;
 //    }
 
-//    public List<TDespachodet> getListaDespachoDet() {
-//        return listaDespachoDet;
-//    }
-//
-//    public void setListaDespachoDet(List<TDespachodet> listaDespachoDet) {
-//        this.listaDespachoDet = listaDespachoDet;
-//    }
+    public List<TCliente> getListaCliente() {
+        return listaCliente;
+    }
+
+    public void setListaDespachoDet(List<TCliente> listaCliente) {
+        this.listaCliente = listaCliente;
+    }
 }
