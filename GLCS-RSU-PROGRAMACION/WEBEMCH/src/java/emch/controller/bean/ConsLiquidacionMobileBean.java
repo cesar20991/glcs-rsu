@@ -16,6 +16,7 @@ import javax.faces.context.FacesContext;
 public class ConsLiquidacionMobileBean {
      private TLiquidacion liquidacion;
     private List<TLiquidacion> listarLiquidacion;
+    private List<TLiquidacion> listaLiquidaciones;
      private TCliente selectedCliente;
      private List<TLiquidacion> listarLiquidacionXCliente;
     
@@ -65,5 +66,13 @@ public class ConsLiquidacionMobileBean {
 
     public void setListarLiquidacionXCliente(List<TLiquidacion> listarLiquidacionXCliente) {
         this.listarLiquidacionXCliente = listarLiquidacionXCliente;
+    }
+
+    public List<TLiquidacion> getListaLiquidaciones() {
+        return listaLiquidaciones;
+    }
+
+    public void setListaLiquidaciones(List<TLiquidacion> listaLiquidaciones) {
+        this.listaLiquidaciones = listaLiquidaciones;
     }
 }
