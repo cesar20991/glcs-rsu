@@ -65,9 +65,8 @@
                 <p:dataList type="inset">                    
                     <f:facet name="header">Operaciones</f:facet>
                     <h:outputLink value="#ConsultasLiquidaciones">Liquidaciones</h:outputLink>                    
-                    <h:outputLink value="#ConsultasLiquidacionesXCliente">Liquidaciones</h:outputLink>                    
-                    <h:outputLink value="#ConsultasComprobantes">Comprobantes</h:outputLink>                    
-                    <h:outputLink value="#ConsultasClientes">Clientes</h:outputLink>
+                    <h:outputLink value="#ConsultasClientes">Liquidaciones por Cliente</h:outputLink>                    
+                    <h:outputLink value="#ConsultasComprobantes">Comprobantes</h:outputLink>  
                     <h:outputLink value="#ConsultasMapas">Mapas</h:outputLink>                                                       
                 </p:dataList>      
             </pm:content>
@@ -291,7 +290,10 @@
                                 <h:outputText value="Celular:" style="font-weight:bold;"/>
                                 <h:outputText value="#{cliente.celular}"/>   
                             </h:panelGrid>
-                   
+                            <p:commandButton value="Ver Liquidaciones" icon="arrow-r" actionListener="#{consLiquidacionMobileBean.buscarLiqPorCliente()}" 
+                                             action="pm:ConsultasLiquidaciones" update=":ConsultasLiquidacionForm">
+                                <f:setPropertyActionListener value="#{cliente}" target="#{consLiquidacionMobileBean.selectedCliente}" />
+                            </p:commandButton>
                         </p:panel> 
                     </c:forEach>                         
                   
@@ -312,7 +314,7 @@
             <!-- FIN FOOTER-->
             </pm:view>
         
-                        <!--Consultar Liquidacion-->
+       <!--Consultar Liquidacion-->
         <pm:view id="ConsultasLiquidaciones">
             <pm:header title="Consultar Liquidacion">
                 <f:facet name="left"><p:button value="Regresar" icon="back" href="#consultas?reverse=true"/></f:facet>
@@ -347,22 +349,7 @@
                             </h:panelGrid>
 
                         </p:panel> 
-                    </c:forEach>
-                     <pm:field>
-                            <h:outputLabel for="txt" value="Text:" />
-                            <p:inputText id="txt" value="#{showcaseView.text}" />
-                     </pm:field>                    
-
-                       <!-- <p:commandButton value="PrimeFaces" actionListener="#{showcaseView.add}" update="txt txts" process="@form"/>   -->                 
-
-                        <p:dataList id="txts" var="text" value="#{showcaseView.texts}" type="inset">
-                            <f:facet name="header">Values</f:facet>
-                                #{text}
-                        </p:dataList>
-                        <p:panel header="mapa prueba" collapsed="true" >
-                             <div id="map-canvas"></div><br/>
-                        </p:panel>
-                       
+                    </c:forEach>  
                 </h:form>
                 
                 <h:form id="ConsultasLiquidacionEditarForm">
@@ -382,21 +369,8 @@
                             </h:panelGrid>
 
                         </p:panel> 
-                    </c:forEach>
-                     <pm:field>
-                            <h:outputLabel for="txt" value="Text:" />
-                            <p:inputText id="txt" value="#{showcaseView.text}" />
-                        </pm:field>                    
-
-                       <!-- <p:commandButton value="PrimeFaces" actionListener="#{showcaseView.add}" update="txt txts" process="@form"/>   -->                 
-
-                        <p:dataList id="txts" var="text" value="#{showcaseView.texts}" type="inset">
-                            <f:facet name="header">Values</f:facet>
-                                #{text}
-                        </p:dataList>
-                       
-                </h:form>
-                
+                    </c:forEach>                               
+                </h:form>               
                 
             </pm:content>  
             <!-- INICIO FOOTER-->
