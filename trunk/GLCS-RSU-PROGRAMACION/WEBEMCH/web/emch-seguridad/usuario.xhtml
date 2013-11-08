@@ -17,6 +17,8 @@
                 Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
                 <br></br>
                 RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>
+                <br></br>
+                Perfil: <h:outputText value="#{usuarioBean.nomPerfil}" style="font-weight:bold;"> </h:outputText>  
             </ui:define>
 
             <ui:define name="top">
@@ -92,7 +94,7 @@
                             <p:commandButton icon="ui-icon-pencil"  action="#{admUsuarioBean.irActualizar()}" ajax="false" />
                         </p:column>
                     </p:dataTable>
-                    
+
                     <p:dialog header="Info. del Usuario" widgetVar="infoDialog" resizable="false" id="carDlg"  
                               showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">  
 
@@ -113,7 +115,7 @@
                             <h:outputText value="#{admUsuarioBean.usuario.accesoMobile==true ? 'SI' : 'NO'}" style="font-weight:bold"/>                             
                         </h:panelGrid>  
                     </p:dialog>
-                    
+
                 </h:form>
             </ui:define>
 

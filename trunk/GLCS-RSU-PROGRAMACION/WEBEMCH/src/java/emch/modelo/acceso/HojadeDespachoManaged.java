@@ -8,29 +8,33 @@ import emch.modelo.entidades.TUbigeo;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.eclipse.jdt.internal.compiler.flow.FinallyFlowContext;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
  *
- * @author 
+ * @author
  */
-
 public class HojadeDespachoManaged {
 
     Session sesion;
     Transaction trans;
     Query qry;
 
-    public List<TDespacho> buscarTodos() {
+    public List<TDespacho> buscarTodos() {        
         List<TDespacho> listadespacho = null;
-        /*  try {*/
+        try {
         sesion = HibernateUtil.getSessionFactory().openSession();
         trans = sesion.beginTransaction();
-        qry = sesion.createQuery("FROM TDespacho");
+        qry = sesion.createQuery("SELECT d FROM TDespacho d WHERE d.evaluacion =''");
         listadespacho = (List<TDespacho>) qry.list();
         return listadespacho;
+        }
+        catch(Exception e){
+            return null;
+        }
     }
 
     public TDespacho buscarPorId(String id) {
@@ -179,4 +183,26 @@ public class HojadeDespachoManaged {
         return listatrabxc;
     }
 
+    public void eliminarDesp(TDespacho despacho) {        
+        sesion = HibernateUtil.getSessionFactory().openSession();
+        try {           
+            trans = sesion.beginTransaction();
+//            List<TDespachodet> listadespachoDet = ListarDespachoxDespachoDet(despacho);
+//            if (listadespachoDet.size() > 0) {
+//                for (int i = 0; i < listadespachoDet.size(); i++) {
+//                    //Session session2 = HibernateUtil.getSessionFactory().openSession();
+//                    //session2.beginTransaction();
+//                    sesion.delete(listadespachoDet.get(i));
+//                    //session2.beginTransaction().commit();
+//                }
+//            }
+            sesion.delete(despacho);
+            trans.commit();
+        } catch (Exception e) {
+            System.out.println("Error en eliminar: " + e.getMessage());
+            trans.rollback();
+        }
+        
+        
+    }
 }

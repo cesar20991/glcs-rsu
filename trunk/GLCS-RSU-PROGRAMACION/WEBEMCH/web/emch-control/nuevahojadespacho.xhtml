@@ -18,6 +18,8 @@
                 Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
                 <br></br>
                 RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                Perfil: <h:outputText value="#{usuarioBean.nomPerfil}" style="font-weight:bold;"> </h:outputText>   
             </ui:define>
 
             <ui:define name="top">
@@ -29,6 +31,9 @@
                     <h:outputText value="ADMINISTRAR - HOJAS DE DESPACHO" style="font-weight:bold;font-size:20px;color:#654B24" />
                     <div style="padding-bottom: 10px;">
                         <p:commandButton  value="#{hojadeDespachoBean.accion}" action="#{hojadeDespachoBean.ingresar()}"  ajax="false"  icon="ui-icon-check" style="margin:0"/>                                                                          
+                        <p:commandButton value="Eliminar Despacho" actionListener="#{hojadeDespachoBean.EliminarDespacho}" icon="ui-icon-close">  
+                            <p:confirm header="Confirmación para eliminar un Despacho" message="¿Seguro(a) de eliminar el despacho con los camiones asignados?" icon="ui-icon-alert" />  
+                        </p:commandButton>
                     </div>
                     <div style="padding-bottom: 10px;">
                         <h:outputText value="(*) Campos Obligatorios" style="font-weight:bold"/>
@@ -149,7 +154,10 @@
                         <!--FIN TABLA DE PROPIETARIOS EXISTENTES-->
 
                     </p:dialog>
-
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+                    </p:confirmDialog> 
                 </h:form>     
 
             </ui:define>

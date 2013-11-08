@@ -2,12 +2,16 @@ package emch.controller.bean;
 
 import emch.modelo.acceso.*;
 import emch.modelo.entidades.*;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.DataModel;
 import javax.swing.JOptionPane;
@@ -29,7 +33,8 @@ public class HojadeDespachoBean {
     private String accion;
     private String mensajeError;
     private TTrabajadorxcamion[] selectedTrabxCamion;
-    
+    private TDespachodet despachodet;
+
     @PostConstruct
     public void init() {
         despacho = new TDespacho();
@@ -38,25 +43,25 @@ public class HojadeDespachoBean {
         despacho.setTTurno(new TTurno());
         getListadespacho2();
     }
-    
+
     public String irAgregar() {
         setEsEdicion(false);
         setDespacho(new TDespacho());
         despacho.setTTurno(new TTurno());
         despacho.setTUbigeo(new TUbigeo());
-        despacho.setTEmpresa(new TEmpresa());               
+        despacho.setTEmpresa(new TEmpresa());
         return "nuevahojadespacho";
     }
-    
+
     public String irActualizar() {
-        setEsEdicion(true);              
+        setEsEdicion(true);
         HojadeDespachoManaged obj = new HojadeDespachoManaged();
         listadotrabajadorXcamion = obj.buscaTrabxCamion(despacho.getId().getCdDespacho());
         String cdDes = despacho.getId().getCdDespacho();
         String RucE = despacho.getId().getCdRuc();
         String codigoUb = despacho.getTUbigeo().getCdUbig();
-        String codigoTur = despacho.getTTurno().getCdTurno();        
-        despacho.setId(new TDespachoId(cdDes,RucE));//(new TTipotrabajador
+        String codigoTur = despacho.getTTurno().getCdTurno();
+        despacho.setId(new TDespachoId(cdDes, RucE));//(new TTipotrabajador
         despacho.setTUbigeo(new TUbigeo(codigoUb, "", false));
         despacho.setTTurno(new TTurno(codigoTur, ""));
         despacho.setTEmpresa(new TEmpresa("RC0001", null, "", "", null, "", ""));
@@ -81,19 +86,32 @@ public class HojadeDespachoBean {
     public void setListarUbigeoSel(List<TUbigeo> listarUbigeoSel) {
         this.listarUbigeoSel = listarUbigeoSel;
     }
-    
+
     public String ingresar() {
         HojadeDespachoManaged obj = new HojadeDespachoManaged();
         listadotrabajadorXcamion = Arrays.asList(getSelectedTrabxCamion());
-        boolean resultado = isEsEdicion() ? obj.actualizar(despacho) 
-                            : obj.insertar(despacho,listadotrabajadorXcamion);
+        boolean resultado = isEsEdicion() ? obj.actualizar(despacho)
+                : obj.insertar(despacho, listadotrabajadorXcamion);
         if (resultado) {
             return "HojaDeDespacho";
         } else {
             return ""; //futuros errores
         }
     }
-    
+
+    public void irActualiza_despacho() throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect("HojaDeDespacho.xhtml");
+    }
+
+    public void EliminarDespacho(ActionEvent actionEvent) throws IOException {
+        if (despacho.getId().getCdDespacho() != null) {
+            HojadeDespachoManaged obj = new HojadeDespachoManaged();
+            despacho.setEvaluacion("NO");
+            boolean resultado = obj.actualizar(despacho);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("HojaDeDespacho.xhtml");
+        }
+    }
+
     public List<TDespacho> getListadespacho2() {
         HojadeDespachoManaged obj = new HojadeDespachoManaged();
         listadespacho2 = obj.buscarTodos();
@@ -167,8 +185,8 @@ public class HojadeDespachoBean {
     public void setSelectedTrabxCamion(TTrabajadorxcamion[] selectedTrabxCamion) {
         this.selectedTrabxCamion = selectedTrabxCamion;
     }
-    
-     public String irListoAgregar() {
+
+    public String irListoAgregar() {
         setListadotrabajadorXcamion(null);
         setListadotrabajadorXcamion(Arrays.asList(getSelectedTrabxCamion()));
         return "nuevahojadespacho";
@@ -194,16 +212,23 @@ public class HojadeDespachoBean {
     public void setListaDespachoDet(List<TDespachodet> listaDespachoDet) {
         this.listaDespachoDet = listaDespachoDet;
     }
-    
     String despachoA = "";
+
     public void buscarconsull3(AjaxBehaviorEvent event) {
         despachoA = despacho.getId().getCdDespacho();
         HojadeDespachoManaged obj = new HojadeDespachoManaged();
-        listaDespachoDet = obj.ListarDespachoxDespachoDet(getDespacho());        
+        listaDespachoDet = obj.ListarDespachoxDespachoDet(getDespacho());
     }
-    
+
     public String irAsignarRuta() {
         return "asignarruta";
     }
-        
+
+    public TDespachodet getDespachodet() {
+        return despachodet;
+    }
+
+    public void setDespachodet(TDespachodet despachodet) {
+        this.despachodet = despachodet;
+    }
 }

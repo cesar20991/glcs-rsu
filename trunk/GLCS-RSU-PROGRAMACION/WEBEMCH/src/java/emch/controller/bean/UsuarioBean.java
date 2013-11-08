@@ -8,6 +8,7 @@ import emch.modelo.acceso.UsuarioManaged;
 import emch.modelo.acceso.UsuarioManagedImpl;
 import emch.modelo.entidades.TAccesom;
 import emch.modelo.entidades.TEmpresa;
+import emch.modelo.entidades.TPerfil;
 import emch.modelo.entidades.TUsuario;
 import java.io.IOException;
 import java.util.Date;
@@ -35,8 +36,10 @@ public class UsuarioBean {
     public String nomEmpresa = "";
     public String ruc = "";     //EJM: 2109312309
     public String rucEmp = ""; //EJM: RC001 CodigoRUC
+    private String nomPerfil="";
     private TUsuario usuario2;
     private TEmpresa empresa;
+    private TPerfil perfil;
     //PARA EL MENU
 //    private MenuModel model;
 //    private List<TAccesom> listaAccesoM;
@@ -45,9 +48,11 @@ public class UsuarioBean {
     public void init() {
         setUsuario2((TUsuario) obtsesion("usuario"));
         setEmpresa((TEmpresa) obtsesion("empresa"));
+        setPerfil((TPerfil)obtsesion("perfil"));
         nomusuario = getUsuario2().getNomUsu();
         nomEmpresa = getEmpresa().getRsocial();
         rucEmp = getEmpresa().getCdRuc();
+        nomPerfil = getPerfil().getNombrePrf();
         setRuc(getEmpresa().getRucE());
     }
 
@@ -234,5 +239,21 @@ public class UsuarioBean {
 
     public void setEmpresa(TEmpresa empresa) {
         this.empresa = empresa;
+    }
+
+    public String getNomPerfil() {
+        return nomPerfil;
+    }
+
+    public void setNomPerfil(String nomPerfil) {
+        this.nomPerfil = nomPerfil;
+    }
+
+    public TPerfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(TPerfil perfil) {
+        this.perfil = perfil;
     }
 }
