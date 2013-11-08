@@ -7,12 +7,15 @@ import emch.modelo.entidades.TDespachodet;
 import emch.modelo.entidades.TDespachodetId;
 import emch.modelo.entidades.TEmpresa;
 import emch.modelo.entidades.TTrabajadorxcamion;
+import java.io.IOException;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
@@ -23,7 +26,7 @@ import org.primefaces.model.map.Rectangle;
 @ManagedBean
 @SessionScoped
 public class AsignarRutaBean {
-    
+
     private MapModel rectangleModel;
     public TDespachodet selecteddespachodet;
     private TAsignarruta asignaruta;
@@ -32,11 +35,15 @@ public class AsignarRutaBean {
     private List<TAsignarruta> listasignarruta;
     private List<TAsignarruta> listasignarrutaXCamion;
 
-    public AsignarRutaBean() {
+    @PostConstruct
+    public void init() {
         rectangleModel = new DefaultMapModel();
         asignaruta = new TAsignarruta();
         asignaruta.setTDespachodet(new TDespachodet());
         asignaruta.setTDespachodet(new TDespachodet(new TDespachodetId(1, null, null), null, null, 1));
+    }
+
+    public AsignarRutaBean() {
     }
 
     public TDespachodet getSelecteddespachodet() {
@@ -51,25 +58,27 @@ public class AsignarRutaBean {
         getListasignarruta();
         return "asignarruta";
     }
-    
+
     public String verRutaXCamion() {
         getListasignarrutaXCamion();
         return "verRuta";
     }
 
-    public String irInsertar() {
+    public void irInsertar(ActionEvent actionEvent) throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
         //asignaruta.setTDespachodet(selecteddespachodet);
         MapsManaged mgd = new MapsManaged();
-        boolean resultado = mgd.ingresarRuta(asignaruta,selecteddespachodet);
-         if (resultado) {
-            setAsignaruta(null);
+        boolean resultado = mgd.ingresarRuta(asignaruta, selecteddespachodet);
+        if (resultado) {            
+            asignaruta = new TAsignarruta();
+            asignaruta.setTDespachodet(new TDespachodet());
+            asignaruta.setTDespachodet(new TDespachodet(new TDespachodetId(1, null, null), null, null, 1));
             context.addMessage(null, new FacesMessage("se asigno ruta correctamente", "Verificar"));
-            return "listardespacho";
+            FacesContext.getCurrentInstance().getExternalContext().redirect("listardespacho.xhtml");//return "listardespacho.xhtml";
         } else {
             //setEsEdicion(false);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Asignar ruta", "Verificar"));
-            return "asignarruta"; //futuros errores
+            FacesContext.getCurrentInstance().getExternalContext().redirect("listardespacho.xhtml");//return "asignarruta.xhtml"; //futuros errores
         }
     }
 
@@ -92,7 +101,7 @@ public class AsignarRutaBean {
      */
     public List<TDespachodet> getListaDespachoDet() {
         MapsManaged obj = new MapsManaged();
-        listaDespachoDet = obj.ListarDespachoxDespachoDet();     
+        listaDespachoDet = obj.ListarDespachoxDespachoDet();
         return listaDespachoDet;
     }
 
@@ -118,8 +127,7 @@ public class AsignarRutaBean {
     public void setListarempresa(List<TEmpresa> listarempresa) {
         this.listarempresa = listarempresa;
     }
-    
-    
+
     public List<TAsignarruta> getListasignarruta() {
         MapsManaged obj = new MapsManaged();
         listasignarruta = obj.listarRutaAsignadaTodos(selecteddespachodet);
@@ -149,7 +157,7 @@ public class AsignarRutaBean {
             rectangleModel.addOverlay(rect);
         }
     }
-    
+
     public MapModel getRectangleModel() {
         return rectangleModel;
     }
@@ -164,7 +172,8 @@ public class AsignarRutaBean {
     public void setListasignarrutaXCamion(List<TAsignarruta> listasignarrutaXCamion) {
         this.listasignarrutaXCamion = listasignarrutaXCamion;
     }
-        private void GenerarMapsXCamion() {
+
+    private void GenerarMapsXCamion() {
         rectangleModel = new DefaultMapModel();
         LatLng coord1;
         LatLng coord2;
@@ -182,5 +191,4 @@ public class AsignarRutaBean {
             rectangleModel.addOverlay(rect);
         }
     }
-    
 }

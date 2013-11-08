@@ -13,14 +13,16 @@
             <ui:composition template="../plantillas/Template.xhtml">
 
                 <ui:define name="usuarios">
-                     <br></br>
+                    <br></br>
                     Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
                     <br></br>
                     Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
                     <br></br>
                     RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+                    <br></br>
+                    Perfil: <h:outputText value="#{usuarioBean.nomPerfil}" style="font-weight:bold;"> </h:outputText>   
                 </ui:define>
-                   
+
                 <ui:define name="top">
                     <p:growl id="messages" autoUpdate="true"/>                     
                 </ui:define>
@@ -34,21 +36,30 @@
                                 <p:commandButton  value="Agregar Despacho" icon="ui-icon-document" action="#{hojadeDespachoBean.irAgregar()}" ajax="false"> 
                                 </p:commandButton> 
                                 <p:commandButton  value="Modificar Despacho" icon="ui-icon-pencil" action="#{hojadeDespachoBean.irActualizar()}" ajax="false"> 
-                                </p:commandButton>                            
+                                </p:commandButton>    
                             </div>
 
                             <p:dataTable var="despacho" value="#{hojadeDespachoBean.listadespacho2}" rowKey="#{despacho.id.cdDespacho}" selectionMode="single" selection="#{hojadeDespachoBean.despacho}"
-                                         paginator="true" rows="15"  
+                                         paginator="true" rows="10"  
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                          rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                      
-                                
+
                                 <p:ajax event="rowSelect" listener="#{hojadeDespachoBean.buscarconsull3}" update=":interesxin:visita" >                                    
 
-                                 </p:ajax>
-                                
+                                </p:ajax>
+
                                 <f:facet name="header">  
                                     Listado de Hojas de Despacho
                                 </f:facet>  
+
+                                <p:column>  
+                                    <f:facet name="header">  
+                                        <h:outputText value="Ver Info." />  
+                                    </f:facet> 
+                                    <p:commandButton update=":interesxin:display2" oncomplete="infoDialog.show()" icon="ui-icon-search" title="View">  
+                                        <f:setPropertyActionListener value="#{despacho}" target="#{hojadeDespachoBean.despacho}" />  
+                                    </p:commandButton>  
+                                </p:column>
 
                                 <p:column rendered="false"> 
                                     <f:facet name="header">  
@@ -66,7 +77,7 @@
 
                                 <p:column  filterBy="#{despacho.fechaEmi}" filterMatchMode="contains">
                                     <f:facet name="header">  
-                                        <h:outputText value="Nombre" />  
+                                        <h:outputText value="Fecha Emisión" />  
                                     </f:facet> 
                                     <h:outputText value="#{despacho.fechaEmi}"/>
                                 </p:column>
@@ -111,12 +122,18 @@
                             </div>
 
                             <p:dataTable id="visita" var="listdesdet" value="#{hojadeDespachoBean.listaDespachoDet}" rowKey="#{listdesdet.id.nro}" selectionMode="single" 
-                                         paginator="true" rows="5"  
-                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                         rowsPerPageTemplate="5,10,15" style="font-weight:bold" >    
+                                         style="font-weight:bold" >    
                                 <f:facet name="header">  
                                     Listado de Detalle de Hoja de Despacho (Camiones Asignados)
-                                </f:facet>  
+                                </f:facet> 
+                                <p:column>  
+                                    <f:facet name="header">  
+                                        <h:outputText value="Ver Info." />  
+                                    </f:facet> 
+                                    <p:commandButton update=":interesxin:display3" oncomplete="infoDialog3.show()" icon="ui-icon-search" title="View">  
+                                        <f:setPropertyActionListener value="#{listdesdet}" target="#{hojadeDespachoBean.despachodet}" />  
+                                    </p:commandButton>  
+                                </p:column>
                                 <p:column > 
                                     <f:facet name="header">  
                                         <h:outputText value="Nombres" />  
@@ -161,6 +178,40 @@
 
                             </p:dataTable>
                         </p:tab>
+                        <p:dialog header="Info. de  la Empresa" widgetVar="infoDialog" resizable="false" id="carDlg"  
+                                  showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">  
+
+                            <h:panelGrid id="display2" columns="2" cellpadding="4" style="margin:0 auto;">  
+                                <h:outputText value="RUC Empresa :" />  
+                                <h:outputText value="#{hojadeDespachoBean.despacho.nroDespacho}" style="font-weight:bold"/>  
+                                <h:outputText value="Fecha :" />  
+                                <h:outputText value="#{hojadeDespachoBean.despacho.fechaEmi}" style="font-weight:bold"/>  
+                                <h:outputText value="Turno :" />  
+                                <h:outputText value="#{hojadeDespachoBean.despacho.TUbigeo.nombre}" style="font-weight:bold"/>  
+                                <h:outputText value="Dinero enviado :" />  
+                                <h:outputText value="#{hojadeDespachoBean.despacho.dineroEnviado}" style="font-weight:bold"/>  
+                                <h:outputText value="Dinerto Utilizado :" />  
+                                <h:outputText value="#{hojadeDespachoBean.despacho.totalDineroUso}" style="font-weight:bold"/>  
+                                <h:outputText value="Saldo :" />  
+                                <h:outputText value="#{hojadeDespachoBean.despacho.totalDineroSinUso}" style="font-weight:bold"/>  
+                            </h:panelGrid>  
+                        </p:dialog>
+                        <p:dialog header="Info. del camión asignado" widgetVar="infoDialog3" resizable="false" id="carDlg3"  
+                                  showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">  
+
+                            <h:panelGrid id="display3" columns="2" cellpadding="4" style="margin:0 auto;">  
+                                <h:outputText value="Camión Asignado :" />  
+                                <h:outputText value="#{hojadeDespachoBean.despachodet.TTrabajadorxcamion.TCamion.placa}" style="font-weight:bold"/>  
+                                <h:outputText value="Trabajador (Nombre) :" />  
+                                <h:outputText value="#{hojadeDespachoBean.despachodet.TTrabajadorxcamion.TTrabajador.nombres}" style="font-weight:bold"/>  
+                                <h:outputText value="Trabajador (apellidos) :" />  
+                                <h:outputText value="#{hojadeDespachoBean.despachodet.TTrabajadorxcamion.TTrabajador.apellidos}" style="font-weight:bold"/>  
+                                <h:outputText value="Cantidad de viajes :" />  
+                                <h:outputText value="#{hojadeDespachoBean.despachodet.cantViaje}" style="font-weight:bold"/>
+                            </h:panelGrid>  
+                        </p:dialog>
+
+
                     </h:form>
 
                 </ui:define>

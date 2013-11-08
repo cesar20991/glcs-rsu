@@ -88,7 +88,7 @@
     <h:body>
 
         <h:form>
-             <p:growl id="messages" autoUpdate="true"/>      
+            <p:growl id="messages" autoUpdate="true"/>      
             <p:panelGrid columns="2" style="width: 100%">
                 <f:facet name="header">  
                     ASIGNANDO RUTA AL DESPACHO Nro. <h:outputText value="#{asignarRutaBean.selecteddespachodet.TDespacho.nroDespacho}"/> CON CAMION ASIGNADO PLACA <h:outputText value="#{asignarRutaBean.selecteddespachodet.TTrabajadorxcamion.TCamion.placa}"/> Y CHOFER <h:outputText value="#{asignarRutaBean.selecteddespachodet.TTrabajadorxcamion.TTrabajador.nombres}"/>
@@ -154,10 +154,16 @@
                 </p:selectOneMenu>
 
             </p:panelGrid>    
-            <p:commandButton value="ASIGNAR RUTA" action="#{asignarRutaBean.irInsertar}" ajax="false"></p:commandButton>
+            <!--<p:commandButton value="ASIGNAR RUTA" action="" ajax="false"></p:commandButton>-->
+            <p:commandButton value="ASIGNAR RUTA" actionListener="#{asignarRutaBean.irInsertar}" icon="ui-icon-close">  
+                <p:confirm header="Asignar Ruta" message="¿Seguro(a) que desea asginar la ruta correspondiente a lo seleccionado en el mapa?" icon="ui-icon-alert" />  
+            </p:commandButton>
             <div style="padding-bottom: 50px;">
             </div>
-
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+            </p:confirmDialog> 
         </h:form>
 
 

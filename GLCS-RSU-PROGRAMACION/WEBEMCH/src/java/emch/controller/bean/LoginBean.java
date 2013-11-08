@@ -59,6 +59,8 @@ public class LoginBean {
                     putsesion("tipo", "usu");
                     putsesion("empresa", empresa);
                     putsesion("tipoe", "emp");
+                    putsesion("perfil", usuario.getTPerfil());
+                    putsesion("tipop", "perf");
                     context.addCallbackParam("loggedIn", loggedIn);
                     FacesContext.getCurrentInstance().getExternalContext().redirect("faces/mobile/principalMobile.xhtml");
                 } else { //NO TIENE ACESO MOBILE
@@ -73,6 +75,8 @@ public class LoginBean {
                     putsesion("tipo", "usu");
                     putsesion("empresa", empresa);
                     putsesion("tipoe", "emp");
+                     putsesion("perfil", usuario.getTPerfil());
+                    putsesion("tipop", "perf");
                     msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido ", usuario.getNomUsu());
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     context.addCallbackParam("loggedIn", loggedIn);
