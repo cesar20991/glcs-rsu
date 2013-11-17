@@ -57,18 +57,18 @@
                                     <h:outputText value="#{comprobante.TLiquidacion.cdLiq}"/>
                                 </p:column>
 
-                                <p:column  filterBy="#{comprobante.TMoneda.nombre}" filterMatchMode="contains">
+                                <p:column  filterBy="#{comprobante.moneda}" filterMatchMode="contains">
                                     <f:facet name="header">  
                                         <h:outputText value="Moneda" />  
                                     </f:facet> 
-                                    <h:outputText value="#{comprobante.TMoneda.nombre}"/>
+                                    <h:outputText value="#{comprobante.moneda}"/>
                                 </p:column>
 
-                                <p:column filterBy="#{comprobante.TTipodoc.descrip}" filterMatchMode="contains">
+                                <p:column filterBy="#{comprobante.tipoDocumento}" filterMatchMode="contains">
                                     <f:facet name="header">  
                                         <h:outputText value="Tipo. Doc." />  
                                     </f:facet> 
-                                    <h:outputText value="#{comprobante.TTipodoc.descrip}"/>
+                                    <h:outputText value="#{comprobante.tipoDocumento}"/>
                                 </p:column>
 
                                 <p:column filterBy="#{comprobante.fecMov}" filterMatchMode="contains">

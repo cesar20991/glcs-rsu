@@ -92,25 +92,25 @@
                         <f:facet name="header">  
                             LISTADO DETALLE DE COMPROBANTES
                         </f:facet>
-                        <p:column filterBy="#{comprobdet.item}" filterMatchMode="contains"> 
+                        <p:column > 
                             <f:facet name="header">  
                                 <h:outputText value="Item" />  
                             </f:facet>  
                             <h:outputText value="#{comprobdet.item}"/>                        
                         </p:column>
-                        <p:column filterBy="#{comprobdet.precio}" filterMatchMode="contains"> 
+                        <p:column > 
                             <f:facet name="header">  
                                 <h:outputText value="Precio" />  
                             </f:facet>  
                             <h:outputText value="#{comprobdet.precio}"/>                        
                         </p:column>
-                        <p:column filterBy="#{comprobdet.cantTn}" filterMatchMode="contains"> 
+                        <p:column > 
                             <f:facet name="header">  
                                 <h:outputText value="Cantidad Toneladas" />  
                             </f:facet>  
                             <h:outputText value="#{comprobdet.cantTn}"/>                        
                         </p:column>
-                        <p:column filterBy="#{comprobdet.total}" filterMatchMode="contains"> 
+                        <p:column > 
                             <f:facet name="header">  
                                 <h:outputText value="Total" />  
                             </f:facet>  
