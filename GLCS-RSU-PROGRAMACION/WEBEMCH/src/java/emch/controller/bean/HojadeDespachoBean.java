@@ -107,7 +107,9 @@ public class HojadeDespachoBean {
         if (despacho.getId().getCdDespacho() != null) {
             HojadeDespachoManaged obj = new HojadeDespachoManaged();
             despacho.setEvaluacion("NO");
+            listadotrabajadorXcamion = Arrays.asList(getSelectedTrabxCamion());
             boolean resultado = obj.actualizar(despacho);
+            obj.EstadoDespachoDet(despacho);
             FacesContext.getCurrentInstance().getExternalContext().redirect("HojaDeDespacho.xhtml");
         }
     }

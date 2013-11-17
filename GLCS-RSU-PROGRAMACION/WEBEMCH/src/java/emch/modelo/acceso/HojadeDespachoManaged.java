@@ -71,6 +71,7 @@ public class HojadeDespachoManaged {
             despacho.setUsuCrea("coropeza");
             despacho.setFechaReg(despacho.getFechaEmi());
             despacho.setId(despID);
+            despacho.setEvaluacion("");
             sesion.save(despacho);
             ingresarDespachoDet(despacho, trabajadorxcamion);
             trans.commit();
@@ -204,5 +205,25 @@ public class HojadeDespachoManaged {
         }
         
         
+    }
+    
+    public void EstadoDespachoDet(TDespacho despacho) {
+        List<TDespachodet> listatrabxc = null;
+        sesion = HibernateUtil.getSessionFactory().openSession();
+        sesion.beginTransaction();
+        try {
+            int a = 1;
+             qry = sesion.createQuery("SELECT ab from TDespacho  v inner join v.TDespachodets ab where v.id.cdDespacho ='" + despacho.getId().getCdDespacho() + "'");
+             listatrabxc = (List<TDespachodet>) qry.list();
+            for (TDespachodet tp : listatrabxc) {         
+                tp.setEvaluacion('M');                
+                sesion.merge(tp);
+                a++;
+            }
+             sesion.beginTransaction().commit();
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+             sesion.beginTransaction().rollback();
+        }
     }
 }
