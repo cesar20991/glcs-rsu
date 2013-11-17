@@ -2,11 +2,13 @@ package emch.controller.bean;
 
 import emch.modelo.acceso.*;
 import emch.modelo.entidades.*;
+import java.io.IOException;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
@@ -25,6 +27,7 @@ public class PesajeBean extends UsuarioBean {
     private String accion;
     private List<TControlviaje> listacontrolviaje;
     private TControlviaje selectedcv;
+    private List<TControlviaje> listacontrolviajeDD;
     //private List<TPesaje> listpesajes;
     //---------------------------------------------------
 
@@ -33,7 +36,7 @@ public class PesajeBean extends UsuarioBean {
         pesaje = new TPesaje();
         pesaje.setTControlviaje(new TControlviaje());
         //pesaje.setTLiquidacion(new TLiquidacion());
-        pesaje.setTControlviaje(new TControlviaje(new TControlviajeId(), null, null));
+        pesaje.setTControlviaje(new TControlviaje(new TControlviajeId(), null, null));        
     }
 
     public TLiquidacion getSelectedLiquidacion() {
@@ -87,7 +90,8 @@ public class PesajeBean extends UsuarioBean {
         setEsEdicion(false);
         setPesaje(new TPesaje());
         pesaje.setTControlviaje(new TControlviaje());
-        pesaje.setTLiquidacion(new TLiquidacion());
+        //pesaje.setTLiquidacion(new TLiquidacion());
+        pesaje.setTControlviaje(new TControlviaje(new TControlviajeId(), null, null));        
         return "nuevopesaje";
     }
     
@@ -122,12 +126,19 @@ public class PesajeBean extends UsuarioBean {
         //String a = selectedcontrolviaje.getId().getCdControlViaje();
         boolean resultado = isEsEdicion() ? pesajeMgd.actualizarPesaje(pesaje,selectedcv,"coropeza") : pesajeMgd.ingresarPesaje(pesaje,selectedcv,"coropeza");
         if (resultado) {
-            context1.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se agrego el Pesaje " + pesaje.getNroPesaje() + " Correctamente", "Verificar"));
+            //context1.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se agrego el Pesaje " + pesaje.getNroPesaje() + " Correctamente", "Verificar"));
             return "pesajes";
         } else {
             context1.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Crear Pesaje", "Verificar"));
             return ""; //futuros errores
         }
+    }
+    
+    public void EliminarPesaje(ActionEvent actionEvent) throws IOException{
+        PesajeManaged pesajeMgd = new PesajeManaged();
+        pesaje.setEstadoPesaje("NO");
+        boolean resultado = pesajeMgd.actualizarPesaje(pesaje,selectedcv,"coropeza");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("pesajes.xhtml");
     }
     
     public List<TControlviaje> getListacontrolviaje() {
@@ -166,6 +177,16 @@ public class PesajeBean extends UsuarioBean {
    public String irPesajePorCliente(){
        return "PesajePorCliente";
    }    
+
+    public List<TControlviaje> getListacontrolviajeDD() {
+        PesajeManaged obj = new PesajeManaged();
+        listacontrolviajeDD = obj.listarControlViajeTodos();
+        return listacontrolviajeDD;
+    }
+
+    public void setListacontrolviajeDD(List<TControlviaje> listacontrolviajeDD) {
+        this.listacontrolviajeDD = listacontrolviajeDD;
+    }
     
     
 }

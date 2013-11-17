@@ -6,6 +6,8 @@ import emch.modelo.entidades.TPesaje;
 import emch.modelo.entidades.TComprobante;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.hibernate.Query;
 import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
@@ -36,7 +38,7 @@ public class PesajeManaged {
         List<TPesaje> listaPes = null;
         /*  try {*/
         sesion = HibernateUtil.getSessionFactory().openSession();
-        qry = sesion.createQuery("SELECT a FROM TPesaje a");
+        qry = sesion.createQuery("SELECT a FROM TPesaje a WHERE a.estadoPesaje <>'NO'");
         listaPes = (List<TPesaje>) qry.list();
         /* } catch (Exception ex) {
          ex.printStackTrace();
@@ -50,7 +52,7 @@ public class PesajeManaged {
         List<TControlviaje> listaPes = null;
         /*  try {*/
         sesion = HibernateUtil.getSessionFactory().openSession();
-        qry = sesion.createQuery("SELECT cv FROM TControlviaje cv");
+        qry = sesion.createQuery("SELECT cv FROM TControlviaje cv WHERE cv.id.cdControlViaje NOT IN (SELECT p.TControlviaje.id.cdControlViaje FROM TPesaje p)");//("SELECT cv FROM TControlviaje cv");
         listaPes = (List<TControlviaje>) qry.list();
         /* } catch (Exception ex) {
          ex.printStackTrace();
@@ -59,6 +61,19 @@ public class PesajeManaged {
          }*/
         return listaPes;
     }
+     public List listarControlViajeTodos() {
+        List<TControlviaje> listaPes = null;
+        /*  try {*/
+        sesion = HibernateUtil.getSessionFactory().openSession();
+        qry = sesion.createQuery("SELECT cv FROM TControlviaje cv");
+        listaPes = (List<TControlviaje>) qry.list();
+        /* } catch (Exception ex) {
+         ex.printStackTrace();
+         } finally {
+         sesion.close();
+         }*/
+        return listaPes;
+    }    
 
     public boolean ingresarPesaje(TPesaje pesaje, TControlviaje selectedcv, String usuario) {
         try {
@@ -76,6 +91,7 @@ public class PesajeManaged {
             sesion.save(pesaje);            
             //sesion.flush();
             trans.commit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se agrego el Pesaje " + pesaje.getNroPesaje() + " Correctamente", "Verificar"));            
         } catch (Exception ex) {
             //despues agrego para que salgan mensajes de error            
             trans.rollback();
@@ -93,6 +109,7 @@ public class PesajeManaged {
             sesion.beginTransaction();
             sesion.merge(pesaje);
             sesion.beginTransaction().commit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se Actualizó el Pesaje " + pesaje.getNroPesaje() + " Correctamente", "Verificar"));            
         } catch (Exception e) {
             System.out.println("Error en actualizar" + e.getMessage());
             sesion.beginTransaction().rollback();

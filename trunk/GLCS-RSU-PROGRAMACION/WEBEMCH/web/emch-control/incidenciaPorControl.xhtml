@@ -7,42 +7,108 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Facelet Title</title>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <style type="text/css">
+            html{
+                height: 100%;
+            }
+            body{
+                background-color: #ffffff;
+                font-size: 11px;
+                font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sanemch-serif;
+                color: #000000;  
+                margin: 10px;
+            }
+            .floatright{float:right;}
+        </style>
     </h:head>
     <h:body>
-        
-            <ui:composition template="../plantillas/Template.xhtml">
 
-                <ui:define name="usuarios">
+
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="110" resizable="true" closable="true" collapsible="true">                
+                <a href="index.xhtml"><img src="../img/Logo.png" alt="Logo" width="200" height="100"></img></a>
+                <img src="../img/lema.png" width="600" height="100"></img>               
+                <div class="floatright">
+                    <img src="../img/img-profile.jpg" alt="Profile Pic" />
                     <br></br>
                     Bienvenido: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"> </h:outputText>  
                     <br></br>
                     Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
                     <br></br>
-                    RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
-                </ui:define>
+                    RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>  
+                    <br></br>
+                    Perfil: <h:outputText value="#{usuarioBean.nomPerfil}" style="font-weight:bold;"> </h:outputText>    
+                </div>
+            </p:layoutUnit>
 
-                <ui:define name="top">
-                    <p:growl id="messages" autoUpdate="true"/>                     
-                </ui:define>
+            <p:layoutUnit position="south" size="30" closable="true" collapsible="true">
+                <strong>© 2013 EMCH Servicios Ecológicos SAC. Todos los derechos reservados. comercial@emchsac.com - emchsac@emchsac.com</strong>
+            </p:layoutUnit>
 
-                <ui:define name="content">
+            <p:layoutUnit position="west" size="240" header="Menu Principal" collapsible="true">
+                <p:menu style="width: 200px;">
+                    <p:submenu label="Seguridad">                        
+                        <p:menuitem value="Cambiar Contraseña" url="#" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Administrar Usuario" url="#" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Administrar Perfil" url="#" icon="ui-icon-suitcase" />  
+                    </p:submenu>
+                    <p:submenu label="         ADMINISTRACION             ">  
+                        <p:menuitem value="Adm. Trabajador" url="../faces/emch-administracion/trabajador.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Adm. Camión" url="../faces/emch-administracion/camion.xhtml" icon="ui-icon-suitcase" />                          
+                        <p:menuitem value="Adm. Empresa" url="../faces/emch-administracion/empresa.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Verificar Comprobantes" url="../faces/emch-administracion/verificarcomprobante.xhtml" icon="ui-icon-suitcase" />                          
+                    </p:submenu>
+                    <p:submenu label="CONTROL TRANSPORTE">  
+                        <p:menuitem value="Despacho" url="../faces/emch-control/HojaDeDespacho.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Control de Viaje" url="../faces/emch-administracion/controlviaje.xhtml" icon="ui-icon-suitcase"  />  
+                        <p:menuitem value="Asignar ruta" url="../faces/emch-control/listardespacho.xhtml" icon="ui-icon-suitcase" />                          
+                        <p:menuitem value="Control Incidencia" url="../faces/emch-control/incidencia.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Control Asistencia" url="../faces/emch-control/Asistencia.xhtml" icon="ui-icon-suitcase" />  
+                    </p:submenu> 
+                    <p:submenu label="OPERACIONES">                          
+                        <p:menuitem value="Comprobante" url="../faces/emch-operaciones/comprobante.xhtml" icon="ui-icon-suitcase" />                          
+                        <p:menuitem value="Generar Comprobante" url="../faces/emch-operaciones/vistaliquidaciones.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Liquidacion" url="../faces/emch-operaciones/ConsultarLiquidacion.xhtml" icon="ui-icon-suitcase" />  
+                        <p:menuitem value="Generar Reporte" url="../faces/emch-operaciones/reportea.xhtml" icon="ui-icon-suitcase" />  
 
-                    <h:form  prependId="false" id="formincidencia">
-                        <h:outputText value="CONTROLAR INCIDENCIAS" style="font-weight:bold;font-size:20px;color:#654B24" />
+                    </p:submenu>
+
+                </p:menu>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center" size="210">
+                <h:form  prependId="false" id="formincidencia">
+                    <h:outputText value="CONTROLAR INCIDENCIAS" style="font-weight:bold;font-size:20px;color:#654B24" />
 
 
-                        <!--AQUI AGREGAS EL FORMULARIO PARA LLENAR LA INCIDENCIA-->
-                       
+                    <!--AQUI AGREGAS EL FORMULARIO PARA LLENAR LA INCIDENCIA-->
 
-                        <p:panelGrid columns="2" style="width: 100%">  
+
+                    <p:panelGrid columns="2" style="width: 100%">  
+                        <f:facet name="header">  
+                            INCIDENTE OCURRIDO
+                        </f:facet>   
+                        <p:panelGrid columns="1" style="width: 100%;">
                             <f:facet name="header">  
-                                Agregar Incidencias 
-                            </f:facet>                        
+                                RUTA CORRESPONDIENTE
+                            </f:facet>
+                            <h:form id="mapita">  
+
+                                <p:gmap id="gmap1" center="-12.075471,-76.995987" zoom="13" type="ROADMAP" style="width:700px;height:400px;" model="#{incidenciaBean.rectangleModel}" >  
+
+                                </p:gmap> 
+                            </h:form>
+                        </p:panelGrid>
+                        <p:panelGrid columns="2" style="width: 500px;">
+                            <f:facet name="header">  
+                                Agregar Incidencia
+                            </f:facet>   
                             <h:outputLabel value="Nro. COntrol:"/>   
-                             <h:outputText value="#{incidenciaBean.selectedControl.id.cdControlViaje}"  />
+                            <h:outputText value="#{incidenciaBean.selectedControl.id.cdControlViaje}"  />
                             <h:outputLabel value="Problema:"/>                                                
                             <p:inputText value="#{incidenciaBean.incidencias.problema}" required="true" requiredMessage="El campo Problema es obligatorio" >
-                                
+
                             </p:inputText>                       
 
                             <h:outputLabel value="Hora del Problema: "/>
@@ -51,103 +117,107 @@
                             </p:inputText>
                             <h:outputLabel value="Observaciones :"/>
                             <p:inputText value="#{incidenciaBean.incidencias.observaciones}" required="false" onkeypress="return validarNumero(event)">
-                               
+
                             </p:inputText>
 
                             <h:outputLabel value="Solucion:"/>
                             <p:inputText value="#{incidenciaBean.incidencias.soluc}" required="false" />
-                            
+
                             <h:outputLabel value="Fecha de Inicio"/>
                             <p:calendar value="#{incidenciaBean.incidencias.fechaInc}" pattern="dd/MM/yyyy hh:mm" style="font-weight:bold" >                                
                             </p:calendar>
-                            
+
                             <h:outputLabel value="Zona:"/>
                             <p:inputText value="#{incidenciaBean.incidencias.zona}" required="false" />
+                        </p:panelGrid>  
+
+                        <f:facet name="footer">  
+                            INCIDENTE OCURRIDO
+                        </f:facet>
+                    </p:panelGrid>      
+                    <div style="padding-top: 10px;">
+                        <p:commandButton  value="Registrar Incidencia" action="#{incidenciaBean.irAgregar()}" update=":formincidencia:datatblLiquid" icon="ui-icon-check" style="margin:0"/>                                               
+                        <p:commandButton value="Mostrar Mapa" action="#{incidenciaBean.mostrarM()}" update=":formincidencia:mapita" icon="ui-icon-search" style="margin:0"/>                        
+                    </div>
 
 
-                        </p:panelGrid>      
-                        <div style="padding-top: 10px;">
-                            <p:commandButton  value="Registrar Incidencia" action="#{incidenciaBean.irAgregar()}" update=":formincidencia:datatblLiquid" icon="ui-icon-check" style="margin:0"/>                                               
+
+
+                    <!--Listado de INCIDENCIAS DEL CONTROL SELECCIONADO-->
+                    <p:tab title="CONTROLAR INCIDENCIAS">
+                        <div style="padding-bottom: 10px;">
+
                         </div>
 
-
-
-
-                        <!--Listado de INCIDENCIAS DEL CONTROL SELECCIONADO-->
-                        <p:tab title="CONTROLAR INCIDENCIAS">
-                            <div style="padding-bottom: 10px;">
-
-                            </div>
-
-                            <p:dataTable var="control" value="#{incidenciaBean.listarControlPorIncidencia}" 
-                                         paginator="true" rows="15"  id="datatblLiquid"
-                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                         rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                
+                        <p:dataTable var="control" value="#{incidenciaBean.listarControlPorIncidencia}" 
+                                     paginator="true" rows="15"  id="datatblLiquid"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5,10,15" style="font-weight:bold">                                
+                            <f:facet name="header">  
+                                Ver Incidencias
+                            </f:facet>  
+                            <p:column rendered="false"> 
                                 <f:facet name="header">  
-                                    Ver Incidencias
+                                    <h:outputText value="Control de Viaje" />  
                                 </f:facet>  
-                                <p:column rendered="false"> 
-                                    <f:facet name="header">  
-                                        <h:outputText value="Control de Viaje" />  
-                                    </f:facet>  
-                                    <h:outputText value="#{control.TControlviaje.id.cdControlViaje}"/>                        
-                                </p:column>
+                                <h:outputText value="#{control.TControlviaje.id.cdControlViaje}"/>                        
+                            </p:column>
 
-                                <p:column > 
-                                    <f:facet name="header">  
-                                        <h:outputText value="Fecha de Inicio" />  
-                                    </f:facet>  
-                                    <h:outputText value="#{control.fechaInc}"/>                        
-                                </p:column>
+                            <p:column > 
+                                <f:facet name="header">  
+                                    <h:outputText value="Fecha de Inicio" />  
+                                </f:facet>  
+                                <h:outputText value="#{control.fechaInc}"/>                        
+                            </p:column>
 
-                                <p:column >
-                                    <f:facet name="header">  
-                                        <h:outputText value="Zona" />  
-                                    </f:facet> 
-                                    <h:outputText value="#{control.zona}"/>
-                                </p:column>
+                            <p:column >
+                                <f:facet name="header">  
+                                    <h:outputText value="Zona" />  
+                                </f:facet> 
+                                <h:outputText value="#{control.zona}"/>
+                            </p:column>
 
-                                <p:column>
-                                    <f:facet name="header">  
-                                        <h:outputText value="Problema" />  
-                                    </f:facet> 
-                                    <h:outputText value="#{control.problema}"/>
-                                </p:column>
+                            <p:column>
+                                <f:facet name="header">  
+                                    <h:outputText value="Problema" />  
+                                </f:facet> 
+                                <h:outputText value="#{control.problema}"/>
+                            </p:column>
 
-                                <p:column >
-                                    <f:facet name="header">  
-                                        <h:outputText value="Hora del Problema" />  
-                                    </f:facet> 
-                                    <h:outputText value="#{control.horaProb}"/>
-                                </p:column>
+                            <p:column >
+                                <f:facet name="header">  
+                                    <h:outputText value="Hora del Problema" />  
+                                </f:facet> 
+                                <h:outputText value="#{control.horaProb}"/>
+                            </p:column>
 
-                                <p:column >
-                                    <f:facet name="header">  
-                                        <h:outputText value="Observaciones" />  
-                                    </f:facet> 
-                                    <h:outputText value="#{control.observaciones}"/>
-                                </p:column>
+                            <p:column >
+                                <f:facet name="header">  
+                                    <h:outputText value="Observaciones" />  
+                                </f:facet> 
+                                <h:outputText value="#{control.observaciones}"/>
+                            </p:column>
 
-                                <p:column >
-                                    <f:facet name="header">  
-                                        <h:outputText value="Solucion" />  
-                                    </f:facet> 
-                                    <h:outputText value="#{control.soluc}"/>
-                                </p:column>
+                            <p:column >
+                                <f:facet name="header">  
+                                    <h:outputText value="Solucion" />  
+                                </f:facet> 
+                                <h:outputText value="#{control.soluc}"/>
+                            </p:column>
 
 
-                            </p:dataTable>
+                        </p:dataTable>
 
-                        </p:tab>                   
-
-
-                    </h:form>
-
-                </ui:define>
-
-            </ui:composition>
+                    </p:tab>                   
 
 
-        
+                </h:form>
+
+            </p:layoutUnit>
+
+        </p:layout>
+
+
+
     </h:body>
 </html>

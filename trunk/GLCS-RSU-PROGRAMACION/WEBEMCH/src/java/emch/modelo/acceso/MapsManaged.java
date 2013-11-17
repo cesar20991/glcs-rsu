@@ -61,7 +61,8 @@ public class MapsManaged {
         List<TDespachodet> listadespachoDet = null;
         try {
             sesion = HibernateUtil.getSessionFactory().openSession();
-            qry = sesion.createQuery("SELECT ab from TDespachodet ab order by ab.TDespacho.nroDespacho");//  v inner join v.TDespachodets ab where v.id.cdDespacho ='"+ despacho+"'");
+            qry = sesion.createQuery(" SELECT ab FROM TDespachodet ab WHERE ab.evaluacion is null"); // PARA HACER LA JUGADA Q ELIMINA PERO SOLO CAMBIO ESTADO DE EVALUACION A M           
+            //qry = sesion.createQuery("SELECT ab from TDespachodet ab  order by ab.TDespacho.nroDespacho");//  v inner join v.TDespachodets ab where v.id.cdDespacho ='"+ despacho+"'");
             listadespachoDet = (List<TDespachodet>) qry.list();
         } catch (Exception ex) {
             ex.printStackTrace();

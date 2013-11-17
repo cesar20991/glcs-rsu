@@ -18,6 +18,8 @@
                 Empresa: <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"> </h:outputText>   
                 <br></br>
                 RUC:<h:outputText value="#{usuarioBean.ruc}" style="font-weight:bold;"> </h:outputText>   
+                <br></br>
+                Perfil: <h:outputText value="#{usuarioBean.nomPerfil}" style="font-weight:bold;"> </h:outputText>    
             </ui:define>
             <ui:define name="top">
                 <p:growl id="messages" autoUpdate="true"/>  
@@ -50,10 +52,10 @@
                             <p:inputText value="#{pesajeBean.pesaje.pesoTn}" />
                             <h:outputLabel value="Obs: *"/>
                             <p:inputTextarea  value="#{pesajeBean.pesaje.obs}" rows="4" cols="33" style="font-weight:bold"/>                              
-                            <h:outputLabel value="Control Viaje: *"/>
-                            <p:selectOneMenu value="#{pesajeBean.pesaje.TControlviaje.id.cdControlViaje}" filter="true" filterMatchMode="contains">  
+                            <h:outputLabel value="Control Viaje: *" rendered="#{pesajeBean.esEdicion ==true}"/>
+                            <p:selectOneMenu value="#{pesajeBean.pesaje.TControlviaje.id.cdControlViaje}" filter="true" filterMatchMode="contains" rendered="#{pesajeBean.esEdicion ==true}">  
                                 <f:selectItem itemLabel="Select One" itemValue="" />  
-                                <f:selectItems value="#{pesajeBean.listacontrolviaje}" var="vij" itemLabel="#{vij.id.cdControlViaje}" itemValue="#{vij.id.cdControlViaje}"/>  
+                                <f:selectItems value="#{pesajeBean.listacontrolviajeDD}" var="vij" itemLabel="#{vij.id.cdControlViaje}" itemValue="#{vij.id.cdControlViaje}"/>  
                             </p:selectOneMenu>
                         </p:panelGrid>   
 
@@ -76,6 +78,9 @@
                     </p:panelGrid>
                     <div style="padding-top: 10px;">
                         <p:commandButton  value="#{pesajeBean.accion}" action="#{pesajeBean.ingresar()}"  ajax="false"  icon="ui-icon-check" style="margin:0"/>                                               
+                        <p:commandButton value="Eliminar Pesaje" actionListener="#{pesajeBean.EliminarPesaje}" icon="ui-icon-close">  
+                            <p:confirm header="Confirmación para eliminar un Pesaje" message="¿Seguro(a) de eliminar el Pesaje obtenido despues del servicio?" icon="ui-icon-alert" />  
+                        </p:commandButton>
                     </div>                    
                     <div style="padding-top: 10px;">
                         <h:outputText value="(*) Solo puede Asociar un Control de Viaje por cada Pesaje" style="font-weight:bold"/>
@@ -137,7 +142,10 @@
 
                     </p:dataTable>
                     <!--                FIN TABLA CONTROLVIAJE                   -->
-
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+                    </p:confirmDialog>
 
                 </h:form>     
             </ui:define>
