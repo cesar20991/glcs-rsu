@@ -80,6 +80,22 @@ public class UsuarioBean {
         
         //return "index.xhtml?faces-redirect=true";
     }
+    public void logout2() throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        String s = FacesContext.getCurrentInstance().getExternalContext().getRequestPathInfo();
+        System.out.print(s);
+        if(s.contains("emch-seguridad") || s.contains("emch-administracion") || s.contains("emch-control") || s.contains("operaciones")){            
+            FacesContext.getCurrentInstance().getExternalContext().redirect( "/WEBEMCH/faces/principalcliente.xhtml");
+        }
+        else if(s.contains("mobile")){
+            FacesContext.getCurrentInstance().getExternalContext().redirect( "/WEBEMCH/faces/principalcliente.xhtml");
+        }
+        else{
+            FacesContext.getCurrentInstance().getExternalContext().redirect( "principalcliente.xhtml");
+        }
+        
+        //return "index.xhtml?faces-redirect=true";
+    }
 
 //    public void cargarMenu() {
 //        //Valido Menus

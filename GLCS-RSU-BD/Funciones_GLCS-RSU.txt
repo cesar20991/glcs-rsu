@@ -129,6 +129,19 @@ RETURN idmax;
 END
 
 
+CREATE FUNCTION idCamion(
+) RETURNS VARCHAR( 6 ) BEGIN DECLARE idmax VARCHAR( 6 ) ;
+
+SET idmax = ( SELECT MAX( cdCamion ) 
+FROM t_camion ) ;
+
+SET idmax = CONCAT(  'CA', RIGHT( CONCAT(  '0000', CONVERT( CONVERT( RIGHT( idmax, 4 ) , signed ) +1, CHAR ) ) , 4 ) ) ;
+
+RETURN idmax;
+
+END
+
+
 
 
 
