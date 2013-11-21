@@ -52,7 +52,8 @@ public class UsuarioBean {
         nomusuario = getUsuario2().getNomUsu();
         nomEmpresa = getEmpresa().getRsocial();
         rucEmp = getEmpresa().getCdRuc();
-        nomPerfil = getPerfil().getNombrePrf();
+        if(perfil !=null)
+            nomPerfil = getPerfil().getNombrePrf();
         setRuc(getEmpresa().getRucE());
     }
 
