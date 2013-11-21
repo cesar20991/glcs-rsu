@@ -104,7 +104,8 @@
                 <h3>Visualizar Despachos</h3>
 
                 <p:outputLabel value="Desde : " style="font-weight:bold;"/>
-                <p:calendar value="#{despachoMobileBean.fecDesde}" effect="fade" pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13">
+                <p:calendar id="ad" value="#{despachoMobileBean.fecDesde}" effect="fade" pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13">
+                    <p:ajax process="ad" partialSubmit="true" event="change"/>
                 </p:calendar>
 
                 <p:outputLabel  value="Hasta : " style="font-weight:bold;"/>
