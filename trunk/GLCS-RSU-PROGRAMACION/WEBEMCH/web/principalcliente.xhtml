@@ -13,7 +13,7 @@
             <ui:define name="demo" >
                 <h:outputLink id="loginLink" value="javascript:void(0)" onclick="dlg.show()" title="login">     
                     <h:form>                                               
-                    <p:commandButton value="ACCEDER" />  
+                        <p:commandButton value="ACCEDER" />  
                     </h:form> 
                 </h:outputLink>  
 
@@ -29,6 +29,8 @@
                             <h:outputLabel for="password" value="Contraseña:" />  
                             <p:password value="#{loginBean.usuario.pass}" id="password" required="true" label="password">
                             </p:password>  
+                            <h:outputLabel value="" />  
+                            <p:selectBooleanCheckbox id="accesomovil" value="#{loginBean.accesoMovil}" label="accesomovil"  itemLabel="Iniciar Móvil" />
                             <f:facet name="footer">  
                                 <p:commandButton id="loginButton" value="Ingresar" update=":growl"   
                                                  actionListener="#{loginBean.loginCliente}"   
@@ -46,12 +48,12 @@
                         } else {
                             dlg.hide();
                             jQuery('#loginLink').fadeOut();
-                            window.location = "/WEBEMCH/faces/emch-operaciones/ComprobantesPorCliente.xhtml";
+                            //window.location = "/WEBEMCH/faces/emch-operaciones/ComprobantesPorCliente.xhtml";
                         }
                     }
                 </script>  
             </ui:define>
-            
+
             <ui:define name="content"> aaa
                 <p:layout style="min-width:400px;min-height:500px;" id="layout">  
                     <p:layoutUnit position="center">

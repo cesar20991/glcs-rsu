@@ -75,7 +75,7 @@ public class LoginBean {
                     putsesion("tipo", "usu");
                     putsesion("empresa", empresa);
                     putsesion("tipoe", "emp");
-                     putsesion("perfil", usuario.getTPerfil());
+                    putsesion("perfil", usuario.getTPerfil());
                     putsesion("tipop", "perf");
                     msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido ", usuario.getNomUsu());
                     FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -94,26 +94,43 @@ public class LoginBean {
         }
     }
 
-    public void loginCliente(ActionEvent actionEvent) {
+    public void loginCliente(ActionEvent actionEvent) throws IOException {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = null;
         boolean loggedIn = false;
         UsuarioManaged obj = new UsuarioManagedImpl();
         usuario = obj.buscarPorUsuario(usuario);
         empresa = obj.buscarRuc(usuario);
-        //VERIFICANDO ESTA MAL PERO Q QUEDA SALE u.u
-        UsuarioManagedImpl obj2 = new UsuarioManagedImpl();
         if (usuario != null) {
-            loggedIn = true;
-            putsesion("usuario", usuario);
-            putsesion("empresa", empresa);
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido ", usuario.getNomUsu());
-        } else {
+            if (isAccesoMovil()) { // TIENE ACCESO MOVIL
+                if (usuario.isAccesoMobile()) {
+                    loggedIn = true;
+                    putsesion("usuario", usuario);
+                    putsesion("empresa", empresa);
+                    msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido ", usuario.getNomUsu());
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    context.addCallbackParam("loggedIn", loggedIn);
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("faces/mobile/principalMobileC.xhtml");
+                } else {//NO TIENE ACESO MOBILE
+                    loggedIn = false;
+                    msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "No tiene acceso a la función Móvil", "Verificar");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+            } else { // ACCESO WEB
+                loggedIn = true;
+                putsesion("usuario", usuario);
+                putsesion("empresa", empresa);
+                msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido ", usuario.getNomUsu());
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                context.addCallbackParam("loggedIn", loggedIn);
+                FacesContext.getCurrentInstance().getExternalContext().redirect("faces/emch-operaciones/ComprobantesPorCliente.xhtml");
+            }
+        } else {//NO TIENE ACESO WEB
             loggedIn = false;
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        context.addCallbackParam("loggedIn", loggedIn);
+        //context.addCallbackParam("loggedIn", loggedIn);
     }
 
     public void putsesion(String k, Object v) {

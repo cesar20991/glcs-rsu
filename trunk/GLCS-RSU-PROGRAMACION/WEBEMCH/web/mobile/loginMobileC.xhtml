@@ -1,0 +1,56 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"       
+        xmlns:f="http://java.sun.com/jsf/core"    
+        xmlns:h="http://java.sun.com/jsf/html"   
+        xmlns:ui="http://java.sun.com/jsf/facelets"    
+        xmlns:p="http://primefaces.org/ui"      
+        xmlns:pm="http://primefaces.org/mobile"   
+        contentType="text/html" 
+        renderKitId="PRIMEFACES_MOBILE"        
+        xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <pm:page title="EMCH Servicios Ecologicos">
+
+        <f:facet name="preinit">
+            <link type="text/css" rel="stylesheet" href="../themes/mobile.css" />
+            <!-- AQUI DEBE IR EL TEMA DE JQUERY -->
+        </f:facet>
+
+        <style type="text/css">
+            contenedor112{
+                margin:0 auto; /*centrar el documento*/
+                width:1000px;
+                height:750px;
+                background:#FFCC33;
+            }
+        </style>
+        
+        <!--PÁGINA LOGUEO DEL SISTEMA-->
+        <pm:view id="login">
+            <pm:header title="GLCS-RSU - Login">                              
+            </pm:header>           
+            <pm:content>
+                <div style="margin:0 auto; width:200px; height:100px;">
+                    <img src="../img/Logo.png" alt="Logo" width="200" height="100"></img>
+                </div>
+                <p:outputLabel value="Usuario : " style="font-weight:bold;"/>
+                <p:inputText  value="#{loginBean.usuario.nomUsu}" style="font-weight:bold;"/>
+                <p:outputLabel value="Password : " style="font-weight:bold;"/>
+                <p:inputText value="#{loginBean.usuario.pass}" style="font-weight:bold;"/>
+                <p:commandButton value="INGRESAR"  type="button" actionListener="#{loginBean.loginCliente}" >
+                    <f:attribute name="swatch" value="a" />
+                </p:commandButton>
+            </pm:content>
+            <!-- INICIO FOOTER-->
+            <pm:footer>                
+                <h:panelGrid style="text-align: center">
+                    <h:outputText style="font-size: 11px; text-align: center; margin-left: 2px; margin-right: 2px; margin-bottom: 0px" 
+                                  value="© 2013 EMCH Servicios Ecológicos SAC. | Todos los derechos reservados. | comercial@emchsac.com - emchsac@emchsac.com" />
+                </h:panelGrid>
+            </pm:footer>
+            <!-- FIN FOOTER-->            
+        </pm:view> 
+
+    </pm:page>
+
+
+</f:view>   
