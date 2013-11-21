@@ -63,7 +63,7 @@ public class VerificarComprobanteManaged {
         List<TComprobante> listacomprobante = null;
         /* try {*/
         sesion = HibernateUtil.getSessionFactory().openSession();
-        qry = sesion.createQuery("select a FROM TComprobante a where a.fechaComprobante between '" + fechaI + "' and  '" + fechaF + "'");
+        qry = sesion.createQuery("SELECT a FROM TComprobante a WHERE a.fechaReg between '" + fechaI + "' AND  '" + fechaF + "'");
         listacomprobante = (List<TComprobante>) qry.list();
         /* } catch (Exception ex) {
          ex.printStackTrace();

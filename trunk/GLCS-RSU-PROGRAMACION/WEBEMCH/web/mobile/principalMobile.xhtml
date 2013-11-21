@@ -104,20 +104,15 @@
                 <h3>Visualizar Despachos</h3>
 
                 <p:outputLabel value="Desde : " style="font-weight:bold;"/>
-                <p:calendar id="ad" value="#{despachoMobileBean.fecDesde}" effect="fade" pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13">
-                    <p:ajax process="ad" partialSubmit="true" event="change"/>
+                <p:calendar id="desde" value="#{despachoMobileBean.fecDesde}" effect="fade" pattern="dd/MM/yyyy HH:mm">
+                    <p:ajax process="desde" partialSubmit="true" event="change"/>
                 </p:calendar>
 
                 <p:outputLabel  value="Hasta : " style="font-weight:bold;"/>
-                <p:calendar value="#{despachoMobileBean.fecHasta}" effect="fade" pattern="dd/MM/yyyy HH:mm" mindate="01/01/12" maxdate="31/12/13">
-                </p:calendar>                
-                <pm:field>
-                    <h:outputLabel value="Turno : " style="font-weight:bold;"/>
-                    <h:selectOneMenu id="selectOneMenu"> 
-                        <f:selectItem itemLabel="Mañana" itemValue="TN01" />
-                        <f:selectItem itemLabel="Noche" itemValue="TN02" />
-                    </h:selectOneMenu>
-                </pm:field>
+                <p:calendar id="hasta" value="#{despachoMobileBean.fecHasta}" effect="fade" pattern="dd/MM/yyyy HH:mm">
+                    <p:ajax process="hasta" partialSubmit="true" event="change"/>
+                </p:calendar>           
+
                 <p:commandButton value="Buscar" icon="search" action="#{despachoMobileBean.irBuscarDespacho()}" update="ConsultasDespachoForm"></p:commandButton>
                 <p:commandButton value="Limpiar Resultado" action="#{despachoMobileBean.irClearDespacho()}" update="ConsultasDespachoForm"></p:commandButton>
                 <h:form id="ConsultasDespachoForm">
@@ -296,10 +291,23 @@
             </pm:header>                
             <pm:content>
                 <h3>Visualización de Comprobantes de acuerdo a fechas</h3>
+                
+                <p:outputLabel value="Desde : " style="font-weight:bold;"/>
+                <p:calendar id="desdeComp" value="#{comprobanteMobileBean.fecDesde}" effect="fade" pattern="dd/MM/yyyy HH:mm">
+                    <p:ajax process="desdeComp" partialSubmit="true" event="change"/>
+                </p:calendar>
+
+                <p:outputLabel  value="Hasta : " style="font-weight:bold;"/>
+                <p:calendar id="hastaComp" value="#{comprobanteMobileBean.fecHasta}" effect="fade" pattern="dd/MM/yyyy HH:mm">
+                    <p:ajax process="hastaComp" partialSubmit="true" event="change"/>
+                </p:calendar>           
+
+                <p:commandButton value="Buscar" icon="search" action="#{comprobanteMobileBean.irBuscarComprobante()}" update="ConsultasComprobanteForm"></p:commandButton>
+                <p:commandButton value="Limpiar Resultado" action="#{comprobanteMobileBean.irClearDespacho()}" update="ConsultasComprobanteForm"></p:commandButton>
+                
                 <h:form id="ConsultasComprobanteForm">
                     <c:forEach var="comprobante" items="#{comprobanteMobileBean.listaComprobante}" >                            
-                        <p:panel header="COMPROBANTE : #{comprobante.idComprobante} - 
-                                 Fecha #{comprobante.fechaReg}" collapsed="true" >
+                        <p:panel header="COMPROBANTE : #{comprobante.idComprobante} - Fecha #{comprobante.fechaReg}" collapsed="true" >
                             <h:panelGrid columns="5">                
                                 <h:outputText value="Fecha de Registro : " style="font-weight:bold;"/>
                                 <h:outputText value="#{comprobante.fechaReg}"/>
@@ -311,9 +319,7 @@
                                 <h:outputText value="#{comprobante.total}"/>
                                 <h:outputText value="Estado del Comprobante:" style="font-weight:bold;"/>
                                 <h:outputText value="#{comprobante.estado}"/>  
-
                             </h:panelGrid>
-
                         </p:panel> 
                     </c:forEach>                         
 
@@ -329,7 +335,7 @@
                 </h:panelGrid>
             </pm:footer>
             <!-- FIN FOOTER-->
-            <p:dialog header="Información Usuario" widgetVar="dlgBasic4" modal="true">
+            <p:dialog header="Información Usuario" widgetVar="dlgBasic5" modal="true">
                 <h:panelGrid columns="5">
                     Usuario: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"/>
                     Empresa (Cliente): <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"/>
@@ -462,12 +468,26 @@
                 <f:facet name="left"><p:button value="Regresar" icon="back" href="#consultas?reverse=true"/></f:facet>
                 <pm:navBar>
                     <p:button value="Inicio" icon="home" href="#consultas?reverse=true"/>
-                    <p:button value="Usuario: #{usuarioBean.nomusuario}" icon="grid" onclick="PF('dlgBasic7').show()"/>                                                         
+                    <p:button value="Usuario: #{usuarioBean.nomusuario}" icon="grid" onclick="PF('dlgBasic8').show()"/>                                                         
                     <p:commandButton value="Cerrar sesión" icon="minus" action="#{usuarioBean.logout()}"></p:commandButton>
                 </pm:navBar>
             </pm:header>       
             <pm:content>
                 <h3>Visualización de Liquidaciones</h3>
+                
+                <p:outputLabel value="Desde : " style="font-weight:bold;"/>
+                <p:calendar id="desdeLiq" value="#{consLiquidacionMobileBean.fecDesde}" effect="fade" pattern="dd/MM/yyyy HH:mm">
+                    <p:ajax process="desdeLiq" partialSubmit="true" event="change"/>
+                </p:calendar>
+
+                <p:outputLabel  value="Hasta : " style="font-weight:bold;"/>
+                <p:calendar id="hastaLiq" value="#{consLiquidacionMobileBean.fecHasta}" effect="fade" pattern="dd/MM/yyyy HH:mm">
+                    <p:ajax process="hastaLiq" partialSubmit="true" event="change"/>
+                </p:calendar>           
+
+                <p:commandButton value="Buscar" icon="search" action="#{consLiquidacionMobileBean.irBuscarLiquidaciones()}" update="ConsultasLiquidacionForm"></p:commandButton>
+                <p:commandButton value="Limpiar Resultado" action="#{consLiquidacionMobileBean.irClearLiquidaciones()}" update="ConsultasLiquidacionForm"></p:commandButton>
+                
                 <h:form id="ConsultasLiquidacionForm">
                     <c:forEach var="liquidacion" items="#{consLiquidacionMobileBean.listarLiquidacion}" >                            
                         <p:panel header="LIQUIDACION :  Fecha Apertura #{liquidacion.fechaApertura}" collapsed="true" >
@@ -486,14 +506,8 @@
                                 <h:outputText value="#{liquidacion.usuCrea}" />
                                 <h:outputText value="Fecha de Registro : " style="font-weight:bold;"/>
                                 <h:outputText value="#{liquidacion.fechaReg}"/>
-                                <h:outputText value="Usuario Modif :" style="font-weight:bold;"/>
-                                <h:outputText value="#{liquidacion.usuModf}"/>
-                                <h:outputText value="Fecha Modif : " style="font-weight:bold;"/>
-                                <h:outputText value="#{liquidacion.fechaModf}"/>
-
                             </h:panelGrid>
-                            <p:commandButton value="Ver Pesajes" icon="arrow-r" actionListener="#{pesajeMobileBean.buscarPesajesXLiq()}" 
-                                             action="pm:ConsultasPesajes" update=":ConsultasPesajesForm">
+                            <p:commandButton value="Ver Pesajes" icon="arrow-r" actionListener="#{pesajeMobileBean.buscarPesajesXLiq()}" action="pm:ConsultasPesajes" update=":ConsultasPesajesForm">
                                 <f:setPropertyActionListener value="#{liquidacion}" target="#{pesajeMobileBean.selectedLiq}" />
                             </p:commandButton>
                         </p:panel> 
@@ -511,7 +525,7 @@
                 </h:panelGrid>
             </pm:footer>
             <!-- FIN FOOTER-->
-            <p:dialog header="Información Usuario" widgetVar="dlgBasic7" modal="true">
+            <p:dialog header="Información Usuario" widgetVar="dlgBasic8" modal="true">
                 <h:panelGrid columns="2">
                     Usuario: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"/>
                     Empresa (Cliente): <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"/>
@@ -527,7 +541,7 @@
                 <f:facet name="left"><p:button value="Regresar" icon="back" href="#consultas?reverse=true"/></f:facet>
                 <pm:navBar>
                     <p:button value="Inicio" icon="home" href="#consultas?reverse=true"/>
-                    <p:button value="Usuario: #{usuarioBean.nomusuario}" icon="grid" onclick="PF('dlgBasic7').show()"/>                                                         
+                    <p:button value="Usuario: #{usuarioBean.nomusuario}" icon="grid" onclick="PF('dlgBasic9').show()"/>                                                         
                     <p:commandButton value="Cerrar sesión" icon="minus" action="#{usuarioBean.logout()}"></p:commandButton>
                 </pm:navBar>
             </pm:header>       
@@ -565,7 +579,7 @@
                 </h:panelGrid>
             </pm:footer>
             <!-- FIN FOOTER-->
-            <p:dialog header="Información Usuario" widgetVar="dlgBasic7" modal="true">
+            <p:dialog header="Información Usuario" widgetVar="dlgBasic9" modal="true">
                 <h:panelGrid columns="2">
                     Usuario: <h:outputText value="#{usuarioBean.nomusuario}" style="font-weight:bold;"/>
                     Empresa (Cliente): <h:outputText value="#{usuarioBean.nomEmpresa}" style="font-weight:bold;"/>
