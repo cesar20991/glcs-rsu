@@ -34,10 +34,10 @@ public class DespachoMobileBean {
 
     public void irBuscarDespacho() {
         // NO PUEDO TRAER CALENDAR SALE NULL
-        //VerificarComprobanteManaged obj = new VerificarComprobanteManaged();
-        //listaDespacho = obj.listarDespacho(fecDesde, fecHasta, rucempresa);
-        HojadeDespachoManaged obj = new HojadeDespachoManaged();
-        listaDespacho = obj.buscarTodos();
+        VerificarComprobanteManaged obj = new VerificarComprobanteManaged();
+        listaDespacho = obj.listarDespacho(fecDesde, fecHasta, rucempresa);
+        //HojadeDespachoManaged obj = new HojadeDespachoManaged();
+        //listaDespacho = obj.buscarTodos();
     }
 
     public void irClearDespacho() {
