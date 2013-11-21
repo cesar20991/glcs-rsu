@@ -97,6 +97,7 @@ public class DespachoMobileBean {
     }
 
     public void setFecDesde(Date fecDesde) {
+        System.out.println("date: "+fecDesde);
         this.fecDesde = fecDesde;
     }
 

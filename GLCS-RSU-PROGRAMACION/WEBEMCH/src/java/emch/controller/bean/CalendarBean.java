@@ -31,6 +31,7 @@ public class CalendarBean {
     }
 
     public void setDate1(Date date1) {
+        System.out.println("date: "+date1);
         this.date1 = date1;
     }
 
@@ -39,6 +40,7 @@ public class CalendarBean {
     }
 
     public void setDate2(Date date2) {
+        System.out.println("date: "+date2);
         this.date2 = date2;
     }
 
@@ -47,6 +49,7 @@ public class CalendarBean {
     }
 
     public void setDate3(Date date3) {
+        System.out.println("date: "+date3);
         this.date3 = date3;
     }
 
@@ -55,6 +58,7 @@ public class CalendarBean {
     }
 
     public void setDate4(Date date4) {
+        System.out.println("date: "+date4);
         this.date4 = date4;
     }
 
@@ -63,6 +67,7 @@ public class CalendarBean {
     }
 
     public void setDate5(Date date5) {
+        System.out.println("date: "+date5);
         this.date5 = date5;
     }
 
@@ -71,6 +76,7 @@ public class CalendarBean {
     }
 
     public void setDate6(Date date6) {
+        System.out.println("date: "+date6);
         this.date6 = date6;
     }
 

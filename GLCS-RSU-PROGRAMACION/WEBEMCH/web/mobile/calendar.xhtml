@@ -92,7 +92,9 @@
                     <h4>Slide Vertical</h4> 
                     <p:calendar value="#{calendarBean.date1}" effect="slidevertical" />   
                     <h4>Pop</h4> 
-                    <p:calendar value="#{calendarBean.date1}" effect="pop" />                     
+                    <p:calendar value="#{calendarBean.date1}" id="ad" effect="pop" >
+                        <p:ajax process="ad" partialSubmit="true" event="change"/>
+                    </p:calendar>                     
                 </h:form>
 
             </pm:content>
