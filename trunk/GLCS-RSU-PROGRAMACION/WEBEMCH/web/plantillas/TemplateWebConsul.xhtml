@@ -42,6 +42,10 @@
                     </div>
                     <div class="grid_2 " id="acceder">
                         <ui:insert name="usuarios"> usuario:  </ui:insert>
+                        <h:form>
+                            <p:commandButton id="btn" value="Cerrar sesión" action="#{usuarioBean.logout}" icon="ui-icon-document" ajax="false">
+                            </p:commandButton>
+                        </h:form> 
                     </div>        
                     <div class="clear"></div>                    
                 </header>        
@@ -49,7 +53,7 @@
             <div class="clear"></div>  
 
             <div  >
-                <p:layout style="min-width:500px;min-height:200px;" >  
+                <p:layout style="min-width:500px;min-height:800px;" >  
                     <p:layoutUnit position="north" resizable="true" size="70" minSize="10" maxSize="100">  
                         <p:menubar autoDisplay="false">  
                             <p:menuitem value="INICIO" url="#" icon="ui-icon-home" />  
@@ -63,7 +67,7 @@
                             <p:submenu label="CONTACTO" icon="ui-icon-home">  
 
                             </p:submenu> 
-                             <ui:insert name="top"> content </ui:insert>
+                            <ui:insert name="top"> content </ui:insert>
                         </p:menubar> 
                     </p:layoutUnit>  
 
