@@ -15,11 +15,9 @@ public class ComprobanteMobileBean {
 
     private TComprobante comprobante;
     private List<TComprobante> listaComprobante;
-
     private TComprobante selectedComprobante;
     private List<TLiquidacion> listaliquidacion;
     private List<TPesaje> listapesaje;
-
     private Date fecDesde;
     private Date fecHasta;
     String rucempresa = "";
@@ -32,6 +30,12 @@ public class ComprobanteMobileBean {
         LiquidacionManaged objLiq = new LiquidacionManaged();
         if (selectedComprobante != null) {
             listaliquidacion = objLiq.listarLiquidacionPorCliente(selectedComprobante);
+        }
+    }
+    public void buscarPesaje() {
+       PesajeManaged objPes = new PesajeManaged();
+        if (selectedComprobante != null) {
+            listapesaje = objPes.listarPesajePorCliente(selectedComprobante);
         }
     }
 
@@ -57,17 +61,19 @@ public class ComprobanteMobileBean {
 
     public void irBuscarComprobante() {
         VerificarComprobanteManaged obj = new VerificarComprobanteManaged();
-         listaComprobante = obj.listarComprobante(fecDesde, fecHasta, rucempresa);
+        listaComprobante = obj.listarComprobante(fecDesde, fecHasta, rucempresa);
     }
 
     public List<TComprobante> getListaComprobante() {
+        ComprobantesManaged c = new ComprobantesManaged();
+        listaComprobante = c.buscarTodos();
         return listaComprobante;
     }
 
     public void setListaComprobante(List<TComprobante> listaComprobante) {
         this.listaComprobante = listaComprobante;
     }
-    
+
     public TComprobante getSelectedComprobante() {
         return selectedComprobante;
     }
@@ -94,5 +100,13 @@ public class ComprobanteMobileBean {
 
     public void setComprobante(TComprobante comprobante) {
         this.comprobante = comprobante;
+    }
+
+    public List<TPesaje> getListapesaje() {
+        return listapesaje;
+    }
+
+    public void setListapesaje(List<TPesaje> listapesaje) {
+        this.listapesaje = listapesaje;
     }
 }
