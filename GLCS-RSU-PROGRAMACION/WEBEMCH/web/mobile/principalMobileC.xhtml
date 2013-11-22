@@ -156,7 +156,7 @@
                     <h:outputText value="Fecha : " style="font-weight:bold;"/>
                     <h:outputText value="#{comprobanteMobileBean.selectedComprobante.fecMov}"/>
                     <br></br>                                     
-                    <c:forEach id="listDespDet" var="liquidacion" items="#{comprobanteMobileBean.listaliqudiacion}" >                            
+                    <c:forEach id="listDespDet" var="liquidacion" items="#{comprobanteMobileBean.listaliquidacion}" >                            
                         <p:panel header="Código: #{liquidacion.cdLiq} - Tipo : #{liquidacion.TTipoliquidacion.nombre}" collapsed="true" >
                             <h:panelGrid columns="2">
                                 <h:outputText value="Asunto : " style="font-weight:bold;"/>
