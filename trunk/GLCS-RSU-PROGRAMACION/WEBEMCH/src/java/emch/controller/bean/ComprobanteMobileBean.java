@@ -15,6 +15,11 @@ public class ComprobanteMobileBean {
 
     private TComprobante comprobante;
     private List<TComprobante> listaComprobante;
+
+    private TComprobante selectedComprobante;
+    private List<TLiquidacion> listaliquidacion;
+    private List<TPesaje> listapesaje;
+
     private Date fecDesde;
     private Date fecHasta;
     String rucempresa = "";
@@ -23,12 +28,11 @@ public class ComprobanteMobileBean {
     public void init() {
     }
 
-    public TComprobante getComprobante() {
-        return comprobante;
-    }
-
-    public void setComprobante(TComprobante comprobante) {
-        this.comprobante = comprobante;
+    public void buscarLiquidacion() {
+        LiquidacionManaged objLiq = new LiquidacionManaged();
+        if (selectedComprobante != null) {
+            listaliquidacion = objLiq.listarLiquidacionPorCliente(selectedComprobante);
+        }
     }
 
     public Date getFecDesde() {
@@ -62,5 +66,33 @@ public class ComprobanteMobileBean {
 
     public void setListaComprobante(List<TComprobante> listaComprobante) {
         this.listaComprobante = listaComprobante;
+    }
+    
+    public TComprobante getSelectedComprobante() {
+        return selectedComprobante;
+    }
+
+    public void setSelectedComprobante(TComprobante selectedComprobante) {
+        LiquidacionManaged objLiq = new LiquidacionManaged();
+        PesajeManaged objPes = new PesajeManaged();
+        listaliquidacion = objLiq.listarLiquidacionPorCliente(selectedComprobante);
+        listapesaje = objPes.listarPesajePorCliente(selectedComprobante);
+        this.selectedComprobante = selectedComprobante;
+    }
+
+    public List<TLiquidacion> getListaliquidacion() {
+        return listaliquidacion;
+    }
+
+    public void setListaliquidacion(List<TLiquidacion> listaliquidacion) {
+        this.listaliquidacion = listaliquidacion;
+    }
+
+    public TComprobante getComprobante() {
+        return comprobante;
+    }
+
+    public void setComprobante(TComprobante comprobante) {
+        this.comprobante = comprobante;
     }
 }
